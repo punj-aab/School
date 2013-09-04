@@ -1,0 +1,46 @@
+﻿<div class="btn-group">
+    <button class="btn btn-primary">
+        @User.Identity.Name
+
+    </button>
+    <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu pull-right">
+        <li>
+            <a href="#">Edit Profile
+            </a>
+        </li>
+        <li>
+            <a href="#">Account Settings
+            </a>
+        </li>
+        <li>
+            @Html.ActionLink("Logout","logoff","account")
+        </li>
+    </ul>
+</div>
+<ul class="mini-nav">
+    <li>
+        <a href="#">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
+            <span class="info-label badge badge-warning">3
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe04c;"></div>
+            <span class="info-label badge badge-info">5
+            </span>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <div class="fs1" aria-hidden="true" data-icon="&#xe037;"></div>
+            <span class="info-label badge badge-success">9
+            </span>
+        </a>
+    </li>
+
+</ul>
