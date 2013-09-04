@@ -31,7 +31,121 @@
             padding: 7px 9px;
         }
 </style>
-<div class="row-fluid">
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a href="/Account/registerToken">Register
+            </a>
+        </li>
+        @* <li>
+            <a href="invoice.html">Invoice
+              </a>
+        </li>
+        <li>
+            <a href="login.html" class="selected">Login
+              </a>
+        </li>
+        <li>
+            <a href="404.html">404
+              </a>
+        </li>
+        <li>
+            <a href="500.html">500
+              </a>
+        </li>
+        <li>
+            <a href="help.html">Help
+              </a>
+        </li>*@
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+           
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+        @*  <ul class="dropdown-menu pull-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <li>
+                    <a href="index.html" data-original-title="">Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="forms.html" data-original-title="">Forms
+                    </a>
+                </li>
+                <li>
+                    <a href="graphs.html" data-original-title="">Graphs
+                    </a>
+                </li>
+                <li>
+                    <a href="ui-elements.html" data-original-title="">UI Elements
+                    </a>
+                </li>
+                <li>
+                    <a href="icons.html" data-original-title="">Icons
+                    </a>
+                </li>
+                <li>
+                    <a href="tables.html" data-original-title="">Tables
+                    </a>
+                </li>
+                <li>
+                    <a href="media.html" data-original-title="">Media
+                    </a>
+                </li>
+                <li>
+                    <a href="calendar.html" data-original-title="">Calendar
+                    </a>
+                </li>
+                <li>
+                    <a href="typography.html" data-original-title="">Typography
+                    </a>
+                </li>
+                <li>
+                    <a href="edit-profile.html" data-original-title="">Edit Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="invoice.html" data-original-title="">Invoice
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html" data-original-title="">Login
+                    </a>
+                </li>
+                <li>
+                    <a href="404.html" data-original-title="">404 Page
+                    </a>
+                </li>
+                <li>
+                    <a href="500.html" data-original-title="">500 Page
+                    </a>
+                </li>
+                <li>
+                    <a href="help.html" data-original-title="">Help
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="login.html" data-original-title="">Login
+                    </a>
+                </li>
+                <li>
+                    <a href="login.html" data-original-title="">Register
+                    </a>
+                </li>
+            }
+        </ul>*@
+    </div>
+</div>
+<div class="dashboard-wrapper">
+
 
     <div class="sign-in-container">
         @using (Html.BeginForm("login", "account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin login-wrapper" }))
@@ -65,5 +179,6 @@
             </div>
         }
     </div>
+
 
 </div>

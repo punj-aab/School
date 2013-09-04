@@ -121,6 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\SAS\Controllers\SASHomeController.cs" />
+    <Compile Include="Areas\SAS\SASAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -312,6 +314,8 @@
     <Content Include="Content\themes\custom\icomoon\fonts\icomoon.eot" />
     <Content Include="Content\themes\custom\icomoon\fonts\icomoon.ttf" />
     <Content Include="Content\themes\custom\icomoon\fonts\icomoon.woff" />
+    <Content Include="Areas\SAS\Views\Web.config" />
+    <Content Include="Areas\SAS\Views\SASHome\Index.cshtml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -348,9 +352,14 @@
     <Content Include="Views\Shared\_LoginPartialCustom.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Organization\Index.cshtml" />
+    <Content Include="Views\Account\ForgetPassword.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\SAS\Models\" />
+    <Folder Include="Areas\SAS\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
