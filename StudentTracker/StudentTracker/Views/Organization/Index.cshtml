@@ -3,32 +3,13 @@
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
 
+
 <div class="sub-nav">
     <ul>
         <li>
-            <a href="edit-profile.html">Add Organization
+            <a class="organizations" action="AddOrganizations">Add Organization
             </a>
         </li>
-        @* <li>
-            <a href="invoice.html">Invoice
-              </a>
-        </li>
-        <li>
-            <a href="login.html" class="selected">Login
-              </a>
-        </li>
-        <li>
-            <a href="404.html">404
-              </a>
-        </li>
-        <li>
-            <a href="500.html">500
-              </a>
-        </li>
-        <li>
-            <a href="help.html">Help
-              </a>
-        </li>*@
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">
@@ -117,6 +98,9 @@
     </div>
 </div>
 <div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+    </div>
+    <div class="right-sidebar"></div>
 </div>
 @section Scripts
 {
@@ -125,6 +109,18 @@
 
         $(document).ready(function () {
             $('.lnkOrganization').addClass('selected');
-        })
+
+            $('.organizations').click(function () {
+                var action = $(this).attr("action");
+                $.ajax({
+                    type: 'POST',
+                    url: '/Organization/' + action,
+                    success: function (response) {
+                        $('#divOuter').html(response);
+                    },
+                    error: function () { }
+                });
+            });
+        });
     </script>
 }

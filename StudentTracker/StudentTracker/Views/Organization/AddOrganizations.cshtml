@@ -1,0 +1,137 @@
+﻿@*@model StudentTracker.Core.Entities*@
+@{
+    ViewBag.Title = "AddOrganizations";
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Create New Organization
+                      <span class="mini-title">Simple form for new Account
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+
+                <form class="form-horizontal no-margin">
+                    <div class="control-group">
+                        <label class="control-label" for="name">
+                            Name
+                        </label>
+                        <div class="controls controls-row">
+                            <input class="span3" type="text" placeholder="First Name">
+                            <input class="span3 input-left-top-margins" type="text" placeholder="Last Name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="email1">
+                            Email Address
+                        </label>
+                        <div class="controls">
+                            <input type="text" name="email1" id="email1" class="span6" placeholder="Enter your Email Address">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password1">
+                            Password
+                        </label>
+                        <div class="controls">
+                            <input type="password" name="password1" id="password1" class="span6" placeholder="6 or more characters">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="repPassword">
+                            Repeat Password
+                        </label>
+                        <div class="controls">
+                            <input type="password" name="repPassword" id="repPassword" class="span6" placeholder="Retype Password">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="DateOfBirthMonth">
+                            Date of birth
+                        </label>
+                        <div class="controls controls-row">
+                            <select id="DateOfBirthMonth" class="span2">
+                                <option>- Month -
+                                </option>
+                                <option value="1">January
+                                </option>
+                                <option value="2">February
+                                </option>
+                                <option value="3">March
+                                </option>
+                                <option value="4">April
+                                </option>
+                                <option value="5">May
+                                </option>
+                                <option value="6">June
+                                </option>
+                                <option value="7">July
+                                </option>
+                                <option value="8">August
+                                </option>
+                                <option value="9">September
+                                </option>
+                                <option value="10">October
+                                </option>
+                                <option value="11">November
+                                </option>
+                                <option value="12">December
+                                </option>
+                            </select>
+                            <select name="DateOfBirth_Day" class="span2 input-left-top-margins">
+                                <option>- Day -
+                                </option>
+                            </select>
+
+                            <select name="DateOfBirth_Year" class="span2 input-left-top-margins">
+                                <option>- Year -
+                                </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="country">
+                            Country/Region
+                        </label>
+                        <div class="controls">
+                            <select id="country" class="span6">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label class="checkbox">
+                                <input type="checkbox" value="a">
+                                Yes! I would like to receive email relating to products and services.
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" value="b">
+                                Remember Me :)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        <button type="submit" class="btn btn-info pull-right">
+                            Create Organization
+                        </button>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>
