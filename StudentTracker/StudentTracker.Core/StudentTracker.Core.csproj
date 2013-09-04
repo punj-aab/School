@@ -52,8 +52,10 @@
   <ItemGroup>
     <Compile Include="DAL\DataContextInitializer.cs" />
     <Compile Include="DAL\StudentContext.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Department.cs" />
     <Compile Include="Entities\Organization.cs" />
+    <Compile Include="Entities\Region.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Membership\CodeFirstMembershipProvider.cs" />

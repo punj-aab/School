@@ -27,7 +27,9 @@ namespace StudentTracker.Core.DAL
         #region Properties
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-       
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Region> Regions { get; set; }
+
         #endregion
 
         #region Methods
