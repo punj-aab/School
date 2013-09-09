@@ -1,19 +1,25 @@
 ﻿@model StudentTracker.Core.Entities.RegistrationToken
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>RegistrationToken</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.OrganizationId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.OrganizationId)
-            @Html.ValidationMessageFor(model => model.OrganizationId)
-        </div>
-
+        @if (User.IsInRole("SiteAdmin"))
+        {
+            <div class="editor-label">
+                @Html.LabelFor(model => model.OrganizationId)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.OrganizationId)
+                @Html.ValidationMessageFor(model => model.OrganizationId)
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(model => model.OrganizationId, new { @value = Session["Organisation"] })
+        }
         <div class="editor-label">
             @Html.LabelFor(model => model.DepartmentId)
         </div>
