@@ -1,4 +1,4 @@
-﻿@*@model StudentTracker.Core.Entities*@
+﻿@model StudentTracker.Core.Entities.Organization
 @{
     ViewBag.Title = "AddOrganizations";
 }
@@ -17,113 +17,86 @@
             </div>
             <div class="widget-body">
 
-                <form class="form-horizontal no-margin">
+                <form class="form-horizontal no-margin" id="myform">
                     <div class="control-group">
-                        <label class="control-label" for="name">
-                            Name
-                        </label>
+                        @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            <input class="span3" type="text" placeholder="First Name">
-                            <input class="span3 input-left-top-margins" type="text" placeholder="Last Name">
+                            @Html.TextBoxFor(m => m.OrganizationName, new { placeholder = "First Name", Class = "span6", required = "required" })
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="email1">
-                            Email Address
-                        </label>
+                        @Html.LabelFor(m => m.OrganizationDesc, new { Class = "control-label" })
                         <div class="controls">
-                            <input type="text" name="email1" id="email1" class="span6" placeholder="Enter your Email Address">
+                            @Html.TextBoxFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6", required = "required" })
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="password1">
-                            Password
-                        </label>
+                        @Html.LabelFor(m => m.OrganizationTypeId, new { Class = "control-label" })
                         <div class="controls">
-                            <input type="password" name="password1" id="password1" class="span6" placeholder="6 or more characters">
+                            @Html.DropDownList("OrganizationTypeId", null, "Select Organization", new { required = "required" })
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="repPassword">
-                            Repeat Password
-                        </label>
+                        @Html.LabelFor(m => m.RegisterationNumber, new { Class = "control-label" })
                         <div class="controls">
-                            <input type="password" name="repPassword" id="repPassword" class="span6" placeholder="Retype Password">
+                            @Html.TextBoxFor(m => m.RegisterationNumber, new { placeholder = "Registeration Number", Class = "span6", required = "required" })
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="DateOfBirthMonth">
-                            Date of birth
-                        </label>
-                        <div class="controls controls-row">
-                            <select id="DateOfBirthMonth" class="span2">
-                                <option>- Month -
-                                </option>
-                                <option value="1">January
-                                </option>
-                                <option value="2">February
-                                </option>
-                                <option value="3">March
-                                </option>
-                                <option value="4">April
-                                </option>
-                                <option value="5">May
-                                </option>
-                                <option value="6">June
-                                </option>
-                                <option value="7">July
-                                </option>
-                                <option value="8">August
-                                </option>
-                                <option value="9">September
-                                </option>
-                                <option value="10">October
-                                </option>
-                                <option value="11">November
-                                </option>
-                                <option value="12">December
-                                </option>
-                            </select>
-                            <select name="DateOfBirth_Day" class="span2 input-left-top-margins">
-                                <option>- Day -
-                                </option>
-                            </select>
-
-                            <select name="DateOfBirth_Year" class="span2 input-left-top-margins">
-                                <option>- Year -
-                                </option>
-
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="country">
-                            Country/Region
-                        </label>
+                        @Html.LabelFor(m => m.CountryId, new { Class = "control-label" })
                         <div class="controls">
-                            <select id="country" class="span6">
-                            </select>
+                            @*@Html.DropDownList("CountryId", "Select Country")*@
+                            @Html.DropDownList("CountryId", null, "Select Country", new { required = "required" })
                         </div>
                     </div>
                     <div class="control-group">
+                        @Html.LabelFor(m => m.StateId, new { Class = "control-label" })
                         <div class="controls">
-                            <label class="checkbox">
-                                <input type="checkbox" value="a">
-                                Yes! I would like to receive email relating to products and services.
-                            </label>
-                            <label class="checkbox">
-                                <input type="checkbox" value="b">
-                                Remember Me :)
-                            </label>
+                            @Html.DropDownList("StateId", null, "Select State", new { required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.City, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.City, new { placeholder = "City", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Address1, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Address1, new { placeholder = "Address1", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Address2, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2", Class = "span6" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Email, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Phone1, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Phone1, new { placeholder = "Phone1", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Phone2, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Phone2, new { placeholder = "Phone2", Class = "span6" })
                         </div>
                     </div>
                     <div class="form-actions no-margin">
-                        <button type="submit" class="btn btn-info pull-right">
-                            Create Organization
-                        </button>
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <input type="button" value="Add Organization" id="btnAddOrg" />
                         <div class="clearfix">
                         </div>
                     </div>
@@ -135,3 +108,62 @@
     </div>
 
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        var form = $("#myform");
+        form.validate();
+        $("#btnAddOrg").click(function () {
+
+            var $this = $(this);
+            if (form.valid()) {
+                var objCandidate = $('#myform').serializeObject();
+                alert(JSON.stringify(objCandidate));
+                $.ajax({
+                    url: '/Organization/AddOrganizations',
+                    cache: false,
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    data: JSON.stringify(objCandidate),
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('#myform').children().find('input[type=text]').each(function () {
+                                $this.val('');
+                            });
+                        }
+                    },
+                    error: function () { }
+                });
+            }
+        });
+    });
+
+
+
+
+
+    //This function is used to serialize a form into json object.
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name] = this.value || '';
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+
+</script>

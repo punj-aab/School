@@ -29,7 +29,13 @@ namespace StudentTracker.Core.DAL
         public DbSet<Role> Roles { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Region> Regions { get; set; }
-
+        public DbSet<Organization> Organizations { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<RegistrationToken> RegistrationTokens { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
         #endregion
 
         #region Methods
