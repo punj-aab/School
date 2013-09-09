@@ -19,10 +19,11 @@ namespace StudentTracker.Core.Entities
 
         [Required]
         [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string SubjectDescription { get; set; }
 
         [Required]
-    [ForeignKey("CourseId")]
+        [ForeignKey("CourseId")]
         public string CourseId { get; set; }
         [ScaffoldColumn(false)]
         public string InsertedOn { get; set; }

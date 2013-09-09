@@ -19,6 +19,7 @@ namespace StudentTracker.Core.Entities
 
         [Required]
         [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string SectionDescription { get; set; }
 
         [Required]

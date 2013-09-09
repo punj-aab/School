@@ -17,6 +17,7 @@ namespace StudentTracker.Core.Entities
         public string CourseName { get; set; }
         [Required]
         [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string CourseDescription { get; set; }
 
         [ScaffoldColumn(false)]

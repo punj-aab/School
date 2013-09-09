@@ -18,4 +18,13 @@ namespace StudentTracker.Core.Utilities
         NotApproved = 4,
         NotVerified = 5
     }
+
+    public enum OrganizationTypes
+    {
+        College = 1,
+        School = 2,
+        University = 3,
+        Institute = 4,
+        Unknown = 5
+    }
 }
