@@ -127,6 +127,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -355,6 +356,9 @@
     <Content Include="Views\Account\ForgetPassword.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Token\Index.cshtml" />
+    <Content Include="Views\Organization\AddOrganizations.cshtml" />
+    <Content Include="Views\Token\CreateToken.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

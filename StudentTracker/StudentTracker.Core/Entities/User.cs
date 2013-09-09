@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
-  
+
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +13,7 @@
     {
         [Key]
         public long UserId { get; set; }
-       
+
         public DateTime InsertedOn { get; set; }
 
         public int StatusId { get; set; }
@@ -31,7 +31,7 @@
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
 
-       
+
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }
 
         public virtual DateTime? LastPasswordFailureDate { get; set; }
@@ -43,7 +43,7 @@
         public virtual DateTime? LastLoginDate { get; set; }
 
         public virtual string ConfirmationToken { get; set; }
-     
+
         public virtual Boolean IsLockedOut { get; set; }
 
         public virtual DateTime? LastPasswordChangedDate { get; set; }

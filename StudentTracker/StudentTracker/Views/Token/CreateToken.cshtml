@@ -1,0 +1,49 @@
+﻿@model StudentTracker.Core.Entities.RegistrationToken
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>RegistrationToken</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OrganizationId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OrganizationId)
+            @Html.ValidationMessageFor(model => model.OrganizationId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DepartmentId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DepartmentId)
+            @Html.ValidationMessageFor(model => model.DepartmentId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CourseId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CourseId)
+            @Html.ValidationMessageFor(model => model.CourseId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SectionId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SectionId)
+            @Html.ValidationMessageFor(model => model.SectionId)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
