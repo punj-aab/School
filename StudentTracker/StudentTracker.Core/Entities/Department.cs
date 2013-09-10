@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StudentTracker.Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,7 +13,7 @@ using System.Web;
 public class Department
 {
     [Key]
-    public int DepartmentId { get; set; }
+    public long DepartmentId { get; set; }
 
     [Required]
     [Display(Name = "Name")]
@@ -25,7 +26,7 @@ public class Department
     [Required]
     [ScaffoldColumn(false)]
     [Display(Name = "Organization")]
-    public int OrganizationId { get; set; }
+    public long OrganizationId { get; set; }
     
     [ScaffoldColumn(false)]
     public DateTime CreatedDate { get; set; }

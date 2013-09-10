@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace StudentTracker.Core.Entities
+﻿namespace StudentTracker.Core.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using System.Text;
+    [Table("Country")]
     public class Country
     {
-        public long id { get; set; }
+        public int id { get; set; }
         public int idSpecified { get; set; }
         public string name { get; set; }
         public string code { get; set; }

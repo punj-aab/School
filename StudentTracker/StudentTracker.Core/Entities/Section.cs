@@ -23,7 +23,7 @@ namespace StudentTracker.Core.Entities
         public string SectionDescription { get; set; }
 
         [Required]
-        [ForeignKey("ClassId")]
+       // [ForeignKey("ClassId")]
         public string ClassId { get; set; }
 
         [ScaffoldColumn(false)]

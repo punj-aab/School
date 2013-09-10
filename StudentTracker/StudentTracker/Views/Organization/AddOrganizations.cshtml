@@ -21,7 +21,8 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.TextBoxFor(m => m.OrganizationName, new { placeholder = "First Name", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.OrganizationName, new { placeholder = "OrganizationName", Class = "span6", required = "required" })
+                            @Html.ValidationMessageFor(m => m.OrganizationName)
                         </div>
                     </div>
                     <div class="control-group">
@@ -81,6 +82,25 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        @Html.LabelFor(m => m.UserName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Password, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                     <div class="control-group">
+                        @Html.LabelFor(m => m.ConfirmPassword, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6", required = "required" })
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.Phone1, new { Class = "control-label" })
                         <div class="controls">
                             @Html.TextBoxFor(m => m.Phone1, new { placeholder = "Phone1", Class = "span6", required = "required" })
@@ -133,9 +153,7 @@
                     data: JSON.stringify(objCandidate),
                     success: function (data) {
                         if (data == 'True') {
-                            $('#myform').children().find('input[type=text]').each(function () {
-                                $this.val('');
-                            });
+                            //redirect to view page
                         }
                     },
                     error: function () { }

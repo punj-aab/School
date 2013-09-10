@@ -11,7 +11,7 @@ namespace StudentTracker.Core.Entities
     public class Class
     {
         [Key]
-        public int ClassId { get; set; }
+        public long ClassId { get; set; }
 
         [Required]
         [Display(Name = "Name")]

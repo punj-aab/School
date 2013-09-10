@@ -12,7 +12,7 @@ namespace StudentTracker.Core.Entities
         [Key]
         public long ProfileId { get; set; }
 
-        [ForeignKey("UserId")]
+
         public long UserId { get; set; }
 
         [Required]
@@ -34,5 +34,8 @@ namespace StudentTracker.Core.Entities
         public DateTime InsertedOn { get; set; }
         [ScaffoldColumn(false)]
         public DateTime ModifiedOn { get; set; }
+
+        
+
     }
 }

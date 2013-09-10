@@ -53,5 +53,9 @@
         public virtual DateTime? PasswordVerificationTokenExpirationDate { get; set; }
 
         public virtual ICollection<Role> Roles { get; set; }
+
+        //[ForeignKey("UserId")]
+        //public virtual Profile Profile { get; set; }
+
     }
 }

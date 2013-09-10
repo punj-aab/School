@@ -35,6 +35,7 @@ namespace StudentTracker.Controllers
                     using (StudentContext db = new StudentContext())
                     {
                         db.Organizations.Add(objOrganization);
+                        WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, true, "", "");
                         return true;
                     }
                 }
@@ -51,6 +52,12 @@ namespace StudentTracker.Controllers
         {
             List<Country> countryList = new List<Country>();
             List<Region> regionList = new List<Region>();
+            using (StudentContext db = new StudentContext())
+            {
+                countryList = db.Countries.ToList();
+                regionList = db.Regions.ToList();
+            }
+
             ViewBag.CountryId = new SelectList(countryList, "id", "name", "");
             ViewBag.StateId = new SelectList(regionList, "id", "name", "");
             List<SelectListItem> organizationTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.OrganizationTypes)).Cast<StudentTracker.Core.Utilities.OrganizationTypes>().Select(v => new SelectListItem

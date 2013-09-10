@@ -11,7 +11,7 @@ namespace StudentTracker.Core.Entities
     public class Course
     {
         [Key]
-        public int CourseId { get; set; }
+        public long CourseId { get; set; }
         [Required]
         [Display(Name = "Name")]
         public string CourseName { get; set; }
@@ -30,7 +30,9 @@ namespace StudentTracker.Core.Entities
         public long ModifiedBy { get; set; }
         [ScaffoldColumn(false)]
         public DateTime ModifiedOn { get; set; }
-
+        
+        [ForeignKey("CourseId")]
+        public virtual Subject Subject { get; set; }
        
     }
 }

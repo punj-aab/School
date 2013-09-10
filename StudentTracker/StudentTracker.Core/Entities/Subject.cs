@@ -11,7 +11,7 @@ namespace StudentTracker.Core.Entities
     public class Subject
     {
         [Key]
-        public string SubjectId { get; set; }
+        public long SubjectId { get; set; }
 
         [Required]
         [Display(Name = "Name")]
@@ -23,8 +23,7 @@ namespace StudentTracker.Core.Entities
         public string SubjectDescription { get; set; }
 
         [Required]
-        [ForeignKey("CourseId")]
-        public string CourseId { get; set; }
+        public long CourseId { get; set; }
         [ScaffoldColumn(false)]
         public string InsertedOn { get; set; }
         [ScaffoldColumn(false)]
