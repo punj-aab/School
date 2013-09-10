@@ -1,55 +1,79 @@
 ﻿@model StudentTracker.Core.Entities.RegistrationToken
-
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>RegistrationToken</legend>
-        @if (User.IsInRole("SiteAdmin"))
-        {
-            <div class="editor-label">
-                @Html.LabelFor(model => model.OrganizationId)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.OrganizationId)
-                @Html.ValidationMessageFor(model => model.OrganizationId)
-            </div>
-        }
-        else
-        {
-            @Html.HiddenFor(model => model.OrganizationId, new { @value = Session["Organisation"] })
-        }
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DepartmentId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DepartmentId)
-            @Html.ValidationMessageFor(model => model.DepartmentId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.CourseId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CourseId)
-            @Html.ValidationMessageFor(model => model.CourseId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SectionId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SectionId)
-            @Html.ValidationMessageFor(model => model.SectionId)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
+@{
+    Layout = null;
 }
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Create New Token
+                      <span class="mini-title">Simple form for new Token
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.ValidationSummary(true)
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+                   
+                    if (User.IsInRole("SiteAdmin"))
+                    {
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.OrganizationId, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.EditorFor(model => model.OrganizationId, new { @class = "span6" })
+                            @Html.ValidationMessageFor(model => model.OrganizationId)
+                        </div>
+                    </div>
+                    }
+                    else
+                    {
+                    @Html.HiddenFor(model => model.OrganizationId, new { @value = Session["Organisation"] })
+                    }
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.DepartmentId, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.EditorFor(model => model.DepartmentId, new { Class = "span6" })
+                            @Html.ValidationMessageFor(model => model.DepartmentId)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.CourseId, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.EditorFor(model => model.CourseId, new { Class = "span6" })
+                            @Html.ValidationMessageFor(model => model.CourseId)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.SectionId, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.EditorFor(model => model.SectionId, new { Class = "span6" })
+                            @Html.ValidationMessageFor(model => model.SectionId)
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a class="btn btn-primary" href="javascript:;" id="btnCreateToken">Create </a>
+                        <div class="clearfix">
+                            <div>
+                                @Html.ActionLink("Back to List", "Index")
+                            </div>
+                        </div>
+                    </div>
+                    
+                }
+
+
+            </div>
+        </div>
+    </div>
 </div>
+

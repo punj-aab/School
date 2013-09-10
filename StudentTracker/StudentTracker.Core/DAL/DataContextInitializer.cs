@@ -13,8 +13,9 @@
         protected override void Seed(StudentContext context)
         {
             WebSecurity.Register("Demo", "123456", "demo@demo.com", true, "Demo", "Demo");
-            Roles.CreateRole("Admin");
-            Roles.AddUserToRole("Demo", "Admin");
+            Roles.CreateRole("SiteAdmin");
+            Roles.AddUserToRole("Demo", "SiteAdmin");
+            Roles.CreateRole("OrganizationAdmin");
         }
     }
 }

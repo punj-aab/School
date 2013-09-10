@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
 using StudentTracker.Core;
+using System.Web.Security;
 namespace StudentTracker.Controllers
 {
     public class OrganizationController : Controller
@@ -36,6 +37,7 @@ namespace StudentTracker.Controllers
                     {
                         db.Organizations.Add(objOrganization);
                         WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, true, "", "");
+                        Roles.AddUserToRole(objOrganization.UserName, "OrganizationAdmin");
                         return true;
                     }
                 }

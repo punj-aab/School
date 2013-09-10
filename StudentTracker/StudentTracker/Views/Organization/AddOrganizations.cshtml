@@ -2,13 +2,14 @@
 @{
     ViewBag.Title = "AddOrganizations";
 }
+@Scripts.Render("~/bundles/jqueryval")
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
                     Create New Organization
-                      <span class="mini-title">Simple form for new Account
+                      <span class="mini-title">Simple form for new Organization
                       </span>
                 </div>
                 <span class="tools">
@@ -16,31 +17,33 @@
                 </span>
             </div>
             <div class="widget-body">
-
-                <form class="form-horizontal no-margin" id="myform">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.TextBoxFor(m => m.OrganizationName, new { placeholder = "OrganizationName", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.OrganizationName, new { placeholder = "OrganizationName", Class = "span6" })
                             @Html.ValidationMessageFor(m => m.OrganizationName)
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationDesc, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationTypeId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownList("OrganizationTypeId", null, "Select Organization", new { required = "required" })
+                            @Html.DropDownList("OrganizationTypeId", null, "Select Organization", new { })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.RegisterationNumber, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.RegisterationNumber, new { placeholder = "Registeration Number", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.RegisterationNumber, new { placeholder = "Registeration Number", Class = "span6" })
                         </div>
                     </div>
 
@@ -48,62 +51,62 @@
                         @Html.LabelFor(m => m.CountryId, new { Class = "control-label" })
                         <div class="controls">
                             @*@Html.DropDownList("CountryId", "Select Country")*@
-                            @Html.DropDownList("CountryId", null, "Select Country", new { required = "required" })
+                            @Html.DropDownList("CountryId", null, "Select Country", new { })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.StateId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownList("StateId", null, "Select State", new { required = "required" })
+                            @Html.DropDownList("StateId", null, "Select State", new { })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.City, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.City, new { placeholder = "City", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.City, new { placeholder = "City", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.Address1, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Address1, new { placeholder = "Address1", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.Address1, new { placeholder = "Address1", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.Address2, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2", Class = "span6" })
+                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.Email, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.UserName, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span6" })
                         </div>
                     </div>
 
                     <div class="control-group">
                         @Html.LabelFor(m => m.Password, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span6" })
                         </div>
                     </div>
-                     <div class="control-group">
+                    <div class="control-group">
                         @Html.LabelFor(m => m.ConfirmPassword, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.Phone1, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Phone1, new { placeholder = "Phone1", Class = "span6", required = "required" })
+                            @Html.TextBoxFor(m => m.Phone1, new { placeholder = "Phone1", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
@@ -116,18 +119,19 @@
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                        <input type="button" value="Add Organization" id="btnAddOrg" />
+                        <a  name="submit" class="btn btn-primary" href="javascript:;" id="btnAddOrg">Add Organization</a>
                         <div class="clearfix">
                         </div>
                     </div>
 
-                </form>
+                }
 
             </div>
         </div>
     </div>
 
 </div>
+
 
 
 <script type="text/javascript">
@@ -137,28 +141,32 @@
             debug: true,
             success: "valid"
         });
-        var form = $("#myform");
-        form.validate();
-        $("#btnAddOrg").click(function () {
-
-            var $this = $(this);
-            if (form.valid()) {
-                var objCandidate = $('#myform').serializeObject();
-                alert(JSON.stringify(objCandidate));
-                $.ajax({
-                    url: '/Organization/AddOrganizations',
-                    cache: false,
-                    type: 'POST',
-                    contentType: 'application/json;',
-                    data: JSON.stringify(objCandidate),
-                    success: function (data) {
-                        if (data == 'True') {
-                            //redirect to view page
-                        }
-                    },
-                    error: function () { }
-                });
+        //var form = $("#myform");
+        //form.validate();
+        $("#btnAddOrg").click(function (e) {
+            var form = $("#myform");
+            form.validate();
+            if (!form.valid()) {
+                e.preventDefault();
+                return;
             }
+            var $this = $(this);
+            var objCandidate = $('#myform').serializeObject();
+
+            $.ajax({
+                url: '/Organization/AddOrganizations',
+                cache: false,
+                type: 'POST',
+                contentType: 'application/json;',
+                data: JSON.stringify(objCandidate),
+                success: function (data) {
+                    if (data == 'True') {
+                        //redirect to view page
+                    }
+                },
+                error: function () { }
+            });
+
         });
     });
 

@@ -7,7 +7,7 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="tokens" action="CreateNewToken">Create Token
+            <a class="tokens" id="lnkCreateNewToken" href="javascript:;" action="CreateToken">Create Token
             </a>
         </li>
     </ul>
@@ -109,13 +109,13 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('.createtoken').addClass('selected');
+            $('#lnkCreateNewToken').addClass('selected');
 
             $('.tokens').click(function () {
                 var action = $(this).attr("action");
                 $.ajax({
                     type: 'POST',
-                    url: '/Organization/' + action,
+                    url: '/Token/' + action,
                     success: function (response) {
                         $('#divOuter').html(response);
                     },
