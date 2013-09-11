@@ -55,9 +55,9 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.StateId, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.RegionId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownList("StateId", null, "Select State", new { })
+                            @Html.DropDownList("RegionId", null, "Select State", new { })
                         </div>
                     </div>
                     <div class="control-group">
@@ -162,6 +162,7 @@
                 success: function (data) {
                     if (data == 'True') {
                         //redirect to view page
+                        LoadAjax('ViewOrganizations');
                     }
                 },
                 error: function () { }

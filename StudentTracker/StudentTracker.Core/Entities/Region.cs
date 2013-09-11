@@ -7,7 +7,7 @@ namespace StudentTracker.Core.Entities
 {
     public class Region
     {
-        public long id { get; set; }
+        public long RegionId { get; set; }
         public int idSpecified { get; set; }
         public string name { get; set; }
         public string code { get; set; }

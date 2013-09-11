@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
 using StudentTracker.Core;
+using StudentTracker.ViewModels;
 using System.Web.Security;
 namespace StudentTracker.Controllers
 {
@@ -38,6 +39,7 @@ namespace StudentTracker.Controllers
                         db.Organizations.Add(objOrganization);
                         WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, true, "", "");
                         Roles.AddUserToRole(objOrganization.UserName, "OrganizationAdmin");
+                        db.SaveChanges();
                         return true;
                     }
                 }
@@ -61,7 +63,7 @@ namespace StudentTracker.Controllers
             }
 
             ViewBag.CountryId = new SelectList(countryList, "id", "name", "");
-            ViewBag.StateId = new SelectList(regionList, "id", "name", "");
+            ViewBag.RegionId = new SelectList(regionList, "id", "name", "");
             List<SelectListItem> organizationTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.OrganizationTypes)).Cast<StudentTracker.Core.Utilities.OrganizationTypes>().Select(v => new SelectListItem
 {
     Text = v.ToString(),//.Replace("_", " "),
@@ -69,6 +71,23 @@ namespace StudentTracker.Controllers
 }).ToList();
             ViewBag.OrganizationTypeId = organizationTypes;
 
+        }
+
+        public ActionResult ViewOrganizations()
+        {
+            OrganizationsViewModel objViewModel = new OrganizationsViewModel();
+            objViewModel.OrganizationList = OrganizationList();
+            return PartialView(objViewModel);
+        }
+
+        public List<Organization> OrganizationList()
+        {
+            List<Organization> orgList = null;
+            using (StudentContext db = new StudentContext())
+            {
+                orgList = new List<Organization>();
+                return orgList = db.Organizations.ToList();
+            }
         }
 
     }

@@ -39,7 +39,7 @@
 
         [Required]
         [Display(Name = "State")]
-        public int StateId { get; set; }
+        public long RegionId { get; set; }
 
         [Required]
         public string City { get; set; }
@@ -94,6 +94,15 @@
         public virtual ICollection<Department> Departments { get; set; }
 
         public virtual ICollection<Course> Courses { get; set; }
+        [NotMapped]
+        public string CountryName { get; set; }
+        [NotMapped]
+        public string StateName { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual Country Country { get; set; }
+        [ForeignKey("RegionId")]
+        public virtual Region States { get; set; }
 
     }
 }
