@@ -1,39 +1,94 @@
-﻿@model IEnumerable<Department>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentDesc)
-        </th>
-        <th></th>
-    </tr>
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a class="departments" action="ViewDepartments">View Departments
+            </a>
+        </li>
+        <li>
+            <a class="departments" action="Create">Add Departments
+            </a>
+        </li>
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+           
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentDesc)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentId })
-        </td>
-    </tr>
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+    </div>
+    <div class="right-sidebar"></div>
+</div>
+@section Scripts
+{
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.lnkDepartment').addClass('selected');
+            LoadAjax('ViewDepartments');
+            $('.departments').click(function () {
+                var action = $(this).attr("action");
+                LoadAjax(action);
+            });
+        });
+
+        //LOAD HTML IN DEPARTMENT VIEWS
+        function LoadAjax(action) {
+            $.ajax({
+                type: 'GET',
+                url: '/Department/' + action,
+                success: function (response) {
+                    $('#divOuter').html('');
+                    $('#divOuter').html(response);
+                },
+                error: function () { }
+            });
+        }
+
+        //LOAD DEPARTMENTS BY ID
+        function LoadDepartmets(action, id) {
+            $.ajax({
+                type: 'GET',
+                url: '/Department/' + action,
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    $('#divOuter').html('');
+                    $('#divOuter').html(response);
+                },
+                error: function () { }
+            });
+        }
+
+        //This function is used to serialize a form into json object.
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name] = this.value || '';
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    </script>
 }
-
-</table>

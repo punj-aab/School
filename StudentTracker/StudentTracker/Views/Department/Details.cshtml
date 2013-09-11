@@ -4,26 +4,87 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Department Details
+                      <span class="mini-title">Simple form for Display Departments
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.DepartmentId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { disabled = "disabled" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { disabled = "disabled" })
+                            }
+                            @Html.ValidationMessageFor(m => m.OrganizationId)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.DepartmentName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.DepartmentName)
 
-<fieldset>
-    <legend>Department</legend>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.DepartmentDesc, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.DepartmentDesc)
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" id="lnkEdit">Edit Organization</a>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DepartmentName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DepartmentName)
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DepartmentDesc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DepartmentDesc)
-    </div>
-</fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.DepartmentId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#data-table').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+
+        //EDIT
+        $('#lnkEdit').click(function () {
+            var url = $(this).attr('action');
+            var id = $('#DepartmentId').val();
+            LoadDepartmets(url, id);
+        });
+
+    });
+
+
+</script>
+
+

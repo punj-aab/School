@@ -4,40 +4,102 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Create New Department
+                      <span class="mini-title">Simple form for new Departments
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })
+                            }
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.DepartmentName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.TextBoxFor(m => m.DepartmentName, new { placeholder = "Department Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.DepartmentName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.DepartmentDesc, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.DepartmentDesc, new { placeholder = "Description", Class = "span6" })
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" class="btn btn-primary" href="javascript:;" id="btnAddDept">Add Organization</a>
+                        <div class="clearfix">
+                        </div>
+                    </div>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+                }
 
-    <fieldset>
-        <legend>Department</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DepartmentName)
+            </div>
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DepartmentName)
-            @Html.ValidationMessageFor(model => model.DepartmentName)
-        </div>
+    </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DepartmentDesc)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DepartmentDesc)
-            @Html.ValidationMessageFor(model => model.DepartmentDesc)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        //var form = $("#myform");
+        //form.validate();
+        $("#btnAddDept").click(function (e) {
+            var form = $("#myform");
+            form.validate();
+            if (!form.valid()) {
+                e.preventDefault();
+                return;
+            }
+            var $this = $(this);
+            var objCandidate = $('#myform').serializeObject();
+
+            $.ajax({
+                url: '/Department/Create',
+                cache: false,
+                type: 'POST',
+                contentType: 'application/json;',
+                data: JSON.stringify(objCandidate),
+                success: function (data) {
+                    if (data == 'True') {
+                        //redirect to view page
+                        LoadAjax('ViewDepartments');
+                    }
+                },
+                error: function () { }
+            });
+
+        });
+    });
+</script>

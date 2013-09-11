@@ -62,8 +62,8 @@ namespace StudentTracker.Controllers
                 regionList = db.Regions.ToList();
             }
 
-            ViewBag.CountryId = new SelectList(countryList, "id", "name", "");
-            ViewBag.RegionId = new SelectList(regionList, "id", "name", "");
+            ViewBag.CountryId = new SelectList(countryList, "CountryId", "name", "");
+            ViewBag.RegionId = new SelectList(regionList, "RegionId", "name", "");
             List<SelectListItem> organizationTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.OrganizationTypes)).Cast<StudentTracker.Core.Utilities.OrganizationTypes>().Select(v => new SelectListItem
 {
     Text = v.ToString(),//.Replace("_", " "),

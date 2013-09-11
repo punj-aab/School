@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.DAL;
+using StudentTracker.Core.Entities;
 
 namespace StudentTracker.Controllers
 {
@@ -18,7 +19,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Index()
         {
-            return View(db.Departments.ToList());
+            return View();
         }
 
         //
@@ -31,7 +32,8 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
-            return View(department);
+            department.OrganizationList = LoadSelectLists();
+            return PartialView(department);
         }
 
         //
@@ -39,23 +41,34 @@ namespace StudentTracker.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            Department objDepartment = new Department();
+            objDepartment.OrganizationList = LoadSelectLists();
+            return PartialView(objDepartment);
         }
 
         //
         // POST: /Department/Create
 
         [HttpPost]
-        public ActionResult Create(Department department)
+        public bool Create(Department department)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Departments.Add(department);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    //department.CreatedBy = User.Identity.Name;
+                    department.CreatedDate = DateTime.Now;
+                    db.Departments.Add(department);
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
 
-            return View(department);
         }
 
         //
@@ -68,22 +81,30 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
-            return View(department);
+            department.OrganizationList = LoadSelectLists();
+            return PartialView(department);
         }
 
         //
         // POST: /Department/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Department department)
+        public bool Edit(Department department)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(department).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(department).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                return false;
             }
-            return View(department);
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         //
@@ -102,19 +123,48 @@ namespace StudentTracker.Controllers
         //
         // POST: /Department/Delete/5
 
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(long id)
+        [HttpPost]
+        public bool DeleteConfirmed(long id)
         {
-            Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Department department = db.Departments.Find(id);
+                db.Departments.Remove(department);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
+        }
+
+        public ActionResult ViewDepartments()
+        {
+            return PartialView(db.Departments.ToList());
+        }
+
+        public SelectList LoadSelectLists()
+        {
+            SelectList OrganizationList = null;
+            List<Organization> organizationList = new List<Organization>();
+            organizationList = db.Organizations.ToList();
+            if (User.IsInRole("SiteAdmin"))
+            {
+                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", "");
+            }
+            else
+            {
+                var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
+                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
+            }
+            return OrganizationList;
         }
     }
 }

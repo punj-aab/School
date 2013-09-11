@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 /// <summary>
 /// Summary description for Department
@@ -27,7 +28,7 @@ public class Department
     [ScaffoldColumn(false)]
     [Display(Name = "Organization")]
     public long OrganizationId { get; set; }
-    
+
     [ScaffoldColumn(false)]
     public DateTime CreatedDate { get; set; }
 
@@ -48,4 +49,6 @@ public class Department
 
     public virtual ICollection<Organization> Roles { get; set; }
 
+    [NotMapped]
+    public SelectList OrganizationList { get; set; }
 }
