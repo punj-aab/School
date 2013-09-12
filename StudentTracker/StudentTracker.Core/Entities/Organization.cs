@@ -57,25 +57,25 @@
         public string Phone2 { get; set; }
 
         [ScaffoldColumn(false)]
-        public Int64 CreatedBy { get; set; }
+        public Int64? CreatedBy { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         [ScaffoldColumn(false)]
-        public Int64 ModifiedBY { get; set; }
+        public Int64? ModifiedBY { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         [ScaffoldColumn(false)]
-        public Int64 Deletedby { get; set; }
+        public Int64? Deletedby { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime DeletedDate { get; set; }
+        public DateTime? DeletedDate { get; set; }
 
         [ScaffoldColumn(false)]
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
 
         [Required]
         public string UserName { get; set; }

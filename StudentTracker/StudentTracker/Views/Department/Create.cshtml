@@ -32,7 +32,8 @@
                             }
                             else
                             {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganizationId)
                             }
                         </div>
                     </div>

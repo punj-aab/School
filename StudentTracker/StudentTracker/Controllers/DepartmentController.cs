@@ -43,6 +43,7 @@ namespace StudentTracker.Controllers
         {
             Department objDepartment = new Department();
             objDepartment.OrganizationList = LoadSelectLists();
+            objDepartment.OrganizationId = ViewBag.OrganizationId;
             return PartialView(objDepartment);
         }
 
@@ -147,7 +148,18 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewDepartments()
         {
-            return PartialView(db.Departments.ToList());
+            List<Department> objDepartmentsList=new List<Department>();
+            if (User.IsInRole("SiteAdmin"))
+            {
+                objDepartmentsList = db.Departments.ToList();
+            }
+            else
+            { 
+                  var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
+                  objDepartmentsList = db.Departments.Where(x => x.OrganizationId == organization.OrganizationId).ToList();
+            }
+
+            return PartialView(objDepartmentsList);
         }
 
         public SelectList LoadSelectLists()
@@ -162,7 +174,10 @@ namespace StudentTracker.Controllers
             else
             {
                 var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
+
+                //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
             }
             return OrganizationList;
         }

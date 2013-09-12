@@ -30,22 +30,22 @@ public class Department
     public long OrganizationId { get; set; }
 
     [ScaffoldColumn(false)]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     [ScaffoldColumn(false)]
-    public long CreatedBy { get; set; }
+    public long? CreatedBy { get; set; }
 
     [ScaffoldColumn(false)]
-    public DateTime UpdatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
 
     [ScaffoldColumn(false)]
-    public long UpdatedBy { get; set; }
+    public long? UpdatedBy { get; set; }
 
     [ScaffoldColumn(false)]
-    public DateTime DeletedDate { get; set; }
+    public DateTime? DeletedDate { get; set; }
 
     [ScaffoldColumn(false)]
-    public long DeletedBy { get; set; }
+    public long? DeletedBy { get; set; }
 
     public virtual ICollection<Organization> Roles { get; set; }
 
