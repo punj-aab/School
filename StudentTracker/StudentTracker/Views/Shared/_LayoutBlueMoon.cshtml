@@ -82,7 +82,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-
+    @Scripts.Render("~/bundles/BlockUI")
     @RenderSection("Scripts", false)
 
     <script type="text/javascript">
@@ -96,7 +96,13 @@
         //Collapse
         $('#myCollapsible').collapse({
             toggle: false
-        })
+        });
+        //block page
+        $(document).ajaxStart(function () {
+            $('div.dashboard-wrapper').block({ message: '<img src="/Content/images/loading-blue.gif" />', css: { border: '', 'background-color': '' } });
+        }).ajaxStop(function () {
+            $('div.dashboard-wrapper').unblock();
+        });
     </script>
 </body>
 </html>

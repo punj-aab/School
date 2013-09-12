@@ -23,6 +23,7 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.DepartmentId)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
                         <div class="controls">
@@ -32,7 +33,9 @@
                             }
                             else
                             {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })
+                                @*@Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })*@
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganizationId)
                             }
                             @Html.ValidationMessageFor(m => m.OrganizationId)
                         </div>
@@ -55,7 +58,7 @@
                                 Create Organization
                             </button>*@
                         <a name="submit" class="btn btn-primary" href="javascript:;" id="btnUpdateDept">Update Organization</a>
-                        <div class="clearfix">
+                        <div class="clearfix Error">
                         </div>
                     </div>
 
@@ -96,6 +99,12 @@
                     if (data == 'True') {
                         //redirect to view page
                         LoadAjax('ViewDepartments');
+                    }
+                    else if (data == 'False') {
+                        //errorCode
+                    }
+                    else {
+                        $('.Error').html(data);
                     }
                 },
                 error: function () { }
