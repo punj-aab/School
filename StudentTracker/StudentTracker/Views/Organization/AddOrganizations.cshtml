@@ -31,7 +31,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationDesc, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6" })
+                            @Html.EditorFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
@@ -94,13 +94,13 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.Password, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span6" })
+                            @Html.PasswordFor(m => m.Password, new { placeholder = "Password", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.ConfirmPassword, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6" })
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">

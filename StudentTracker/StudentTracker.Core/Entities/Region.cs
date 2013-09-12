@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
@@ -7,7 +8,9 @@ namespace StudentTracker.Core.Entities
 {
     public class Region
     {
+        [Key]
         public long RegionId { get; set; }
+        public int Id { get; set; }
         public int idSpecified { get; set; }
         public string name { get; set; }
         public string code { get; set; }

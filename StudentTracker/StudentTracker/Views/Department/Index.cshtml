@@ -7,11 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="departments" action="ViewDepartments">View Departments
+            <a id="lnkViewAll" class="departments selected" href="#" action="ViewDepartments">View Departments
             </a>
         </li>
         <li>
-            <a class="departments" action="Create">Add Departments
+            <a id="lnkAddNew" class="departments" href="#" action="Create">Add Departments
             </a>
         </li>
     </ul>
@@ -33,6 +33,7 @@
 </div>
 @section Scripts
 {
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
 
     <script type="text/javascript">
 
@@ -40,6 +41,8 @@
             $('.lnkDepartment').addClass('selected');
             LoadAjax('ViewDepartments');
             $('.departments').click(function () {
+                $('a.departments').removeClass('selected');
+                $(this).addClass('selected');
                 var action = $(this).attr("action");
                 LoadAjax(action);
             });

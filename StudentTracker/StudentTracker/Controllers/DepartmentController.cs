@@ -43,7 +43,7 @@ namespace StudentTracker.Controllers
         {
             Department objDepartment = new Department();
             objDepartment.OrganizationList = LoadSelectLists();
-            objDepartment.OrganizationId = ViewBag.OrganizationId;
+            objDepartment.OrganizationId = ViewBag.OrganizationId == null ? 0 : ViewBag.OrganizationId;
             return PartialView(objDepartment);
         }
 

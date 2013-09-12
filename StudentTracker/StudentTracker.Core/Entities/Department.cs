@@ -22,6 +22,7 @@ public class Department
 
     [Required]
     [Display(Name = "Description")]
+    [DataType(DataType.MultilineText)]
     public string DepartmentDesc { get; set; }
 
     [Required]

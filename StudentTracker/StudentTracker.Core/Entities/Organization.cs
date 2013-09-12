@@ -23,6 +23,7 @@
 
         [Required]
         [Display(Name = "Description")]
+        [DataType(DataType.MultilineText)]
         public string OrganizationDesc { get; set; }
 
         [Required]

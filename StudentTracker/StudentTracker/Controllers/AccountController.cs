@@ -18,6 +18,10 @@ namespace StudentTracker.Controllers
         public ActionResult Login(string returnUrl)
         {
 
+            if (Request.IsAuthenticated)
+            {
+                Response.Redirect("/home");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

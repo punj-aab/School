@@ -7,11 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="organizations" action="ViewOrganizations">View Organization
+            <a id="lnkViewAll" class="organizations" href="#" action="ViewOrganizations">View Organization
             </a>
         </li>
         <li>
-            <a class="organizations" action="AddOrganizations">Add Organization
+            <a id="lnkAddNew" class="organizations" href="#" action="AddOrganizations">Add Organization
             </a>
         </li>
     </ul>
@@ -28,18 +28,29 @@
 </div>
 <div class="dashboard-wrapper">
     <div class="left-sidebar" id="divOuter">
+        @{
+            Html.RenderAction("ViewOrganizations");
+        }
     </div>
     <div class="right-sidebar"></div>
 </div>
 @section Scripts
 {
-
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
-
+      
         $(document).ready(function () {
+
+            $('#data-table').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
             $('.lnkOrganization').addClass('selected');
-            LoadAjax('ViewOrganizations');
+            $('#lnkViewAll').addClass('selected');
+            //LoadAjax('ViewOrganizations');
             $('.organizations').click(function () {
+                $("a.organizations").removeClass('selected');
+                $(this).addClass('selected');
                 var action = $(this).attr("action");
                 LoadAjax(action);
             });
