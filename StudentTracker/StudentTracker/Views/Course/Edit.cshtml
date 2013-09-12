@@ -1,0 +1,115 @@
+﻿@model StudentTracker.Core.Entities.Course
+
+@{
+    ViewBag.Title = "Create";
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Modify Course
+                      <span class="mini-title">Simple form for modify Course
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m=>m.CourseId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganisationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganisationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
+                            }
+                            else
+                            {
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganisationId)
+                            }
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.TextBoxFor(m => m.CourseName, new { placeholder = "Course Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.CourseName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseDescription, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6" })
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" class="btn btn-primary" href="javascript:;" id="btnUpdate">Update Course</a>
+                        <div class="clearfix Error">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // just for the demos, avoids form submit
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+        //var form = $("#myform");
+        //form.validate();
+        $("#btnUpdate").click(function (e) {
+            var form = $("#myform");
+            form.validate();
+            if (!form.valid()) {
+                e.preventDefault();
+                return;
+            }
+            var $this = $(this);
+            var objCandidate = $('#myform').serializeObject();
+
+            $.ajax({
+                url: '/Course/Edit',
+                cache: false,
+                type: 'POST',
+                contentType: 'application/json;',
+                data: JSON.stringify(objCandidate),
+                success: function (data) {
+                    if (data == 'True') {
+                        //redirect to view page
+                        LoadAjax('ViewCourses');
+                    }
+                    else if (data == 'False')
+                    {
+                        //errorCode
+                    }
+                    else {
+                        $('.Error').html(data);
+                    }
+                },
+                error: function () { }
+            });
+
+        });
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

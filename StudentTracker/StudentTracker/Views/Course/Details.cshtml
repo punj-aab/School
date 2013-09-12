@@ -1,0 +1,94 @@
+﻿@model StudentTracker.Core.Entities.Course
+
+@{
+    ViewBag.Title = "Details";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Course Details
+                      <span class="mini-title">Simple form for Display Course
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.CourseId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseName, new { Class = "control-label" })
+                        <div class="controls">
+                         @Html.DisplayFor(m => m.CourseName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseDescription, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.CourseDescription)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class = "control-label">Organization</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.Organization.OrganizationName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.InsertedOn, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.InsertedOn)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ModifiedOn, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.ModifiedOn)
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" id="lnkEdit">Edit Course</a>
+
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#data-table').dataTable({
+            "sPaginationType": "full_numbers"
+        });
+
+        //EDIT
+        $('#lnkEdit').click(function () {
+            var url = $(this).attr('action');
+            var id = $('#CourseId').val();
+            LoadCourses(url, id);
+        });
+
+    });
+
+
+</script>
+
+
