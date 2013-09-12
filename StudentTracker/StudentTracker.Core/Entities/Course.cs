@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-
+using System.Web.Mvc;
 namespace StudentTracker.Core.Entities
 {
     [Table("Courses")]
@@ -23,16 +23,19 @@ namespace StudentTracker.Core.Entities
         [ScaffoldColumn(false)]
         public int OrganisationId { get; set; }
         [ScaffoldColumn(false)]
-        public long CreatedBy { get; set; }
+        public long? CreatedBy { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime InsertedOn { get; set; }
+        public DateTime? InsertedOn { get; set; }
         [ScaffoldColumn(false)]
-        public long ModifiedBy { get; set; }
+        public long? ModifiedBy { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime ModifiedOn { get; set; }
-        
-        [ForeignKey("CourseId")]
-        public virtual Subject Subject { get; set; }
-       
+        public DateTime? ModifiedOn { get; set; }
+
+
+        [ScaffoldColumn(false)]
+        public virtual Organization Organization { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
     }
 }

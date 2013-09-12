@@ -32,5 +32,8 @@ namespace StudentTracker.Core.Entities
         public string ModifiedOn { get; set; }
         [ScaffoldColumn(false)]
         public string ModifiedBy { get; set; }
+
+        [ForeignKey("CourseId")]
+        public virtual Course Course { get; set; }
     }
 }
