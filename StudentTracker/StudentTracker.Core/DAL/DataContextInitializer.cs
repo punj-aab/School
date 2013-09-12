@@ -8,7 +8,7 @@
     using System.Web.Security;
 
 
-    public class DataContextInitializer : DropCreateDatabaseAlways<StudentContext>
+    public class DataContextInitializer : CreateDatabaseIfNotExists<StudentContext>
     {
         protected override void Seed(StudentContext context)
         {
