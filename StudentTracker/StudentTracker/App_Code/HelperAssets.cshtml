@@ -1,0 +1,219 @@
+﻿@using System.Globalization;
+@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using System.Collections.Generic
+@********************************* Custom Javascript Helpers ****************************************************@
+@helper SaveAndLoadData(string controller, string resultView)
+{
+    <script type="text/javascript">
+
+        //this function is used to validate and saving the data.
+        function Save(e) {
+            var action = $(e.target).attr('action');
+            var url = '@controller' + action;
+            var elem = $("#" + e.target.id).parents('form');
+            var resultView = '@resultView';
+            //validate the form.
+            var val = $(elem).validate().form();
+            if (val) {
+                //serialize the form into json object.
+                var objCandidate = $(elem).serializeObject();
+                //save data with ajax call.
+                $.ajax({
+                    url: url,
+                    cache: false,
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    data: JSON.stringify(objCandidate),
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('#lnkAddNew').removeClass('selected');
+                            $('#lnkViewAll').addClass('selected');
+                            AfterSuccess('@resultView');
+                        }
+                        else if (data == 'False') {
+                            alert('An error occured while processing your request');
+                        }
+                        else {
+                            $('.Error').html(data);
+                        }
+                    },
+                    error: function (result, request) {
+                        alert('An error occured while processing your request');
+                    }
+                });
+            }
+                //if not validated then show error messages.
+            else {
+                //Error on Save
+            }
+        }
+
+        // LOAD VIEW
+        function AfterSuccess(action) {
+            var url = '@controller' + action;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (response) {
+                    $('#divOuter').html(response);
+                },
+                error: function () { }
+            });
+        }
+
+        //LOAD VIEW BY ID
+        function LoadViewById(e) {
+            var action = $(e.target).attr('action');
+            var url = '@controller' + action;
+            var id = $(e.target).attr('itemId');
+            $.ajax({
+                type: 'GET',
+                url: url,
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    $('#divOuter').html(response);
+                },
+                error: function () { }
+            });
+        }
+
+        //DELETE RECORD
+        function Delete(e) {
+            var conf = confirm('Continue delete?');
+            if (conf) {
+                var action = $(e.target).attr('action');
+                var url = '@controller' + action;
+                var id = $(e.target).attr('itemId');
+                var $this = $(e.target)
+                $.ajax({
+                    type: 'POST',
+                    url: url,
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        /*if (response == 'True') {
+                            jQuery($this).parents('tr').fadeOut(function () {
+                                jQuery($this).remove();
+                            });
+                        }*/
+                        AfterSuccess('@resultView');
+                        //  $('div.dashboard-wrapper').unblock();
+                    },
+                    error: function () { }
+                });
+                }
+            }
+
+            //EDIT RECORD
+            function Edit(e) {
+                LoadViewById(e);
+            }
+
+            //LOAD REGIONS BY COUNTRY
+            function loadRegionsByCountry(e) {
+                var countryId = $(e.target).val();
+                var url = '@controller' + 'GetRegions';
+                $('#RegionId').html('<option>Select Region</option>');
+                var row = '';
+                if (countryId == '') {
+                    return false;
+                }
+                else {
+                    $.ajax({
+                        type: 'GET',
+                        url: url,
+                        data: {
+                            id: countryId
+                        },
+                        success: function (response) {
+                            $.each(response, function (index, value) {
+                                row += '<option value=' + value.Id + '>' + value.name + '</option>';
+                            });
+                            $('#RegionId').append(row);
+                        },
+                        error: function () { }
+                    })
+                }
+            }
+
+            //This function is used to serialize a form into json object.
+            $.fn.serializeObject = function () {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name] = this.value || '';
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+
+            //this function is used to switch to viewmode.
+            function Cancel() {
+
+            }
+    </script>
+}
+
+@helper DataTable()
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#data-table').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+        });
+    </script>
+}
+
+@helper LoadAjaxData(string controller)
+{
+    <script type="text/javascript">
+        function LoadAjax(e) {
+            var action = $(e.target).attr('action');
+            var url = '@controller' + action;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (response) {
+                    $('#divOuter').html(response);
+                },
+                error: function () { }
+            });
+        }
+    </script>
+}
+
+@********************************* Custom Javascript Functions ****************************************************@
+@functions {    
+    
+    /// <summary>
+    /// This function is use to get the Controller and Action namve of the current ViewContext object
+    /// </summary>
+    /// <param name="objViewContext"></param>
+    /// <returns></returns>
+    public static string GetControllerActionName(ViewContext objViewContext)
+    {
+
+        var ca = objViewContext.Controller.ValueProvider.GetValue("controller").RawValue.ToString()
+                 + "/"
+                 + objViewContext.Controller.ValueProvider.GetValue("action").RawValue.ToString();
+
+        return ca.ToString();
+
+    }
+    
+    
+   
+    
+    }
+@********************************* Custom Javascript Functions ****************************************************@

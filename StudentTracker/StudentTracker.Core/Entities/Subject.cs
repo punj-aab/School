@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
-
+using System.Web.Mvc;
 namespace StudentTracker.Core.Entities
 {
     [Table("Subjects")]
@@ -35,5 +35,8 @@ namespace StudentTracker.Core.Entities
 
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
+
+        [NotMapped]
+        public SelectList CourseList { get; set; }
     }
 }

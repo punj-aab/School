@@ -76,7 +76,7 @@ namespace StudentTracker.Controllers
         {
             Course objCourse = db.Courses.Find(id);
             objCourse.OrganizationList = LoadSelectLists();
-            objCourse.OrganisationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
+            objCourse.OrganisationId = ViewBag.OrganizationId == null ? objCourse.OrganisationId : Convert.ToInt32(ViewBag.OrganizationId);
             if (objCourse == null)
             {
                 return HttpNotFound();
@@ -162,7 +162,7 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
+                var organization = db.Organizations.SingleOrDefault(x => x.UserName == User.Identity.Name);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 

@@ -1,0 +1,93 @@
+﻿@model StudentTracker.Core.Entities.Organization
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Organization Details
+                      <span class="mini-title">Display Organizations
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.OrganizationId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.OrganizationName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationDesc, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.OrganizationDesc)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.RegisterationNumber, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.RegisterationNumber)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Country</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.Country.name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Region</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.States.name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">City</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.City)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CreatedDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.CreatedDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ModifiedDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.ModifiedDate)
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.OrganizationId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+

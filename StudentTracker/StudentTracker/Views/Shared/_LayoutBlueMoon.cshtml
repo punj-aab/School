@@ -34,7 +34,7 @@
     <link href="~/Content/themes/custom/icomoon/style.css" rel="stylesheet" />
     <link href="~/Content/themes/custom/css/main.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
-
+    <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     <!-- Important. For Theming change primary-color variable in main.css  -->
     <!--[if lte IE 7]>
@@ -80,9 +80,11 @@
         </p>
     </footer>
     @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/BlockUI")
+    @Scripts.Render("~/bundles/DataTable")
     @RenderSection("Scripts", false)
 
     <script type="text/javascript">

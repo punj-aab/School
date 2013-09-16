@@ -1,15 +1,14 @@
 ﻿@model StudentTracker.Core.Entities.Organization
 @{
-    ViewBag.Title = "AddOrganizations";
+    ViewBag.Title = "Update Organization";
 }
-@Scripts.Render("~/bundles/jqueryval")
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    Create New Organization
-                      <span class="mini-title">Simple form for new Organization
+                    Update Organization
+                      <span class="mini-title">Change Organization Info
                       </span>
                 </div>
                 <span class="tools">
@@ -21,6 +20,11 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.OrganizationId)
+                    @Html.HiddenFor(m => m.UserName)
+                    @Html.HiddenFor(m=>m.Password)
+                    @Html.HiddenFor(m=>m.ConfirmPassword)
+                    @Html.HiddenFor(m=>m.CreatedDate)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
                         <div class="controls controls-row">
@@ -38,7 +42,6 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationTypeId, new { Class = "control-label" })
                         <div class="controls">
-                            @*@Html.DropDownList("OrganizationTypeId", null, "Select Organization", new { })*@
                             @Html.DropDownListFor(m => m.OrganizationTypeId, Model.OrganizationTypeList, "Select Organization", new { Class = "span6" })
                             @Html.ValidationMessageFor(m => m.OrganizationId)
                         </div>
@@ -53,15 +56,13 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.CountryId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownListFor(m => m.CountryId, Model.CountryList, "Select Country", new { Class = "span6", onchange = "loadRegionsByCountry(event)" })
+                            @Html.DropDownListFor(m => m.CountryId, Model.CountryList, "Select Country", new { Class = "span6" })
                             @Html.ValidationMessageFor(m => m.CountryId)
-                            @*@Html.DropDownList("CountryId", null, "Select Country", new { })*@
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.RegionId, new { Class = "control-label" })
                         <div class="controls">
-                            @*@Html.DropDownList("RegionId", null, "Select State", new { })*@
                             @Html.DropDownListFor(m => m.RegionId, Model.StateList, "Select Region", new { Class = "span6" })
                             @Html.ValidationMessageFor(m => m.RegionId)
                         </div>
@@ -91,25 +92,6 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.UserName, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span6" })
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Password, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.PasswordFor(m => m.Password, new { placeholder = "Password", Class = "span6" })
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span6" })
-                        </div>
-                    </div>
-                    <div class="control-group">
                         @Html.LabelFor(m => m.Phone1, new { Class = "control-label" })
                         <div class="controls">
                             @Html.TextBoxFor(m => m.Phone1, new { placeholder = "Phone1", Class = "span6" })
@@ -122,11 +104,7 @@
                         </div>
                     </div>
                     <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        @*<a name="submit" class="btn btn-primary" href="javascript:;" id="btnAddOrg">Add Organization</a>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="AddOrganizations" onclick="Save(event)" id="btnAddOrg">Add Organization</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnUpdateOrg">Save Changes</a>
                         <div class="clearfix">
                         </div>
                     </div>
@@ -136,13 +114,4 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-<script type="text/javascript">
-    $(document).ready(function () {
-
-    });
-</script>

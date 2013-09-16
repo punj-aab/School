@@ -105,5 +105,15 @@
         [ForeignKey("RegionId")]
         public virtual Region States { get; set; }
 
+        [NotMapped]
+        public SelectList CountryList { get; set; }
+
+        [NotMapped]
+        public SelectList StateList { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationTypeList { get; set; }
+
+
     }
 }

@@ -7,11 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a id="lnkViewAll" class="organizations" href="#" onclick="LoadAjax(event)" action="ViewOrganizations">View Organization
+            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewSubjects">View Subjects
             </a>
         </li>
         <li>
-            <a id="lnkAddNew" class="organizations" onclick="LoadAjax(event)" href="#" action="AddOrganizations">Add Organization
+            <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Subjects
             </a>
         </li>
     </ul>
@@ -29,7 +29,7 @@
 <div class="dashboard-wrapper">
     <div class="left-sidebar" id="divOuter">
         @{
-            Html.RenderAction("ViewOrganizations");
+            Html.RenderAction("ViewSubjects");
         }
     </div>
     <div class="right-sidebar"></div>
@@ -39,15 +39,15 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('.lnkOrganization').addClass('selected');
+            $('.lnkSubjects').addClass('selected');
             $('#lnkViewAll').addClass('selected');
-            $('.organizations').click(function () {
-                $("a.organizations").removeClass('selected');
+            $('.subButton').click(function () {
+                $("a.subButton").removeClass('selected');
                 $(this).addClass('selected');
             });
         });
     </script>
-    @HelperAssets.LoadAjaxData("/Organization/");
-    @HelperAssets.DataTable();
-    @HelperAssets.SaveAndLoadData("/Organization/", "ViewOrganizations");
+  @HelperAssets.LoadAjaxData("/Subject/");
+  @HelperAssets.DataTable();
+  @HelperAssets.SaveAndLoadData("/Subject/", "ViewSubjects");
 }

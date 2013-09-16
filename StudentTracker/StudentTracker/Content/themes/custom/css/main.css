@@ -5749,7 +5749,7 @@ header {
   /*  Right Sidebar Container Starts Here  */
   /*  Right Sidebar Container Ends Here  */ }
   .dashboard-wrapper .left-sidebar {
-    margin-right: 260px; }
+   /* margin-right: 260px;*/ }
     .dashboard-wrapper .left-sidebar .widget {
       background: #fafafa;
       border: 1px solid #e0dede;

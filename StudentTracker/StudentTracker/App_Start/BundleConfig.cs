@@ -46,6 +46,7 @@ namespace StudentTracker
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap*"));
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css"));
             bundles.Add(new ScriptBundle("~/bundles/BlockUI").Include("~/Scripts/jquery.blockUI.js"));
+            bundles.Add(new ScriptBundle("~/bundles/DataTable").Include("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"));
 
         }
     }
