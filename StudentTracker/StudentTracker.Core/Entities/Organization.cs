@@ -40,7 +40,7 @@
 
         [Required]
         [Display(Name = "State")]
-        public long RegionId { get; set; }
+        public long StateId { get; set; }
 
         [Required]
         public string City { get; set; }
@@ -100,9 +100,9 @@
         [NotMapped]
         public string StateName { get; set; }
 
-        [ForeignKey("CountryId")]
+        //[ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
-        [ForeignKey("RegionId")]
+       // [ForeignKey("RegionId")]
         public virtual Region States { get; set; }
 
         [NotMapped]
