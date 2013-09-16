@@ -107,7 +107,7 @@ namespace StudentTracker.Controllers
             SelectList ContList = null;
             SelectList stateList = null;
             SelectList organizationTypeList = null;
-            LoadSelectLists(out ContList, out stateList, out organizationTypeList, objModel.CountryId, objModel.OrganizationTypeId, objModel.RegionId);
+            LoadSelectLists(out ContList, out stateList, out organizationTypeList, objModel.CountryId, objModel.OrganizationTypeId, objModel.StateId);
             objModel.CountryList = ContList;
             objModel.StateList = stateList;
             objModel.OrganizationTypeList = organizationTypeList;
