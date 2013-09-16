@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-@Scripts.Render("~/bundles/jqueryval")
+
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -19,41 +19,42 @@
             <div class="widget-body">
                 @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-
                    
-                    if (User.IsInRole("SiteAdmin"))
-                    {
                     <div class="control-group">
-                        @Html.LabelFor(model => model.OrganizationId, new { Class = "control-label" })
-                        <div class="controls controls-row">
-                            @Html.EditorFor(model => model.OrganizationId, new { @class = "span6" })
-                            @Html.ValidationMessageFor(model => model.OrganizationId)
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
+                            }
+                            else
+                            {
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
                         </div>
                     </div>
-                    }
-                    else
-                    {
-                    @Html.HiddenFor(model => model.OrganizationId, new { @value = Session["Organisation"] })
-                    }
                     <div class="control-group">
                         @Html.LabelFor(model => model.DepartmentId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.EditorFor(model => model.DepartmentId, new { Class = "span6" })
+                            @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department", new { Class = "span6" })
                             @Html.ValidationMessageFor(model => model.DepartmentId)
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(model => model.CourseId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.EditorFor(model => model.CourseId, new { Class = "span6" })
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6" })
                             @Html.ValidationMessageFor(model => model.CourseId)
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(model => model.SectionId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.EditorFor(model => model.SectionId, new { Class = "span6" })
+                            @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Department", new { Class = "span6" })
+
                             @Html.ValidationMessageFor(model => model.SectionId)
                         </div>
                     </div>
@@ -63,17 +64,12 @@
                             </button>*@
                         <a class="btn btn-primary" href="javascript:;" id="btnCreateToken">Create </a>
                         <div class="clearfix">
-                            <div>
-                                @Html.ActionLink("Back to List", "Index")
-                            </div>
                         </div>
                     </div>
                     
                 }
 
-
             </div>
         </div>
     </div>
 </div>
-

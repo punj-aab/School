@@ -99,6 +99,7 @@
 </div>
 <div class="dashboard-wrapper">
     <div class="left-sidebar" id="divOuter">
+        @{Html.RenderAction("CreateToken");}
     </div>
     <div class="right-sidebar"></div>
 </div>
@@ -109,7 +110,37 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#lnkCreateNewToken').addClass('selected');
+
+            jQuery.validator.setDefaults({
+                debug: true,
+                success: "valid"
+            });
+
+            $("#btnCreateToken").click(function (e) {
+
+                var form = $("#myform");
+                form.validate();
+                if (!form.valid()) {
+                    e.preventDefault();
+                    return;
+                }
+                var $this = $(this);
+                var objCandidate = $('#myform').serializeObject();
+
+                $.ajax({
+                    url: '/Token/Create',
+                    cache: false,
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    data: JSON.stringify(objCandidate),
+                    success: function (data) {
+
+                    },
+                    error: function () { }
+                });
+            });
+
+            $('#lnkCreateNewToken, #tabToken').addClass('selected');
 
             $('.tokens').click(function () {
                 var action = $(this).attr("action");

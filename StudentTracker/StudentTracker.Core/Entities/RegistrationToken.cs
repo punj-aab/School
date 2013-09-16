@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace StudentTracker.Core.Entities
 {
@@ -12,7 +14,7 @@ namespace StudentTracker.Core.Entities
         public long TokenId { get; set; }
 
         [ScaffoldColumn(false)]
-        public Guid Token { get; set; }
+        public string Token { get; set; }
 
         [Required]
         [Display(Name = "Organization")]
@@ -29,5 +31,17 @@ namespace StudentTracker.Core.Entities
 
         [Display(Name = "Section")]
         public int SectionId { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+
+        [NotMapped]
+        public SelectList DepartmentList { get; set; }
+
+        [NotMapped]
+        public SelectList CourseList { get; set; }
+
+        [NotMapped]
+        public SelectList SectionList { get; set; }
     }
 }
