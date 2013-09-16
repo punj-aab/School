@@ -76,7 +76,7 @@
         public DateTime? DeletedDate { get; set; }
 
         [ScaffoldColumn(false)]
-        public int? StatusId { get; set; }
+        public long RegionId { get; set; }
 
         [Required]
         public string UserName { get; set; }
@@ -102,7 +102,7 @@
 
         //[ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
-       // [ForeignKey("RegionId")]
+        [ForeignKey("RegionId")]
         public virtual Region States { get; set; }
 
         [NotMapped]

@@ -117,7 +117,7 @@
             function loadRegionsByCountry(e) {
                 var countryId = $(e.target).val();
                 var url = '@controller' + 'GetRegions';
-                $('#RegionId').html('<option>Select Region</option>');
+                $('#RegionId').html('<option>--Select Region--</option>');
                 var row = '';
                 if (countryId == '') {
                     return false;

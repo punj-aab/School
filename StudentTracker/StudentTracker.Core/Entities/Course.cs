@@ -11,6 +11,7 @@ namespace StudentTracker.Core.Entities
     public class Course
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long CourseId { get; set; }
         [Required]
         [Display(Name = "Name")]

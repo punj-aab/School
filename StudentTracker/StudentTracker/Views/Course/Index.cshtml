@@ -7,11 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="cources" href="#" action="ViewCourses">View Courses
+            <a class="courses selected" href="#" action="ViewCourses">View Courses
             </a>
         </li>
         <li>
-            <a class="cources" href="#" action="Create">Add Course
+            <a class="courses" href="#" action="Create">Add Course
             </a>
         </li>
     </ul>
@@ -39,8 +39,8 @@
         $(document).ready(function () {
             $('.lnkCourses').addClass('selected');
             LoadAjax('ViewCourses');
-            $('.cources').click(function () {
-                $('a.cources').removeClass('selected');
+            $('.courses').click(function () {
+                $('a.courses').removeClass('selected');
                 $(this).addClass('selected');
                 var action = $(this).attr("action");
                 LoadAjax(action);

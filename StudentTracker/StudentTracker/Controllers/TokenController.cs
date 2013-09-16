@@ -25,7 +25,7 @@ namespace StudentTracker.Controllers
         {
             RegistrationToken objToken = new RegistrationToken();
             LoadSelectLists(ref objToken);
-            objToken.OrganizationId = ViewBag.OrganizationId == null ? 0 : ViewBag.OrganizationId;
+            objToken.OrganizationId = ViewBag.OrganizationId == null ? 0 : (int)ViewBag.OrganizationId;
             return View(objToken);
         }
 

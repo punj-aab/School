@@ -53,7 +53,7 @@
                     <div class="control-group">
                         @Html.LabelFor(model => model.SectionId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Department", new { Class = "span6" })
+                            @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { Class = "span6" })
 
                             @Html.ValidationMessageFor(model => model.SectionId)
                         </div>
