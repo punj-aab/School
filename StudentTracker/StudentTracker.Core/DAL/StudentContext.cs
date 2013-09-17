@@ -51,5 +51,7 @@ namespace StudentTracker.Core.DAL
         }
 
         #endregion
+
+        public DbSet<Class> Classes { get; set; }
     }
 }
