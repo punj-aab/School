@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace StudentTracker.Core.Entities
 {
@@ -21,15 +22,24 @@ namespace StudentTracker.Core.Entities
         public string Description { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime InsertedOn { get; set; }
+        public DateTime? InsertedOn { get; set; }
 
         [ScaffoldColumn(false)]
         public long InsertedBy { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [ScaffoldColumn(false)]
-        public long ModifiedBy { get; set; }
+        public long? ModifiedBy { get; set; }
+        
+        [Required]
+        public long OrganizationId { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+
+        [ForeignKey("ClassId")]
+        public virtual Organization Organizations { get; set; }
     }
 }

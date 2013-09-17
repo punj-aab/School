@@ -29,7 +29,7 @@ namespace StudentTracker.Controllers
             LoadSelectLists(out ContList, out stateList, out organizationTypeList);
             Organization objModel = new Organization();
             objModel.CountryList = ContList;
-            objModel.StateList = stateList;
+            objModel.StateList = new SelectList("", "", "");
             objModel.OrganizationTypeList = organizationTypeList;
             return PartialView(objModel);
         }
