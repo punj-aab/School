@@ -1,4 +1,5 @@
 ﻿using StudentTracker.Core.Repositories;
+using StudentTracker.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,17 +33,19 @@ namespace StudentTracker.Controllers
         //}
 
         protected IRepository repository = null;
+        protected UserStatistics _userStatistics = null;
 
         protected override void Initialize(RequestContext controllerContext)
         {
             try
             {
-                repository = new Repository();
-
+                //repository = new Repository();
+                
                 //this.Log.Initialize(ConfigurationManager.AppSettings["LogPath"], "APILogger");
                 //this.Log.WriteLine("Starting {0}", "Gateway API");
 
                 base.Initialize(controllerContext);
+                _userStatistics = new UserStatistics(HttpContext);
             }
             catch (Exception)
             {

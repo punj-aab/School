@@ -10,7 +10,7 @@ using StudentTracker.Core.DAL;
 
 namespace StudentTracker.Controllers
 {
-    public class CourseController : Controller
+    public class CourseController : BaseController
     {
         private StudentContext db = new StudentContext();
 
@@ -56,6 +56,8 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    course.CreatedBy = _userStatistics.UserId;
+                    course.InsertedOn = DateTime.UtcNow;
                     db.Courses.Add(course);
                     db.SaveChanges();
                     return Convert.ToString(true);
@@ -94,6 +96,8 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    course.ModifiedBy = _userStatistics.UserId;
+                    course.ModifiedOn = DateTime.UtcNow;
                     db.Entry(course).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);

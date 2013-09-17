@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace StudentTracker.Controllers
 {
     [Authorize]
-    public class TokenController : Controller
+    public class TokenController : BaseController
     {
         //
         // GET: /Token/
@@ -37,6 +37,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     token.Token = UserStatistics.GetToken();
+                    token.CreatedBy = _userStatistics.UserId;
                     db.RegistrationTokens.Add(token);
                     db.SaveChanges();
                     return View("ViewToken", token);

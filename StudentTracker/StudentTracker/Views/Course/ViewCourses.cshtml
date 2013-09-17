@@ -22,7 +22,7 @@
                                 <th>CourseName          </th>
                                 <th>CourseDescription   </th>
                                 <th>InsertedOn          </th>
-                                <th>ModifiedOn          </th>
+                                <th>Inserted By          </th>
                                 <th>Manage Courses</th>
                             </tr>
                         </thead>
@@ -33,11 +33,11 @@
                                     <th>@item.CourseName          </th>
                                     <th>@item.CourseDescription   </th>
                                     <th>@item.InsertedOn          </th>
-                                    <th>@item.ModifiedOn          </th>
+                                    <th>@item.CreatedBy          </th>
                                     <td>
-                                        <a class="lnkEdit" action="Edit" itemId="@item.CourseId">Edit</a>
-                                        <a class="lnkDetails" itemId="@item.CourseId" action="Details">Details</a>
-                                        <a class="lnkDelete" itemId="@item.CourseId" action="DeleteConfirmed">Delete</a>
+                                        <a href="#" class="lnkEdit" action="Edit" itemId="@item.CourseId">Edit</a>
+                                        <a href="#" class="lnkDetails" itemId="@item.CourseId" action="Details">Details</a>
+                                        <a href="#" class="lnkDelete" itemId="@item.CourseId" action="DeleteConfirmed">Delete</a>
                                     </td>
                                 </tr>
                             }

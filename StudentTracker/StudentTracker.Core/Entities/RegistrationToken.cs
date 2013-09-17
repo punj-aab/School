@@ -32,6 +32,9 @@ namespace StudentTracker.Core.Entities
         [Display(Name = "Section")]
         public int SectionId { get; set; }
 
+        [ScaffoldColumn(false)]
+        public long  CreatedBy { get; set; }
+
         [NotMapped]
         public SelectList OrganizationList { get; set; }
 

@@ -10,7 +10,7 @@ using StudentTracker.Core.Entities;
 
 namespace StudentTracker.Controllers
 {
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseController
     {
         private StudentContext db = new StudentContext();
 
@@ -57,7 +57,7 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //department.CreatedBy = User.Identity.Name;
+                    department.CreatedBy = _userStatistics.UserId;
                     department.CreatedDate = DateTime.Now;
                     db.Departments.Add(department);
                     db.SaveChanges();
@@ -97,6 +97,8 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    department.UpdatedBy = _userStatistics.UserId;
+                    department.UpdatedDate = DateTime.Now;
                     db.Entry(department).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);

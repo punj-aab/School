@@ -7,7 +7,7 @@ using System.Web.Mvc;
 namespace StudentTracker.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         //
         // GET: /Home/

@@ -1,12 +1,15 @@
-﻿using System;
+﻿using StudentTracker.Core.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 
 namespace StudentTracker.Core.Utilities
 {
     public class UserStatistics
     {
+        private readonly HttpContextBase _context;
         private long userId;
 
         private int organizationId;
@@ -17,7 +20,27 @@ namespace StudentTracker.Core.Utilities
 
         private string userClass;
 
-        public long UserId
+
+        public UserStatistics(HttpContextBase context)
+        {
+            _context = context;
+            if (_context.Session["UserId"] != null)
+            {
+                userId = Convert.ToInt64(_context.Session["UserId"]);
+            }
+            else
+            {
+                var user = WebSecurity.GetUser(context.User.Identity.Name);
+                if (user != null)
+                {
+                    userId = (long)user.ProviderUserKey;
+                }
+            }
+        }
+
+
+
+        public  long UserId
         {
             get
             {
@@ -33,7 +56,7 @@ namespace StudentTracker.Core.Utilities
             }
         }
 
-        public string Course
+        public string UserCourse
         {
             get
             {
@@ -41,7 +64,7 @@ namespace StudentTracker.Core.Utilities
             }
         }
 
-        public string Department
+        public string UserDepartment
         {
             get
             {

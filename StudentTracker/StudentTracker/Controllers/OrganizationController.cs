@@ -11,7 +11,7 @@ using System.Web.Security;
 using System.Data;
 namespace StudentTracker.Controllers
 {
-    public class OrganizationController : Controller
+    public class OrganizationController : BaseController
     {
         //
         // GET: /Organization/
@@ -44,8 +44,9 @@ namespace StudentTracker.Controllers
                     using (StudentContext db = new StudentContext())
                     {
                         objOrganization.CreatedDate = DateTime.Now;
+                        objOrganization.CreatedBy = _userStatistics.UserId;
                         db.Organizations.Add(objOrganization);
-                        WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, true, "", "");
+                        WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, false, "", "");
                         Roles.AddUserToRole(objOrganization.UserName, "OrganizationAdmin");
                         db.SaveChanges();
                         return true;
@@ -126,6 +127,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     organization.ModifiedDate = DateTime.Now;
+                    organization.ModifiedBy = _userStatistics.UserId;
                     db.Entry(organization).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);

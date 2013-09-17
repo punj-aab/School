@@ -10,7 +10,7 @@ using StudentTracker.Core.DAL;
 
 namespace StudentTracker.Controllers
 {
-    public class SubjectController : Controller
+    public class SubjectController : BaseController
     {
         private StudentContext db = new StudentContext();
 

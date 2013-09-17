@@ -64,7 +64,7 @@
         public DateTime? CreatedDate { get; set; }
 
         [ScaffoldColumn(false)]
-        public Int64? ModifiedBY { get; set; }
+        public Int64? ModifiedBy { get; set; }
 
         [ScaffoldColumn(false)]
         public DateTime? ModifiedDate { get; set; }
