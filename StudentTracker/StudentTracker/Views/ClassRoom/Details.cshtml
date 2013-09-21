@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.Subject
+﻿@model StudentTracker.Core.Entities.ClassRoom
 
 @{
     ViewBag.Title = "Details";
@@ -9,8 +9,8 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    Subject Details
-                      <span class="mini-title">Simple form for Display Subject
+                    ClassRoom Detail
+                      <span class="mini-title">Simple form for Display Class Rooms
                       </span>
                 </div>
                 <span class="tools">
@@ -22,24 +22,24 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.HiddenFor(m => m.SubjectId)
+                    @Html.HiddenFor(m => m.ClassRoomId)
                     <div class="control-group">
-                        @Html.LabelFor(m => m.SubjectName, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.Name, new { Class = "control-label" })
                         <div class="controls">
-                         @Html.DisplayFor(m => m.SubjectName)
+                            @Html.DisplayFor(m => m.Name)
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.SubjectDescription, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.SubjectDescription)
+                            @Html.DisplayFor(m => m.Description)
 
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class = "control-label">Course</label>
+                        <label class="control-label">Department</label>
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.Course.CourseName)
+                            @Html.DisplayFor(m => m.Departments.DepartmentName)
 
                         </div>
                     </div>
@@ -59,16 +59,14 @@
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.SubjectId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.ClassRoomId" onclick="Edit(event)" id="lnkEdit">Edit</a>
 
                         <div class="clearfix">
                         </div>
                     </div>
-
                 }
 
             </div>
         </div>
     </div>
-
 </div>

@@ -29,7 +29,7 @@ namespace StudentTracker.Controllers
             LoadSelectLists(out ContList, out stateList, out organizationTypeList);
             Organization objModel = new Organization();
             objModel.CountryList = ContList;
-            objModel.StateList = new SelectList("", "", "");
+            objModel.StateList = stateList;
             objModel.OrganizationTypeList = organizationTypeList;
             return PartialView(objModel);
         }
@@ -63,22 +63,28 @@ namespace StudentTracker.Controllers
 
         public void LoadSelectLists(out SelectList ContList, out SelectList stateList, out SelectList organizationTypeList, int countryId = -1, int organizationTypeId = -1, long RegionId = -1)
         {
-            List<Country> countryList = new List<Country>();
-            List<Region> regionList = new List<Region>();
+            List<Country> countryList = null;
+            List<Region> regionList = null;
             using (StudentContext db = new StudentContext())
             {
                 countryList = db.Countries.ToList();
-                regionList = db.Regions.ToList();
+                if (countryId != -1)
+                {
+                    regionList = db.Regions.Where(x => x.country_id == countryId).ToList();
+                }
+                else
+                {
+                    regionList = new List<Region>();
+                }
             }
-            ContList = new SelectList(countryList, "CountryId", "name", countryId);
-            stateList = new SelectList(regionList, "RegionId", "name", RegionId);
             List<SelectListItem> organizationTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.OrganizationTypes)).Cast<StudentTracker.Core.Utilities.OrganizationTypes>().Select(v => new SelectListItem
 {
-    Text = v.ToString(),//.Replace("_", " "),
+    Text = v.ToString(),
     Value = ((int)v).ToString()
 }).ToList();
-            //            ViewBag.OrganizationTypeId = organizationTypes;
             organizationTypeList = new SelectList(organizationTypes, "Value", "Text", organizationTypeId);
+            ContList = new SelectList(countryList, "id", "name", countryId);
+            stateList = new SelectList(regionList, "id", "name", RegionId);
         }
 
         public ActionResult ViewOrganizations()
@@ -161,7 +167,7 @@ namespace StudentTracker.Controllers
             using (StudentContext db = new StudentContext())
             {
                 orgList = new List<Organization>();
-                return orgList = db.Organizations.ToList();
+                return orgList = db.Organizations.Include("Users").ToList();
             }
         }
 
@@ -171,5 +177,14 @@ namespace StudentTracker.Controllers
             return Json(regionList, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult CheckUser(string Username)
+        {
+            var user = db.Users.Where(x => x.Username == Username).SingleOrDefault();
+            if (user != null)
+            {
+                return Json("User with this name already exist", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }

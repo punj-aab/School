@@ -22,8 +22,30 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.HiddenFor(m=>m.ClassId)
-                    @Html.HiddenFor(m=>m.InsertedOn)
+                    @Html.HiddenFor(m => m.ClassId)
+                    @Html.HiddenFor(m => m.InsertedOn)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourse", getType = "Course" })
+                                @Html.ValidationMessageFor(m => m.OrganizationId)
+                            }
+                            else
+                            {
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.CourseId)
+                        </div>
+                    </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.ClassName, new { Class = "control-label" })
                         <div class="controls controls-row">
@@ -36,13 +58,6 @@
                         <div class="controls">
                             @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
                             @Html.ValidationMessageFor(m => m.Description)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.OrganizationId)
                         </div>
                     </div>
                     <div class="form-actions no-margin">

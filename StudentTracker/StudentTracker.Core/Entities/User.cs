@@ -7,6 +7,7 @@
 
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
     [Table("Users")]
     public class User
@@ -21,7 +22,8 @@
         public long MasterId { get; set; }
 
         [Required]
-        public virtual string Username { get; set; }
+        [Remote("CheckUser", "Organization")]
+        public string Username { get; set; }
 
         public virtual string Email { get; set; }
 

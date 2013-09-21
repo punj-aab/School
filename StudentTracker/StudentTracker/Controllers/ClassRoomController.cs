@@ -9,50 +9,48 @@ using System.Web.Mvc;
 
 namespace StudentTracker.Controllers
 {
-    public class SectionController : BaseController
+    public class ClassRoomController : BaseController
     {
-        private StudentContext db = new StudentContext();
-
-        //
-        // GET: /Subject/
-
+        StudentContext db = new StudentContext();
         public ActionResult Index()
         {
             return View();
         }
 
         //
-        // GET: /Subject/Details/5
+        // GET: /Class/Details/5
 
         public ActionResult Details(long id = 0)
         {
-            Section objSection = db.Sections.Find(id);
-            if (objSection == null)
+            ClassRoom objClass = db.ClassRooms.Find(id);
+            if (objClass == null)
             {
                 return HttpNotFound();
             }
-            return PartialView(objSection);
+            return PartialView(objClass);
         }
 
-       //GET CREATE
+        //
+        // GET: /Class/Create
+
         public ActionResult Create()
         {
-            Section objSection = new Section();
-            objSection.ClassList = LoadSelectLists();
-            return PartialView(objSection);
+            ClassRoom objClass = new ClassRoom();
+            objClass.DepartmentList = LoadSelectList();
+            return PartialView(objClass);
         }
 
-        //POST CREATE
+        //create post
         [HttpPost]
-        public string Create(Section section)
+        public string Create(ClassRoom objClass)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    section.InsertedOn = DateTime.Now;
-                    section.CreatedBy = _userStatistics.UserId;
-                    db.Sections.Add(section);
+                    objClass.InsertedOn = DateTime.Now;
+                    objClass.InsertedBy = _userStatistics.UserId;
+                    db.ClassRooms.Add(objClass);
                     db.SaveChanges();
                     return Convert.ToString(true);
                 }
@@ -65,29 +63,33 @@ namespace StudentTracker.Controllers
             }
         }
 
-       //GET EDIT
+        //
+        // GET: /Class/Edit/5
+
         public ActionResult Edit(long id = 0)
         {
-            Section objSection = db.Sections.Find(id);
-            if (objSection == null)
+            ClassRoom objClass = db.ClassRooms.Find(id);
+            if (objClass == null)
             {
                 return HttpNotFound();
             }
-            objSection.ClassList = LoadSelectLists(objSection.ClassId);
-            return PartialView(objSection);
+            objClass.DepartmentList = LoadSelectList(objClass.DepartmentId);
+            return PartialView(objClass);
         }
 
-        //POST EDIT
+        //
+        // POST: /Class/Edit/5
+
         [HttpPost]
-        public string Edit(Section objSection)
+        public string Edit(ClassRoom objClass)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    objSection.ModifiedOn = DateTime.Now;
-                    objSection.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(objSection).State = EntityState.Modified;
+                    objClass.ModifiedOn = DateTime.Now;
+                    objClass.ModifiedBy = _userStatistics.UserId;
+                    db.Entry(objClass).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);
                 }
@@ -99,14 +101,13 @@ namespace StudentTracker.Controllers
             }
         }
 
-        //DELETE SECTION
         [HttpPost]
         public string DeleteConfirmed(long id)
         {
             try
             {
-                Section section = db.Sections.Find(id);
-                db.Sections.Remove(section);
+                ClassRoom objClass = db.ClassRooms.Find(id);
+                db.ClassRooms.Remove(objClass);
                 db.SaveChanges();
                 return Convert.ToString(true);
             }
@@ -116,17 +117,14 @@ namespace StudentTracker.Controllers
             }
         }
 
-        //VIEW ALL SECTIONS
-        public ActionResult ViewSections()
+        public ActionResult ViewClassRooms()
         {
-            List<Section> sectionList = db.Sections.ToList();
-            return PartialView(sectionList);
+            List<ClassRoom> classList = db.ClassRooms.ToList();
+            return PartialView(classList);
         }
-
-        //LOAD SELECT LIST
-        public SelectList LoadSelectLists(long id = -1)
+        public SelectList LoadSelectList(long id = -1)
         {
-            SelectList list = new SelectList(db.Classes.ToList(), "ClassId", "ClassName", id);
+            SelectList list = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName", id);
             return list;
         }
 
@@ -135,6 +133,5 @@ namespace StudentTracker.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
     }
 }

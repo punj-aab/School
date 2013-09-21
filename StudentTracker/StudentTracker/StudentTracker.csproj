@@ -127,6 +127,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
+    <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +147,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\alertify.core.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -404,6 +406,7 @@
     <Content Include="Content\themes\custom\icomoon\fonts\icomoon.woff" />
     <Content Include="Areas\SAS\Views\Web.config" />
     <Content Include="Areas\SAS\Views\SASHome\Index.cshtml" />
+    <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\shBrushJScript.js" />
@@ -466,6 +469,7 @@
     <Content Include="Scripts\jquery-ui-1.10.3.js" />
     <Content Include="Scripts\jquery-ui-1.10.3.min.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -537,6 +541,11 @@
     <Content Include="Views\Section\Edit.cshtml" />
     <Content Include="Views\Section\Details.cshtml" />
     <Content Include="Views\Section\ViewSections.cshtml" />
+    <Content Include="Views\ClassRoom\Index.cshtml" />
+    <Content Include="Views\ClassRoom\Details.cshtml" />
+    <Content Include="Views\ClassRoom\Create.cshtml" />
+    <Content Include="Views\ClassRoom\Edit.cshtml" />
+    <Content Include="Views\ClassRoom\ViewClassRooms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

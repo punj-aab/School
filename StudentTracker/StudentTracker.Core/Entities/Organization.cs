@@ -114,6 +114,8 @@
         [NotMapped]
         public SelectList OrganizationTypeList { get; set; }
 
+        [ForeignKey("CreatedBy")]
+        public virtual User Users { get; set; }
 
     }
 }

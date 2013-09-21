@@ -10,7 +10,7 @@ using StudentTracker.Core.DAL;
 
 namespace StudentTracker.Controllers
 {
-    public class ClassController : Controller
+    public class ClassController : BaseController
     {
         private StudentContext db = new StudentContext();
 
@@ -41,7 +41,12 @@ namespace StudentTracker.Controllers
         public ActionResult Create()
         {
             Class objClass = new Class();
-            objClass.OrganizationList = LoadSelectList();
+            SelectList organizationList;
+            SelectList courseList;
+            LoadSelectLists(out organizationList, out courseList);
+            objClass.OrganizationList = organizationList;
+            objClass.CourseList = courseList;
+            objClass.OrganizationId = ViewBag.OrganizationId == null ? 0 : ViewBag.OrganizationId;
             return PartialView(objClass);
         }
 
@@ -56,6 +61,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     objClass.InsertedOn = DateTime.Now;
+                    objClass.InsertedBy = _userStatistics.UserId;
                     db.Classes.Add(objClass);
                     db.SaveChanges();
                     return Convert.ToString(true);
@@ -79,7 +85,12 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
-            objClass.OrganizationList = LoadSelectList(objClass.OrganizationId);
+            SelectList organizationList;
+            SelectList courseList;
+            LoadSelectLists(out organizationList, out courseList, objClass.OrganizationId, objClass.CourseId);
+            objClass.OrganizationList = organizationList;
+            objClass.CourseList = courseList;
+            objClass.OrganizationId = ViewBag.OrganizationId == null ? objClass.OrganizationId : ViewBag.OrganizationId;
             return PartialView(objClass);
         }
 
@@ -94,6 +105,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     objClass.ModifiedOn = DateTime.Now;
+                    objClass.ModifiedBy = _userStatistics.UserId;
                     db.Entry(objClass).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);
@@ -134,10 +146,39 @@ namespace StudentTracker.Controllers
             return PartialView(classList);
         }
 
-        public SelectList LoadSelectList(long organizationId = -1)
+        private void LoadSelectLists(out SelectList organizationList, out SelectList courseList, long organizationId = -1, long courseId = -1)
         {
-            SelectList list = new SelectList(db.Organizations.ToList(), "OrganizationId", "OrganizationName", organizationId);
-            return list;
+            organizationList = null;
+            courseList = null;
+            List<Organization> objOrganizationList = null;
+            List<Course> objCourseList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                objOrganizationList = db.Organizations.ToList();
+                if (organizationId != -1)
+                {
+                    objCourseList = db.Courses.Where(x => x.OrganisationId == organizationId).ToList();
+                }
+                else
+                {
+                    objCourseList = new List<Course>();
+                }
+            }
+            else
+            {
+                var organization = db.Organizations.Single(x => x.CreatedBy == _userStatistics.UserId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
+                objCourseList = db.Courses.Where(x => x.OrganisationId == organization.OrganizationId).ToList();
+            }
+            organizationList = new SelectList(objOrganizationList, "OrganizationId", "OrganizationName", organizationId);
+            courseList = new SelectList(objCourseList, "CourseId", "CourseName", courseId);
+        }
+
+        public JsonResult GetCourse(long id)
+        {
+            List<Course> courseList = db.Courses.Where(x => x.OrganisationId == id).ToList();
+            return Json(courseList, JsonRequestBehavior.AllowGet);
         }
     }
 }

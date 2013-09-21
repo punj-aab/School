@@ -19,22 +19,35 @@ namespace StudentTracker.Core.Entities
 
         [Required]
         [Display(Name = "Description")]
+        
         [DataType(DataType.MultilineText)]
         public string SubjectDescription { get; set; }
 
         [Required]
         public long CourseId { get; set; }
+        
         [ScaffoldColumn(false)]
-        public string InsertedOn { get; set; }
+        public DateTime InsertedOn { get; set; }
+        
         [ScaffoldColumn(false)]
-        public string CreatedBy { get; set; }
+        public long CreatedBy { get; set; }
+        
         [ScaffoldColumn(false)]
-        public string ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
+        
         [ScaffoldColumn(false)]
-        public string ModifiedBy { get; set; }
+        public long ModifiedBy { get; set; }
 
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; }
+
+        public long ClassId { get; set; }
+
+        [ForeignKey("ClassId")]
+        public virtual Class Classes { get; set; }
+
+        [NotMapped]
+        public SelectList ClassList { get; set; }
 
         [NotMapped]
         public SelectList CourseList { get; set; }

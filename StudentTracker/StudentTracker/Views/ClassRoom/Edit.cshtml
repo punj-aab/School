@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.Class
+﻿@model StudentTracker.Core.Entities.ClassRoom
 
 @{
     ViewBag.Title = "Create";
@@ -22,34 +22,24 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m=>m.ClassRoomId)
+                    @Html.HiddenFor(m=>m.InsertedOn)
+                    @Html.HiddenFor(m=>m.InsertedBy)
                     <div class="control-group">
-                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
                         <div class="controls">
-                            @if (User.IsInRole("SiteAdmin"))
-                            {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourse", getType = "Course" })
-                                @Html.ValidationMessageFor(m => m.OrganizationId)
-                            }
-                            else
-                            {
-                                @ViewBag.Organization
-                                @Html.HiddenFor(m => m.OrganizationId)
-                            }
+
+                            @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.DepartmentId)
+
                         </div>
                     </div>
+                                       
                     <div class="control-group">
-                        @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.CourseId)
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.ClassName, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.Name, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.TextBoxFor(m => m.ClassName, new { placeholder = "Class Name", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.ClassName)
+                            @Html.TextBoxFor(m => m.Name, new { placeholder = " room Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Name)
                         </div>
                     </div>
                     <div class="control-group">
@@ -60,8 +50,16 @@
                         </div>
                     </div>
                     
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Location, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Location, new { placeholder = "Location", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Location)
+                        </div>
+                    </div>
+                    
                     <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Class</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
                         <div class="clearfix">
                         </div>
                     </div>

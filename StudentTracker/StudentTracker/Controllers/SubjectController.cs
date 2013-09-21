@@ -41,7 +41,11 @@ namespace StudentTracker.Controllers
         public ActionResult Create()
         {
             Subject objSubject = new Subject();
-            objSubject.CourseList = LoadSelectLists();
+            SelectList courseList = null;
+            SelectList classList = null;
+            LoadSelectLists(out classList, out courseList);
+            objSubject.CourseList = courseList;
+            objSubject.ClassList = classList;
             return PartialView(objSubject);
         }
 
@@ -55,12 +59,13 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    subject.InsertedOn = DateTime.Now;
+                    subject.CreatedBy = _userStatistics.UserId;
                     db.Subjects.Add(subject);
                     db.SaveChanges();
                     return Convert.ToString(true);
                 }
 
-                ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", subject.CourseId);
                 return Convert.ToString(false);
             }
             catch (Exception ex)
@@ -79,7 +84,11 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
-            subject.CourseList = LoadSelectLists(subject.CourseId);
+            SelectList courseList = null;
+            SelectList classList = null;
+            LoadSelectLists(out classList, out courseList, subject.ClassId, subject.CourseId);
+            subject.CourseList = courseList;
+            subject.ClassList = classList;
             return PartialView(subject);
         }
 
@@ -93,6 +102,8 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    subject.ModifiedOn = DateTime.Now;
+                    subject.ModifiedBy = _userStatistics.UserId;
                     db.Entry(subject).State = EntityState.Modified;
                     db.SaveChanges();
                     return Convert.ToString(true);
@@ -129,18 +140,44 @@ namespace StudentTracker.Controllers
             return PartialView(subjectList);
         }
 
-        public SelectList LoadSelectLists(long id = -1)
+        private void LoadSelectLists(out SelectList classList, out SelectList courseList, long classId = -1, long courseId = -1)
         {
-            SelectList list = null;
-            if (id == -1)
+            classList = null;
+            courseList = null;
+            List<Course> objCourseList = null;
+            List<Class> objClassList = null;
+            if (User.IsInRole("SiteAdmin"))
             {
-                list = new SelectList(db.Courses.ToList(), "CourseId", "CourseName", "");
+                objCourseList = db.Courses.ToList();
+                if (courseId != -1)
+                {
+                    objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();
+                }
+                else
+                {
+                    objClassList = new List<Class>();
+                }
             }
             else
             {
-                list = new SelectList(db.Courses.ToList(), "CourseId", "CourseName", id);
+                objCourseList = db.Courses.Where(x => x.OrganisationId == _userStatistics.UserId).ToList();
+                if (courseId != -1)
+                {
+                    objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();
+                }
+                else
+                {
+                    objClassList = new List<Class>();
+                }
             }
-            return list;
+            courseList = new SelectList(objCourseList, "CourseId", "CourseName", courseId);
+            classList = new SelectList(objClassList, "ClassId", "ClassName", classId);
+        }
+
+        public JsonResult GetClasses(long id)
+        {
+            List<Class> classList = db.Classes.Where(x => x.CourseId == id).ToList();
+            return Json(classList, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

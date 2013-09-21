@@ -32,14 +32,23 @@ namespace StudentTracker.Core.Entities
 
         [ScaffoldColumn(false)]
         public long? ModifiedBy { get; set; }
-        
+
         [Required]
         public long OrganizationId { get; set; }
 
         [NotMapped]
         public SelectList OrganizationList { get; set; }
 
-        [ForeignKey("ClassId")]
+        [ForeignKey("OrganizationId")] //only for site admin
         public virtual Organization Organizations { get; set; }
+
+        [Required]
+        public long CourseId { get; set; }
+
+        [ForeignKey("CourseId")]
+        public virtual Course Courses { get; set; }
+
+        [NotMapped]
+        public SelectList CourseList { get; set; }
     }
 }

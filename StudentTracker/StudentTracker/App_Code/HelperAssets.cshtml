@@ -5,6 +5,7 @@
 @********************************* Custom Javascript Helpers ****************************************************@
 @helper SaveAndLoadData(string controller, string resultView)
 {
+    <script src="~/Scripts/alertify.min.js"></script>
     <script type="text/javascript">
 
         //this function is used to validate and saving the data.
@@ -82,85 +83,142 @@
 
         //DELETE RECORD
         function Delete(e) {
-            var conf = confirm('Continue delete?');
-            if (conf) {
-                var action = $(e.target).attr('action');
-                var url = '@controller' + action;
-                var id = $(e.target).attr('itemId');
-                var $this = $(e.target)
-                $.ajax({
-                    type: 'POST',
-                    url: url,
-                    data: {
-                        id: id
-                    },
-                    success: function (response) {
-                        /*if (response == 'True') {
-                            jQuery($this).parents('tr').fadeOut(function () {
-                                jQuery($this).remove();
-                            });
-                        }*/
-                        AfterSuccess('@resultView');
-                        //  $('div.dashboard-wrapper').unblock();
-                    },
-                    error: function () { }
-                });
-                }
-            }
-
-            //EDIT RECORD
-            function Edit(e) {
-                LoadViewById(e);
-            }
-
-            //LOAD REGIONS BY COUNTRY
-            function loadRegionsByCountry(e) {
-                var countryId = $(e.target).val();
-                var url = '@controller' + 'GetRegions';
-                $('#RegionId').html('<option>--Select Region--</option>');
-                var row = '';
-                if (countryId == '') {
-                    return false;
-                }
-                else {
+            //var conf = confirm('Continue delete?');
+            alertify.confirm("This is a confirm dialog", function (conf) {
+                if (conf) {
+                    var action = $(e.target).attr('action');
+                    var url = '@controller' + action;
+                    var id = $(e.target).attr('itemId');
+                    var $this = $(e.target)
                     $.ajax({
-                        type: 'GET',
+                        type: 'POST',
                         url: url,
                         data: {
-                            id: countryId
+                            id: id
                         },
                         success: function (response) {
-                            $.each(response, function (index, value) {
-                                row += '<option value=' + value.Id + '>' + value.name + '</option>';
-                            });
-                            $('#RegionId').append(row);
+                            /*if (response == 'True') {
+                                jQuery($this).parents('tr').fadeOut(function () {
+                                    jQuery($this).remove();
+                                });
+                            }*/
+                            alertify.success("Record successfully deleted.");
+                            AfterSuccess('@resultView');
+                            // var row = jQuery($this).parents('tr');
+                            //$('#data-table').dataTable().fnDeleteRow(row)
+                            //  $('div.dashboard-wrapper').unblock();
                         },
                         error: function () { }
-                    })
+                    });
                 }
-            }
+                else {
+                    alertify.error("You've clicked Cancel");
+                }
+            });
+        }
 
-            //This function is used to serialize a form into json object.
-            $.fn.serializeObject = function () {
-                var o = {};
-                var a = this.serializeArray();
-                $.each(a, function () {
-                    if (o[this.name] !== undefined) {
-                        if (!o[this.name].push) {
-                            o[this.name] = [o[this.name]];
-                        }
-                        o[this.name] = this.value || '';
-                    } else {
-                        o[this.name] = this.value || '';
-                    }
-                });
-                return o;
-            };
+        //EDIT RECORD
+        function Edit(e) {
+            LoadViewById(e);
+        }
 
-            //this function is used to switch to viewmode.
-            function Cancel() {
+        //LOAD REGIONS BY COUNTRY
+        function loadRegionsByCountry(e) {
+            var countryId = $(e.target).val();
+            var url = '@controller' + 'GetRegions';
+                               $('#RegionId').html('<option>--Select Region--</option>');
+                               var row = '';
+                               if (countryId == '') {
+                                   return false;
+                               }
+                               else {
+                                   $.ajax({
+                                       type: 'GET',
+                                       url: url,
+                                       data: {
+                                           id: countryId
+                                       },
+                                       success: function (response) {
+                                           $.each(response, function (index, value) {
+                                               row += '<option value=' + value.Id + '>' + value.name + '</option>';
+                                           });
+                                           $('#RegionId').append(row);
+                                       },
+                                       error: function () { }
+                                   })
+                               }
+                           }
 
-            }
+                           function GetData(e) {
+                               var id = $(e.target).val();
+                               var action = $(e.target).attr('action');
+                               var type = $(e.target).attr('getType');
+                               var url = '@controller' + action;
+                                $('#' + type + 'Id').html('<option>--Select ' + type + '--</option>');
+                                var row = '';
+                                if (id == '') {
+                                    return false;
+                                }
+                                else {
+                                    $.ajax({
+                                        type: 'GET',
+                                        url: url,
+                                        data: {
+                                            id: id
+                                        },
+                                        success: function (response) {
+                                            $.each(response, function (index, value) {
+                                                switch (type) {
+                                                    case 'Class':
+                                                        row += '<option value=' + value.ClassId + '>' + value.ClassName + '</option>';
+                                                        break;
+                                                    case 'Course':
+                                                        row += '<option value=' + value.CourseId + '>' + value.CourseName + '</option>';
+                                                        break;
+                                                }
+
+                                            });
+                                            $('#' + type + 'Id').append(row);
+                                        },
+                                        error: function () { }
+                                    })
+                                }
+                            }
+
+                            //This function is used to serialize a form into json object.
+                            $.fn.serializeObject = function () {
+                                var o = {};
+                                var a = this.serializeArray();
+                                $.each(a, function () {
+                                    if (o[this.name] !== undefined) {
+                                        if (!o[this.name].push) {
+                                            o[this.name] = [o[this.name]];
+                                        }
+                                        o[this.name] = this.value || '';
+                                    } else {
+                                        o[this.name] = this.value || '';
+                                    }
+                                });
+                                return o;
+                            };
+
+                            //this function is used to switch to viewmode.
+                            //Alertify JS
+                            //$ = function (id) {
+                            //    return document.getElementById(id);
+                            //},
+                            //reset = function () {
+                            //    $("toggleCSS").href = "Content/alertify.core.css";
+                            //    alertify.set({
+                            //        labels: {
+                            //            ok: "OK",
+                            //            cancel: "Cancel"
+                            //        },
+                            //        delay: 5000,
+                            //        buttonReverse: false,
+                            //        buttonFocus: "ok"
+                            //    });
+                            //};
     </script>
 }
 

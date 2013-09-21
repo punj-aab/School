@@ -58,6 +58,7 @@
     <Compile Include="DAL\DataContextInitializer.cs" />
     <Compile Include="DAL\StudentContext.cs" />
     <Compile Include="Entities\Class.cs" />
+    <Compile Include="Entities\ClassRoom.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Department.cs" />
