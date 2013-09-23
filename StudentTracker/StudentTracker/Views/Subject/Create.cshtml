@@ -25,17 +25,22 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
+
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6",onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
                             @Html.ValidationMessageFor(m => m.CourseId)
+
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
                         <div class="controls">
+
                             @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.CourseId)
+                            @Html.ValidationMessageFor(m => m.ClassId)
+
                         </div>
                     </div>
+                                       
                     <div class="control-group">
                         @Html.LabelFor(m => m.SubjectName, new { Class = "control-label" })
                         <div class="controls controls-row">
@@ -50,12 +55,9 @@
                             @Html.ValidationMessageFor(m => m.SubjectDescription)
                         </div>
                     </div>
-                    
+                                        
                     <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAddOrg">Add Subject</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Subject</a>
                         <div class="clearfix">
                         </div>
                     </div>

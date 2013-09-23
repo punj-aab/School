@@ -177,7 +177,7 @@ namespace StudentTracker.Controllers
 
         public JsonResult GetCourse(long id)
         {
-            List<Course> courseList = db.Courses.Where(x => x.OrganisationId == id).ToList();
+            List<Course> courseList = db.Courses.Include("Organization").Where(x => x.OrganisationId == id).ToList();
             return Json(courseList, JsonRequestBehavior.AllowGet);
         }
     }

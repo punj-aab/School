@@ -1,0 +1,112 @@
+﻿@model StudentTracker.Core.Entities.Schedule
+
+@{
+    ViewBag.Title = "Edit";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Modify Schedule
+                      <span class="mini-title">Simple form for modify Schedule
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m=>m.ScheduleId)
+                    @Html.HiddenFor(m=>m.InsertedOn)
+                    @Html.HiddenFor(m=>m.InsertedBy)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourse", getType = "Course" })
+                            @Html.ValidationMessageFor(m => m.OrganizationId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClass", getType = "Class" })
+                            @Html.ValidationMessageFor(m => m.CourseId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6",onChange = "GetData(event)", action = "GetSubject", getType = "Subject"  })
+                            @Html.ValidationMessageFor(m => m.ClassId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.SubjectId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.SubjectId, Model.SubjectList, "Select Subject", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.SubjectId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department", new { Class = "span6",onChange = "GetData(event)", action = "GetClassRoom", getType = "ClassRoom"  })
+                            @Html.ValidationMessageFor(m => m.DepartmentId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ClassRoomId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.ClassRoomId, Model.ClassRoomList, "Select ClassRoom", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.ClassRoomId)
+
+                        </div>
+                    </div>
+                                       
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ScheduleName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.TextBoxFor(m => m.ScheduleName, new { placeholder = "Schedule Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.ScheduleName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions no-margin">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

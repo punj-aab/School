@@ -126,99 +126,142 @@
         function loadRegionsByCountry(e) {
             var countryId = $(e.target).val();
             var url = '@controller' + 'GetRegions';
-                               $('#RegionId').html('<option>--Select Region--</option>');
-                               var row = '';
-                               if (countryId == '') {
-                                   return false;
-                               }
-                               else {
-                                   $.ajax({
-                                       type: 'GET',
-                                       url: url,
-                                       data: {
-                                           id: countryId
-                                       },
-                                       success: function (response) {
-                                           $.each(response, function (index, value) {
-                                               row += '<option value=' + value.Id + '>' + value.name + '</option>';
-                                           });
-                                           $('#RegionId').append(row);
-                                       },
-                                       error: function () { }
-                                   })
-                               }
-                           }
+            $('#RegionId').html('<option>--Select Region--</option>');
+            var row = '';
+            if (countryId == '') {
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data: {
+                        id: countryId
+                    },
+                    success: function (response) {
+                        $.each(response, function (index, value) {
+                            row += '<option value=' + value.Id + '>' + value.name + '</option>';
+                        });
+                        $('#RegionId').append(row);
+                    },
+                    error: function () { }
+                })
+            }
+        }
 
-                           function GetData(e) {
-                               var id = $(e.target).val();
-                               var action = $(e.target).attr('action');
-                               var type = $(e.target).attr('getType');
-                               var url = '@controller' + action;
-                                $('#' + type + 'Id').html('<option>--Select ' + type + '--</option>');
-                                var row = '';
-                                if (id == '') {
-                                    return false;
-                                }
-                                else {
-                                    $.ajax({
-                                        type: 'GET',
-                                        url: url,
-                                        data: {
-                                            id: id
-                                        },
-                                        success: function (response) {
-                                            $.each(response, function (index, value) {
-                                                switch (type) {
-                                                    case 'Class':
-                                                        row += '<option value=' + value.ClassId + '>' + value.ClassName + '</option>';
-                                                        break;
-                                                    case 'Course':
-                                                        row += '<option value=' + value.CourseId + '>' + value.CourseName + '</option>';
-                                                        break;
-                                                }
-
-                                            });
-                                            $('#' + type + 'Id').append(row);
-                                        },
-                                        error: function () { }
-                                    })
-                                }
+        function GetData(e) {
+            var id = $(e.target).val();
+            var action = $(e.target).attr('action');
+            var type = $(e.target).attr('getType');
+            var url = '@controller' + action;
+            $('#' + type + 'Id').html('<option>--Select ' + type + '--</option>');
+            var row = '';
+            if (id == '') {
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    contentType: 'application/json;',
+                    data: {
+                        id: id
+                    },
+                    success: function (response) {
+                        $.each(response, function (index, value) {
+                            switch (type) {
+                                case 'Class':
+                                    row += '<option value=' + value.ClassId + '>' + value.ClassName + '</option>';
+                                    break;
+                                case 'Course':
+                                    row += '<option value=' + value.CourseId + '>' + value.CourseName + '</option>';
+                                    break;
+                                case 'Subject':
+                                    row += '<option value=' + value.SubjectId + '>' + value.SubjectName + '</option>';
+                                    break;
+                                case 'ClassRoom':
+                                    row += '<option value=' + value.ClassRoomId + '>' + value.Name + '</option>';
+                                    break;
+                                case 'Department':
+                                    row += '<option value=' + value.DepartmentId + '>' + value.DepartmentName + '</option>';
+                                    break;
                             }
+                        });
+                        $('#' + type + 'Id').append(row);
+                    },
+                    error: function () { }
+                })
+            }
+        }
 
-                            //This function is used to serialize a form into json object.
-                            $.fn.serializeObject = function () {
-                                var o = {};
-                                var a = this.serializeArray();
-                                $.each(a, function () {
-                                    if (o[this.name] !== undefined) {
-                                        if (!o[this.name].push) {
-                                            o[this.name] = [o[this.name]];
-                                        }
-                                        o[this.name] = this.value || '';
-                                    } else {
-                                        o[this.name] = this.value || '';
-                                    }
-                                });
-                                return o;
-                            };
+        //Get Department and Course
+        function GetCourseAndDepartment(e) {
+            var itemId = $(e.target).val();
+            var action = $(e.target).attr('action');
+            var url = '@controller' + action;
+            $('#CourseId').html('<option>--Select Course--</option>');
+            $('#DepartmentId').html('<option>--Select Department--</option>');
+            var rowCourse = '';
+            var rowDepartment = '';
+            if (itemId == '') {
+                return false;
+            }
+            else {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    data: {
+                        id: itemId
+                    },
+                    success: function (response) {
+                        $.each(response.CourseList, function (index, value) {
+                            rowCourse += '<option value=' + value.CourseId + '>' + value.CourseName + '</option>';
+                        });
+                        $.each(response.DepartmentList, function (index, value) {
+                            rowDepartment += '<option value=' + value.DepartmentId + '>' + value.DepartmentName + '</option>';
+                        });
+                        $('#CourseId').append(rowCourse);
+                        $('#DepartmentId').append(rowDepartment);
+                    },
+                    error: function () { }
+                })
+            }
+        }
 
-                            //this function is used to switch to viewmode.
-                            //Alertify JS
-                            //$ = function (id) {
-                            //    return document.getElementById(id);
-                            //},
-                            //reset = function () {
-                            //    $("toggleCSS").href = "Content/alertify.core.css";
-                            //    alertify.set({
-                            //        labels: {
-                            //            ok: "OK",
-                            //            cancel: "Cancel"
-                            //        },
-                            //        delay: 5000,
-                            //        buttonReverse: false,
-                            //        buttonFocus: "ok"
-                            //    });
-                            //};
+        //This function is used to serialize a form into json object.
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name] = this.value || '';
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        //this function is used to switch to viewmode.
+        //Alertify JS
+        //$ = function (id) {
+        //    return document.getElementById(id);
+        //},
+        //reset = function () {
+        //    $("toggleCSS").href = "Content/alertify.core.css";
+        //    alertify.set({
+        //        labels: {
+        //            ok: "OK",
+        //            cancel: "Cancel"
+        //        },
+        //        delay: 5000,
+        //        buttonReverse: false,
+        //        buttonFocus: "ok"
+        //    });
+        //};
     </script>
 }
 

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.Schedule>
+@{
+    ViewBag.Title = "ViewSubjects";
+}
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    View Class Rooms<a id="dynamicTable"></a>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                <div id="dt_example" class="example_alt_pagination">
+                    <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.ScheduleName)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Departments.DepartmentName)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                @*<th>@Html.DisplayNameFor(model => model.Location)</th>*@
+                                <th>@Html.DisplayNameFor(model => model.InsertedOn)</th>
+                                <th>@Html.DisplayNameFor(model => model.InsertedBy)</th>
+                                <th>@Html.DisplayNameFor(model => model.ModifiedOn)</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(model => item.ScheduleName)</td>
+                                    @*<td>@Html.DisplayFor(model => item.Departments.DepartmentName)</td>*@
+                                    <td>@Html.DisplayFor(model => item.Description)</td>
+                                    @*<td>@Html.DisplayFor(model => item.Location)</td>*@
+                                    <td>@Html.DisplayFor(model => item.InsertedOn)</td>
+                                    <td>@Html.DisplayFor(model => item.InsertedBy)</td>
+                                    <td>@Html.DisplayFor(model => item.ModifiedOn)</td>
+                                    <td>
+
+
+
+
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                                Action 
+                               
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="lnkDetails" href="#" itemId="@item.ScheduleId" action="Details" onclick="LoadViewById(event)">Details</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkEdit" href="#" action="Edit" itemId="@item.ScheduleId" onclick="LoadViewById(event)">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkDelete" href="#" itemId="@item.ScheduleId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@if (Request.IsAjaxRequest())
+{
+    @HelperAssets.DataTable()
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lnkViewAll').addClass('selected');
+        });
+    </script>
+}
+
+
+
+
