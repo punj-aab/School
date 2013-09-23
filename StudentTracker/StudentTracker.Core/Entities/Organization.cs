@@ -18,7 +18,7 @@
         public long OrganizationId { get; set; }
 
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Organization Name")]
         public string OrganizationName { get; set; }
 
         [Required]

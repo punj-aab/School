@@ -67,6 +67,7 @@
     <Compile Include="Entities\Region.cs" />
     <Compile Include="Entities\RegistrationToken.cs" />
     <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Schedule.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\User.cs" />

@@ -17,7 +17,7 @@ public class Department
     public long DepartmentId { get; set; }
 
     [Required]
-    [Display(Name = "Name")]
+    [Display(Name = "Department Name")]
     public string DepartmentName { get; set; }
 
     [Required]
@@ -48,7 +48,7 @@ public class Department
     [ScaffoldColumn(false)]
     public long? DeletedBy { get; set; }
 
-    public virtual ICollection<Organization> Roles { get; set; }
+    public virtual Organization Organizations { get; set; }
 
     [NotMapped]
     public SelectList OrganizationList { get; set; }
