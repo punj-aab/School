@@ -25,7 +25,9 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.DepartmentDesc)
                                 </th>
-                                <th></th>
+                                <th>Organization</th>
+                                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                                <th>Manage</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,9 +41,30 @@
                                         @Html.DisplayFor(modelItem => item.DepartmentDesc)
                                     </td>
                                     <td>
-                                        <a class="lnkEdit" action="Edit" depId="@item.DepartmentId">Edit</a>
-                                        <a class="lnkDetails" depId="@item.DepartmentId" action="Details">Details</a>
-                                        <a class="lnkDelete" depId="@item.DepartmentId" action="DeleteConfirmed">Delete</a>
+                                        @Html.DisplayFor(modelItem => item.Organizations.OrganizationName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                                Action 
+                               
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="lnkDetails" href="#" itemId="@item.DepartmentId" action="Details" onclick="LoadViewById(event)">Details</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkEdit" href="#" action="Edit" itemId="@item.DepartmentId" onclick="LoadViewById(event)">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkDelete" href="#" itemId="@item.DepartmentId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -55,44 +78,14 @@
     </div>
 
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#data-table').dataTable({
-            "sPaginationType": "full_numbers"
+@if (Request.IsAjaxRequest())
+{
+    @HelperAssets.DataTable()
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lnkViewAll').addClass('selected');
         });
+    </script>
+}
 
-        //EDIT
-        $('.lnkEdit').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('depId');
-            LoadDepartmets(url, id);
-        });
-
-        //DETAILS
-        $('.lnkDetails').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('depId');
-            LoadDepartmets(url, id);
-        });
-
-        //DELETE
-        $('.lnkDelete').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('depId');
-            $.ajax({
-                type: 'POST',
-                url: '/Department/' + url,
-                data: {
-                    id: id
-                },
-                success: function (response) {
-                    LoadAjax('ViewDepartments');
-                },
-                error: function () { }
-            });
-        });
-    });
-
-
-</script>
 

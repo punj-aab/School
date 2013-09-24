@@ -7,11 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="courses selected" href="#" action="ViewCourses">View Courses
+            <a class="subButton" id="lnkViewAll" href="#" onclick="LoadAjax(event)" action="ViewCourses">View Courses
             </a>
         </li>
         <li>
-            <a class="courses" href="#" action="Create">Add Course
+            <a id="lnkAddNew" class="subButton" href="#" onclick="LoadAjax(event)" action="Create">Add Course
             </a>
         </li>
     </ul>
@@ -34,66 +34,18 @@
 </div>
 @section Scripts
 {
-    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
 
         $(document).ready(function () {
             $('.lnkCourses').addClass('selected');
-            LoadAjax('ViewCourses');
-            $('.courses').click(function () {
-                $('a.courses').removeClass('selected');
+            $('#lnkViewAll').addClass('selected');
+            $('.subButton').click(function () {
+                $("a.subButton").removeClass('selected');
                 $(this).addClass('selected');
-                var action = $(this).attr("action");
-                LoadAjax(action);
             });
         });
-
-        //LOAD HTML IN COURSE VIEWS
-        function LoadAjax(action) {
-            $.ajax({
-                type: 'GET',
-                url: '/Course/' + action,
-                success: function (response) {
-                    $('#divOuter').html('');
-                    $('#divOuter').html(response);
-                },
-                error: function () { }
-            });
-        }
-
-        //LOAD COURSE BY ID
-        function LoadCourses(action, id) {
-            $.ajax({
-                type: 'GET',
-                url: '/Course/' + action,
-                data: {
-                    id: id
-                },
-                success: function (response) {
-                    $('#divOuter').html('');
-                    $('#divOuter').html(response);
-                },
-                error: function () { }
-            });
-        }
-
-        //This function is used to serialize a form into json object.
-        $.fn.serializeObject = function () {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function () {
-                if (o[this.name] !== undefined) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name] = this.value || '';
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
-
-
     </script>
+  @HelperAssets.LoadAjaxData("/Course/");
+  @HelperAssets.DataTable();
+  @HelperAssets.SaveAndLoadData("/Course/", "ViewCourses");
 }

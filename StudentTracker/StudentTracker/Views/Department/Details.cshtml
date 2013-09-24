@@ -25,20 +25,6 @@
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.DepartmentId)
                     <div class="control-group">
-                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
-                        <div class="controls">
-                            @if (User.IsInRole("SiteAdmin"))
-                            {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { disabled = "disabled" })
-                            }
-                            else
-                            {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { disabled = "disabled" })
-                            }
-                            @Html.ValidationMessageFor(m => m.OrganizationId)
-                        </div>
-                    </div>
-                    <div class="control-group">
                         @Html.LabelFor(m => m.DepartmentName, new { Class = "control-label" })
                         <div class="controls controls-row">
                             @Html.DisplayFor(m => m.DepartmentName)
@@ -51,11 +37,29 @@
                             @Html.DisplayFor(m => m.DepartmentDesc)
                         </div>
                     </div>
+                    <div class="control-group">
+                        <label class="control-label">Organization</label>
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.Organizations.OrganizationName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CreatedDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.CreatedDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.UpdatedDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.UpdatedDate)
+                        </div>
+                    </div>
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" id="lnkEdit">Edit Organization</a>
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.DepartmentId" onclick="Edit(event)" id="lnkEdit">Edit</a>
 
                         <div class="clearfix">
                         </div>
@@ -68,23 +72,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#data-table').dataTable({
-            "sPaginationType": "full_numbers"
-        });
-
-        //EDIT
-        $('#lnkEdit').click(function () {
-            var url = $(this).attr('action');
-            var id = $('#DepartmentId').val();
-            LoadDepartmets(url, id);
-        });
-
-    });
-
-
-</script>
-
-

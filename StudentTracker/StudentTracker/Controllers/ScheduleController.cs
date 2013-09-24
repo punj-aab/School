@@ -13,7 +13,10 @@ namespace StudentTracker.Controllers
     public class ScheduleController : BaseController
     {
         StudentContext db = new StudentContext();
-
+        public ScheduleController()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+        }
         //Index for schedule
         public ActionResult Index()
         {
@@ -110,7 +113,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSchedules()
         {
-            return View(db.Schedules.ToList());
+            return PartialView(db.Schedules.ToList());
         }
 
         public Schedule LoadSelectLists(long scheduleId = -1)

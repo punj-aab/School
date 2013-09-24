@@ -51,10 +51,7 @@
                         </div>
                     </div>
                     <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" id="btnAddDept">Add Department</a>
+                       <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Department</a>
                         <div class="clearfix">
                         </div>
                     </div>
@@ -67,40 +64,4 @@
 
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // just for the demos, avoids form submit
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-        //var form = $("#myform");
-        //form.validate();
-        $("#btnAddDept").click(function (e) {
-            var form = $("#myform");
-            form.validate();
-            if (!form.valid()) {
-                e.preventDefault();
-                return;
-            }
-            var $this = $(this);
-            var objCandidate = $('#myform').serializeObject();
 
-            $.ajax({
-                url: '/Department/Create',
-                cache: false,
-                type: 'POST',
-                contentType: 'application/json;',
-                data: JSON.stringify(objCandidate),
-                success: function (data) {
-                    if (data == 'True') {
-                        //redirect to view page
-                        LoadAjax('ViewDepartments');
-                    }
-                },
-                error: function () { }
-            });
-
-        });
-    });
-</script>

@@ -31,16 +31,18 @@
                             $('#lnkAddNew').removeClass('selected');
                             $('#lnkViewAll').addClass('selected');
                             AfterSuccess('@resultView');
+                            alertify.success("Action successfully completed.");
                         }
                         else if (data == 'False') {
-                            alert('An error occured while processing your request');
+                            alertify.error('An error occured while processing your request');
                         }
                         else {
-                            $('.Error').html(data);
+                            alertify.error(data);
                         }
                     },
                     error: function (result, request) {
-                        alert('An error occured while processing your request');
+                        
+                        alertify.error('An error occured while processing your request');
                     }
                 });
             }
@@ -84,7 +86,7 @@
         //DELETE RECORD
         function Delete(e) {
             //var conf = confirm('Continue delete?');
-            alertify.confirm("This is a confirm dialog", function (conf) {
+            alertify.confirm("Sure to delete?", function (conf) {
                 if (conf) {
                     var action = $(e.target).attr('action');
                     var url = '@controller' + action;
@@ -97,12 +99,12 @@
                             id: id
                         },
                         success: function (response) {
-                            /*if (response == 'True') {
-                                jQuery($this).parents('tr').fadeOut(function () {
-                                    jQuery($this).remove();
-                                });
-                            }*/
-                            alertify.success("Record successfully deleted.");
+                            if (response == 'True') {
+                                alertify.success("Record successfully deleted.");
+                            }
+                            else {
+                                alertify.error(response);
+                            }
                             AfterSuccess('@resultView');
                             // var row = jQuery($this).parents('tr');
                             //$('#data-table').dataTable().fnDeleteRow(row)

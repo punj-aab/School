@@ -16,7 +16,10 @@ namespace StudentTracker.Controllers
 
         //
         // GET: /Subject/
-
+        public SubjectController()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+        }
         public ActionResult Index()
         {
             return View();
@@ -177,11 +180,6 @@ namespace StudentTracker.Controllers
         public JsonResult GetClasses(long id)
         {
             List<Class> classList = db.Classes.Where(x => x.CourseId == id).ToList();
-            for (int i = 0; i < classList.Count; i++)
-            {
-                classList[i].Courses = null;
-                classList[i].Organizations = null;
-            }
             return Json(classList, JsonRequestBehavior.AllowGet);
         }
 

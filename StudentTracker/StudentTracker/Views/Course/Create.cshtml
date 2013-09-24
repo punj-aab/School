@@ -53,7 +53,7 @@
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" id="btnAdd">Add Course</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Course</a>
                         <div class="clearfix">
                         </div>
                     </div>
@@ -65,66 +65,3 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        // just for the demos, avoids form submit
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: "valid"
-        });
-        //var form = $("#myform");
-        //form.validate();
-        $("#btnAdd").click(function (e) {
-            var form = $("#myform");
-            form.validate();
-            if (!form.valid()) {
-                e.preventDefault();
-                return;
-            }
-            var $this = $(this);
-            var objCandidate = $('#myform').serializeObject();
-
-            $.ajax({
-                url: '/Course/Create',
-                cache: false,
-                type: 'POST',
-                contentType: 'application/json;',
-                data: JSON.stringify(objCandidate),
-                success: function (data) {
-                    if (data == 'True') {
-                        //redirect to view page
-                       // $.growlUI('Growl Notification', 'Have a nice day!');
-                        LoadAjax('ViewCourses');
-                    }
-                    else if (data == 'False') {
-                        //errorCode
-                    }
-                    else {
-                        $('.Error').html(data);
-                    }
-                },
-                error: function () { }
-            });
-
-        });
-    });
-</script>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<style type="text/css">
-    /*div.growlUI {
-        background: url(check48.png) no-repeat 10px 10px;
-    }
-
-        div.growlUI h1, div.growlUI h2 {
-            color: white;
-            padding: 5px 5px 5px 75px;
-            text-align: left;
-        }
-
-        div.growlUI h2 {
-            font-size: medium;
-        }*/
-</style>

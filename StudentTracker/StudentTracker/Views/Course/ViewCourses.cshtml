@@ -35,9 +35,24 @@
                                     <th>@item.InsertedOn          </th>
                                     <th>@item.CreatedBy          </th>
                                     <td>
-                                        <a href="#" class="lnkEdit" action="Edit" itemId="@item.CourseId">Edit</a>
-                                        <a href="#" class="lnkDetails" itemId="@item.CourseId" action="Details">Details</a>
-                                        <a href="#" class="lnkDelete" itemId="@item.CourseId" action="DeleteConfirmed">Delete</a>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                                Action 
+                               
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="lnkDetails" href="#" itemId="@item.CourseId" action="Details" onclick="LoadViewById(event)">Details</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkEdit" href="#" action="Edit" itemId="@item.CourseId" onclick="LoadViewById(event)">Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="lnkDelete" href="#" itemId="@item.CourseId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -51,49 +66,12 @@
     </div>
 
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#data-table').dataTable({
-            "sPaginationType": "full_numbers"
+@if (Request.IsAjaxRequest())
+{
+    @HelperAssets.DataTable()
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lnkViewAll').addClass('selected');
         });
-
-        //EDIT
-        $('.lnkEdit').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('itemId');
-            LoadCourses(url, id);
-        });
-
-        //DETAILS
-        $('.lnkDetails').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('itemId');
-            LoadCourses(url, id);
-        });
-
-        //DELETE
-        $('.lnkDelete').click(function () {
-            var url = $(this).attr('action');
-            var id = $(this).attr('itemId');
-            $.ajax({
-                type: 'POST',
-                url: '/Course/' + url,
-                data: {
-                    id: id
-                },
-                success: function (response) {
-                    if (response == 'True') {
-                        LoadAjax('ViewCourses');
-                    }
-                    else {
-                        $('.Error').html(data);
-                    }
-                },
-                error: function () { }
-            });
-        });
-    });
-
-
-</script>
-
+    </script>
+}

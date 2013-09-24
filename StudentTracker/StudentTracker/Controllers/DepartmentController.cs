@@ -27,7 +27,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Department department = db.Departments.Find(id);
+            Department department = db.Departments.Include("Organizations").Where(x => x.DepartmentId == id).SingleOrDefault();
             if (department == null)
             {
                 return HttpNotFound();
@@ -128,18 +128,18 @@ namespace StudentTracker.Controllers
         // POST: /Department/Delete/5
 
         [HttpPost]
-        public bool DeleteConfirmed(long id)
+        public string DeleteConfirmed(long id)
         {
             try
             {
                 Department department = db.Departments.Find(id);
                 db.Departments.Remove(department);
                 db.SaveChanges();
-                return true;
+                return Convert.ToString(true);
             }
             catch (Exception ex)
             {
-                return false;
+                return ex.Message.ToString();
             }
         }
 
@@ -154,12 +154,12 @@ namespace StudentTracker.Controllers
             List<Department> objDepartmentsList = new List<Department>();
             if (User.IsInRole("SiteAdmin"))
             {
-                objDepartmentsList = db.Departments.ToList();
+                objDepartmentsList = db.Departments.Include("Organizations").ToList();
             }
             else
             {
                 var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
-                objDepartmentsList = db.Departments.Where(x => x.OrganizationId == organization.OrganizationId).ToList();
+                objDepartmentsList = db.Departments.Include("Organizations").Where(x => x.OrganizationId == organization.OrganizationId).ToList();
             }
 
             return PartialView(objDepartmentsList);
@@ -183,7 +183,7 @@ namespace StudentTracker.Controllers
 
                 //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
             }
-           
+
             return OrganizationList;
         }
     }
