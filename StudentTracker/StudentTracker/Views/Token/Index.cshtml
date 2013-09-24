@@ -133,8 +133,9 @@
                     type: 'POST',
                     contentType: 'application/json;',
                     data: JSON.stringify(objCandidate),
-                    success: function (data) {
-
+                    success: function (response) {
+                        console.log(response);
+                        $('#divOuter').html("<p><b>Your token is : " + response + "</p>");
                     },
                     error: function () { }
                 });
@@ -148,11 +149,29 @@
                     type: 'POST',
                     url: '/Token/' + action,
                     success: function (response) {
+
                         $('#divOuter').html(response);
                     },
-                    error: function () { }
+                    error: function () { alert("error"); }
                 });
             });
         });
+
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name] = this.value || '';
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
     </script>
 }

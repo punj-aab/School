@@ -61,10 +61,10 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.RegionId, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.StateId, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DropDownListFor(m => m.RegionId, Model.StateList, "Select Region", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.RegionId)
+                            @Html.DropDownListFor(m => m.StateId, Model.StateList, "Select Region", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.StateId)
                         </div>
                     </div>
                     <div class="control-group">

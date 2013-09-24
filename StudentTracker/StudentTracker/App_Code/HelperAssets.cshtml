@@ -128,7 +128,7 @@
         function loadRegionsByCountry(e) {
             var countryId = $(e.target).val();
             var url = '@controller' + 'GetRegions';
-            $('#RegionId').html('<option>--Select Region--</option>');
+            $('#StateId').html('<option>--Select Region--</option>');
             var row = '';
             if (countryId == '') {
                 return false;
@@ -142,9 +142,9 @@
                     },
                     success: function (response) {
                         $.each(response, function (index, value) {
-                            row += '<option value=' + value.Id + '>' + value.name + '</option>';
+                            row += '<option value=' + value.Id + '>' + value.StateName + '</option>';
                         });
-                        $('#RegionId').append(row);
+                        $('#StateId').append(row);
                     },
                     error: function () { }
                 })
@@ -263,7 +263,8 @@
         //        buttonReverse: false,
         //        buttonFocus: "ok"
         //    });
-        //};
+        //};
+
     </script>
 }
 

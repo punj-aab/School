@@ -28,12 +28,13 @@ namespace StudentTracker.Core.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Country> Countries { get; set; }
-        public DbSet<Region> Regions { get; set; }
+        public DbSet<State> States { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<RegistrationToken> RegistrationTokens { get; set; }
+        public DbSet<Class> Classes { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<ClassRoom> ClassRooms { get; set; }
@@ -53,7 +54,7 @@ namespace StudentTracker.Core.DAL
 
         #endregion
 
-        public DbSet<Class> Classes { get; set; }
+        
         public DbSet<Schedule> Schedules { get; set; }
     }
 }

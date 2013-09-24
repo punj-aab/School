@@ -130,6 +130,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
         }
     }
 
+    
     public string CreateUserAndAccount(string userName, string password, bool requireConfirmation, IDictionary<string, object> values)
     {
         return CreateAccount(userName, password, requireConfirmation);

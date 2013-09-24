@@ -33,10 +33,10 @@ namespace StudentTracker.Core.Entities
         public long CreatedBy { get; set; }
 
         [ScaffoldColumn(false)]
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         [ScaffoldColumn(false)]
-        public long ModifiedBy { get; set; }
+        public long? ModifiedBy { get; set; }
 
         [ScaffoldColumn(false)]
         [ForeignKey("CourseId")]

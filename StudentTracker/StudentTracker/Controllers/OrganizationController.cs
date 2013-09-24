@@ -64,17 +64,18 @@ namespace StudentTracker.Controllers
         public void LoadSelectLists(out SelectList ContList, out SelectList stateList, out SelectList organizationTypeList, int countryId = -1, int organizationTypeId = -1, long RegionId = -1)
         {
             List<Country> countryList = null;
-            List<Region> regionList = null;
+            List<State> regionList = null;
             using (StudentContext db = new StudentContext())
             {
                 countryList = db.Countries.ToList();
                 if (countryId != -1)
                 {
-                    regionList = db.Regions.Where(x => x.country_id == countryId).ToList();
+                    var country = db.Countries.Where(c => c.Id == countryId).FirstOrDefault();
+                    regionList = db.States.Where(x => x.CountryCode == country.CountryCode).ToList();
                 }
                 else
                 {
-                    regionList = new List<Region>();
+                    regionList = new List<State>();
                 }
             }
             List<SelectListItem> organizationTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.OrganizationTypes)).Cast<StudentTracker.Core.Utilities.OrganizationTypes>().Select(v => new SelectListItem
@@ -83,8 +84,8 @@ namespace StudentTracker.Controllers
     Value = ((int)v).ToString()
 }).ToList();
             organizationTypeList = new SelectList(organizationTypes, "Value", "Text", organizationTypeId);
-            ContList = new SelectList(countryList, "id", "name", countryId);
-            stateList = new SelectList(regionList, "id", "name", RegionId);
+            ContList = new SelectList(countryList, "Id", "CountryName", countryId);
+            stateList = new SelectList(regionList, "id", "StateName", RegionId);
         }
 
         public ActionResult ViewOrganizations()
@@ -167,13 +168,14 @@ namespace StudentTracker.Controllers
             using (StudentContext db = new StudentContext())
             {
                 orgList = new List<Organization>();
-                return orgList = db.Organizations.Include("Users").ToList();
+                return orgList = db.Organizations.ToList();
             }
         }
 
         public JsonResult GetRegions(int id)
         {
-            List<Region> regionList = db.Regions.Where(x => x.country_id == id).ToList();
+            Country country = db.Countries.Where(s => s.Id == id).FirstOrDefault();
+            List<State> regionList = db.States.Where(x => x.CountryCode == country.CountryCode).ToList();
             return Json(regionList, JsonRequestBehavior.AllowGet);
         }
 

@@ -33,6 +33,7 @@ using System.Web.Mvc;
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
 
+        public int OrgainzationId { get; set; }
 
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }
 

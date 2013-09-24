@@ -1,23 +1,28 @@
-﻿namespace StudentTracker.Core.Entities
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace StudentTracker.Core.Entities
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-    using System.Text;
-    [Table("Country")]
+    [Table("Countries")]
     public class Country
     {
         [Key]
-        public int CountryId { get; set; }
         public int Id { get; set; }
-        public int idSpecified { get; set; }
-        public string name { get; set; }
-        public string code { get; set; }
-        public long continent_id { get; set; }
-        public int continent_idSpecified { get; set; }
-        public long country_group_id { get; set; }
-        public int country_group_idSpecified { get; set; }
+        public string CountryCode { get; set; }
+        public string CountryName { get; set; }
+
+        public Country()
+        {
+        }
+
+        public Country(string countryCode, string countryName)
+        {
+            this.CountryCode = countryCode;
+            this.CountryName = countryName;
+        }
     }
 }

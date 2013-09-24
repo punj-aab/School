@@ -6,16 +6,16 @@
     using System.Web;
     using System.Data.Entity;
     using System.Web.Security;
+    using StudentTracker.Core.Entities;
 
 
     public class DataContextInitializer : CreateDatabaseIfNotExists<StudentContext>
     {
         protected override void Seed(StudentContext context)
         {
-            WebSecurity.Register("Demo", "123456", "demo@demo.com", true, "Demo", "Demo");
-            Roles.CreateRole("SiteAdmin");
-            Roles.AddUserToRole("Demo", "SiteAdmin");
-            Roles.CreateRole("OrganizationAdmin");
+          
+           
         }
+
     }
 }

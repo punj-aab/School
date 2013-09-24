@@ -30,7 +30,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(RegistrationToken token)
+        public string Create(RegistrationToken token)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace StudentTracker.Controllers
                     token.CreatedBy = _userStatistics.UserId;
                     db.RegistrationTokens.Add(token);
                     db.SaveChanges();
-                    return View("ViewToken", token);
+                    return token.Token;
                 }
                 return null;
             }

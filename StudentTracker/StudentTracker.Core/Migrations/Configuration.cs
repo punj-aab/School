@@ -1,9 +1,11 @@
 namespace StudentTracker.Core.Migrations
 {
+    using StudentTracker.Core.App_Code;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web.Security;
 
     internal sealed class Configuration : DbMigrationsConfiguration<StudentTracker.Core.DAL.StudentContext>
     {
@@ -14,18 +16,11 @@ namespace StudentTracker.Core.Migrations
 
         protected override void Seed(StudentTracker.Core.DAL.StudentContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            Seed objseed = new Seed();
+            objseed.AddCountriesToDB(context);
+            objseed.AddStatesToDB(context);
+          
+           
         }
     }
 }

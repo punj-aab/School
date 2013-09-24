@@ -40,7 +40,7 @@
 
         [Required]
         [Display(Name = "State")]
-        public long StateId { get; set; }
+        public int StateId { get; set; }
 
         [Required]
         public string City { get; set; }
@@ -75,9 +75,6 @@
         [ScaffoldColumn(false)]
         public DateTime? DeletedDate { get; set; }
 
-        [ScaffoldColumn(false)]
-        public long RegionId { get; set; }
-
         [Required]
         public string UserName { get; set; }
 
@@ -100,10 +97,11 @@
         [NotMapped]
         public string StateName { get; set; }
 
-        //[ForeignKey("CountryId")]
+        [ForeignKey("CountryId")]
         public virtual Country Country { get; set; }
-        [ForeignKey("RegionId")]
-        public virtual Region States { get; set; }
+
+        [ForeignKey("StateId")]
+        public virtual State States { get; set; }
 
         [NotMapped]
         public SelectList CountryList { get; set; }
@@ -113,9 +111,6 @@
 
         [NotMapped]
         public SelectList OrganizationTypeList { get; set; }
-
-        [ForeignKey("CreatedBy")]
-        public virtual User Users { get; set; }
 
     }
 }
