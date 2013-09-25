@@ -12,6 +12,7 @@ namespace StudentTracker.Core.Entities
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ScheduleId { get; set; }
 
         [Required]
@@ -70,5 +71,20 @@ namespace StudentTracker.Core.Entities
 
         [NotMapped]
         public SelectList ClassRoomList { get; set; }
+
+        [NotMapped]
+        public SelectList DayList { get; set; }
+
+        [Required]
+        public string StartTime { get; set; }
+
+        [Required]
+        public string EndTime { get; set; }
+
+        [Required]
+        public int DayId { get; set; }
+
+        [Required]
+        public string DayIds { get; set; }
     }
 }
