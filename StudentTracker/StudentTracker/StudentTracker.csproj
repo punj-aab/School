@@ -150,8 +150,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Content\alertify.core.css" />
+    <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap-timepicker.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\DataTables-1.9.4\docs\media\css\doc.css" />
@@ -409,6 +411,8 @@
     <Content Include="Areas\SAS\Views\Web.config" />
     <Content Include="Areas\SAS\Views\SASHome\Index.cshtml" />
     <Content Include="Scripts\alertify.min.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
+    <Content Include="Scripts\bootstrap-timepicker.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\shBrushJScript.js" />

@@ -103,17 +103,49 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.Description, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.Description, new { placeholder = "Description", Class = "span6", rows = "5" })
                             @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Select Day</label>
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.DayId, Model.DayList, new { Class = "span6 multiselect", multiple = "multiple" })
+                            @Html.ValidationMessageFor(m => m.DayId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Start Time</label>
+                        <div class="controls">
+                            <div class="input-append bootstrap-timepicker">
+                                @Html.TextBoxFor(m => m.StartTime, new { placeholder = "Start Time", Class = "timePicker" })
+                                @Html.ValidationMessageFor(m => m.StartTime)
+                                <span class="add-on btn">
+                                    <i class="icon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">End Time</label>
+                        <div class="controls">
+                            <div class="input-append bootstrap-timepicker">
+                                @Html.TextBoxFor(m => m.EndTime, new { placeholder = "End Time", Class = "timePicker" })
+                                @Html.ValidationMessageFor(m => m.EndTime)
+
+                                <span class="add-on btn"><i class="icon-time"></i></span>
+                            </div>
                         </div>
                     </div>
                     
                     <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Schedule</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="" id="btnAdd">Add Schedule</a>
                         <div class="clearfix">
                         </div>
                     </div>
-
+                    @Html.HiddenFor(m => m.DayIds)
                 }
 
             </div>
@@ -123,3 +155,58 @@
 </div>
 
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.timePicker').timepicker();
+        //$('.timePicker').timepicker({
+        //    minuteStep: 1,
+        //    template: 'modal',
+        //    showSeconds: true,
+        //    showMeridian: false
+        //});
+
+        //binding multiselect
+        $('.multiselect').multiselect({
+            buttonClass: 'btn',
+            buttonWidth: 'auto',
+            buttonContainer: '<div class="btn-group" />',
+            maxHeight: false,
+            buttonText: function (options) {
+                if (options.length == 0) {
+                    return 'None selected <b class="caret"></b>';
+                }
+                else if (options.length > 3) {
+                    return options.length + ' selected <b class="caret"></b>';
+                }
+                else {
+                    var selected = '';
+                    var value = '';
+                    options.each(function () {
+                        selected += $(this).text() + ', ';
+                        value += $(this).val() + ', ';
+                        
+                    });
+                    
+                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                }
+            }
+        });
+
+
+        $('#btnAdd').click(function (e) {
+            var st = $('#StartTime').val();
+            var et = $('#EndTime').val();
+            if (Date.parse("1-1-2000 " + st) > Date.parse("1-1-2000 " + et)) {
+                alertify.alert("Start time cannot be greater than End time.");
+                return false;
+            }
+            var dayId = "";
+            $('.multiselect-container>li.active').each(function () {
+                dayId += $(this).children().find('input').val() + ',';
+            });
+            $('#DayIds').val(dayId);
+
+            Save(e);
+        });
+    });
+</script>

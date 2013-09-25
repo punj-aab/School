@@ -5,6 +5,7 @@
 @********************************* Custom Javascript Helpers ****************************************************@
 @helper SaveAndLoadData(string controller, string resultView)
 {
+    <link href="/Content/bootstrap-timepicker.css" rel="stylesheet" />
     <script src="~/Scripts/alertify.min.js"></script>
     <script type="text/javascript">
 
@@ -14,6 +15,7 @@
             var url = '@controller' + action;
             var elem = $("#" + e.target.id).parents('form');
             var resultView = '@resultView';
+           // compareTime($('#StartTime').val(), $('#EndTime').val())
             //validate the form.
             var val = $(elem).validate().form();
             if (val) {
@@ -41,7 +43,7 @@
                         }
                     },
                     error: function (result, request) {
-                        
+
                         alertify.error('An error occured while processing your request');
                     }
                 });
@@ -247,24 +249,16 @@
             return o;
         };
 
-        //this function is used to switch to viewmode.
-        //Alertify JS
-        //$ = function (id) {
-        //    return document.getElementById(id);
-        //},
-        //reset = function () {
-        //    $("toggleCSS").href = "Content/alertify.core.css";
-        //    alertify.set({
-        //        labels: {
-        //            ok: "OK",
-        //            cancel: "Cancel"
-        //        },
-        //        delay: 5000,
-        //        buttonReverse: false,
-        //        buttonFocus: "ok"
-        //    });
-        //};
+        //binding time pickers
+        $('.timePicker').timepicker();
 
+
+        function compareTime(startTime, endTime) {
+            if (Date.parse("1-1-2000" + startTime) > Date.parse("1-1-2000" + endTime)) {
+                alertify.alert("Start time cannot be greater than End time.");
+                return false;
+            }
+        }
     </script>
 }
 

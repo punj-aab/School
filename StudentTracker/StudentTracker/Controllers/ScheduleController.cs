@@ -52,6 +52,17 @@ namespace StudentTracker.Controllers
                     objSchedule.InsertedOn = DateTime.Now;
                     objSchedule.InsertedBy = _userStatistics.UserId;
                     db.Schedules.Add(objSchedule);
+
+                    //ScheduleDay objDay = null;
+                    objSchedule.DayIds = objSchedule.DayIds.Substring(0, objSchedule.DayIds.Length - 1);
+                    //var dayIds = objSchedule.DayIds.Split(',');
+                    //foreach (var dayId in dayIds)
+                    //{
+                    //    objDay = new ScheduleDay();
+                    //    objDay.DayId = Convert.ToInt32(dayId);
+                    //    objDay.Id = objSchedule.ScheduleId;
+                    //    db.ScheduleDays.Add(objDay);
+                    //}
                     db.SaveChanges();
                     return Convert.ToString(true);
                 }
@@ -166,6 +177,12 @@ namespace StudentTracker.Controllers
             objSchedule.SubjectList = new SelectList(subjectList, "SubjectId", "SubjectName", objSchedule.SubjectId);
             objSchedule.DepartmentList = new SelectList(departmentList, "DepartmentId", "DepartmentName", objSchedule.DepartmentId);
             objSchedule.ClassRoomList = new SelectList(classRoomList, "ClassRoomId", "Name", objSchedule.ClassRoomId);
+            List<SelectListItem> daysList = Enum.GetValues(typeof(StudentTracker.Core.Utilities.Days)).Cast<StudentTracker.Core.Utilities.Days>().Select(v => new SelectListItem
+{
+    Text = v.ToString(),
+    Value = ((int)v).ToString()
+}).ToList();
+            objSchedule.DayList = new SelectList(daysList, "Value", "Text");
             return objSchedule;
         }
 
@@ -192,5 +209,6 @@ namespace StudentTracker.Controllers
             objVM.DepartmentList = db.Departments.Where(x => x.OrganizationId == id).ToList();
             return Json(objVM, "application/json;", JsonRequestBehavior.AllowGet);
         }
+
     }
 }
