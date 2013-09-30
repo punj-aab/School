@@ -27,6 +27,7 @@ namespace StudentTracker.Core.Utilities
         Institute = 4,
         Unknown = 5
     }
+
     public enum Days
     {
         Sunday = 1,
@@ -36,5 +37,16 @@ namespace StudentTracker.Core.Utilities
         Thursday = 5,
         Friday = 6,
         Saturday = 7
+    }
+
+    public enum UserRoles
+    {
+        OrganizationAdmin = 1,
+        SiteAdmin = 2,
+        Student = 3,
+        Teacher = 4,
+        OrganizationDirector = 5,
+        OtherStaff = 6
+
     }
 }

@@ -9,6 +9,7 @@ using StudentTracker.Core;
 using StudentTracker.ViewModels;
 using System.Web.Security;
 using System.Data;
+using StudentTracker.Core.Utilities;
 namespace StudentTracker.Controllers
 {
     public class OrganizationController : BaseController
@@ -46,8 +47,23 @@ namespace StudentTracker.Controllers
                         objOrganization.CreatedDate = DateTime.Now;
                         objOrganization.CreatedBy = _userStatistics.UserId;
                         db.Organizations.Add(objOrganization);
-                        WebSecurity.Register(objOrganization.UserName, objOrganization.Password, objOrganization.Email, false, "", "");
-                        Roles.AddUserToRole(objOrganization.UserName, "OrganizationAdmin");
+
+                        User objUser = new User();
+                        objUser.Email = objOrganization.Email;
+                        objUser.Username = objOrganization.OrganizationName;
+                        objUser.StatusId = Convert.ToInt32(UserStatus.Pending);
+                        objUser.Password = objOrganization.OrganizationName;
+                        objUser.OrgainzationId = objOrganization.OrganizationId;
+                        CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
+                        string token = membership.CreateAccount(objUser);
+
+                        RegistrationToken objToken = new RegistrationToken();
+                        objToken.OrganizationId = objOrganization.OrganizationId;
+                        objToken.Token = token;
+                        objToken.RoleId = (int)UserRoles.OrganizationAdmin;
+                        db.RegistrationTokens.Add(objToken);
+                        EmailHandler.Utilities.SendConfirmationEmail(objOrganization.OrganizationName);
+                        Roles.AddUserToRole(objOrganization.OrganizationName, "OrganizationAdmin");
                         db.SaveChanges();
                         return true;
                     }
@@ -119,9 +135,7 @@ namespace StudentTracker.Controllers
             objModel.CountryList = ContList;
             objModel.StateList = stateList;
             objModel.OrganizationTypeList = organizationTypeList;
-            objModel.Password = "test@1234";
-            objModel.ConfirmPassword = "test@1234";
-            objModel.UserName = "TEST";
+           
             return PartialView(objModel);
 
         }

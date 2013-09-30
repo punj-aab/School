@@ -130,7 +130,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
         }
     }
 
-    
+
     public string CreateUserAndAccount(string userName, string password, bool requireConfirmation, IDictionary<string, object> values)
     {
         return CreateAccount(userName, password, requireConfirmation);
@@ -214,7 +214,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                     User.LastActivityDate = DateTime.UtcNow;
                     Context.SaveChanges();
                 }
-                return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.StatusId==(int)UserStatus.Active, User.IsLockedOut, User.InsertedOn, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
+                return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.StatusId == (int)UserStatus.Active, User.IsLockedOut, User.InsertedOn, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
             }
             else
             {
@@ -225,7 +225,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
 
     public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
     {
-        if (providerUserKey is Guid) { }
+        if (providerUserKey is long) { }
         else
         {
             return null;
@@ -242,7 +242,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                     User.LastActivityDate = DateTime.UtcNow;
                     Context.SaveChanges();
                 }
-                return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.StatusId==(int)UserStatus.Active, User.IsLockedOut, User.InsertedOn, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
+                return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.StatusId == (int)UserStatus.Active, User.IsLockedOut, User.InsertedOn, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
             }
             else
             {
@@ -386,7 +386,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
             IQueryable<User> Users = Context.Users.Where(Usr => Usr.Email == emailToMatch).OrderBy(Usrn => Usrn.Username).Skip(pageIndex * pageSize).Take(pageSize);
             foreach (User user in Users)
             {
-                MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.UserId, user.Email, null, null, user.StatusId==(int)UserStatus.Active, user.IsLockedOut, user.InsertedOn, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
+                MembershipUsers.Add(new MembershipUser(Membership.Provider.Name, user.Username, user.UserId, user.Email, null, null, user.StatusId == (int)UserStatus.Active, user.IsLockedOut, user.InsertedOn, user.LastLoginDate.Value, user.LastActivityDate.Value, user.LastPasswordChangedDate.Value, user.LastLockoutDate.Value));
             }
         }
         return MembershipUsers;
@@ -458,7 +458,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
             {
                 Username = userName,
                 Password = hashedPassword,
-                StatusId=(int)UserStatus.Pending,
+                StatusId = (int)UserStatus.Pending,
                 Email = string.Empty,
                 InsertedOn = DateTime.UtcNow,
                 LastPasswordChangedDate = DateTime.UtcNow,
@@ -477,6 +477,75 @@ public class CodeFirstMembershipProvider : MembershipProvider
         }
 
     }
+    public string CreateAccount(User user)
+    {
+
+        if (string.IsNullOrEmpty(user.Username))
+        {
+            throw new MembershipCreateUserException(MembershipCreateStatus.InvalidUserName);
+        }
+
+        if (string.IsNullOrEmpty(user.Password))
+        {
+            throw new MembershipCreateUserException(MembershipCreateStatus.InvalidPassword);
+        }
+
+        if (string.IsNullOrEmpty(user.Email))
+        {
+            throw new MembershipCreateUserException(MembershipCreateStatus.InvalidEmail);
+        }
+
+        string hashedPassword = Crypto.HashPassword(user.Password);
+        if (hashedPassword.Length > 128)
+        {
+            throw new MembershipCreateUserException(MembershipCreateStatus.InvalidPassword);
+        }
+
+        using (StudentContext Context = new StudentContext())
+        {
+            if (Context.Users.Where(Usr => Usr.Username == user.Username).Any())
+            {
+                throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateUserName);
+            }
+
+            if (Context.Users.Where(Usr => Usr.Email == user.Email).Any())
+            {
+                throw new MembershipCreateUserException(MembershipCreateStatus.DuplicateEmail);
+
+            }
+
+            string token = string.Empty;
+
+            token = GenerateToken();
+
+
+            User NewUser = new User
+            {
+                Username = user.Username,
+                Password = hashedPassword,
+                StatusId = (int)UserStatus.Pending,
+                Email = user.Email,
+                InsertedOn = DateTime.UtcNow,
+                LastPasswordChangedDate = DateTime.UtcNow,
+                PasswordFailuresSinceLastSuccess = 0,
+                LastLoginDate = DateTime.UtcNow,
+                LastActivityDate = DateTime.UtcNow,
+                LastLockoutDate = DateTime.UtcNow,
+                IsLockedOut = false,
+                LastPasswordFailureDate = DateTime.UtcNow,
+                ConfirmationToken = token,
+                RegistrationToken = token,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+            Context.Users.Add(NewUser);
+            Context.SaveChanges();
+            return token;
+        }
+
+    }
+
 
     private static string GenerateToken()
     {
@@ -530,7 +599,13 @@ public class CodeFirstMembershipProvider : MembershipProvider
     //CodeFirstMembershipProvider does not support UpdateUser because this method is useless.
     public override void UpdateUser(MembershipUser user)
     {
-        throw new NotSupportedException();
+        using (StudentContext Context = new StudentContext())
+        {
+            Int64 userId = Convert.ToInt64(user.ProviderUserKey);
+            var currentUser = Context.Users.Where(u => u.UserId == userId).SingleOrDefault();
+            currentUser.StatusId = (int)UserStatus.Active;
+            Context.SaveChanges();
+        }
     }
 
     #endregion

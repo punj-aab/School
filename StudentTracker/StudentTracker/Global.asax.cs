@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+
+using EmailHandler;
+using EmailHandler.Threads;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,10 +21,21 @@ namespace StudentTracker
         {
             AreaRegistration.RegisterAllAreas();
 
-           // WebApiConfig.Register(GlobalConfiguration.Configuration);
+            // WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            StartEmailHandler();
+        }
+
+        private void StartEmailHandler()
+        {
+            string queuePath = ".\\private$\\EMAILQUEUE";
+            Email email = new Email() { mailTo = "lakhwant.enest@gmail.com", mailFrom = "lakhwant.enest@gmail.com", mailSubject = "QueueMail", mailBody = "Test MAil" };
+            Utilities.SendMailThruGmail(email);
+            //Utilities.SendMailToQueue(email, queuePath);
+            //var reciver = new QueueListener(queuePath);
+            //reciver.Start();
         }
     }
 }

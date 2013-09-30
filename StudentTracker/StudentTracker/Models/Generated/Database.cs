@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=BAINS\SQLEXPRESS;Initial Catalog=student_uk;User ID=sa;Password =bains@awan;Integrated Security=False`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -336,24 +336,6 @@ namespace DBConnectionString
 
 
 
-
-
-		[Column] public string UserName { get; set; }
-
-
-
-
-
-		[Column] public string Password { get; set; }
-
-
-
-
-
-		[Column] public string ConfirmPassword { get; set; }
-
-
-
 	}
 
     
@@ -616,7 +598,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public int OrganizationId { get; set; }
+		[Column] public long OrganizationId { get; set; }
 
 
 
@@ -635,6 +617,12 @@ namespace DBConnectionString
 
 
 		[Column] public int SectionId { get; set; }
+
+
+
+
+
+		[Column] public int RoleId { get; set; }
 
 
 
@@ -1029,38 +1017,6 @@ namespace DBConnectionString
 	}
 
     
-	[TableName("ScheduleDay")]
-
-
-	[PrimaryKey("Id")]
-
-
-
-	[ExplicitColumns]
-    public partial class ScheduleDay : DBConnectionStringDB.Record<ScheduleDay>  
-    {
-
-
-
-		[Column] public long Id { get; set; }
-
-
-
-
-
-		[Column] public long ScheduleId { get; set; }
-
-
-
-
-
-		[Column] public long? DayId { get; set; }
-
-
-
-	}
-
-    
 	[TableName("RoleUser")]
 
 
@@ -1182,7 +1138,13 @@ namespace DBConnectionString
 
 
 
-		[Column] public int OrgainzationId { get; set; }
+		[Column] public string RegistrationToken { get; set; }
+
+
+
+
+
+		[Column] public long OrgainzationId { get; set; }
 
 
 

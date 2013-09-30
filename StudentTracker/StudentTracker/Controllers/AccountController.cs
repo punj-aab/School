@@ -11,6 +11,43 @@ namespace StudentTracker.Controllers
 {
     public class AccountController : Controller
     {
+
+        [AllowAnonymous]
+        public ActionResult Confirmation()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Verify(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.Msg = "Not Good!!!";
+                return View();
+            }
+
+            else
+            {
+                var user = Membership.GetUser(Convert.ToInt64(id));
+
+                if (!user.IsApproved)
+                {
+                    user.IsApproved = true;
+                    Membership.UpdateUser(user);
+                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    FormsAuthentication.SignOut();
+                    ViewBag.Msg = "Account Already Approved";
+                    return RedirectToAction("LogOn");
+                }
+            }
+        }
+
+     
         //
         // GET: /Account/Login
 

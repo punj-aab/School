@@ -76,7 +76,7 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
+                var organization = db.Organizations.Single(x => x.OrganizationName == User.Identity.Name);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 

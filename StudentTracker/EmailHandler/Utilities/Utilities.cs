@@ -13,6 +13,8 @@ namespace EmailHandler
     using System.Net.Mail;
     using System.Net;
     using EmailHandler.MQ;
+    using System.Web.Security;
+    using System.Web;
 
     /// <summary>
     /// TODO: Update summary.
@@ -67,6 +69,35 @@ namespace EmailHandler
                 Console.WriteLine(ex.ToString());
                 return false;
             }
+        }
+
+        private const string EmailFrom = "lakhwant.enest@gmail.com";
+        public static void SendConfirmationEmail(string userName)
+        {
+            var user = Membership.GetUser(userName.ToString());
+            var confirmationGuid = user.ProviderUserKey.ToString();
+            var verifyUrl = HttpContext.Current.Request.Url.GetLeftPart
+               (UriPartial.Authority) + "/Account/Verify/" + confirmationGuid;
+
+            MailAddress fromAddress = new MailAddress(EmailFrom);
+            MailAddress toAddress = new MailAddress(user.Email);
+            string subject = "Please Verify your Account";
+            string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear " + user.UserName +
+                       ", </p><p>To verify your account, please click the following link:</p>"
+                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">" + verifyUrl
+                       + "</a></p><div>Best regards,</div><div>Someone</div><p>Do not forward "
+                       + "this email. The verify link is private.</p></body></html>";
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage(fromAddress.Address, toAddress.Address, subject, body);
+            msg.IsBodyHtml = true;
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("lakhwant.enest@gmail.com", "L@KHA@123"),
+                EnableSsl = true
+            };
+
+            client.Send(msg);
         }
     }
 }

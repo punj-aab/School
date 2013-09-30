@@ -7,7 +7,7 @@
 
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Mvc;
+    using System.Web.Mvc;
 
     [Table("Users")]
     public class User
@@ -33,7 +33,9 @@ using System.Web.Mvc;
         public virtual string FirstName { get; set; }
         public virtual string LastName { get; set; }
 
-        public int OrgainzationId { get; set; }
+        public virtual string RegistrationToken { get; set; }
+
+        public long OrgainzationId { get; set; }
 
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }
 

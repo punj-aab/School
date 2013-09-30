@@ -589,6 +589,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EmailHandler\EmailHandler.csproj">
+      <Project>{f4fb5b6c-8419-402c-bbcc-50d51b8ed006}</Project>
+      <Name>EmailHandler</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StudentTracker.Core\StudentTracker.Core.csproj">
       <Project>{755b858a-1713-4e07-907c-7bf8ce2c469f}</Project>
       <Name>StudentTracker.Core</Name>

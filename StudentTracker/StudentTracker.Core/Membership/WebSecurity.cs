@@ -33,7 +33,7 @@ public sealed class WebSecurity
         get { return User.Identity.IsAuthenticated; }
     }
 
-    public static MembershipCreateStatus Register(string Username, string Password, string Email, bool IsApproved, string FirstName, string LastName, int organizationId = -1)
+    public static MembershipCreateStatus Register(string Username, string Password, string Email, bool IsApproved, string FirstName, string LastName)
     {
         MembershipCreateStatus CreateStatus;
         Membership.CreateUser(Username, Password, Email, null, null, IsApproved, Guid.NewGuid(), out CreateStatus);
