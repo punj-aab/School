@@ -39,5 +39,13 @@ namespace StudentTracker.Core.Entities
 
         [NotMapped]
         public SelectList ClassList { get; set; }
+
+        [NotMapped]
+        public string InsertedByName { get; set; }
+        [NotMapped]
+        public string ModifiedByName { get; set; }
+
+        [NotMapped]
+        public string ClassName { get; set; }
     }
 }

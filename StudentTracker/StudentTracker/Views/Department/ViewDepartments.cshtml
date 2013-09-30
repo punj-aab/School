@@ -26,7 +26,7 @@
                                     @Html.DisplayNameFor(model => model.DepartmentDesc)
                                 </th>
                                 <th>Organization</th>
-                                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                                <th>Created By</th>
                                 <th>Manage</th>
                             </tr>
                         </thead>
@@ -41,11 +41,9 @@
                                         @Html.DisplayFor(modelItem => item.DepartmentDesc)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Organizations.OrganizationName)
+                                        @Html.DisplayFor(modelItem => item.OrganizationName)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.CreatedDate)
-                                    </td>
+                                    <td>@item.InsertedByName</td>
                                     <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">

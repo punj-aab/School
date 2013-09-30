@@ -7,13 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class DepartmentController : BaseController
     {
         private StudentContext db = new StudentContext();
-
+        private DepartmentRepository objRep = new DepartmentRepository();
         //
         // GET: /Department/
 
@@ -27,7 +27,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Department department = db.Departments.Include("Organizations").Where(x => x.DepartmentId == id).SingleOrDefault();
+            Department department = objRep.GetDepartments(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -59,9 +59,11 @@ namespace StudentTracker.Controllers
                 {
                     department.CreatedBy = _userStatistics.UserId;
                     department.CreatedDate = DateTime.Now;
-                    db.Departments.Add(department);
-                    db.SaveChanges();
-                    return true;
+                    if (objRep.CreateDepartment(department))
+                    {
+                        return true;
+                    }
+                    return false;
                 }
                 return false;
             }
@@ -77,7 +79,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            Department department = db.Departments.Find(id);
+            Department department = objRep.GetDepartments(id);
             if (department == null)
             {
                 return HttpNotFound();
@@ -98,10 +100,11 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     department.UpdatedBy = _userStatistics.UserId;
-                    department.UpdatedDate = DateTime.Now;
-                    db.Entry(department).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.UpdateDepartment(department))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -111,31 +114,17 @@ namespace StudentTracker.Controllers
             }
         }
 
-        //
-        // GET: /Department/Delete/5
-
-        public ActionResult Delete(long id = 0)
-        {
-            Department department = db.Departments.Find(id);
-            if (department == null)
-            {
-                return HttpNotFound();
-            }
-            return View(department);
-        }
-
-        //
-        // POST: /Department/Delete/5
-
+       //delete
         [HttpPost]
         public string DeleteConfirmed(long id)
         {
             try
             {
-                Department department = db.Departments.Find(id);
-                db.Departments.Remove(department);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.DeleteDepartment(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -151,17 +140,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewDepartments()
         {
-            List<Department> objDepartmentsList = new List<Department>();
-            if (User.IsInRole("SiteAdmin"))
-            {
-                objDepartmentsList = db.Departments.Include("Organizations").ToList();
-            }
-            else
-            {
-                var organization = db.Organizations.Single(x => x.UserName == User.Identity.Name);
-                objDepartmentsList = db.Departments.Include("Organizations").Where(x => x.OrganizationId == organization.OrganizationId).ToList();
-            }
-
+            List<Department> objDepartmentsList = objRep.GetDepartments();
             return PartialView(objDepartmentsList);
         }
 

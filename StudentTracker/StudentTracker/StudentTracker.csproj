@@ -139,7 +139,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Generated\Database.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Database.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PetaPoco.cs" />
+    <Compile Include="Repository\ClassRepository.cs" />
+    <Compile Include="Repository\ClassRoomRepository.cs" />
+    <Compile Include="Repository\CourseRepository.cs" />
+    <Compile Include="Repository\DepartmentRepository.cs" />
+    <Compile Include="Repository\ScheduleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\SectionRepository.cs" />
+    <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="ViewModels\ForgetPasswordModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\OrganizationsViewModel.cs" />
@@ -461,6 +474,12 @@
     <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\copy document.psd" />
     <Content Include="Content\DataTables-1.9.4\extras\TableTools\media\images\psd\collection.psd" />
     <Content Include="App_Code\HelperAssets.cshtml" />
+    <Content Include="Models\Generated\PetaPoco.Generator.ttinclude" />
+    <Content Include="Models\Generated\PetaPoco.Core.ttinclude" />
+    <Content Include="Models\Generated\Database.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Database.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\StudentTrackerPublish.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -574,6 +593,9 @@
       <Project>{755b858a-1713-4e07-907c-7bf8ce2c469f}</Project>
       <Name>StudentTracker.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

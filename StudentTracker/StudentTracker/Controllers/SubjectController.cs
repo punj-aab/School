@@ -7,12 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class SubjectController : BaseController
     {
         private StudentContext db = new StudentContext();
+        SubjectRepository objRep = new SubjectRepository();
 
         //
         // GET: /Subject/
@@ -30,7 +31,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Subject subject = db.Subjects.Find(id);
+            Subject subject = objRep.GetSubjects(id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -62,11 +63,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subject.InsertedOn = DateTime.Now;
                     subject.CreatedBy = _userStatistics.UserId;
-                    db.Subjects.Add(subject);
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Create(subject))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -105,11 +107,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    subject.ModifiedOn = DateTime.Now;
                     subject.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(subject).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Update(subject))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -126,10 +129,11 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                Subject subject = db.Subjects.Find(id);
-                db.Subjects.Remove(subject);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.Delete(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -139,7 +143,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSubjects()
         {
-            List<Subject> subjectList = db.Subjects.ToList();
+            List<Subject> subjectList = objRep.GetSubjects();
             return PartialView(subjectList);
         }
 

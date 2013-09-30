@@ -7,13 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class ClassController : BaseController
     {
         private StudentContext db = new StudentContext();
-
+        ClassRepository objRep = new ClassRepository();
         //
         // GET: /Class/
 
@@ -27,7 +27,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Class objClass = db.Classes.Find(id);
+            Class objClass = objRep.GetClasses(id);
             if (objClass == null)
             {
                 return HttpNotFound();
@@ -62,9 +62,11 @@ namespace StudentTracker.Controllers
                 {
                     objClass.InsertedOn = DateTime.Now;
                     objClass.InsertedBy = _userStatistics.UserId;
-                    db.Classes.Add(objClass);
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.CreateClass(objClass))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -104,11 +106,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    objClass.ModifiedOn = DateTime.Now;
                     objClass.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(objClass).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.UpdateClass(objClass))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -123,10 +126,11 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                Class objClass = db.Classes.Find(id);
-                db.Classes.Remove(objClass);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.DeleteClass(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -142,7 +146,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewClasses()
         {
-            List<Class> classList = db.Classes.ToList();
+            List<Class> classList = objRep.GetClasses();
             return PartialView(classList);
         }
 

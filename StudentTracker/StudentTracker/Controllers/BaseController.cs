@@ -16,8 +16,8 @@ namespace StudentTracker.Controllers
         }
            public BaseController(string conn)
         {
-            if (this.repository == null)
-                this.repository = new Repository(conn);
+            //if (this.repository == null)
+            //    this.repository = new Repository(conn);
         }
         /// <summary>
         /// Log to write messages to

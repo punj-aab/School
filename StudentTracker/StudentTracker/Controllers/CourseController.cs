@@ -7,13 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class CourseController : BaseController
     {
         private StudentContext db = new StudentContext();
-
+        CourseRepository objRep = new CourseRepository();
         //
         // GET: /Cource/
 
@@ -27,7 +27,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Course course = db.Courses.Find(id);
+            Course course = objRep.GetCourses(id);
             if (course == null)
             {
                 return HttpNotFound();
@@ -57,10 +57,11 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     course.CreatedBy = _userStatistics.UserId;
-                    course.InsertedOn = DateTime.UtcNow;
-                    db.Courses.Add(course);
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Create(course))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -76,8 +77,8 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            Course objCourse = db.Courses.Find(id);
-            objCourse.OrganizationList = LoadSelectLists();
+            Course objCourse = objRep.GetCourses(id);
+            objCourse.OrganizationList = LoadSelectLists(objCourse.OrganisationId);
             objCourse.OrganisationId = ViewBag.OrganizationId == null ? objCourse.OrganisationId : Convert.ToInt32(ViewBag.OrganizationId);
             if (objCourse == null)
             {
@@ -98,9 +99,11 @@ namespace StudentTracker.Controllers
                 {
                     course.ModifiedBy = _userStatistics.UserId;
                     course.ModifiedOn = DateTime.UtcNow;
-                    db.Entry(course).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Update(course))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -112,30 +115,17 @@ namespace StudentTracker.Controllers
         }
 
         //
-        // GET: /Cource/Delete/5
-
-        public ActionResult Delete(long id = 0)
-        {
-            Course course = db.Courses.Find(id);
-            if (course == null)
-            {
-                return HttpNotFound();
-            }
-            return View(course);
-        }
-
-        //
         // POST: /Cource/Delete/5
-
         [HttpPost]
         public string DeleteConfirmed(long id)
         {
             try
             {
-                Course course = db.Courses.Find(id);
-                db.Courses.Remove(course);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.Delete(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -145,7 +135,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewCourses()
         {
-            List<Course> objCourceList = db.Courses.ToList();
+            List<Course> objCourceList = objRep.GetCourses();
             return PartialView(objCourceList);
         }
 
@@ -155,18 +145,18 @@ namespace StudentTracker.Controllers
             base.Dispose(disposing);
         }
 
-        public SelectList LoadSelectLists()
+        public SelectList LoadSelectLists(int id = -1)
         {
             SelectList OrganizationList = null;
             List<Organization> organizationList = new List<Organization>();
             organizationList = db.Organizations.ToList();
             if (User.IsInRole("SiteAdmin"))
             {
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", "");
+                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             }
             else
             {
-                var organization = db.Organizations.SingleOrDefault(x => x.UserName == User.Identity.Name);
+                var organization = db.Organizations.SingleOrDefault(x => x.CreatedBy == _userStatistics.UserId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 

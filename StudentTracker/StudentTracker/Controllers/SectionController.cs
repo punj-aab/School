@@ -6,13 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class SectionController : BaseController
     {
         private StudentContext db = new StudentContext();
-
+        SectionRepository objRep = new SectionRepository();
         //
         // GET: /Subject/
 
@@ -26,7 +26,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Section objSection = db.Sections.Find(id);
+            Section objSection = objRep.GetSections(id);
             if (objSection == null)
             {
                 return HttpNotFound();
@@ -34,7 +34,7 @@ namespace StudentTracker.Controllers
             return PartialView(objSection);
         }
 
-       //GET CREATE
+        //GET CREATE
         public ActionResult Create()
         {
             Section objSection = new Section();
@@ -50,11 +50,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    section.InsertedOn = DateTime.Now;
                     section.CreatedBy = _userStatistics.UserId;
-                    db.Sections.Add(section);
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Create(section))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -65,10 +66,10 @@ namespace StudentTracker.Controllers
             }
         }
 
-       //GET EDIT
+        //GET EDIT
         public ActionResult Edit(long id = 0)
         {
-            Section objSection = db.Sections.Find(id);
+            Section objSection = objRep.GetSections(id);
             if (objSection == null)
             {
                 return HttpNotFound();
@@ -85,11 +86,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    objSection.ModifiedOn = DateTime.Now;
                     objSection.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(objSection).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Update(objSection))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -105,10 +107,11 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                Section section = db.Sections.Find(id);
-                db.Sections.Remove(section);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.Delete(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -119,7 +122,7 @@ namespace StudentTracker.Controllers
         //VIEW ALL SECTIONS
         public ActionResult ViewSections()
         {
-            List<Section> sectionList = db.Sections.ToList();
+            List<Section> sectionList = objRep.GetSections();
             return PartialView(sectionList);
         }
 

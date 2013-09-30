@@ -86,5 +86,19 @@ namespace StudentTracker.Core.Entities
 
         [Required]
         public string DayIds { get; set; }
+
+        [NotMapped]
+        public string OrganizationName { get; set; }
+        [NotMapped]
+        public string CourseName { get; set; }
+        [NotMapped]
+        public string ClassName { get; set; }
+        [NotMapped]
+        public string SubjectName { get; set; }
+        [NotMapped]
+        public string DepartmentName { get; set; }
+        [NotMapped]
+        public string ClassRoomName { get; set; }
+               
     }
 }

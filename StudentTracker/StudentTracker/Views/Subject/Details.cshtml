@@ -26,7 +26,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.SubjectName, new { Class = "control-label" })
                         <div class="controls">
-                         @Html.DisplayFor(m => m.SubjectName)
+                            @Html.DisplayFor(m => m.SubjectName)
                         </div>
                     </div>
                     <div class="control-group">
@@ -37,9 +37,16 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class = "control-label">Course</label>
+                        <label class="control-label">Course</label>
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.Course.CourseName)
+                            @Html.DisplayFor(m => m.CourseName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Class Name</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.ClassName)
 
                         </div>
                     </div>
@@ -50,9 +57,23 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label">Created By</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.InsertedByName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.ModifiedOn, new { Class = "control-label" })
                         <div class="controls">
                             @Html.DisplayFor(m => m.ModifiedOn)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Modified By</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.ModifiedByName)
+
                         </div>
                     </div>
                     <div class="form-actions no-margin">

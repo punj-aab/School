@@ -6,12 +6,13 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class ClassRoomController : BaseController
     {
         StudentContext db = new StudentContext();
+        ClassRoomRepository objRep = new ClassRoomRepository();
         public ActionResult Index()
         {
             return View();
@@ -22,7 +23,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            ClassRoom objClass = db.ClassRooms.Find(id);
+            ClassRoom objClass = objRep.GetClassRooms(id);
             if (objClass == null)
             {
                 return HttpNotFound();
@@ -48,11 +49,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    objClass.InsertedOn = DateTime.Now;
                     objClass.InsertedBy = _userStatistics.UserId;
-                    db.ClassRooms.Add(objClass);
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.CreateClassRoom(objClass))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -68,7 +70,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            ClassRoom objClass = db.ClassRooms.Find(id);
+            ClassRoom objClass = objRep.GetClassRooms(id);
             if (objClass == null)
             {
                 return HttpNotFound();
@@ -87,11 +89,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    objClass.ModifiedOn = DateTime.Now;
                     objClass.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(objClass).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.UpdateClassRoom(objClass))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -106,10 +109,11 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                ClassRoom objClass = db.ClassRooms.Find(id);
-                db.ClassRooms.Remove(objClass);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.DeleteClassRoom(id))
+                {
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -119,7 +123,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewClassRooms()
         {
-            List<ClassRoom> classList = db.ClassRooms.ToList();
+            List<ClassRoom> classList = objRep.GetClassRooms();
             return PartialView(classList);
         }
         public SelectList LoadSelectList(long id = -1)

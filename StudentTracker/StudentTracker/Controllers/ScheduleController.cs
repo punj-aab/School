@@ -1,5 +1,6 @@
 ﻿using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
+using StudentTracker.Models;
 using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace StudentTracker.Controllers
     public class ScheduleController : BaseController
     {
         StudentContext db = new StudentContext();
+        ScheduleRepository repository = new ScheduleRepository();
         public ScheduleController()
         {
             db.Configuration.LazyLoadingEnabled = false;
@@ -26,7 +28,8 @@ namespace StudentTracker.Controllers
         //details
         public ActionResult Details(long id = 0)
         {
-            Schedule objSchedule = db.Schedules.Find(id);
+            ScheduleRepository objRep = new ScheduleRepository();
+            Schedule objSchedule = objRep.GetSchedule(id);
             if (objSchedule == null)
             {
                 return HttpNotFound();
@@ -49,22 +52,13 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    objSchedule.InsertedOn = DateTime.Now;
                     objSchedule.InsertedBy = _userStatistics.UserId;
-                    db.Schedules.Add(objSchedule);
-
-                    //ScheduleDay objDay = null;
-                    objSchedule.DayIds = objSchedule.DayIds.Substring(0, objSchedule.DayIds.Length - 1);
-                    //var dayIds = objSchedule.DayIds.Split(',');
-                    //foreach (var dayId in dayIds)
-                    //{
-                    //    objDay = new ScheduleDay();
-                    //    objDay.DayId = Convert.ToInt32(dayId);
-                    //    objDay.Id = objSchedule.ScheduleId;
-                    //    db.ScheduleDays.Add(objDay);
-                    //}
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    ScheduleRepository objRep = new ScheduleRepository();
+                    if (objRep.CreateSchedule(objSchedule))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
 
                 return Convert.ToString(false);
@@ -92,11 +86,14 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    ScheduleRepository objRep = new ScheduleRepository();
                     objSchedule.ModifiedOn = DateTime.Now;
                     objSchedule.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(objSchedule).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.UpdateSchedule(objSchedule))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }
@@ -111,9 +108,14 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                Schedule objSchedule = db.Schedules.Find(id);
-                db.Schedules.Remove(objSchedule);
-                db.SaveChanges();
+                //Schedule objSchedule = db.Schedules.Find(id);
+                //db.Schedules.Remove(objSchedule);
+                //db.SaveChanges();
+                ScheduleRepository objRep = new ScheduleRepository();
+                if (objRep.DeleteSchedule(id))
+                {
+                    return Convert.ToString(true);
+                }
                 return Convert.ToString(true);
             }
             catch (Exception ex)
@@ -124,13 +126,14 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSchedules()
         {
-            return PartialView(db.Schedules.ToList());
+            return PartialView(repository.GetSchdeule());
         }
 
         public Schedule LoadSelectLists(long scheduleId = -1)
         {
+            PetaPoco.Database dbPeta = new PetaPoco.Database("DBConnectionString");
             Schedule objSchedule = new Schedule();
-            List<Organization> orgList = db.Organizations.ToList();
+            List<Organization> orgList = null;// db.Query<Organization>("select * from Organizations").ToList();
             List<Course> courseList = null;
             List<Class> classList = null;
             List<Subject> subjectList = null;
@@ -138,10 +141,10 @@ namespace StudentTracker.Controllers
             List<ClassRoom> classRoomList = null;
             if (scheduleId != -1)
             {
-                objSchedule = db.Schedules.Find(scheduleId);
-                classList = db.Classes.Where(x => x.CourseId == objSchedule.CourseId).ToList();
-                subjectList = db.Subjects.Where(x => x.ClassId == objSchedule.ClassId).ToList();
-                classRoomList = db.ClassRooms.Where(x => x.DepartmentId == objSchedule.DepartmentId).ToList();
+                objSchedule = dbPeta.Query<Schedule>("select * from Schedule where ScheduleId=@0", scheduleId).SingleOrDefault();
+                classList = dbPeta.Query<Class>("select * from Classes where CourseId=@0", objSchedule.CourseId).ToList();
+                subjectList = dbPeta.Query<Subject>("select * from Subjects where ClassId=@0", objSchedule.ClassId).ToList();
+                classRoomList = dbPeta.Query<ClassRoom>("select * from ClassRoom where DepartmentId=@0", objSchedule.DepartmentId).ToList();
             }
             else
             {
@@ -151,11 +154,11 @@ namespace StudentTracker.Controllers
             }
             if (User.IsInRole("SiteAdmin"))
             {
-                orgList = db.Organizations.ToList();
+                orgList = dbPeta.Query<Organization>("select * from Organizations").ToList();
                 if (scheduleId != -1)
                 {
-                    courseList = db.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
-                    departmentList = db.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
+                    courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
+                    departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
                 }
                 else
                 {
@@ -165,11 +168,12 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                var organization = db.Organizations.Single(x => x.CreatedBy == _userStatistics.UserId);
+                var organization = dbPeta.SingleOrDefault<Organization>("select * from Organizations where CreatedBy=@0", _userStatistics.UserId);
                 objSchedule.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
-                courseList = db.Courses.Where(x => x.OrganisationId == organization.OrganizationId).ToList();
-                departmentList = db.Departments.Where(x => x.OrganizationId == organization.OrganizationId).ToList();
+                courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", organization.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
+                departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", organization.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
+                
             }
             objSchedule.OrganizationList = new SelectList(orgList, "OrganizationId", "OrganizationName", objSchedule.OrganizationId);
             objSchedule.CourseList = new SelectList(courseList, "CourseId", "CourseName", objSchedule.CourseId);
@@ -178,10 +182,10 @@ namespace StudentTracker.Controllers
             objSchedule.DepartmentList = new SelectList(departmentList, "DepartmentId", "DepartmentName", objSchedule.DepartmentId);
             objSchedule.ClassRoomList = new SelectList(classRoomList, "ClassRoomId", "Name", objSchedule.ClassRoomId);
             List<SelectListItem> daysList = Enum.GetValues(typeof(StudentTracker.Core.Utilities.Days)).Cast<StudentTracker.Core.Utilities.Days>().Select(v => new SelectListItem
-{
-    Text = v.ToString(),
-    Value = ((int)v).ToString()
-}).ToList();
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
             objSchedule.DayList = new SelectList(daysList, "Value", "Text");
             return objSchedule;
         }

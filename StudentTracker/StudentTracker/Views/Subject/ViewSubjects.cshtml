@@ -19,11 +19,10 @@
                         <thead>
                             <tr>
                                 <th>@Html.DisplayNameFor(model => model.SubjectName)</th>
-                                <th>@Html.DisplayNameFor(model => model.Course.CourseName)</th>
                                 <th>@Html.DisplayNameFor(model => model.SubjectDescription)</th>
-                                <th>@Html.DisplayNameFor(model => model.InsertedOn)</th>
-                                <th>@Html.DisplayNameFor(model => model.CreatedBy)</th>
-                                <th>@Html.DisplayNameFor(model => model.ModifiedOn)</th>
+                                <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                                <th>Class Name</th>
+                                <th>Created By</th>
                                 <th>Manage</th>
                             </tr>
                         </thead>
@@ -32,16 +31,11 @@
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(model => item.SubjectName)</td>
-                                    <td>@Html.DisplayFor(model => item.Course.CourseName)</td>
                                     <td>@Html.DisplayFor(model => item.SubjectDescription)</td>
-                                    <td>@Html.DisplayFor(model => item.InsertedOn)</td>
-                                    <td>@Html.DisplayFor(model => item.CreatedBy)</td>
-                                    <td>@Html.DisplayFor(model => item.ModifiedOn)</td>
+                                    <td>@Html.DisplayFor(model => item.CourseName)</td>
+                                    <td>@Html.DisplayFor(model => item.ClassName)</td>
+                                    <td>@Html.DisplayFor(model => item.InsertedByName)</td>
                                     <td>
-
-
-
-
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
                                                 Action 

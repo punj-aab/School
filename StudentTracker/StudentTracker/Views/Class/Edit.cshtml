@@ -24,6 +24,7 @@
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.ClassId)
                     @Html.HiddenFor(m => m.InsertedOn)
+                    @Html.HiddenFor(m => m.InsertedBy)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
                         <div class="controls">

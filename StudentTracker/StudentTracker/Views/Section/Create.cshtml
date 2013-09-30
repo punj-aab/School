@@ -23,6 +23,13 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="control-group">
+                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.ClassId)
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.SectionName, new { Class = "control-label" })
                         <div class="controls controls-row">
                             @Html.TextBoxFor(m => m.SectionName, new { placeholder = "Section Name", Class = "span6" })
@@ -36,13 +43,7 @@
                             @Html.ValidationMessageFor(m => m.SectionDescription)
                         </div>
                     </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.ClassId)
-                        </div>
-                    </div>
+                    
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization

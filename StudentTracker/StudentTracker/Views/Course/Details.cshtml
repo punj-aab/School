@@ -39,7 +39,7 @@
                     <div class="control-group">
                         <label class = "control-label">Organization</label>
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.Organization.OrganizationName)
+                            @Html.DisplayFor(m => m.OrganizationName)
 
                         </div>
                     </div>
@@ -50,9 +50,21 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        @Html.LabelFor(m => m.CreatedBy, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.CreatedByName)
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.ModifiedOn, new { Class = "control-label" })
                         <div class="controls">
                             @Html.DisplayFor(m => m.ModifiedOn)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ModifiedByName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
                     <div class="form-actions no-margin">

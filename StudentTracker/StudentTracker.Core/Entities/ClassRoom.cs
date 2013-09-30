@@ -44,5 +44,13 @@ namespace StudentTracker.Core.Entities
         [NotMapped]
         public SelectList DepartmentList { get; set; }
 
+        [NotMapped]
+        public string DepartmentName { get; set; }
+
+        [NotMapped]
+        public string InsertedByName { get; set; }
+        [NotMapped]
+        public string ModifiedByName { get; set; }
+
     }
 }

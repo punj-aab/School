@@ -7,7 +7,7 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    View Class Rooms<a id="dynamicTable"></a>
+                    View Schedules<a id="dynamicTable"></a>
                 </div>
                 <span class="tools">
                     <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
@@ -19,12 +19,15 @@
                         <thead>
                             <tr>
                                 <th>@Html.DisplayNameFor(model => model.ScheduleName)</th>
-                                @*<th>@Html.DisplayNameFor(model => model.Departments.DepartmentName)</th>*@
-                                <th>@Html.DisplayNameFor(model => model.Description)</th>
-                                @*<th>@Html.DisplayNameFor(model => model.Location)</th>*@
-                                <th>@Html.DisplayNameFor(model => model.InsertedOn)</th>
-                                <th>@Html.DisplayNameFor(model => model.InsertedBy)</th>
-                                <th>@Html.DisplayNameFor(model => model.ModifiedOn)</th>
+                                <th>@Html.DisplayNameFor(model => model.StartTime)</th>
+                                <th>@Html.DisplayNameFor(model => model.EndTime)</th>
+                                <th>@Html.DisplayNameFor(model => model.OrganizationName)</th>
+                                <th>@Html.DisplayNameFor(model => model.CourseName)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassName)</th>
+                                <th>@Html.DisplayNameFor(model => model.SubjectName)</th>
+                                <th>@Html.DisplayNameFor(model => model.DepartmentName)</th>
+                                <th>@Html.DisplayNameFor(model => model.ClassRoomName)</th>
+
                                 <th>Manage</th>
                             </tr>
                         </thead>
@@ -33,12 +36,14 @@
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(model => item.ScheduleName)</td>
-                                    @*<td>@Html.DisplayFor(model => item.Departments.DepartmentName)</td>*@
-                                    <td>@Html.DisplayFor(model => item.Description)</td>
-                                    @*<td>@Html.DisplayFor(model => item.Location)</td>*@
-                                    <td>@Html.DisplayFor(model => item.InsertedOn)</td>
-                                    <td>@Html.DisplayFor(model => item.InsertedBy)</td>
-                                    <td>@Html.DisplayFor(model => item.ModifiedOn)</td>
+                                    <td>@Html.DisplayFor(model => item.StartTime)</td>
+                                    <td>@Html.DisplayFor(model => item.EndTime)</td>
+                                    <td>@Html.DisplayFor(model => item.OrganizationName)</td>
+                                    <td>@Html.DisplayFor(model => item.CourseName)</td>
+                                    <td>@Html.DisplayFor(model => item.ClassName)</td>
+                                    <td>@Html.DisplayFor(model => item.SubjectName)</td>
+                                    <td>@Html.DisplayFor(model => item.DepartmentName)</td>
+                                    <td>@Html.DisplayFor(model => item.ClassRoomName)</td>
                                     <td>
 
 
