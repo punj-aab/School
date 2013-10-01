@@ -99,6 +99,9 @@ namespace StudentTracker.Core.Entities
         public string DepartmentName { get; set; }
         [NotMapped]
         public string ClassRoomName { get; set; }
-               
+        [NotMapped]
+        public string ModifiedByName { get; set; }
+        [NotMapped]
+        public string InsertedByName { get; set; }
     }
 }
