@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
@@ -9,10 +10,11 @@ namespace StudentTracker.Core.Utilities
 {
     public class UserStatistics
     {
+        private const int TokenSizeInBytes = 16;
         private readonly HttpContextBase _context;
         private long userId;
 
-        private int organizationId;
+        private long organizationId;
 
         private string course;
 
@@ -27,20 +29,23 @@ namespace StudentTracker.Core.Utilities
             if (_context.Session["UserId"] != null)
             {
                 userId = Convert.ToInt64(_context.Session["UserId"]);
+                organizationId = Convert.ToInt64(_context.Session["OrganizationId"]);
             }
             else
             {
-                var user = WebSecurity.GetUser(context.User.Identity.Name);
+                StudentContext db = new StudentContext();
+                var user = db.Users.Where(u => u.Username == context.User.Identity.Name).FirstOrDefault();
                 if (user != null)
                 {
-                    userId = (long)user.ProviderUserKey;
+                    userId = user.UserId;
+                    _context.Session["UserId"] = userId;
+                    organizationId = user.OrgainzationId;
+                    _context.Session["OrganizationId"] = organizationId;
                 }
             }
         }
 
-
-
-        public  long UserId
+        public long UserId
         {
             get
             {
@@ -48,7 +53,7 @@ namespace StudentTracker.Core.Utilities
             }
         }
 
-        public int OrganizationId
+        public long OrganizationId
         {
             get
             {
@@ -80,14 +85,20 @@ namespace StudentTracker.Core.Utilities
             }
         }
 
-        public static string GetToken()
+        public static string GenerateToken()
         {
-            byte[] time = BitConverter.GetBytes(DateTime.UtcNow.ToBinary());
-            byte[] key = new Guid().ToByteArray();
-            string token = Convert.ToBase64String(time.Concat(key).ToArray());
-            return token;
+            using (var prng = new RNGCryptoServiceProvider())
+            {
+                return GenerateToken(prng);
+            }
         }
 
+        internal static string GenerateToken(RandomNumberGenerator generator)
+        {
+            byte[] tokenBytes = new byte[TokenSizeInBytes];
+            generator.GetBytes(tokenBytes);
+            return HttpServerUtility.UrlTokenEncode(tokenBytes);
+        }
         public static bool CheckTokenStatus(string token)
         {
             byte[] data = Convert.FromBase64String(token);

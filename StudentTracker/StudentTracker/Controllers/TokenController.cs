@@ -36,7 +36,7 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    token.Token = UserStatistics.GetToken();
+                    token.Token = UserStatistics.GenerateToken();
                     token.CreatedBy = _userStatistics.UserId;
                     db.RegistrationTokens.Add(token);
                     db.SaveChanges();

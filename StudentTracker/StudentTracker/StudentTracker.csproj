@@ -157,6 +157,7 @@
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
+    <Compile Include="ViewModels\RegisterUser.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -576,6 +577,8 @@
     <Content Include="Views\Schedule\Create.cshtml" />
     <Content Include="Views\Schedule\Edit.cshtml" />
     <Content Include="Views\Schedule\ViewSchedules.cshtml" />
+    <Content Include="Views\Account\RegisterUser.cshtml" />
+    <Content Include="Views\Account\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

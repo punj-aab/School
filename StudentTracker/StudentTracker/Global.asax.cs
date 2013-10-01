@@ -31,8 +31,8 @@ namespace StudentTracker
         private void StartEmailHandler()
         {
             string queuePath = ".\\private$\\EMAILQUEUE";
-            Email email = new Email() { mailTo = "lakhwant.enest@gmail.com", mailFrom = "lakhwant.enest@gmail.com", mailSubject = "QueueMail", mailBody = "Test MAil" };
-            Utilities.SendMailThruGmail(email);
+            Email email = new Email() { mailTo = "ersinghlakhwant@gmail.com", mailFrom = "lakhwant.enest@gmail.com", mailSubject = "QueueMail", mailBody = "Test MAil" };
+            //Utilities.SendMailThruGmail(email);
             //Utilities.SendMailToQueue(email, queuePath);
             //var reciver = new QueueListener(queuePath);
             //reciver.Start();

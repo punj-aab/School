@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using StudentTracker.Core.Utilities;
 using StudentTracker.ViewModels;
+using StudentTracker.Core.DAL;
 
 namespace StudentTracker.Controllers
 {
@@ -26,28 +27,55 @@ namespace StudentTracker.Controllers
                 ViewBag.Msg = "Not Good!!!";
                 return View();
             }
-
             else
             {
                 var user = Membership.GetUser(Convert.ToInt64(id));
-
                 if (!user.IsApproved)
                 {
                     user.IsApproved = true;
                     Membership.UpdateUser(user);
-                    FormsAuthentication.SetAuthCookie(user.UserName, false);
+                    FormsAuthentication.SetAuthCookie(user.UserName, true);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     FormsAuthentication.SignOut();
                     ViewBag.Msg = "Account Already Approved";
-                    return RedirectToAction("LogOn");
+                    return RedirectToAction("Login");
                 }
             }
         }
 
-     
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult RegisterUser(string id)
+        {
+            StudentContext db = new StudentContext();
+            var tokenObject = db.RegistrationTokens.Where(t => t.Token == id).FirstOrDefault();
+            StudentTracker.Core.Entities.User objUser = new Core.Entities.User();
+            objUser.OrgainzationId = tokenObject.OrganizationId;
+            objUser.MasterId = tokenObject.CreatedBy;
+            objUser.RegistrationToken = id;
+            return View(objUser);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterUser(StudentTracker.Core.Entities.User objUser)
+        {
+            StudentContext db = new StudentContext();
+            var tokenObject = db.RegistrationTokens.Where(t => t.Token == objUser.RegistrationToken).FirstOrDefault();
+            objUser.OrgainzationId = tokenObject.OrganizationId;
+            objUser.MasterId = tokenObject.CreatedBy;
+            CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
+            var token = membership.CreateAccount(objUser);
+            Roles.AddUserToRole(objUser.Username, Enum.GetName(typeof(UserRoles), tokenObject.RoleId));
+            EmailHandler.Utilities.SendConfirmationEmail(objUser.Username);
+            return RedirectToAction("Confirmation", "Account");
+
+        }
+
         //
         // GET: /Account/Login
 
@@ -91,7 +119,7 @@ namespace StudentTracker.Controllers
         // POST: /Account/LogOff
 
         [HttpGet]
-       // [ValidateAntiForgeryToken]
+        // [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -125,8 +153,8 @@ namespace StudentTracker.Controllers
                     MembershipCreateStatus status;
                     membership.CreateUser(model.Username, model.Password, model.Email, string.Empty, string.Empty, false, null, out status);
                     if (status == MembershipCreateStatus.Success)
-                      //  EmailManager.SendConfirmationEmail(model.Username);
-                    return RedirectToAction("Confirmation", "Account");
+                        //  EmailManager.SendConfirmationEmail(model.Username);
+                        return RedirectToAction("Confirmation", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {

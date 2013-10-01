@@ -14,7 +14,7 @@ namespace StudentTracker.Controllers
 {
     public class OrganizationController : BaseController
     {
-        //
+       
         // GET: /Organization/
         StudentContext db = new StudentContext();
         public ActionResult Index()
@@ -48,22 +48,22 @@ namespace StudentTracker.Controllers
                         objOrganization.CreatedBy = _userStatistics.UserId;
                         db.Organizations.Add(objOrganization);
 
-                        User objUser = new User();
-                        objUser.Email = objOrganization.Email;
-                        objUser.Username = objOrganization.OrganizationName;
-                        objUser.StatusId = Convert.ToInt32(UserStatus.Pending);
-                        objUser.Password = objOrganization.OrganizationName;
-                        objUser.OrgainzationId = objOrganization.OrganizationId;
-                        CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
-                        string token = membership.CreateAccount(objUser);
-
+                        //User objUser = new User();
+                        //objUser.Email = objOrganization.Email;
+                        //objUser.Username = objOrganization.OrganizationName;
+                        //objUser.StatusId = Convert.ToInt32(UserStatus.Pending);
+                        //objUser.Password = objOrganization.OrganizationName;
+                        //objUser.OrgainzationId = objOrganization.OrganizationId;
+                        //CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
+                        //string token = membership.CreateAccount(objUser);
+                        db.SaveChanges();
                         RegistrationToken objToken = new RegistrationToken();
                         objToken.OrganizationId = objOrganization.OrganizationId;
-                        objToken.Token = token;
+                        objToken.Token = UserStatistics.GenerateToken();
                         objToken.RoleId = (int)UserRoles.OrganizationAdmin;
+                        objToken.CreatedBy = _userStatistics.UserId;
                         db.RegistrationTokens.Add(objToken);
-                        EmailHandler.Utilities.SendConfirmationEmail(objOrganization.OrganizationName);
-                        Roles.AddUserToRole(objOrganization.OrganizationName, "OrganizationAdmin");
+                        EmailHandler.Utilities.SendRegistationEmail(objToken.Token, objOrganization.Email);
                         db.SaveChanges();
                         return true;
                     }
@@ -135,7 +135,7 @@ namespace StudentTracker.Controllers
             objModel.CountryList = ContList;
             objModel.StateList = stateList;
             objModel.OrganizationTypeList = organizationTypeList;
-           
+
             return PartialView(objModel);
 
         }

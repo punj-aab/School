@@ -10,7 +10,7 @@ namespace StudentTracker.Core.Utilities
     public class EmailManager
     {
 
-        private const string EmailFrom = "noreplay@gmail.com";
+        private const string EmailFrom = "library.lakhwant@gmail.com";
         public static void SendConfirmationEmail(string userName)
         {
             var user = Membership.GetUser(userName.ToString());
@@ -25,8 +25,8 @@ namespace StudentTracker.Core.Utilities
                     message.Subject = "Please Verify your Account";
                     message.Body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear " + user.UserName +
                        ", </p><p>To verify your account, please click the following link:</p>"
-                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">" + verifyUrl
-                       + "</a></p><div>Best regards,</div><div>Someone</div><p>Do not forward "
+                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">Click here to verify.." 
+                       + "</a></p><div>Best regards,</div><div>Student Admin</div><p>Do not forward "
                        + "this email. The verify link is private.</p></body></html>";
 
                     message.IsBodyHtml = true;
