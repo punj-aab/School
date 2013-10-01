@@ -1,0 +1,116 @@
+﻿@model StudentTracker.Core.Entities.User
+
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<div class="sub-nav">
+    <ul>
+        <li>
+            @*  <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewClasses">View Classes
+            </a>*@
+        </li>
+        <li>
+            @* <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Classes
+            </a>*@
+        </li>
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+           
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Register
+                      <span class="mini-title">Simple form for registration
+                      </span>
+                        </div>
+                        <span class="tools">
+                            <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            @Html.HiddenFor(model => model.RegistrationToken)
+                           
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Username)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Username, new { @class = "disabled" })
+                                @Html.ValidationMessageFor(model => model.Username)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Email)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Email, new { @class = "disabled" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Password)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.Password)
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.ConfirmPassword)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.ConfirmPassword)
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.FirstName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.FirstName)
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.LastName)
+                            </div>
+                            <div class="editor-field">
+                                @Html.EditorFor(model => model.LastName)
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+
+                            <p>
+                                <input type="submit" value="Create" />
+                            </p>
+                            
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
