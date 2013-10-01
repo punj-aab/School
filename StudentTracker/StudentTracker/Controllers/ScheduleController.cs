@@ -34,6 +34,7 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
+
             return PartialView(objSchedule);
         }
 
@@ -87,7 +88,6 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     ScheduleRepository objRep = new ScheduleRepository();
-                    objSchedule.ModifiedOn = DateTime.Now;
                     objSchedule.ModifiedBy = _userStatistics.UserId;
                     if (objRep.UpdateSchedule(objSchedule))
                     {
@@ -126,70 +126,84 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSchedules()
         {
+
             return PartialView(repository.GetSchdeule());
         }
 
+        //public Schedule LoadSelectLists(long scheduleId = -1)
+        //{
+        //    PetaPoco.Database dbPeta = new PetaPoco.Database("DBConnectionString");
+        //    Schedule objSchedule = new Schedule();
+        //    List<Organization> orgList = null;
+        //    List<Course> courseList = null;
+        //    List<Class> classList = null;
+        //    List<Subject> subjectList = null;
+        //    List<Department> departmentList = null;
+        //    List<ClassRoom> classRoomList = null;
+        //    if (scheduleId != -1)
+        //    {
+        //        objSchedule = dbPeta.Query<Schedule>("select * from Schedule where ScheduleId=@0", scheduleId).SingleOrDefault();
+        //        classList = dbPeta.Query<Class>("select * from Classes where CourseId=@0", objSchedule.CourseId).ToList();
+        //        subjectList = dbPeta.Query<Subject>("select * from Subjects where ClassId=@0", objSchedule.ClassId).ToList();
+        //        classRoomList = dbPeta.Query<ClassRoom>("select * from ClassRoom where DepartmentId=@0", objSchedule.DepartmentId).ToList();
+        //    }
+        //    else
+        //    {
+        //        classList = new List<Class>();
+        //        subjectList = new List<Subject>();
+        //        classRoomList = new List<ClassRoom>();
+        //    }
+        //    if (User.IsInRole("SiteAdmin"))
+        //    {
+        //        orgList = dbPeta.Query<Organization>("select * from Organizations").ToList();
+        //        if (scheduleId != -1)
+        //        {
+        //            courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
+        //            departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
+        //        }
+        //        else
+        //        {
+        //            courseList = new List<Course>();
+        //            departmentList = new List<Department>();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        var organization = dbPeta.SingleOrDefault<Organization>("select * from Organizations where CreatedBy=@0", _userStatistics.UserId);
+        //        objSchedule.OrganizationId = organization.OrganizationId;
+        //        ViewBag.Organization = organization.OrganizationName;
+        //        courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", organization.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
+        //        departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", organization.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
+
+        //    }
+        //    objSchedule.OrganizationList = new SelectList(orgList, "OrganizationId", "OrganizationName", objSchedule.OrganizationId);
+        //    objSchedule.CourseList = new SelectList(courseList, "CourseId", "CourseName", objSchedule.CourseId);
+        //    objSchedule.ClassList = new SelectList(classList, "ClassId", "ClassName", objSchedule.ClassId);
+        //    objSchedule.SubjectList = new SelectList(subjectList, "SubjectId", "SubjectName", objSchedule.SubjectId);
+        //    objSchedule.DepartmentList = new SelectList(departmentList, "DepartmentId", "DepartmentName", objSchedule.DepartmentId);
+        //    objSchedule.ClassRoomList = new SelectList(classRoomList, "ClassRoomId", "Name", objSchedule.ClassRoomId);
+        //    List<SelectListItem> daysList = Enum.GetValues(typeof(StudentTracker.Core.Utilities.Days)).Cast<StudentTracker.Core.Utilities.Days>().Select(v => new SelectListItem
+        //    {
+        //        Text = v.ToString(),
+        //        Value = ((int)v).ToString()
+        //    }).ToList();
+        //    objSchedule.DayList = new SelectList(daysList, "Value", "Text");
+        //    return objSchedule;
+        //}
         public Schedule LoadSelectLists(long scheduleId = -1)
         {
-            PetaPoco.Database dbPeta = new PetaPoco.Database("DBConnectionString");
-            Schedule objSchedule = new Schedule();
-            List<Organization> orgList = null;// db.Query<Organization>("select * from Organizations").ToList();
-            List<Course> courseList = null;
-            List<Class> classList = null;
-            List<Subject> subjectList = null;
-            List<Department> departmentList = null;
-            List<ClassRoom> classRoomList = null;
-            if (scheduleId != -1)
+            Schedule objSchedule = null;
+            if (!User.IsInRole("SiteAdmin"))
             {
-                objSchedule = dbPeta.Query<Schedule>("select * from Schedule where ScheduleId=@0", scheduleId).SingleOrDefault();
-                classList = dbPeta.Query<Class>("select * from Classes where CourseId=@0", objSchedule.CourseId).ToList();
-                subjectList = dbPeta.Query<Subject>("select * from Subjects where ClassId=@0", objSchedule.ClassId).ToList();
-                classRoomList = dbPeta.Query<ClassRoom>("select * from ClassRoom where DepartmentId=@0", objSchedule.DepartmentId).ToList();
+                objSchedule = repository.LoadScheduleLists(null, User.Identity.Name, scheduleId);
+                ViewBag.Organization = objSchedule.OrganizationName;
             }
             else
             {
-                classList = new List<Class>();
-                subjectList = new List<Subject>();
-                classRoomList = new List<ClassRoom>();
+                objSchedule = repository.LoadScheduleLists("SiteAdmin", User.Identity.Name, scheduleId);
             }
-            if (User.IsInRole("SiteAdmin"))
-            {
-                orgList = dbPeta.Query<Organization>("select * from Organizations").ToList();
-                if (scheduleId != -1)
-                {
-                    courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
-                    departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", objSchedule.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
-                }
-                else
-                {
-                    courseList = new List<Course>();
-                    departmentList = new List<Department>();
-                }
-            }
-            else
-            {
-                var organization = dbPeta.SingleOrDefault<Organization>("select * from Organizations where CreatedBy=@0", _userStatistics.UserId);
-                objSchedule.OrganizationId = organization.OrganizationId;
-                ViewBag.Organization = organization.OrganizationName;
-                courseList = dbPeta.Query<Course>("select * from Courses where OrganisationId=@0", organization.OrganizationId).ToList(); //dbPeta.Courses.Where(x => x.OrganisationId == objSchedule.OrganizationId).ToList();
-                departmentList = dbPeta.Query<Department>("select * from Departments where OrganizationId=@0", organization.OrganizationId).ToList(); //dbPeta.Departments.Where(x => x.OrganizationId == objSchedule.OrganizationId).ToList();
-                
-            }
-            objSchedule.OrganizationList = new SelectList(orgList, "OrganizationId", "OrganizationName", objSchedule.OrganizationId);
-            objSchedule.CourseList = new SelectList(courseList, "CourseId", "CourseName", objSchedule.CourseId);
-            objSchedule.ClassList = new SelectList(classList, "ClassId", "ClassName", objSchedule.ClassId);
-            objSchedule.SubjectList = new SelectList(subjectList, "SubjectId", "SubjectName", objSchedule.SubjectId);
-            objSchedule.DepartmentList = new SelectList(departmentList, "DepartmentId", "DepartmentName", objSchedule.DepartmentId);
-            objSchedule.ClassRoomList = new SelectList(classRoomList, "ClassRoomId", "Name", objSchedule.ClassRoomId);
-            List<SelectListItem> daysList = Enum.GetValues(typeof(StudentTracker.Core.Utilities.Days)).Cast<StudentTracker.Core.Utilities.Days>().Select(v => new SelectListItem
-            {
-                Text = v.ToString(),
-                Value = ((int)v).ToString()
-            }).ToList();
-            objSchedule.DayList = new SelectList(daysList, "Value", "Text");
             return objSchedule;
         }
-
         public JsonResult GetCourse(long id)
         {
             return Json(db.Courses.Where(x => x.OrganisationId == id).ToList(), JsonRequestBehavior.AllowGet);

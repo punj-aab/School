@@ -116,7 +116,7 @@
 
                             @Html.DropDownListFor(m => m.DayId, Model.DayList, new { Class = "span6 multiselect", multiple = "multiple" })
                             @Html.ValidationMessageFor(m => m.DayId)
-
+                            @Html.ValidationMessageFor(m => m.DayIds)
                         </div>
                     </div>
                     <div class="control-group">
@@ -160,39 +160,66 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.timePicker').timepicker();
-        //$('.timePicker').timepicker({
-        //    minuteStep: 1,
-        //    template: 'modal',
-        //    showSeconds: true,
-        //    showMeridian: false
-        //});
 
-        //binding multiselect
+        //multiselect dropdown menu
         $('.multiselect').multiselect({
             buttonClass: 'btn',
             buttonWidth: 'auto',
             buttonContainer: '<div class="btn-group" />',
-            maxHeight: false,
-            buttonText: function (options) {
-                if (options.length == 0) {
+            maxHeight: false
+        });
 
-                    return 'None selected <b class="caret"></b>';
+        //pre fill multiselect
+        var value = $('#DayIds').val();
+        var array = value.split(',');
+        var text = '';
+        for (var i in array) {
+            $('.multiselect-container>li').each(function () {
+                if ($(this).children().find('input').val() == array[i]) {
+                    $(this).children().find('input').attr('checked', 'checked');
+                    $(this).addClass('active');
+                    text += $(this).children().find('.checkbox').text() + ',';
                 }
-                else if (options.length > 3) {
-                    return options.length + ' selected <b class="caret"></b>';
+            });
+        }
+        text = text.substr(0, text.length - 1);
+        $('button.multiselect').text(text);
+
+        //bind multiselect
+        $('.multiselect-container>li').find('input').click(function () {
+            var count = 0;
+            var textComma = text.charAt(text.length - 1);
+            var extraChar = text.charAt(text.length - 2);
+            if (extraChar == ',') {
+                text = text.substr(0, text.length - 1);
+            }
+            if (text !== '') {
+                if (textComma !== ',' && textComma.trim() !== '') {
+                    text = text + ',';
                 }
-                else {
-                    var selected = '';
-                    options.each(function () {
-                        selected += $(this).text() + ', ';
-                    });
-                    return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
-                }
+            }
+            if ($(this).is(':checked')) {
+                text += $(this).parent().text() + ',';
+            }
+            else {
+                text = text.replace($(this).parent().text() + ',', ' ');
+            }
+            if ($('.multiselect-container>li').find('input').is(':checked')) {
+                count = 1;
+            }
+            else {
+                count = 0;
+            }
+            if (count == 0) {
+                text = '';
+                $('button.multiselect').html('None selected <b class="caret"></b>');
+            }
+            else {
+                $('button.multiselect').text(text);
             }
         });
 
-
+        //update schedule
         $('#btnAdd').click(function (e) {
             var st = $('#StartTime').val();
             var et = $('#EndTime').val();
@@ -209,7 +236,9 @@
             Save(e);
         });
     });
+
 </script>
+
 
 
 

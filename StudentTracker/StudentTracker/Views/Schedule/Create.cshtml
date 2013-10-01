@@ -113,6 +113,7 @@
 
                             @Html.DropDownListFor(m => m.DayId, Model.DayList, new { Class = "span6 multiselect", multiple = "multiple" })
                             @Html.ValidationMessageFor(m => m.DayId)
+                            @Html.ValidationMessageFor(m => m.DayIds)
 
                         </div>
                     </div>
