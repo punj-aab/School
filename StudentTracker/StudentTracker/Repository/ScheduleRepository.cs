@@ -133,7 +133,7 @@ namespace StudentTracker.Models
                 cmd.Parameters.Add("@courseId", SqlDbType.BigInt).Value = schedule.CourseId;
                 cmd.Parameters.Add("@departmentId", SqlDbType.BigInt).Value = schedule.DepartmentId;
                 cmd.Parameters.Add("@classId", SqlDbType.BigInt).Value = schedule.ClassId;
-                cmd.Parameters.Add("@createdBy", SqlDbType.BigInt, 50).Value = userName;
+                cmd.Parameters.Add("@createdBy", SqlDbType.BigInt, 50).Value = createdBy;
 
                 SqlDataAdapter adp = new SqlDataAdapter();
                 adp.SelectCommand = cmd;

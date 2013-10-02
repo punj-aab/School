@@ -45,6 +45,7 @@ public sealed class WebSecurity
                 StudentTracker.Core.Entities.User User = Context.Users.FirstOrDefault(Usr => Usr.Username == Username);
                 User.FirstName = FirstName;
                 User.LastName = LastName;
+                User.ConfirmPassword = User.Password;
                 Context.SaveChanges();
             }
 

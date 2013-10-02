@@ -123,7 +123,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                 IsLockedOut = false,
                 LastPasswordFailureDate = DateTime.UtcNow
             };
-
+            NewUser.ConfirmPassword = password;
             Context.Users.Add(NewUser);
             Context.SaveChanges();
             status = MembershipCreateStatus.Success;
