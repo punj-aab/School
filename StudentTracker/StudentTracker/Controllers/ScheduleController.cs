@@ -195,12 +195,12 @@ namespace StudentTracker.Controllers
             Schedule objSchedule = null;
             if (!User.IsInRole("SiteAdmin"))
             {
-                objSchedule = repository.LoadScheduleLists(null, User.Identity.Name, scheduleId);
+                objSchedule = repository.LoadScheduleLists(null, _userStatistics.UserId, scheduleId);
                 ViewBag.Organization = objSchedule.OrganizationName;
             }
             else
             {
-                objSchedule = repository.LoadScheduleLists("SiteAdmin", User.Identity.Name, scheduleId);
+                objSchedule = repository.LoadScheduleLists("SiteAdmin", _userStatistics.UserId, scheduleId);
             }
             return objSchedule;
         }

@@ -158,7 +158,6 @@
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
-    <Compile Include="ViewModels\RegisterUser.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
