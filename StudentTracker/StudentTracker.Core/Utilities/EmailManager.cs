@@ -22,10 +22,10 @@ namespace StudentTracker.Core.Utilities
             {
                 using (var message = new MailMessage(EmailFrom, user.Email))
                 {
-                    message.Subject = "Please Verify your Account";
+                    message.Subject = "Verification Email";
                     message.Body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear " + user.UserName +
                        ", </p><p>To verify your account, please click the following link:</p>"
-                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">Click here to verify.." 
+                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">Click here" 
                        + "</a></p><div>Best regards,</div><div>Student Admin</div><p>Do not forward "
                        + "this email. The verify link is private.</p></body></html>";
 
