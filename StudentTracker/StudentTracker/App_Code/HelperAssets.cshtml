@@ -12,10 +12,15 @@
         //this function is used to validate and saving the data.
         function Save(e) {
             var action = $(e.target).attr('action');
-            var url = '@controller' + action;
+            var queryString='';
+            if ($("#token").val() != undefined && $("#token").val() != '') {
+                queryString = "?token=" + $("#token").val();
+                ////alert(queryString);
+            }
+            var url = '@controller' + action + queryString;
             var elem = $("#" + e.target.id).parents('form');
             var resultView = '@resultView';
-           // compareTime($('#StartTime').val(), $('#EndTime').val())
+            // compareTime($('#StartTime').val(), $('#EndTime').val())
             //validate the form.
             var val = $(elem).validate().form();
             if (val) {
@@ -315,3 +320,73 @@
     
     }
 @********************************* Custom Javascript Functions ****************************************************@
+@helper FileUploadHtml()
+{
+    <div id="filecontainer" class="span5 offset1">
+        <div id="filelist"></div>
+        <a href="#" data-role="button" class="btn btn-success" data-inline="true" id="pickfiles">Select files</a>
+    </div>
+}
+
+@helper FileUploadScript(string token)
+{
+    <script src="~/Content/Pluload/plupload.full.js"></script>
+    <script src="~/Content/Pluload/plupload.browserplus.js"></script>
+    <script>
+
+        var uploader = new plupload.Uploader({
+            runtimes: 'gears,html5,flash,silverlight,browserplus',
+            browse_button: 'pickfiles',
+            multiple_queues: true,
+            container: 'filecontainer',
+            max_file_size: '5mb',
+            url: '/Files/UploadFiles?token=' + '@token',
+            filters: [
+                { title: "Image files", extensions: "jpg,png,pdf,doc,txt" }
+            ]
+        });
+
+        uploader.init();
+
+        uploader.bind('FilesAdded', function (up, files) {
+            if (files.length <= 5) {
+                $.each(files, function (i, file) {
+                    $('#filelist').append('<div id="' + file.id + '" class="Attachment" >' + file.name + '(' + plupload.formatSize(file.size) + ') <b></b> <a href="javascript:void(0);" class="deleteFile" name="' + file.name + '" onclick="DeleteFiles(this);">delete</a>' + '</div>');
+                });
+                up.refresh();
+                uploader.start();
+                return false;
+            }
+            else {
+                $.each(files, function (i, v) {
+                    uploader.removeFile(v);
+                });
+                $('#filelist').html('upload only one file');
+            }
+        });
+
+        uploader.bind('UploadProgress', function (up, file) {
+            $('#' + file.id + " b").html(file.percent + "%");
+        });
+
+        uploader.bind('Error', function (up, err) {
+            $('#filelist').append("<div>Error: " + err.code + ", Message: " + err.message + (err.file ? ", File: " + err.file.name : "") + "</div>");
+            up.refresh();
+        });
+
+        uploader.bind('FileUploaded', function (up, file, data) {
+            var resp = data.response.split(',');
+            $('#LogoUrl').val(resp[1]);
+        });
+
+        function DeleteFiles($this) {
+            var divId = $($this).parent("div").attr("id");
+            $($this).parent("div").detach();
+            var fileName = $($this).attr("name");
+            //alert(fileName);
+            $.post("/files/DeleteTempFile", { token: '@token', fileName: fileName }, function (result) {
+                //alert(result);
+            });
+        }
+    </script>
+}
