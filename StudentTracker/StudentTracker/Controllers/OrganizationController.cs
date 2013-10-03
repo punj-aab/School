@@ -38,7 +38,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public string AddOrganizations(DBConnectionString.Organization objOrganization)
+        public string AddOrganizations(string token, DBConnectionString.Organization objOrganization)
         {
             try
             {
@@ -58,6 +58,7 @@ namespace StudentTracker.Controllers
                             objToken.DepartmentId = 0;
                             db.RegistrationTokens.Add(objToken);
                             db.SaveChanges();
+                            SaveFiles(token, this.GetType().Name, objOrganization.OrganizationId);
                             EmailHandler.Utilities.SendRegistationEmail(objToken.Token, objOrganization.Email);
                             return Convert.ToString(true);
                         }

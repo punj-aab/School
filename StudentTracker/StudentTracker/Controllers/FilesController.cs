@@ -1,61 +1,76 @@
 ﻿using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
-using StudentTracker.Core.Repositories;
-using StudentTracker.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace StudentTracker.Controllers
 {
-    public class BaseController : Controller
+    public class FilesController : BaseController
     {
-           public BaseController()
+        [HttpPost]
+        [AllowAnonymous]
+        public string UploadFiles(int? chunk, string name, string token)
         {
-        }
-           public BaseController(string conn)
-        {
-            //if (this.repository == null)
-            //    this.repository = new Repository(conn);
-        }
-        /// <summary>
-        /// Log to write messages to
-        /// </summary>
-        //private ILog log = new Log();
-
-        ///// <summary>
-        ///// Gets the log to write messages to
-        ///// </summary>
-        //public ILog Log
-        //{
-        //    get { return this.log; }
-        //}
-
-        protected IRepository repository = null;
-        protected UserStatistics _userStatistics = null;
-
-        protected override void Initialize(RequestContext controllerContext)
-        {
+            string LogoUrl = string.Empty;
+            string directory;
+            string savingFileName;
+            string guid;
             try
             {
-                //repository = new Repository();
-                
-                //this.Log.Initialize(ConfigurationManager.AppSettings["LogPath"], "APILogger");
-                //this.Log.WriteLine("Starting {0}", "Gateway API");
+                directory = Server.MapPath("~/Attachments/TempFiles/" + token);
+                guid = Guid.NewGuid().ToString();
+                var fileData = Request.Files[0];
+                //Check if directory already exists
+                bool ifExist = Directory.Exists(directory);
+                //if not then create a directory
+                if (!ifExist)
+                {
+                    Directory.CreateDirectory(directory);
+                }
 
-                base.Initialize(controllerContext);
-                _userStatistics = new UserStatistics(HttpContext);
+                savingFileName = fileData.FileName;
+
+                string tempFilePath = Path.Combine(directory, savingFileName);
+                fileData.SaveAs(tempFilePath);
+                LogoUrl = tempFilePath;
+                return LogoUrl + "," + guid;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //Log.WriteException(ex);
+                //Recording and Notifying the Exception Details
+                //GlobalFunctions.HandleLogError(ex.Message, ex.InnerException, objRouteData: ControllerContext.RouteData);
+
+                throw;
+            }
+            finally
+            {
+
             }
         }
-        protected bool DeleteAttachedFile(string fileName, string subDirectory1, Int32 itemId)
+
+        public bool DeleteTempFile(string token, string fileName)
+        {
+            string directory = string.Empty;
+            directory = Server.MapPath("~/Attachments/TempFiles");
+            directory = Path.Combine(directory, token);
+            bool ifExist = Directory.Exists(directory);
+
+            //if not then create a directory
+            if (ifExist)
+            {
+                string filePath = Path.Combine(directory, fileName);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+            }
+
+            return true;
+        }
+
+        public bool DeleteAttachedFile(string fileName, string subDirectory1, Int32 itemId)
         {
             string directory = string.Empty;
             directory = Server.MapPath("~/Attachments/AttachedFiles");
@@ -78,7 +93,7 @@ namespace StudentTracker.Controllers
             return true;
         }
 
-        protected void SaveFiles(string token, string subdirectory, long itemId)
+        public void SaveFiles(string token, string subdirectory, int itemId)
         {
             string fileUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/Attachments/AttachedFiles";
             string tempDirectory = Server.MapPath("~/Attachments/TempFiles");
@@ -110,7 +125,7 @@ namespace StudentTracker.Controllers
             db.SaveChanges();
         }
 
-        protected void DeleteFiles(string subdirectory, int itemId)
+        public void DeleteFiles(string subdirectory, int itemId)
         {
             StudentContext db = new StudentContext();
             var attachments = db.Attachments.Where(a => a.ParentType == subdirectory && a.ItemId == itemId).ToList();
@@ -126,21 +141,5 @@ namespace StudentTracker.Controllers
                 Directory.Delete(destDirectory);
             }
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            try
-            {
-                if (repository != null)
-                    repository.Dispose();
-
-                base.Dispose(disposing);
-            }
-            catch (Exception)
-            {
-               // Log.WriteException(ex);
-            }
-        }
-
     }
 }
