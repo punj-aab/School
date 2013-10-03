@@ -84,7 +84,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            Subject subject = db.Subjects.Find(id);
+            Subject subject = objRep.GetSubjects(subjectId: id);
             if (subject == null)
             {
                 return HttpNotFound();
@@ -143,7 +143,15 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSubjects()
         {
-            List<Subject> subjectList = objRep.GetSubjects();
+            List<Subject> subjectList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                subjectList = objRep.GetSubjects();
+            }
+            else
+            {
+                subjectList = objRep.GetSubjects(organizationId: _userStatistics.OrganizationId);
+            }
             return PartialView(subjectList);
         }
 
@@ -155,7 +163,7 @@ namespace StudentTracker.Controllers
             List<Class> objClassList = null;
             if (User.IsInRole("SiteAdmin"))
             {
-                objCourseList = db.Courses.ToList();
+                objCourseList = objRep.GetCourses();
                 if (courseId != -1)
                 {
                     objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();
@@ -167,7 +175,7 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                objCourseList = db.Courses.Where(x => x.OrganisationId == _userStatistics.UserId).ToList();
+                objCourseList = objRep.GetCourses(organizationId: _userStatistics.OrganizationId);
                 if (courseId != -1)
                 {
                     objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();

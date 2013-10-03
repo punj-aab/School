@@ -6,24 +6,24 @@ using System.Web;
 
 namespace StudentTracker.Repository
 {
-    public class DepartmentRepository
+    public class DepartmentRepository : StudentTracker.Core.Repository.CommonRepository
     {
         PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
-        public List<Department> GetDepartments()
-        {
-            string sql = "select Departments.DepartmentId,Departments.DepartmentName,Departments.DepartmentDesc,Departments.CreatedBy,Departments.CreatedDate,Departments.UpdatedBy,Departments.UpdatedDate, Organizations.OrganizationName,Users.Username as InsertedByName,Users_1.Username as ModifiedByName,Departments.OrganizationId ";
-            sql += "from Departments join Organizations on Departments.OrganizationId=Organizations.OrganizationId join Users on Departments.CreatedBy=Users.UserId left join Users as Users_1 on  Departments.UpdatedBy=Users_1.UserId";
-            List<Department> departmentList = db.Query<Department>(sql).ToList();
-            return departmentList;
-        }
-        public Department GetDepartments(long id)
-        {
-            string sql = "select Departments.DepartmentId,Departments.DepartmentName,Departments.DepartmentDesc,Departments.CreatedBy,Departments.CreatedDate,Departments.UpdatedBy,Departments.UpdatedDate, Organizations.OrganizationName,Users.Username as InsertedByName,Users_1.Username as ModifiedByName, Departments.OrganizationId ";
-            sql += "from Departments join Organizations on Departments.OrganizationId=Organizations.OrganizationId join Users on Departments.CreatedBy=Users.UserId left join Users as Users_1 on  Departments.UpdatedBy=Users_1.UserId ";
-            sql += "where DepartmentId=@0";
-            Department objDepartment = db.Query<Department>(sql, id).FirstOrDefault();
-            return objDepartment;
-        }
+        //public List<Department> GetDepartments()
+        //{
+        //    string sql = "select Departments.DepartmentId,Departments.DepartmentName,Departments.DepartmentDesc,Departments.CreatedBy,Departments.CreatedDate,Departments.UpdatedBy,Departments.UpdatedDate, Organizations.OrganizationName,Users.Username as InsertedByName,Users_1.Username as ModifiedByName,Departments.OrganizationId ";
+        //    sql += "from Departments join Organizations on Departments.OrganizationId=Organizations.OrganizationId join Users on Departments.CreatedBy=Users.UserId left join Users as Users_1 on  Departments.UpdatedBy=Users_1.UserId";
+        //    List<Department> departmentList = db.Query<Department>(sql).ToList();
+        //    return departmentList;
+        //}
+        //public Department GetDepartments(long id)
+        //{
+        //    string sql = "select Departments.DepartmentId,Departments.DepartmentName,Departments.DepartmentDesc,Departments.CreatedBy,Departments.CreatedDate,Departments.UpdatedBy,Departments.UpdatedDate, Organizations.OrganizationName,Users.Username as InsertedByName,Users_1.Username as ModifiedByName, Departments.OrganizationId ";
+        //    sql += "from Departments join Organizations on Departments.OrganizationId=Organizations.OrganizationId join Users on Departments.CreatedBy=Users.UserId left join Users as Users_1 on  Departments.UpdatedBy=Users_1.UserId ";
+        //    sql += "where DepartmentId=@0";
+        //    Department objDepartment = db.Query<Department>(sql, id).FirstOrDefault();
+        //    return objDepartment;
+        //}
         public bool CreateDepartment(Department objDepartment)
         {
             int recAffected = 0;

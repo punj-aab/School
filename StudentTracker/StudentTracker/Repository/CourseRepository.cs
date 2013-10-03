@@ -3,27 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using StudentTracker.Core.Repository;
 namespace StudentTracker.Repository
 {
-    public class CourseRepository
+    public class CourseRepository : StudentTracker.Core.Repository.CommonRepository
     {
         PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
-        public List<Course> GetCourses()
-        {
-            string sql = "select CourseId,CourseName,CourseDescription,Courses.CreatedBy,Courses.InsertedOn,Courses.ModifiedBy,ModifiedOn,Courses.OrganisationId,Organizations.OrganizationName, Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
-            sql += "from Courses join Organizations on Courses.OrganisationId=Organizations.OrganizationId join Users on Courses.CreatedBy=Users.UserId left join Users as Users_1 on  Courses.ModifiedBy=Users_1.UserId";
-            List<Course> modelList = db.Query<Course>(sql).ToList();
-            return modelList;
-        }
-        public Course GetCourses(long id)
-        {
-            string sql = "select CourseId,CourseName,CourseDescription,Courses.CreatedBy,Courses.InsertedOn,Courses.ModifiedBy,ModifiedOn,Courses.OrganisationId,Organizations.OrganizationName, Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
-            sql += "from Courses join Organizations on Courses.OrganisationId=Organizations.OrganizationId join Users on Courses.CreatedBy=Users.UserId left join Users as Users_1 on  Courses.ModifiedBy=Users_1.UserId ";
-            sql += "where CourseId=@0";
-            Course objModel = db.Query<Course>(sql, id).FirstOrDefault();
-            return objModel;
-        }
+        //public List<Course> GetCourses()
+        //{
+        //    string sql = "select CourseId,CourseName,CourseDescription,Courses.CreatedBy,Courses.InsertedOn,Courses.ModifiedBy,ModifiedOn,Courses.OrganisationId,Organizations.OrganizationName, Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
+        //    sql += "from Courses join Organizations on Courses.OrganisationId=Organizations.OrganizationId join Users on Courses.CreatedBy=Users.UserId left join Users as Users_1 on  Courses.ModifiedBy=Users_1.UserId";
+        //    List<Course> modelList = db.Query<Course>(sql).ToList();
+        //    return modelList;
+        //}
+        //public Course GetCourses(long id)
+        //{
+        //    string sql = "select CourseId,CourseName,CourseDescription,Courses.CreatedBy,Courses.InsertedOn,Courses.ModifiedBy,ModifiedOn,Courses.OrganisationId,Organizations.OrganizationName, Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
+        //    sql += "from Courses join Organizations on Courses.OrganisationId=Organizations.OrganizationId join Users on Courses.CreatedBy=Users.UserId left join Users as Users_1 on  Courses.ModifiedBy=Users_1.UserId ";
+        //    sql += "where CourseId=@0";
+        //    Course objModel = db.Query<Course>(sql, id).FirstOrDefault();
+        //    return objModel;
+        //}
         public bool Create(Course objCourse)
         {
             int recAffected = 0;

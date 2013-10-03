@@ -7,25 +7,25 @@ using System.Web;
 
 namespace StudentTracker.Repository
 {
-    public class ClassRepository
+    public class ClassRepository : StudentTracker.Core.Repository.CommonRepository
     {
         PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
-        public List<Class> GetClasses()
-        {
-            StringBuilder sql = new StringBuilder();
-            sql.Append("select Classes.ClassId,Classes.ClassName,Classes.Description,Classes.InsertedOn,Classes.ModifiedOn,Courses.CourseName,Organizations.OrganizationName,Classes.InsertedBy,Classes.ModifiedBy,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ");
-            sql.Append("from Classes join Organizations on Classes.OrganizationId=Organizations.OrganizationId join Courses on Classes.CourseId = Courses.CourseId join Users on Classes.InsertedBy=Users.UserId left join Users as Users_1 on  Classes.ModifiedBy=Users_1.UserId");
-            List<Class> classList = db.Query<Class>(sql.ToString()).ToList();
-            return classList;
-        }
-        public Class GetClasses(long id)
-        {
-            string sql = "select Classes.ClassId,Classes.ClassName,Classes.Description,Classes.InsertedOn,Classes.ModifiedOn,Courses.CourseName,Organizations.OrganizationName,Classes.InsertedBy,Classes.ModifiedBy,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
-            sql += "from Classes join Organizations on Classes.OrganizationId=Organizations.OrganizationId join Courses on Classes.CourseId = Courses.CourseId join Users on Classes.InsertedBy=Users.UserId left join Users as Users_1 on  Classes.ModifiedBy=Users_1.UserId ";
-            sql += "where ClassId=@0";
-            Class objClass = db.Query<Class>(sql, id).SingleOrDefault();
-            return objClass;
-        }
+        //public List<Class> GetClasses()
+        //{
+        //    StringBuilder sql = new StringBuilder();
+        //    sql.Append("select Classes.ClassId,Classes.ClassName,Classes.Description,Classes.InsertedOn,Classes.ModifiedOn,Courses.CourseName,Organizations.OrganizationName,Classes.InsertedBy,Classes.ModifiedBy,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ");
+        //    sql.Append("from Classes join Organizations on Classes.OrganizationId=Organizations.OrganizationId join Courses on Classes.CourseId = Courses.CourseId join Users on Classes.InsertedBy=Users.UserId left join Users as Users_1 on  Classes.ModifiedBy=Users_1.UserId");
+        //    List<Class> classList = db.Query<Class>(sql.ToString()).ToList();
+        //    return classList;
+        //}
+        //public Class GetClasses(long id)
+        //{
+        //    string sql = "select Classes.ClassId,Classes.ClassName,Classes.Description,Classes.InsertedOn,Classes.ModifiedOn,Courses.CourseName,Organizations.OrganizationName,Classes.InsertedBy,Classes.ModifiedBy,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
+        //    sql += "from Classes join Organizations on Classes.OrganizationId=Organizations.OrganizationId join Courses on Classes.CourseId = Courses.CourseId join Users on Classes.InsertedBy=Users.UserId left join Users as Users_1 on  Classes.ModifiedBy=Users_1.UserId ";
+        //    sql += "where ClassId=@0";
+        //    Class objClass = db.Query<Class>(sql, id).SingleOrDefault();
+        //    return objClass;
+        //}
         public bool CreateClass(Class objClass)
         {
             int recAffected = 0;

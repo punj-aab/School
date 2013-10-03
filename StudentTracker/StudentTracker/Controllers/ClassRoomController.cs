@@ -123,12 +123,29 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewClassRooms()
         {
-            List<ClassRoom> classList = objRep.GetClassRooms();
+            List<ClassRoom> classList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                classList = objRep.GetClassRooms();
+            }
+            else
+            {
+                classList = objRep.GetClassRooms(organizationId: _userStatistics.OrganizationId);
+            }
             return PartialView(classList);
         }
         public SelectList LoadSelectList(long id = -1)
         {
-            SelectList list = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName", id);
+            List<Department> deparmentList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                deparmentList = objRep.GetDepartments();
+            }
+            else
+            {
+                deparmentList = objRep.GetDepartments(organizationId: _userStatistics.OrganizationId);
+            }
+            SelectList list = new SelectList(deparmentList, "DepartmentId", "DepartmentName", id);
             return list;
         }
 

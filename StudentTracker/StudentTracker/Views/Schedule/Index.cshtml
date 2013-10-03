@@ -47,7 +47,8 @@
             });
         });
     </script>
-  @HelperAssets.LoadAjaxData("/Schedule/");
+    @HelperAssets.LoadAjaxData("/Schedule/");
   @HelperAssets.DataTable();
   @HelperAssets.SaveAndLoadData("/Schedule/", "ViewSchedules");
+    @*@HelperAssets.EditMultiSelect()*@
 }

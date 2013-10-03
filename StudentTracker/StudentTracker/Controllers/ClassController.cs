@@ -146,7 +146,16 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewClasses()
         {
-            List<Class> classList = objRep.GetClasses();
+            List<Class> classList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                classList = objRep.GetClasses();
+            }
+            else
+            {
+                classList = objRep.GetClasses(organizationId: _userStatistics.OrganizationId);
+            }
+
             return PartialView(classList);
         }
 
@@ -154,14 +163,14 @@ namespace StudentTracker.Controllers
         {
             organizationList = null;
             courseList = null;
-            List<Organization> objOrganizationList = null;
+            List<Organization> objOrganizationList = new List<Organization>();
             List<Course> objCourseList = null;
             if (User.IsInRole("SiteAdmin"))
             {
-                objOrganizationList = db.Organizations.ToList();
+                objOrganizationList = objRep.SelectOrganizations();
                 if (organizationId != -1)
                 {
-                    objCourseList = db.Courses.Where(x => x.OrganisationId == organizationId).ToList();
+                    objCourseList = objRep.GetCourses(organizationId: organizationId);
                 }
                 else
                 {
@@ -170,10 +179,10 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                var organization = db.Organizations.Single(x => x.CreatedBy == _userStatistics.UserId);
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
-                objCourseList = db.Courses.Where(x => x.OrganisationId == organization.OrganizationId).ToList();
+                objCourseList = objRep.GetCourses(organizationId: organization.OrganizationId);
             }
             organizationList = new SelectList(objOrganizationList, "OrganizationId", "OrganizationName", organizationId);
             courseList = new SelectList(objCourseList, "CourseId", "CourseName", courseId);

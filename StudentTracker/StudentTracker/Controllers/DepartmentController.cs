@@ -12,10 +12,7 @@ namespace StudentTracker.Controllers
 {
     public class DepartmentController : BaseController
     {
-        private StudentContext db = new StudentContext();
         private DepartmentRepository objRep = new DepartmentRepository();
-        //
-        // GET: /Department/
 
         public ActionResult Index()
         {
@@ -114,7 +111,7 @@ namespace StudentTracker.Controllers
             }
         }
 
-       //delete
+        //delete
         [HttpPost]
         public string DeleteConfirmed(long id)
         {
@@ -134,13 +131,21 @@ namespace StudentTracker.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            objRep = null;
             base.Dispose(disposing);
         }
 
         public ActionResult ViewDepartments()
         {
-            List<Department> objDepartmentsList = objRep.GetDepartments();
+            List<Department> objDepartmentsList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                objDepartmentsList = objRep.GetDepartments();
+            }
+            else
+            {
+                objDepartmentsList = objRep.GetDepartments(organizationId: _userStatistics.OrganizationId);
+            }
             return PartialView(objDepartmentsList);
         }
 
@@ -148,21 +153,20 @@ namespace StudentTracker.Controllers
         {
             SelectList OrganizationList = null;
             List<Organization> organizationList = new List<Organization>();
-            organizationList = db.Organizations.ToList();
+
             if (User.IsInRole("SiteAdmin"))
             {
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", "");
+                organizationList = objRep.SelectOrganizations();
             }
             else
             {
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
-                var organization = db.Organizations.Single(x => x.OrganizationName == User.Identity.Name);
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 
                 //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
             }
-
+            OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             return OrganizationList;
         }
     }

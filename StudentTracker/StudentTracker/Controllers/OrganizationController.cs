@@ -10,13 +10,15 @@ using StudentTracker.ViewModels;
 using System.Web.Security;
 using System.Data;
 using StudentTracker.Core.Utilities;
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class OrganizationController : BaseController
     {
-       
+
         // GET: /Organization/
         StudentContext db = new StudentContext();
+        OrganizationRepository objRep = new OrganizationRepository();
         public ActionResult Index()
         {
             return View();
@@ -36,7 +38,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public bool AddOrganizations(Organization objOrganization)
+        public string AddOrganizations(DBConnectionString.Organization objOrganization)
         {
             try
             {
@@ -46,33 +48,27 @@ namespace StudentTracker.Controllers
                     {
                         objOrganization.CreatedDate = DateTime.Now;
                         objOrganization.CreatedBy = _userStatistics.UserId;
-                        db.Organizations.Add(objOrganization);
-
-                        //User objUser = new User();
-                        //objUser.Email = objOrganization.Email;
-                        //objUser.Username = objOrganization.OrganizationName;
-                        //objUser.StatusId = Convert.ToInt32(UserStatus.Pending);
-                        //objUser.Password = objOrganization.OrganizationName;
-                        //objUser.OrgainzationId = objOrganization.OrganizationId;
-                        //CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
-                        //string token = membership.CreateAccount(objUser);
-                        db.SaveChanges();
-                        RegistrationToken objToken = new RegistrationToken();
-                        objToken.OrganizationId = objOrganization.OrganizationId;
-                        objToken.Token = UserStatistics.GenerateToken();
-                        objToken.RoleId = (int)UserRoles.OrganizationAdmin;
-                        objToken.CreatedBy = _userStatistics.UserId;
-                        db.RegistrationTokens.Add(objToken);
-                        EmailHandler.Utilities.SendRegistationEmail(objToken.Token, objOrganization.Email);
-                        db.SaveChanges();
-                        return true;
+                        if (objRep.Create(objOrganization))
+                        {
+                            RegistrationToken objToken = new RegistrationToken();
+                            objToken.OrganizationId = objOrganization.OrganizationId;
+                            objToken.Token = UserStatistics.GenerateToken();
+                            objToken.RoleId = (int)UserRoles.OrganizationAdmin;
+                            objToken.CreatedBy = _userStatistics.UserId;
+                            objToken.DepartmentId = 0;
+                            db.RegistrationTokens.Add(objToken);
+                            db.SaveChanges();
+                            EmailHandler.Utilities.SendRegistationEmail(objToken.Token, objOrganization.Email);
+                            return Convert.ToString(true);
+                        }
+                        return Convert.ToString(false);
                     }
                 }
-                return false;
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
-                return false;
+                return ex.Message.ToString();
             }
         }
 
@@ -107,12 +103,12 @@ namespace StudentTracker.Controllers
         public ActionResult ViewOrganizations()
         {
             OrganizationsViewModel objViewModel = new OrganizationsViewModel();
-            objViewModel.OrganizationList = OrganizationList();
+            objViewModel.OrganizationList = objRep.SelectOrganizations();
             return PartialView(objViewModel);
         }
-        public ActionResult Details(int id)
+        public ActionResult Details(long id)
         {
-            Organization organization = db.Organizations.Find(id);
+            Organization organization = objRep.SelectOrganizations(id);
             if (organization == null)
             {
                 return HttpNotFound();
@@ -123,7 +119,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id)
         {
-            Organization objModel = db.Organizations.Find(id);
+            Organization objModel = objRep.SelectOrganizations(id);
             if (objModel == null)
             {
                 return HttpNotFound();
@@ -147,11 +143,12 @@ namespace StudentTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    organization.ModifiedDate = DateTime.Now;
                     organization.ModifiedBy = _userStatistics.UserId;
-                    db.Entry(organization).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return Convert.ToString(true);
+                    if (objRep.Update(organization))
+                    {
+                        return Convert.ToString(true);
+                    }
+                    return Convert.ToString(false);
                 }
                 return Convert.ToString(false);
             }

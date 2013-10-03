@@ -135,7 +135,15 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewCourses()
         {
-            List<Course> objCourceList = objRep.GetCourses();
+            List<Course> objCourceList = null;
+            if (User.IsInRole("SiteAdmin"))
+            {
+                objCourceList = objRep.GetCourses();
+            }
+            else
+            {
+                objCourceList = objRep.GetCourses(organizationId: _userStatistics.OrganizationId);
+            }
             return PartialView(objCourceList);
         }
 
@@ -145,23 +153,24 @@ namespace StudentTracker.Controllers
             base.Dispose(disposing);
         }
 
-        public SelectList LoadSelectLists(int id = -1)
+        public SelectList LoadSelectLists(long id = -1)
         {
             SelectList OrganizationList = null;
             List<Organization> organizationList = new List<Organization>();
-            organizationList = db.Organizations.ToList();
+
             if (User.IsInRole("SiteAdmin"))
             {
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
+                organizationList = objRep.SelectOrganizations();
             }
             else
             {
-                var organization = db.Organizations.SingleOrDefault(x => x.CreatedBy == _userStatistics.UserId);
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 
                 //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
             }
+            OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             return OrganizationList;
         }
     }

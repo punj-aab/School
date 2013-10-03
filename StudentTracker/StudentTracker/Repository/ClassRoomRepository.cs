@@ -6,24 +6,24 @@ using System.Web;
 
 namespace StudentTracker.Repository
 {
-    public class ClassRoomRepository
+    public class ClassRoomRepository : StudentTracker.Core.Repository.CommonRepository
     {
         PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
-        public List<ClassRoom> GetClassRooms()
-        {
-            string sql = "select ClassRoomId,Name,Description,Location,ClassRoom.InsertedOn,ClassRoom.ModifiedOn,ClassRoom.DepartmentId,Departments.DepartmentName, ClassRoom.InsertedBy,ClassRoom.ModifiedBy ,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
-            sql += "from ClassRoom join Departments on ClassRoom.ClassRoomId=Departments.DepartmentId join Users on ClassRoom.InsertedBy=Users.UserId left join Users as Users_1 on  ClassRoom.ModifiedBy=Users_1.UserId";
-            List<ClassRoom> classList = db.Query<ClassRoom>(sql).ToList();
-            return classList;
-        }
-        public ClassRoom GetClassRooms(long id)
-        {
-            string sql = "select ClassRoomId,Name,Description,Location,ClassRoom.InsertedOn,ClassRoom.ModifiedOn,ClassRoom.DepartmentId,Departments.DepartmentName, ClassRoom.InsertedBy,ClassRoom.ModifiedBy ,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
-            sql += "from ClassRoom join Departments on ClassRoom.ClassRoomId=Departments.DepartmentId join Users on ClassRoom.InsertedBy=Users.UserId left join Users as Users_1 on  ClassRoom.ModifiedBy=Users_1.UserId ";
-            sql += "where ClassRoomId=@0";
-            ClassRoom objClass = db.Query<ClassRoom>(sql, id).FirstOrDefault();
-            return objClass;
-        }
+        //public List<ClassRoom> GetClassRooms()
+        //{
+        //    string sql = "select ClassRoomId,Name,Description,Location,ClassRoom.InsertedOn,ClassRoom.ModifiedOn,ClassRoom.DepartmentId,Departments.DepartmentName, ClassRoom.InsertedBy,ClassRoom.ModifiedBy ,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
+        //    sql += "from ClassRoom join Departments on ClassRoom.ClassRoomId=Departments.DepartmentId join Users on ClassRoom.InsertedBy=Users.UserId left join Users as Users_1 on  ClassRoom.ModifiedBy=Users_1.UserId";
+        //    List<ClassRoom> classList = db.Query<ClassRoom>(sql).ToList();
+        //    return classList;
+        //}
+        //public ClassRoom GetClassRooms(long id)
+        //{
+        //    string sql = "select ClassRoomId,Name,Description,Location,ClassRoom.InsertedOn,ClassRoom.ModifiedOn,ClassRoom.DepartmentId,Departments.DepartmentName, ClassRoom.InsertedBy,ClassRoom.ModifiedBy ,Users.Username as InsertedByName,Users_1.Username as ModifiedByName ";
+        //    sql += "from ClassRoom join Departments on ClassRoom.ClassRoomId=Departments.DepartmentId join Users on ClassRoom.InsertedBy=Users.UserId left join Users as Users_1 on  ClassRoom.ModifiedBy=Users_1.UserId ";
+        //    sql += "where ClassRoomId=@0";
+        //    ClassRoom objClass = db.Query<ClassRoom>(sql, id).FirstOrDefault();
+        //    return objClass;
+        //}
         public bool CreateClassRoom(ClassRoom objClass)
         {
             int recAffected = 0;
