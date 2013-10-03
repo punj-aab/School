@@ -1,8 +1,10 @@
 ﻿@model StudentTracker.Core.Entities.Organization
 @{
     ViewBag.Title = "AddOrganizations";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -81,7 +83,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.Address2, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2" ,Class = "span6"})
+                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">
@@ -103,11 +105,10 @@
                             @Html.TextBoxFor(m => m.Phone2, new { placeholder = "Phone2", Class = "span6" })
                         </div>
                     </div>
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
                     <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        @*<a name="submit" class="btn btn-primary" href="javascript:;" id="btnAddOrg">Add Organization</a>*@
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="AddOrganizations" onclick="Save(event)" id="btnAddOrg">Add Organization</a>
                         <div class="clearfix">
                         </div>
@@ -122,9 +123,7 @@
 </div>
 
 
-
+@HelperAssets.FileUploadScript(token);
 <script type="text/javascript">
-    $(document).ready(function () {
 
-    });
 </script>

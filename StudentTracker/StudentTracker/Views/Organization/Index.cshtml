@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 
 
@@ -50,4 +51,5 @@
     @HelperAssets.LoadAjaxData("/Organization/");
     @HelperAssets.DataTable();
     @HelperAssets.SaveAndLoadData("/Organization/", "ViewOrganizations");
+    
 }
