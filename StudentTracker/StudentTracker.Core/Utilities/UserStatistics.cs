@@ -1,4 +1,5 @@
 ﻿using StudentTracker.Core.DAL;
+using StudentTracker.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,23 +27,19 @@ namespace StudentTracker.Core.Utilities
         public UserStatistics(HttpContextBase context)
         {
             _context = context;
-            if (_context.Session["UserId"] != null)
+            StudentContext db = new StudentContext();
+            User user = new User();
+            if (_context.Session["User"] != null)
             {
-                userId = Convert.ToInt64(_context.Session["UserId"]);
-                organizationId = Convert.ToInt64(_context.Session["OrganizationId"]);
+                user = _context.Session["User"] as User;
             }
             else
             {
-                StudentContext db = new StudentContext();
-                var user = db.Users.Where(u => u.Username == context.User.Identity.Name).FirstOrDefault();
-                if (user != null)
-                {
-                    userId = user.UserId;
-                    _context.Session["UserId"] = userId;
-                    organizationId = user.OrgainzationId;
-                    _context.Session["OrganizationId"] = organizationId;
-                }
+                user = db.Users.Where(u => u.Username == context.User.Identity.Name).FirstOrDefault();
+                _context.Session["User"] = user;
             }
+            userId = user.UserId;
+            organizationId = user.OrgainzationId;
         }
 
         public long UserId
