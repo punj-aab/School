@@ -130,6 +130,7 @@
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
@@ -253,6 +254,9 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\images\loading-blue.gif" />
+    <Content Include="Content\Pluload\plupload.browserplus.js" />
+    <Content Include="Content\Pluload\plupload.flash.swf" />
+    <Content Include="Content\Pluload\plupload.full.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

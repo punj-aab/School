@@ -17,10 +17,8 @@ namespace StudentTracker.Core.Migrations
         protected override void Seed(StudentTracker.Core.DAL.StudentContext context)
         {
             Seed objseed = new Seed();
-            objseed.AddCountriesToDB(context);
-            objseed.AddStatesToDB(context);
-          
-           
+            //objseed.AddCountriesToDB(context);
+            //objseed.AddStatesToDB(context);
         }
     }
 }

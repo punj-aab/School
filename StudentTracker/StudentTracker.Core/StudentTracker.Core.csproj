@@ -61,6 +61,7 @@
     <Compile Include="App_Code\Seed.cs" />
     <Compile Include="DAL\DataContextInitializer.cs" />
     <Compile Include="DAL\StudentContext.cs" />
+    <Compile Include="Entities\Attachment.cs" />
     <Compile Include="Entities\Class.cs" />
     <Compile Include="Entities\ClassRoom.cs" />
     <Compile Include="Entities\Country.cs" />

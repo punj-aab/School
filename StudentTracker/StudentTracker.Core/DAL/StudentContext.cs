@@ -53,8 +53,7 @@ namespace StudentTracker.Core.DAL
         }
 
         #endregion
-
-        
+        public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
     }
 }
