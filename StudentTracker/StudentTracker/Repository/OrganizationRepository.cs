@@ -26,7 +26,7 @@ namespace StudentTracker.Repository
             return objModel;
         }
 
-        public bool Create(DBConnectionString.Organization objOrganization)
+        public bool Create(Organization objOrganization)
         {
             int recAffected = 0;
             DBConnectionString.Organization organization = new DBConnectionString.Organization();

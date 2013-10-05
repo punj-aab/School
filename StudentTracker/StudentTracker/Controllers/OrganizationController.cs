@@ -38,7 +38,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public string AddOrganizations(string token, DBConnectionString.Organization objOrganization)
+        public string AddOrganizations(string token, Organization objOrganization)
         {
             try
             {
@@ -48,7 +48,8 @@ namespace StudentTracker.Controllers
                     {
                         objOrganization.CreatedDate = DateTime.Now;
                         objOrganization.CreatedBy = _userStatistics.UserId;
-                        if (objRep.Create(objOrganization))
+                        
+                        if (objRep.CreateOrganization(objOrganization))
                         {
                             RegistrationToken objToken = new RegistrationToken();
                             objToken.OrganizationId = objOrganization.OrganizationId;
