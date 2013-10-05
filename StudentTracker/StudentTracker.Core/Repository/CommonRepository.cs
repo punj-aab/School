@@ -109,7 +109,40 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Department>(storedProcedure, new { departmentId = departmentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
+        public bool CreateOrganization(Organization objOrganization)
+        {
+            var parameters = new
+            {
+                Address1 = objOrganization.Address1,
+                Address2 = objOrganization.Address2,
+                City = objOrganization.City,
+                CountryId = objOrganization.CountryId,
+                CreatedBy = objOrganization.CreatedBy,
+                CreatedDate = DateTime.Now,
+                Email = objOrganization.Email,
+                OrganizationDesc = objOrganization.OrganizationDesc,
+                OrganizationName = objOrganization.OrganizationName,
+                OrganizationTypeId = objOrganization.OrganizationTypeId,
+                Phone1 = objOrganization.Phone1,
+                Phone2 = objOrganization.Phone2,
+                RegisterationNumber = objOrganization.RegisterationNumber,
+                StateId = objOrganization.StateId
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addOrganization";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objOrganization.OrganizationId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
-        
     }
 }
+
+
+
