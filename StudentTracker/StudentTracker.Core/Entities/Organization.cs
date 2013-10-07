@@ -97,6 +97,9 @@
 
         [NotMapped]
         public SelectList OrganizationTypeList { get; set; }
-
+        [NotMapped]
+        public string InsertedByName { get; set; }
+        [NotMapped]
+        public string ModifiedByName { get; set; }
     }
 }
