@@ -141,16 +141,67 @@ namespace StudentTracker.Core.Repository
             }
         }
 
+        //ADD NEW COURSE
+        public bool CreateCourse(Course objCourse)
+        {
+            var parameters = new
+            {
+                CourseName          = objCourse.CourseName,
+                CourseDescription = objCourse.CourseDescription,
+                OrganisationId      = objCourse.OrganisationId,
+                CreatedBy           = objCourse.CreatedBy,
+                InsertedOn          = DateTime.Now,
+            };
 
-        public bool CreateDepartmentD(Department objDep)
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addCourse";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objCourse.CourseId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        //ADD NEW CLASS
+        public bool CreateClass(Class objClass)
+        {
+            var parameters = new
+            {
+                ClassName           = objClass.ClassName,
+                Description         = objClass.Description,
+                OrganizationId      = objClass.OrganizationId,
+                CourseId            = objClass.    CourseId,
+                InsertedOn      = DateTime.Now,
+                InsertedBy = objClass.InsertedBy
+            };
+
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addClass";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objClass.ClassId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        //ADD NEW DEPARTMENT
+        public bool CreateDepartment(Department objDep)
         {
             var parameters = new
             {
                 DepartmentName = objDep.DepartmentName,
                 DepartmentDesc = objDep.DepartmentDesc,
                 OrganizationId = objDep.OrganizationId,
-                CreatedDate = objDep.CreatedDate,
-                CreatedBy = objDep.CreatedBy
+                CreatedDate     = objDep.CreatedDate,
+                CreatedBy       = objDep.CreatedBy
             };
             using (IDbConnection connection = OpenConnection())
             {
@@ -165,6 +216,79 @@ namespace StudentTracker.Core.Repository
             }
         }
 
+        //ADD NEW SUBJECT
+        public bool CreateSubject(Subject objSubject)
+        {
+            var parameters = new
+            {
+                SubjectName          = objSubject.SubjectName,
+                SubjectDescription = objSubject.SubjectDescription,
+                CourseId            = objSubject.CourseId,
+                ClassId             = objSubject.ClassId,
+                CreatedBy           = objSubject.CreatedBy,
+                InsertedOn              = DateTime.Now
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addSubject";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objSubject.SubjectId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        //ADD NEW CLASSROOM
+        public bool CreateClassRoom(ClassRoom objClass)
+        {
+            var parameters = new
+            {
+                Name        = objClass.Name,
+                Description = objClass.Description,
+                Location    = objClass.Location,
+                InsertedOn  = DateTime.Now,
+                InsertedBy  = objClass.InsertedBy,
+                DepartmentId = objClass.DepartmentId
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addClassRoom";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objClass.ClassRoomId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        //ADD NEW SECTION
+        public bool CreateSection(Section objSection)
+        {
+            var parameters = new
+            {
+            SectionName         = objSection.SectionName,
+            SectionDescription = objSection.SectionDescription,
+            ClassId             = objSection.ClassId,
+            CreatedBy           = objSection.CreatedBy,
+            InsertedOn          = DateTime.Now
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "addSection";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objSection.SectionId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
 
