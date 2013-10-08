@@ -1,0 +1,17 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.Attachment>
+
+@{
+    Layout = null;
+}
+<div>
+    <ul class="thumbnails">
+        @foreach (StudentTracker.Core.Entities.Attachment file in Model)
+        {
+            <li class="span3">
+                <a href="#" class="thumbnail" data-original-title="">
+                    <img alt="260x180" style="width: 260px; height: 180px;" src="@file.FilePath">
+                </a>
+            </li>
+        }
+    </ul>
+</div>
