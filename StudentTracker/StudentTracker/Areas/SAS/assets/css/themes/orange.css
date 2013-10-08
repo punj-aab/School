@@ -1,0 +1,365 @@
+a:focus, 
+a:hover, 
+a:active {
+	color: #e67e22;
+}
+
+.color-green {
+	color: #e67e22;
+}
+
+a.read-more:hover { 
+	color:#e67e22; 
+}
+
+.linked:hover {
+	color:#e67e22;
+}
+
+/*Slider
+------------------------------------*/
+.da-slide h2 i {
+	background:url(../../plugins/parallax-slider/img/bg-heading-orange.png) repeat;
+}
+
+/*Purchase
+------------------------------------*/
+.purchase a.btn-buy {
+	background:#e67e22;
+	text-shadow:0 1px 0 #d35400;	
+}
+.purchase a.btn-buy:hover {
+	background:#d35400;
+} 
+
+/*Buttons
+------------------------------------*/
+.btn-u {
+	background: #e67e22;
+}
+
+.btn-u:hover {
+	background: #d35400;
+}
+
+/*Service
+------------------------------------*/
+.service i {
+	color:#e67e22;	
+}
+
+/*Welcome Block*/
+.servive-block .span4 h4 a:hover {
+	color:#e67e22;
+}
+
+.servive-block .span4:hover h4,
+.servive-block .span4:hover i {
+	color:#e67e22;
+}
+.servive-block-in .span4 i {
+	color:#e67e22;
+}
+
+/*Service Blocks*/
+.service-alternative .service:hover { 
+	background:#e67e22;
+} 
+
+/*Thumbnail (Recent Work)
+------------------------------------*/
+.thumbnail-style h3 a:hover {
+	color:#e67e22;
+}
+
+.thumbnail-style a.btn-more {
+	background:#e67e22;
+}
+.thumbnail-style a.btn-more:hover {
+	box-shadow:0 0 0 2px #d35400;
+}
+
+/*Carousel (Recent Work)*/
+.recent-work a:hover span {
+	border-bottom:solid 2px #e67e22;
+}
+
+.bx-wrapper .bx-prev {
+	background-image: url(../../plugins/bxslider/images/controls-orange.png);
+}
+.bx-wrapper .bx-next {
+	background-image: url(../../plugins/bxslider/images/controls-orange.png);
+}
+
+/*Typography
+------------------------------------*/
+/*Heading*/
+.headline h3, 
+.headline h4 {
+	border-bottom:2px solid #e67e22;
+}
+
+/*Blockquote*/
+blockquote:hover {
+	border-left-color:#e67e22; 
+}
+
+.hero {
+	border-left-color: #e67e22;
+}
+
+/*Carousel
+------------------------------------*/
+.carousel-arrow a.carousel-control:hover {
+	color: #e67e22;
+}
+
+/*Footer
+------------------------------------*/
+.footer a,
+.copyright a,
+.footer a:hover,
+.copyright a:hover {
+	color: #e67e22;
+}
+
+/*Footer Blog*/
+.footer .dl-horizontal a:hover {
+	color:#e67e22 !important;
+}
+
+
+/*Blog Posts
+------------------------------------*/
+.posts .dl-horizontal:hover { 
+	border-right:solid 2px #e67e22;
+}
+.posts .dl-horizontal a:hover { 
+	color:#e67e22; 
+}
+.posts .dl-horizontal:hover dt img,
+.posts .dl-horizontal:hover dd a { 
+	color:#e67e22;
+	border-color:#e67e22 !important;
+}
+
+/*Tabs
+------------------------------------*/
+.nav-tabs li.active a, 
+.nav-tabs li.active a:hover,
+.nav-tabs > .active > a, 
+.nav-tabs > .active > a:hover, 
+.nav-tabs > .active > a:focus { 
+	background:#e67e22; 
+}
+.nav-tabs > li > a:hover { 
+	background:#e67e22; 
+}
+.tab-content { 
+	border-top:solid 2px #e67e22; 
+}
+
+/*Accardion
+------------------------------------*/
+.acc-home a.active,
+.acc-home a.accordion-toggle:hover { 
+	color:#e67e22; 
+}
+.acc-home .collapse.in { 
+	border-bottom:solid 1px #e67e22; 
+}
+
+/*Testimonials
+------------------------------------*/
+.testimonal-arrow a {
+	color:#e67e22;
+}
+.testimonal-arrow a:hover {
+	background:#e67e22 !important;
+}
+
+/*Breadcrumb
+------------------------------------*/
+.breadcrumb li.active,
+.breadcrumb li a:hover {
+	color:#e67e22;
+}
+
+/*About Page
+------------------------------------*/
+.team .thumbnail-style:hover h3 a {
+	color:#e67e22 !important;
+}
+
+/*Social Icons*/
+.team ul li i:hover {
+	background:#e67e22;
+}	
+
+/*Pricing Page
+------------------------------------*/
+/*Pricing Head*/
+.pricing:hover h4 {
+	color:#e67e22;
+}
+
+.pricing-head h3 {
+	background:#e67e22;
+	text-shadow:0 1px 0 #d35400;
+	border-bottom:solid 1px #d35400;
+}
+.pricing-head h4 {
+	color:#999;
+	background:#fcfcfc;
+	border-bottom:solid 1px #ffe7d1;
+}
+	
+/*Pricing Content*/
+.pricing-content li {
+	border-bottom:solid 1px #ffe7d1;
+}
+.pricing-content li i {
+	color:#e67e22;
+}
+
+/*Pricing Footer*/
+.pricing-footer a,
+.pricing-footer button {
+	background:#e67e22;
+	text-shadow:0 1px 0 #d35400;
+	border-bottom:solid 2px #d35400;
+}
+.pricing-footer a:hover,
+.pricing-footer button:hover {
+	background:#d35400;
+}
+
+/*Priceing Active*/
+.price-active h4 {
+	color:#e67e22;
+}
+
+.no-space-pricing .price-active .pricing-head h4,
+.no-space-pricing .pricing:hover .pricing-head h4 {
+	color:#e67e22;
+}
+
+/*Right Sidebar
+------------------------------------*/
+/*Right Sidebar*/
+.who li i,
+.who li:hover i, 
+.who li:hover a { 
+	color:#e67e22; 
+}
+
+/*Privacy Page
+------------------------------------*/
+.privacy a:hover {
+	color:#e67e22; 
+}
+
+/*Portfolio Page
+------------------------------------*/
+.sort li a:hover { 
+	color: #e67e22; 
+	border-bottom: 1px dotted #e67e22; 
+}
+.sort li a.selected { 
+	color: #e67e22; 
+	border-bottom: 1px solid #e67e22;
+}
+
+.view a.info:hover {
+	background: #e67e22;
+}
+
+/*Blog Page
+------------------------------------*/
+.blog h3 {
+	color:#e67e22;
+}
+.blog li a:hover {
+	color:#e67e22;
+}
+
+/*Blog Tags*/
+ul.blog-tags a:hover,
+ul.blog-tags a:hover i {
+	color:#e67e22;
+}
+
+/*Blog Ads*/
+.blog-ads li img:hover {
+	box-shadow:0 0 0 4px #e67e22;
+}
+
+/*Blog Latest Tweets*/
+.blog-twitter p a {
+	color:#e67e22;
+}
+
+/*Blog Item Page
+------------------------------------*/
+.blog-item h4.media-heading span a {
+	color:#e67e22;
+}
+
+/*Coming Soon Page
+------------------------------------*/
+.coming-soon-border {
+	border-top: solid 3px #e67e22;
+}
+
+/*Search Page
+------------------------------------*/
+.booking-blocks p a {
+	color: #e67e22;
+}
+
+/*Icons Page
+------------------------------------*/
+.icon-page li:hover { 
+	color:#e67e22;
+}
+
+/*Glyphicons*/
+.glyphicons-demo a:hover {
+	color: #e67e22;
+	text-decoration: none;
+}
+
+.servive-block .span4 i.email_img{ background:url(../../img/ico/email_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.eletters_img{ background:url(../../img/ico/eletters_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.sms_img{ background:url(../../img/ico/sms_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.abreport_img{ background:url(../../img/ico/abreport_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.ocalener_img{ background:url(../../img/ico/ocalender_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.oassign_img{ background:url(../../img/ico/oassign_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.attendence_img{ background:url(../../img/ico/attendence_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+
+.servive-block .span4 i.time_img{ background:url(../../img/ico/timetable_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.ocon_img{ background:url(../../img/ico/ocon_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.fee_img{ background:url(../../img/ico/fee_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.dinner_img{ background:url(../../img/ico/dinner_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.tickets_img{ background:url(../../img/ico/tickets_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.emanagment_img{ background:url(../../img/ico/emanagement_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+.servive-block .span4 i.shop_img{ background:url(../../img/ico/shop_o.png) no-repeat center top; width:100%; min-height:40px; display:block;}
+
+/*---clients-----*/
+
+ul.unstyled li a i.email_img{ background:url(../../img/ico/email_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.eletters_img{ background:url(../../img/ico/eletters_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.sms_img{ background:url(../../img/ico/sms_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.abreport_img{ background:url(../../img/ico/abreport_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.ocalener_img{ background:url(../../img/ico/ocalender_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.oassign_img{ background:url(../../img/ico/oassign_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.attendence_img{ background:url(../../img/ico/attendence_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.time_img{ background:url(../../img/ico/timetable_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.ocon_img{ background:url(../../img/ico/ocon_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.fee_img{ background:url(../../img/ico/fee_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.dinner_img{ background:url(../../img/ico/dinner_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.tickets_img{ background:url(../../img/ico/tickets_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.emanagment_img{ background:url(../../img/ico/emanagement_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+ul.unstyled li a i.shop_img{ background:url(../../img/ico/shop_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+
+
