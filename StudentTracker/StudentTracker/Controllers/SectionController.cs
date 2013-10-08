@@ -51,7 +51,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     section.CreatedBy = _userStatistics.UserId;
-                    if (objRep.Create(section))
+                    if (objRep.CreateSection(section))
                     {
                         return Convert.ToString(true);
                     }

@@ -64,7 +64,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     subject.CreatedBy = _userStatistics.UserId;
-                    if (objRep.Create(subject))
+                    if (objRep.CreateSubject(subject))
                     {
                         return Convert.ToString(true);
                     }

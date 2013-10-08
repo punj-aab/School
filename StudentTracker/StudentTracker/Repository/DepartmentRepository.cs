@@ -24,22 +24,22 @@ namespace StudentTracker.Repository
         //    Department objDepartment = db.Query<Department>(sql, id).FirstOrDefault();
         //    return objDepartment;
         //}
-        public bool CreateDepartment(Department objDepartment)
-        {
-            int recAffected = 0;
-            DBConnectionString.Department Department = new DBConnectionString.Department();
-            Department.DepartmentName = objDepartment.DepartmentName;
-            Department.DepartmentDesc = objDepartment.DepartmentDesc;
-            Department.OrganizationId = objDepartment.OrganizationId;
-            Department.CreatedDate = DateTime.Now;
-            Department.CreatedBy = objDepartment.CreatedBy;
-            recAffected = Convert.ToInt32(Department.Insert());
-            if (recAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public bool CreateDepartment(Department objDepartment)
+        //{
+        //    int recAffected = 0;
+        //    DBConnectionString.Department Department = new DBConnectionString.Department();
+        //    Department.DepartmentName = objDepartment.DepartmentName;
+        //    Department.DepartmentDesc = objDepartment.DepartmentDesc;
+        //    Department.OrganizationId = objDepartment.OrganizationId;
+        //    Department.CreatedDate = DateTime.Now;
+        //    Department.CreatedBy = objDepartment.CreatedBy;
+        //    recAffected = Convert.ToInt32(Department.Insert());
+        //    if (recAffected > 0)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
         public bool UpdateDepartment(Department objDepartment)
         {
             int recAffected = 0;

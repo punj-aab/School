@@ -26,24 +26,24 @@ namespace StudentTracker.Repository
         //    Class objClass = db.Query<Class>(sql, id).SingleOrDefault();
         //    return objClass;
         //}
-        public bool CreateClass(Class objClass)
-        {
-            int recAffected = 0;
-            DBConnectionString.Class Class = new DBConnectionString.Class();
-            Class.ClassName = objClass.ClassName;
-            Class.Description = objClass.Description;
-            Class.OrganizationId = objClass.OrganizationId;
-            Class.CourseId = objClass.CourseId;
-            Class.ClassId = objClass.ClassId;
-            Class.InsertedOn = DateTime.Now;
-            Class.InsertedBy = objClass.InsertedBy;
-            recAffected = Convert.ToInt32(Class.Insert());
-            if (recAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public bool CreateClass(Class objClass)
+        //{
+        //    int recAffected = 0;
+        //    DBConnectionString.Class Class = new DBConnectionString.Class();
+        //    Class.ClassName = objClass.ClassName;
+        //    Class.Description = objClass.Description;
+        //    Class.OrganizationId = objClass.OrganizationId;
+        //    Class.CourseId = objClass.CourseId;
+        //    Class.ClassId = objClass.ClassId;
+        //    Class.InsertedOn = DateTime.Now;
+        //    Class.InsertedBy = objClass.InsertedBy;
+        //    recAffected = Convert.ToInt32(Class.Insert());
+        //    if (recAffected > 0)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
         public bool UpdateClass(Class objClass)
         {
             int recAffected = 0;

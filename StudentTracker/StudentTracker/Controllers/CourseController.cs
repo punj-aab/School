@@ -57,7 +57,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     course.CreatedBy = _userStatistics.UserId;
-                    if (objRep.Create(course))
+                    if (objRep.CreateCourse(course))
                     {
                         return Convert.ToString(true);
                     }

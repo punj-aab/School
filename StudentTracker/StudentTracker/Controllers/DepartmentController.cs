@@ -56,7 +56,7 @@ namespace StudentTracker.Controllers
                 {
                     department.CreatedBy = _userStatistics.UserId;
                     department.CreatedDate = DateTime.Now;
-                    if (objRep.CreateDepartmentD(department))
+                    if (objRep.CreateDepartment(department))
                     {
                         SaveFiles(token, this.GetType().Name, department.DepartmentId);
                         return true;

@@ -6,7 +6,7 @@ using System.Web;
 
 namespace StudentTracker.Repository
 {
-    public class SectionRepository
+    public class SectionRepository : StudentTracker.Core.Repository.CommonRepository
     {
         PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
         public List<Section> GetSections()

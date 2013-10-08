@@ -24,23 +24,23 @@ namespace StudentTracker.Repository
         //    ClassRoom objClass = db.Query<ClassRoom>(sql, id).FirstOrDefault();
         //    return objClass;
         //}
-        public bool CreateClassRoom(ClassRoom objClass)
-        {
-            int recAffected = 0;
-            DBConnectionString.ClassRoom Class = new DBConnectionString.ClassRoom();
-            Class.Name = objClass.Name;
-            Class.Description = objClass.Description;
-            Class.Location = objClass.Location;
-            Class.InsertedOn = DateTime.Now;
-            Class.InsertedBy = objClass.InsertedBy;
-            Class.DepartmentId = objClass.DepartmentId;
-            recAffected = Convert.ToInt32(Class.Insert());
-            if (recAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
+        //public bool CreateClassRoom(ClassRoom objClass)
+        //{
+        //    int recAffected = 0;
+        //    DBConnectionString.ClassRoom Class = new DBConnectionString.ClassRoom();
+        //    Class.Name = objClass.Name;
+        //    Class.Description = objClass.Description;
+        //    Class.Location = objClass.Location;
+        //    Class.InsertedOn = DateTime.Now;
+        //    Class.InsertedBy = objClass.InsertedBy;
+        //    Class.DepartmentId = objClass.DepartmentId;
+        //    recAffected = Convert.ToInt32(Class.Insert());
+        //    if (recAffected > 0)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+        //}
         public bool UpdateClassRoom(ClassRoom objClass)
         {
             int recAffected = 0;

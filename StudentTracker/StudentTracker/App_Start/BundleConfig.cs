@@ -47,7 +47,15 @@ namespace StudentTracker
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css"));
             bundles.Add(new ScriptBundle("~/bundles/BlockUI").Include("~/Scripts/jquery.blockUI.js"));
             bundles.Add(new ScriptBundle("~/bundles/DataTable").Include("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/Areas").Include(
+                "~/Areas/SAS/assets/js/jquery-1.8.2.min.js",
+                "~/Areas/SAS/assets/js/modernizr.custom.js",
+                "~/Areas/SAS/assets/plugins/bootstrap/js/bootstrap.min.js",
+                "~/Areas/SAS/assets/plugins/flexslider/jquery.flexslider-min.js",
+                "~/Areas/SAS/assets/plugins/parallax-slider/js/modernizr.js",
+                "~/Areas/SAS/assets/plugins/parallax-slider/js/jquery.cslider.js",
+                "~/Areas/SAS/assets/plugins/back-to-top.js",
+                "~/Areas/SAS/assets/js/app.js"));
         }
     }
 }
