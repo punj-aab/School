@@ -14,10 +14,10 @@ namespace StudentTracker.Controllers
 {
     public class BaseController : Controller
     {
-           public BaseController()
+        public BaseController()
         {
         }
-           public BaseController(string conn)
+        public BaseController(string conn)
         {
             //if (this.repository == null)
             //    this.repository = new Repository(conn);
@@ -35,7 +35,7 @@ namespace StudentTracker.Controllers
         //    get { return this.log; }
         //}
 
-        protected IRepository repository = null;
+
         protected UserStatistics _userStatistics = null;
 
         protected override void Initialize(RequestContext controllerContext)
@@ -43,7 +43,7 @@ namespace StudentTracker.Controllers
             try
             {
                 //repository = new Repository();
-                
+
                 //this.Log.Initialize(ConfigurationManager.AppSettings["LogPath"], "APILogger");
                 //this.Log.WriteLine("Starting {0}", "Gateway API");
 
@@ -99,7 +99,8 @@ namespace StudentTracker.Controllers
                     Attachment att = new Attachment();
                     att.Filename = fileInfo.Name;
                     att.ParentType = subdirectory;
-                    att.FilePath = Path.Combine(fileUrl, itemId.ToString(), fileInfo.Name);
+                    string filePath = Request.Url.GetLeftPart(UriPartial.Authority) + "/Attachments/AttachedFiles";
+                    att.FilePath = Path.Combine(filePath, subdirectory, itemId.ToString(), fileInfo.Name);
                     att.ItemId = itemId;
                     db.Attachments.Add(att);
                     System.IO.File.Move(file, Path.Combine(destDirectory, fileInfo.Name));
@@ -131,14 +132,11 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                if (repository != null)
-                    repository.Dispose();
-
                 base.Dispose(disposing);
             }
             catch (Exception)
             {
-               // Log.WriteException(ex);
+                // Log.WriteException(ex);
             }
         }
 

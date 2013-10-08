@@ -141,5 +141,13 @@ namespace StudentTracker.Controllers
                 Directory.Delete(destDirectory);
             }
         }
+
+        public ActionResult ShowAttachedFiles(int itemId, string type)
+        {
+            StudentContext db = new StudentContext();
+            List<Attachment> attachments = new List<Attachment>();
+            attachments = db.Attachments.Where(a => a.ItemId == itemId && a.ParentType == type).ToList();
+            return View(attachments);
+        }
     }
 }

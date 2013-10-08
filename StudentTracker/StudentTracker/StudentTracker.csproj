@@ -165,6 +165,11 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Attachments\AttachedFiles\DepartmentController\11\banner-1.png" />
+    <Content Include="Attachments\AttachedFiles\OrganizationController\4\404.png" />
+    <Content Include="Attachments\TempFiles\635164205032504368\banner-4.png" />
+    <Content Include="Attachments\TempFiles\635167625878183286\155700_377368072392785_2015172909_n %281%29.jpg" />
+    <Content Include="Attachments\TempFiles\635167625878183286\47334_382531098500636_634497985_n.jpg" />
     <Content Include="Content\alertify.core.css" />
     <Content Include="Content\bootstrap-multiselect.css" />
     <Content Include="Content\bootstrap-responsive.css" />
@@ -486,6 +491,8 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\StudentPublish.pubxml" />
     <None Include="Properties\PublishProfiles\StudentTrackerPublish.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
@@ -509,6 +516,7 @@
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="SqlScripts\StoredProcedure\addOrganizations.sql" />
     <Content Include="SqlScripts\StoredProcedure\getSchedule.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
     <Content Include="Web.config">
@@ -587,11 +595,13 @@
     <Content Include="Views\Schedule\ViewSchedules.cshtml" />
     <Content Include="Views\Account\RegisterUser.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
+    <Content Include="Views\Files\ShowAttachedFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\SAS\Models\" />
     <Folder Include="Areas\SAS\Views\Shared\" />
+    <Folder Include="Attachments\TempFiles\635164191509321352\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

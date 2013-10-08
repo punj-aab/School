@@ -141,6 +141,30 @@ namespace StudentTracker.Core.Repository
             }
         }
 
+
+        public bool CreateDepartmentD(Department objDep)
+        {
+            var parameters = new
+            {
+                DepartmentName = objDep.DepartmentName,
+                DepartmentDesc = objDep.DepartmentDesc,
+                OrganizationId = objDep.OrganizationId,
+                CreatedDate = objDep.CreatedDate,
+                CreatedBy = objDep.CreatedBy
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "sp_AddDepartment";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objDep.DepartmentId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
     }
 }
 

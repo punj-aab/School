@@ -48,7 +48,7 @@ namespace StudentTracker.Controllers
         // POST: /Department/Create
 
         [HttpPost]
-        public bool Create(Department department)
+        public bool Create(Department department, string token)
         {
             try
             {
@@ -56,8 +56,9 @@ namespace StudentTracker.Controllers
                 {
                     department.CreatedBy = _userStatistics.UserId;
                     department.CreatedDate = DateTime.Now;
-                    if (objRep.CreateDepartment(department))
+                    if (objRep.CreateDepartmentD(department))
                     {
+                        SaveFiles(token, this.GetType().Name, department.DepartmentId);
                         return true;
                     }
                     return false;

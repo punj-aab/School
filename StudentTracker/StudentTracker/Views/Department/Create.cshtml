@@ -2,9 +2,11 @@
 
 @{
     ViewBag.Title = "Create";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -50,8 +52,11 @@
                             @Html.EditorFor(m => m.DepartmentDesc, new { placeholder = "Description", Class = "span6" })
                         </div>
                     </div>
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
                     <div class="form-actions no-margin">
-                       <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Department</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Department</a>
                         <div class="clearfix">
                         </div>
                     </div>
@@ -63,5 +68,6 @@
     </div>
 
 </div>
-
+@HelperAssets.FileUploadScript(token);
+<script></script>
 

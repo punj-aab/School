@@ -116,7 +116,6 @@ namespace StudentTracker.Controllers
                 return HttpNotFound();
             }
             return PartialView(organization);
-
         }
 
         public ActionResult Edit(long id)
