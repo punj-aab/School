@@ -74,15 +74,15 @@ var App = function () {
         });
 
         var setColor = function (color, data_header) {
-            $('#style_color').attr("href", "assets/css/themes/" + color + ".css");
+            $('#style_color').attr("href", "/Areas/SAS/assets/css/themes/" + color + ".css");
             if(data_header == 'light'){
-                $('#style_color-header-1').attr("href", "assets/css/themes/headers/header1-" + color + ".css");
-                $('#logo-header').attr("src", "assets/img/logo1-" + color + ".png");
-                $('#logo-footer').attr("src", "assets/img/logo2-" + color + ".png");
+                $('#style_color-header-1').attr("href", "/Areas/SAS/assets/css/themes/headers/header1-" + color + ".css");
+                $('#logo-header').attr("src", "/Areas/SAS/assets/img/logo1-" + color + ".png");
+                $('#logo-footer').attr("src", "/Areas/SAS/assets/img/logo2-" + color + ".png");
             } else if(data_header == 'dark'){
-                $('#style_color-header-2').attr("href", "assets/css/themes/headers/header2-" + color + ".css");
-                $('#logo-header').attr("src", "assets/img/logo2-" + color + ".png");
-                $('#logo-footer').attr("src", "assets/img/logo2-" + color + ".png");
+                $('#style_color-header-2').attr("href", "/Areas/SAS/assets/css/themes/headers/header2-" + color + ".css");
+                $('#logo-header').attr("src", "/Areas/SAS/assets/img/logo2-" + color + ".png");
+                $('#logo-footer').attr("src", "/Areas/SAS/assets/img/logo2-" + color + ".png");
             }
         }
     }
