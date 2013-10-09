@@ -43,7 +43,7 @@ namespace StudentTracker.Controllers
 
         //create post
         [HttpPost]
-        public string Create(ClassRoom objClass)
+        public string Create(ClassRoom objClass,string token)
         {
             try
             {
@@ -52,6 +52,7 @@ namespace StudentTracker.Controllers
                     objClass.InsertedBy = _userStatistics.UserId;
                     if (objRep.CreateClassRoom(objClass))
                     {
+                        SaveFiles(token, this.GetType().Name, objClass.ClassRoomId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

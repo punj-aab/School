@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace StudentTracker.Controllers
 {
-    [Authorize]
+
     public class HomeController : BaseController
     {
         //
@@ -14,7 +14,12 @@ namespace StudentTracker.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (!User.Identity.IsAuthenticated)
+                return RedirectToAction("", "", new { area = "sas" });
+            else if (User.IsInRole("SiteAdmin"))
+                return View();
+            else
+                return RedirectToAction("", "", new { area = "sas" });
         }
 
     }

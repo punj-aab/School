@@ -57,7 +57,7 @@ namespace StudentTracker.Controllers
         // POST: /Subject/Create
 
         [HttpPost]
-        public string Create(Subject subject)
+        public string Create(Subject subject,string token)
         {
             try
             {
@@ -66,6 +66,7 @@ namespace StudentTracker.Controllers
                     subject.CreatedBy = _userStatistics.UserId;
                     if (objRep.CreateSubject(subject))
                     {
+                        SaveFiles(token, this.GetType().Name, subject.SubjectId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

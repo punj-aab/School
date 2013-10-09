@@ -50,7 +50,7 @@ namespace StudentTracker.Controllers
         // POST: /Cource/Create
 
         [HttpPost]
-        public string Create(Course course)
+        public string Create(Course course, string token)
         {
             try
             {
@@ -59,6 +59,7 @@ namespace StudentTracker.Controllers
                     course.CreatedBy = _userStatistics.UserId;
                     if (objRep.CreateCourse(course))
                     {
+                        SaveFiles(token, this.GetType().Name, course.CourseId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

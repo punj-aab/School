@@ -78,7 +78,9 @@
                     </div>
 
                 }
-
+                 @{
+                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name });
+                }
             </div>
         </div>
     </div>

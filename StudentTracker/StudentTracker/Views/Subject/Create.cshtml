@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "Create";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -26,7 +28,7 @@
                         @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
                         <div class="controls">
 
-                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6",onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
                             @Html.ValidationMessageFor(m => m.CourseId)
 
                         </div>
@@ -55,7 +57,9 @@
                             @Html.ValidationMessageFor(m => m.SubjectDescription)
                         </div>
                     </div>
-                                        
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>                 
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Subject</a>
                         <div class="clearfix">
@@ -70,4 +74,7 @@
 
 </div>
 
+
+@HelperAssets.FileUploadScript(token);
+<script></script>
 
