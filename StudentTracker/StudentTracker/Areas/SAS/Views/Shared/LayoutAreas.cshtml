@@ -15,7 +15,7 @@
     <link href="/Areas/SAS/assets/plugins/flexslider/flexslider.css" rel="stylesheet" />
     <link rel="stylesheet" href="/Areas/SAS/assets/plugins/parallax-slider/css/parallax-slider.css" type="text/css">
     <link href="/Areas/SAS/assets/css/themes/default.css" id="style_color" rel="stylesheet" />
-    <link rel="stylesheet" href="/Areas/SAS/assets/css/themes/headers/default.css" id="style_color-header-1"> 
+    <link rel="stylesheet" href="/Areas/SAS/assets/css/themes/headers/default.css" id="style_color-header-1">
 </head>
 
 <body>
@@ -78,30 +78,30 @@
                     <!-- /nav-collapse -->
                     <div class="nav-collapse collapse">
                         <ul class="nav top-2">
-                            <li class="active">
+                            <li class="active lnkMenu" id="lnkHome">
                                 <a href="/SAS/SASHome/">Home</a>
                             </li>
-                            <li>
+                            <li class="lnkMenu" id="lnkAboutUs">
                                 <a href="/SAS/SASHome/AboutUs">ABOUT US </a>
                             </li>
-                            <li><a href="" class="dropdown-toggle" data-toggle="dropdown">OUR PRODUCTS
+                            <li class="lnkMenu" id="lnkProducts"><a href="" class="dropdown-toggle" data-toggle="dropdown">OUR PRODUCTS
                         	<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="our_products_Communication.html">Communication</a></li>
-                                    <li><a href="our_products_Academics.html">Academic</a></li>
-                                    <li><a href="our_products_Payments.html">Payment</a></li>
+                                    <li><a href="/SAS/SASHome/Communication">Communication</a></li>
+                                    <li><a href="/SAS/SASHome/Academic">Academic</a></li>
+                                    <li><a href="/SAS/SASHome/Payment">Payment</a></li>
                                 </ul>
                                 <b class="caret-out"></b>
                             </li>
-                            <li><a href="blog.html">BLOG</a></li>
-                            <li><a href="page_support.html">SUPPORT</a></li>
-                            <li><a href="page_contact.html">CONTACT US </a></li>
+                            <li class="lnkMenu" id="lnkBlog"><a href="/SAS/SASHome/Blog">BLOG</a></li>
+                            <li class="lnkMenu" id="lnkSupport"><a href="/SAS/SASHome/Support">SUPPORT</a></li>
+                            <li class="lnkMenu" id="lnkContact"><a href="/SAS/SASHome/ContactUs">CONTACT US </a></li>
                             <li><a class="search"><i class="icon-search search-btn"></i></a></li>
                         </ul>
                         <div class="search-open">
                             <div class="input-append">
                                 <form>
-                                    <input type="text" class="span3" style="height:30px;" placeholder="Search" />
+                                    <input type="text" class="span3" style="height: 30px;" placeholder="Search" />
                                     <button type="submit" class="btn-u">Go</button>
                                 </form>
                             </div>
@@ -137,7 +137,7 @@
                     <p>Subscribe to our newsletter and stay up to date with the latest news and deals!</p>
                     <form class="form-inline">
                         <div class="input-append">
-                            <input type="text" style="height:30px" placeholder="Email Address" class="input-medium">
+                            <input type="text" style="height: 30px" placeholder="Email Address" class="input-medium">
                             <button class="btn-u">Subscribe</button>
                         </div>
                     </form>
@@ -250,16 +250,11 @@
 </body>
 </html>
 <!-- JS Global Compulsory -->
-@*<script type="text/javascript" src="/Areas/SAS/assets/js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="/Areas/SAS/assets/js/modernizr.custom.js"></script>
-<script type="text/javascript" src="/Areas/SAS/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- JS Implementing Plugins -->
-<script type="text/javascript" src="/Areas/SAS/assets/plugins/flexslider/jquery.flexslider-min.js"></script>
-<script src="/Areas/SAS/assets/plugins/parallax-slider/js/modernizr.js"></script>
-<script src="~/Areas/SAS/assets/plugins/parallax-slider/js/jquery.cslider.js"></script>
-<script type="text/javascript" src="/Areas/SAS/assets/plugins/back-to-top.js"></script>
-<!-- JS Page Level -->
-<script type="text/javascript" src="/Areas/SAS/assets/js/app.js"></script>*@
- @Scripts.Render("~/bundles/Areas")
+@Scripts.Render("~/bundles/Areas")
 @RenderSection("Scripts", false)
-
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        App.init();
+        App.initSliders();
+    });
+</script>

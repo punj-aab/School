@@ -1,14 +1,15 @@
 ﻿@{
-    ViewBag.Title = "AboutUs";
+    ViewBag.Title = "Support";
     Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
 }
+
 <!--=== Breadcrumbs ===-->
 <div class="row-fluid breadcrumbs margin-bottom-40">
     <div class="container">
-        <h1 class="pull-left">About Us</h1>
+        <h1 class="pull-left">SUPPORT</h1>
         <ul class="pull-right breadcrumb">
             <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-            <li class="active">About Us</li>
+            <li class="active">support</li>
         </ul>
     </div>
     <!--/container-->
@@ -41,16 +42,22 @@
         </div>
     </div>
     <!--/row-fluid-->
-    <!-- Recent Works -->
+
+        <!-- Recent Works -->
     @Html.Partial("OurProductsPartial")
     <!-- //End Recent Works -->
-    @Html.Partial("OurClientsPartial")
+
+    <!-- Our Clients -->
+    @Html.Partial("OurClientsPartial")<!--/flexslider-->
+    <!-- //End Our Clients -->
 </div>
+<!--/container-->
+<!--=== End Content Part ===-->
 @section scripts{
     <script type="text/javascript">
         jQuery(document).ready(function () {
             $('.lnkMenu').removeClass("active");
-            $('#lnkAboutUs').addClass("active");
+            $('#lnkSupport').addClass("active");
         });
     </script>
 }

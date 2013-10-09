@@ -20,6 +20,40 @@ namespace StudentTracker.Areas.SAS.Controllers
         {
             return View();
         }
+        //COMMUNICATION
+        public ActionResult Communication()
+        {
+            return View();
+        }
 
+        //ACADEMIC
+        public ActionResult Academic()
+        {
+            return View();
+        }
+
+        //PAYMENT
+        public ActionResult Payment()
+        {
+            return View();
+        }
+
+        //BLOG
+        public ActionResult Blog()
+        {
+            return View();
+        }
+
+        //SUPPORT
+        public ActionResult Support()
+        {
+            return View();
+        }
+
+        //CONTACT US
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
     }
 }

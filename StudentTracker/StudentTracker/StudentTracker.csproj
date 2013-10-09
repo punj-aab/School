@@ -1049,6 +1049,12 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="Areas\SAS\Views\SASHome\Communication.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\Academic.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\Payment.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\Blog.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\Support.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\ContactUs.cshtml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <Content Include="Areas\SAS\Views\Shared\LayoutAreas.cshtml" />
