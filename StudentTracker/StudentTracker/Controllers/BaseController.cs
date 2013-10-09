@@ -111,7 +111,7 @@ namespace StudentTracker.Controllers
             db.SaveChanges();
         }
 
-        protected void DeleteFiles(string subdirectory, int itemId)
+        protected void DeleteFiles(string subdirectory, long itemId)
         {
             StudentContext db = new StudentContext();
             var attachments = db.Attachments.Where(a => a.ParentType == subdirectory && a.ItemId == itemId).ToList();

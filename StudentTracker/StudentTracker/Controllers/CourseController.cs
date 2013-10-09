@@ -124,6 +124,7 @@ namespace StudentTracker.Controllers
             {
                 if (objRep.Delete(id))
                 {
+                    DeleteFiles(this.GetType().Name, id);
                     return Convert.ToString(true);
                 }
                 return Convert.ToString(false);

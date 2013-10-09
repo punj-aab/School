@@ -120,6 +120,7 @@ namespace StudentTracker.Controllers
             {
                 if (objRep.DeleteDepartment(id))
                 {
+                    DeleteFiles(this.GetType().Name, id);
                     return Convert.ToString(true);
                 }
                 return Convert.ToString(false);

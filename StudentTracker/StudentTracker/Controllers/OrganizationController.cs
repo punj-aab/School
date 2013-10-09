@@ -164,6 +164,7 @@ namespace StudentTracker.Controllers
         {
             try
             {
+                DeleteFiles(this.GetType().Name, id);
                 Organization organization = db.Organizations.Find(id);
                 db.Organizations.Remove(organization);
                 db.SaveChanges();

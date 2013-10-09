@@ -43,7 +43,7 @@ namespace StudentTracker.Controllers
 
         //create post
         [HttpPost]
-        public string Create(ClassRoom objClass,string token)
+        public string Create(ClassRoom objClass, string token)
         {
             try
             {
@@ -112,6 +112,7 @@ namespace StudentTracker.Controllers
             {
                 if (objRep.DeleteClassRoom(id))
                 {
+                    DeleteFiles(this.GetType().Name, id);
                     return Convert.ToString(true);
                 }
                 return Convert.ToString(false);
