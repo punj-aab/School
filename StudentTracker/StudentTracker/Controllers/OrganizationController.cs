@@ -48,7 +48,7 @@ namespace StudentTracker.Controllers
                     {
                         objOrganization.CreatedDate = DateTime.Now;
                         objOrganization.CreatedBy = _userStatistics.UserId;
-                        
+
                         if (objRep.CreateOrganization(objOrganization))
                         {
                             RegistrationToken objToken = new RegistrationToken();
@@ -138,7 +138,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public string Edit(Organization organization)
+        public string Edit(Organization organization, string token)
         {
             try
             {
@@ -147,6 +147,7 @@ namespace StudentTracker.Controllers
                     organization.ModifiedBy = _userStatistics.UserId;
                     if (objRep.Update(organization))
                     {
+                        SaveFiles(token, this.GetType().Name, organization.OrganizationId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

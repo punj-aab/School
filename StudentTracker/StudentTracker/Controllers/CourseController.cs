@@ -92,7 +92,7 @@ namespace StudentTracker.Controllers
         // POST: /Cource/Edit/5
 
         [HttpPost]
-        public string Edit(Course course)
+        public string Edit(Course course, string token)
         {
             try
             {
@@ -102,6 +102,7 @@ namespace StudentTracker.Controllers
                     course.ModifiedOn = DateTime.UtcNow;
                     if (objRep.Update(course))
                     {
+                        SaveFiles(token, this.GetType().Name, course.CourseId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

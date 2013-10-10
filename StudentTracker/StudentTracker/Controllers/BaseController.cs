@@ -122,9 +122,9 @@ namespace StudentTracker.Controllers
             db.SaveChanges();
             string destDirectory = Server.MapPath("~/Attachments/AttachedFiles");
             destDirectory = Path.Combine(destDirectory, subdirectory, itemId.ToString());
-            if (!Directory.Exists(destDirectory))
+            if (Directory.Exists(destDirectory))
             {
-                Directory.Delete(destDirectory);
+                Directory.Delete(destDirectory, true);
             }
         }
 

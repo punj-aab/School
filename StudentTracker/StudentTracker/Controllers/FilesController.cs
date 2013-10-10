@@ -70,14 +70,14 @@ namespace StudentTracker.Controllers
             return true;
         }
 
-        public bool DeleteAttachedFile(string fileName, string subDirectory1, Int32 itemId)
+        public bool DeleteAttachedFile(long fileId, string parentItemId, string parentItemType, string fileName)
         {
             string directory = string.Empty;
             directory = Server.MapPath("~/Attachments/AttachedFiles");
-            directory = directory + "/" + itemId;
+            directory = Path.Combine(directory, parentItemType, parentItemId);
             bool ifExist = Directory.Exists(directory);
             StudentContext db = new StudentContext();
-            var attachment = db.Attachments.Where(a => a.ItemId == itemId && a.Filename == fileName).FirstOrDefault();
+            var attachment = db.Attachments.Where(a => a.Id == fileId).FirstOrDefault();
             if (attachment != null)
             {
                 db.Attachments.Remove(attachment);
@@ -86,7 +86,7 @@ namespace StudentTracker.Controllers
             //if not then create a directory
             if (ifExist)
             {
-                string filePath = Path.Combine(directory, subDirectory1, fileName);
+                string filePath = Path.Combine(directory,fileName);
                 if (System.IO.File.Exists(filePath))
                     System.IO.File.Delete(filePath);
             }

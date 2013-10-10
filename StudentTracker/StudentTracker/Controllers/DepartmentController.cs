@@ -91,7 +91,7 @@ namespace StudentTracker.Controllers
         // POST: /Department/Edit/5
 
         [HttpPost]
-        public string Edit(Department department)
+        public string Edit(Department department, string token)
         {
             try
             {
@@ -100,6 +100,7 @@ namespace StudentTracker.Controllers
                     department.UpdatedBy = _userStatistics.UserId;
                     if (objRep.UpdateDepartment(department))
                     {
+                        SaveFiles(token, this.GetType().Name, department.DepartmentId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);

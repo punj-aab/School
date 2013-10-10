@@ -84,7 +84,7 @@ namespace StudentTracker.Controllers
         // POST: /Class/Edit/5
 
         [HttpPost]
-        public string Edit(ClassRoom objClass)
+        public string Edit(ClassRoom objClass, string token)
         {
             try
             {
@@ -93,6 +93,7 @@ namespace StudentTracker.Controllers
                     objClass.ModifiedBy = _userStatistics.UserId;
                     if (objRep.UpdateClassRoom(objClass))
                     {
+                        SaveFiles(token, this.GetType().Name, objClass.ClassRoomId);
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);
