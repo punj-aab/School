@@ -126,6 +126,7 @@
     <Compile Include="Areas\SAS\SASAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
@@ -1199,6 +1200,8 @@
     <Content Include="Views\Account\RegisterUser.cshtml" />
     <Content Include="Views\Account\Confirmation.cshtml" />
     <Content Include="Views\Files\ShowAttachedFiles.cshtml" />
+    <Content Include="Views\Calendar\Index.cshtml" />
+    <Content Include="Views\Calendar\ViewCalander.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
