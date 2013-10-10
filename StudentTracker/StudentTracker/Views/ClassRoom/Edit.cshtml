@@ -1,9 +1,11 @@
 ﻿@model StudentTracker.Core.Entities.ClassRoom
-
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
+
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -22,9 +24,9 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.HiddenFor(m=>m.ClassRoomId)
-                    @Html.HiddenFor(m=>m.InsertedOn)
-                    @Html.HiddenFor(m=>m.InsertedBy)
+                    @Html.HiddenFor(m => m.ClassRoomId)
+                    @Html.HiddenFor(m => m.InsertedOn)
+                    @Html.HiddenFor(m => m.InsertedBy)
                     <div class="control-group">
                         @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
                         <div class="controls">
@@ -57,7 +59,11 @@
                             @Html.ValidationMessageFor(m => m.Location)
                         </div>
                     </div>
-                    
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
+                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.ClassRoomId, type = this.ViewContext.Controller.GetType().Name });
+
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
                         <div class="clearfix">
@@ -73,3 +79,4 @@
 </div>
 
 
+@HelperAssets.FileUploadScript(token);

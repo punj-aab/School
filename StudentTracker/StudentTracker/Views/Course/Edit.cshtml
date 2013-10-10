@@ -1,8 +1,10 @@
 ﻿@model StudentTracker.Core.Entities.Course
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -54,6 +56,11 @@
                             @Html.ValidationMessageFor(m => m.CourseDescription)
                         </div>
                     </div>
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
+                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name });
+                   
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
@@ -72,3 +79,4 @@
 </div>
 @Scripts.Render("~/bundles/jqueryval")
 
+@HelperAssets.FileUploadScript(token);

@@ -1,8 +1,10 @@
 ﻿@model StudentTracker.Core.Entities.Organization
 @{
     ViewBag.Title = "Update Organization";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -23,7 +25,7 @@
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.OrganizationId)
                    
-                    @Html.HiddenFor(m=>m.CreatedDate)
+                    @Html.HiddenFor(m => m.CreatedDate)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
                         <div class="controls controls-row">
@@ -102,6 +104,11 @@
                             @Html.TextBoxFor(m => m.Phone2, new { placeholder = "Phone2", Class = "span6" })
                         </div>
                     </div>
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
+                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.OrganizationId, type = this.ViewContext.Controller.GetType().Name });
+
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnUpdateOrg">Save Changes</a>
                         <div class="clearfix">
@@ -114,3 +121,5 @@
         </div>
     </div>
 </div>
+
+@HelperAssets.FileUploadScript(token);

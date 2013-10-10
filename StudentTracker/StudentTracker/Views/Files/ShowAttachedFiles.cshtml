@@ -2,16 +2,73 @@
 
 @{
     Layout = null;
+    bool isEditMode = true;//Convert.ToBoolean(ViewBag.IsEditMode);
 }
 <div>
     <ul class="thumbnails">
         @foreach (StudentTracker.Core.Entities.Attachment file in Model)
         {
-            <li class="span3">
-                <a href="#" class="thumbnail" data-original-title="">
-                    <img alt="260x180" style="width: 260px; height: 180px;" src="@file.FilePath">
-                </a>
+            <li class="span4" item="@file.Id">
+                <div class="thumbnail">
+                    <a href="#" class="thumbnail" data-original-title="">
+                        <img alt="260x180" style="width: 260px; height: 180px;" src="@file.FilePath">
+                    </a>
+                    <div class="caption">
+                        <h3>@file.Filename
+                        </h3>
+                        @if (isEditMode)
+                        {
+                            <p>
+                                <a href="javascript:;" onclick="DeleteAttachedFile(event);" class="btn btn-info" fileName="@file.Filename" parentId="@file.ItemId" parentType="@file.ParentType" id="@file.Id" data-original-title="">Delete
+                                </a>
+                            </p>
+                        }
+                    </div>
+                </div>
             </li>
         }
     </ul>
 </div>
+<script>
+    function DeleteAttachedFile(e) {
+        alertify.confirm("Are you sure to delete?", function (conf) {
+            if (conf) {
+                var fileId = $(e.target).attr('id');
+                var parentItemId = $(e.target).attr('parentId');
+                var parentItemType = $(e.target).attr('parentType');
+                var fileName = $(e.target).attr('fileName');
+                var url = '/Files/DeleteAttachedFile';
+                var objCandidate = { "fileId": fileId, "parentItemId": parentItemId, "parentItemType": parentItemType, "fileName": fileName };
+                $.ajax({
+                    url: url,
+                    cache: false,
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    data: JSON.stringify(objCandidate),
+                    success: function (data) {
+                        if (data == 'True') {
+                            $('li[item=' + fileId + ']').remove();
+
+                            alertify.success("Action successfully completed.");
+                        }
+                        else if (data == 'False') {
+                            alertify.error('An error occured while processing your request');
+                        }
+                        else {
+                            alertify.error(data);
+                        }
+                    },
+                    error: function (result, request) {
+
+                        alertify.error('An error occured while processing your request');
+                    }
+                });
+            }
+            else {
+                alertify.error("You've clicked Cancel");
+            }
+        });
+    }
+
+</script>
+

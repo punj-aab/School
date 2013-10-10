@@ -2,9 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+    string token = DateTime.UtcNow.Ticks.ToString();
 }
 
 @Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
 <div class="row-fluid">
     <div class="span12">
         <div class="widget">
@@ -35,7 +37,7 @@
                             }
                             else
                             {
-                                @*@Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })*@
+@*@Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", disabled = "disabled" })*@
                                 @ViewBag.Organization
                                 @Html.HiddenFor(m => m.OrganizationId)
                             }
@@ -55,11 +57,16 @@
                             @Html.TextBoxFor(m => m.DepartmentDesc, new { placeholder = "Description", Class = "span6" })
                         </div>
                     </div>
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>
+                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name });
+
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                       <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
                         <div class="clearfix Error">
                         </div>
                     </div>
@@ -73,3 +80,4 @@
 </div>
 
 
+@HelperAssets.FileUploadScript(token);

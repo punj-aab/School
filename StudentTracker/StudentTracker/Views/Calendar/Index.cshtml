@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewCalendar">View Calander
+            </a>
+        </li>
+        <li>
+            <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Calendar Item
+            </a>
+        </li>
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+           
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        @{
+            Html.RenderAction("ViewCalander");
+        }
+    </div>
+    <div class="right-sidebar"></div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.lnkCalendar').addClass('selected');
+            $('#lnkViewAll').addClass('selected');
+            $('.subButton').click(function () {
+                $("a.subButton").removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
+    </script>
+}
