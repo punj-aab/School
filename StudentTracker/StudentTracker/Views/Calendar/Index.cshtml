@@ -1,8 +1,9 @@
 ﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+    bool canEdit = false;
 }
-
+@Styles.Render("~/Content/calendercss")
 <div class="sub-nav">
     <ul>
         <li>
@@ -35,6 +36,229 @@
 </div>
 @section Scripts
 {
+    @Scripts.Render("~/bundles/calender")
+    <script>
+
+        var calendar;
+
+        $(document).ready(function () {
+
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            calendar = $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
+                },
+                theme: true,
+                columnFormat: {
+                    month: 'dddd',    // Mon
+                    week: 'dddd M/d', // Mon 9/7
+                    day: 'dddd M/d'  // Monday 9/7
+                },
+                select: function (start, end, allDay) {
+                    //var title = prompt('Event Title:');
+                    //if (title) {
+                    //    calendar.fullCalendar('renderEvent',
+                    //        {
+                    //            title: title,
+                    //            start: start,
+                    //            end: end,
+                    //            allDay: allDay
+                    //        },
+                    //        true // make the event "stick"
+                    //    );
+                    //}
+                    //calendar.fullCalendar('unselect');
+                },
+                editable: '@canEdit' == 'True',
+            selectable: '@canEdit' == 'True',
+            selectHelper: '@canEdit' == 'True',
+            events: $.parseJSON('@Html.Raw(Json.Encode(ViewBag.ItemsList))'),
+            eventMouseover: CalendarMouseOver,
+            eventMouseout: CalendarMouseOut,
+            dayClick: '@canEdit' == 'True' ? DayClick : null,
+                eventClick: ItemEventClick
+        });
+
+    });
+
+        function CalendarMouseOver(event, jsEvent, view) {
+
+            $(this).popover({
+                placement: 'bottom', //placement of the popover. also can use top, bottom, left or right
+                title: '<div style="text-align:center; color:red; font-size:14px;"> ' + event.title + '</div>', //this is the top title bar of the popover. add some basic css
+                html: 'true', //needed to show html of course
+                content: '<div id="popOverBox">' + event.description + '</div>' //this is the content of the html box. add the image here or anything you want really.
+            });
+            $(this).popover("show");
+        }
+
+        function CalendarMouseOut() {
+            $(this).popover("toggle");
+        }
+
+        function DayClick(date, allDay, jsEvent, view) {
+            var dateClicked = date;
+            $("#loading").show();
+            $('#myModal').load("/calendaritem/create", function () {
+                $('#myModal').modal({ backdrop: false });
+                ApplyDatePickers();
+                var s = dateClicked.getMonth() + 1 + "/" + dateClicked.getDate() + "/" + dateClicked.getFullYear();
+                $("#EventEndDate,#EventStartDate").val(s);
+                $("#loading").hide();
+            });
+        }
+
+        function ApplyDatePickers() {
+            var currentDate = new Date();
+            $("#EventStartDate").datepicker({
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $("#EventEndDate").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#EventEndDate").datepicker({
+
+                changeMonth: true,
+                numberOfMonths: 1,
+                onClose: function (selectedDate) {
+                    $("#EventStartDate").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+        }
+
+        function ItemEventClick(calEvent, jsEvent, view) {
+
+            // alert('Event: ' + calEvent.title);
+            // alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+            // alert('View: ' + view.name);
+
+            // change the border color just for fun
+            $(this).css('border-color', 'red');
+            $("#loading").show();
+            $('#myModal').load("/calendaritem/details", { id: calEvent.id }, function () {
+                $('#myModal').modal({ backdrop: false });
+                $("#loading").hide();
+            });
+            // $('#myModal').modal({ backdrop: false })
+
+        }
+
+        function SaveNewEvent($this) {
+            if (Validate()) {
+
+                var tok = $("#token").val();
+
+                var form = $('#myModal form');
+                var status = form.validate().form();
+
+                var data1 = form.serialize();
+                var data = form.serializeObject();
+                var itemType = $('select[name="ItemTypeId"] Option:selected').text();
+                $.post("/CalendarItem/create?token=" + tok, data1, function (i) {
+
+                    calendar.fullCalendar('renderEvent',
+                                {
+                                    title: i.ItemData.ItemName, start: DecodeDateTime(i.EventStartDate),
+                                    end: DecodeDateTime(i.EventEndDate), id: i.Id, itemtype: itemType,
+                                    className: itemType, description: i.ItemData.ItemDescription
+                                },
+                                true // make the event "stick"
+                            );
+                    $('#myModal').modal('hide');
+                });
+            }
+            else {
+                alert("please enter valid inputs.");
+            }
+        }
+
+        function EditSelectedEvent($this) {
+            var itemId = $("#Id").val();
+            $('#myModal').load("/calendaritem/edit/" + itemId, null, function () {
+                $('#myModal').modal({ backdrop: false });
+                ApplyDatePickers();
+            });
+
+        }
+
+        function UpdateSelectedEvent($this) {
+            if (Validate()) {
+
+                var tok = $("#token").val();
+
+                var form = $('#myModal form');
+                var status = form.validate().form();
+                var data1 = form.serialize();
+                var data = form.serializeObject();
+                var itemType = $('select[name="ItemTypeId"] Option:selected').text();
+                $.post("/calendaritem/edit?token=" + tok, data1, function (i) {
+                    calendar.fullCalendar('removeEvents', i.Id);
+                    calendar.fullCalendar('renderEvent',
+                                {
+                                    title: i.ItemData.ItemName, start: DecodeDateTime(i.EventStartDate),
+                                    end: DecodeDateTime(i.EventEndDate), id: i.Id, itemtype: itemType,
+                                    className: itemType, description: i.ItemData.ItemDescription
+                                },
+                                true // make the event "stick"
+                            );
+                    $('#myModal').modal('hide');
+                });
+            }
+            else {
+                alert("Please enter valid inputs..");
+            }
+        }
+
+        function DeleteselectedEvent($this) {
+            var id = $("#Id").val();
+            if (parseInt(id) > 0) {
+                a = window.confirm("Do you want to delete selected item ?")
+                if (a) {
+                    $.post("/calendaritem/delete", { id: id }, function (i) {
+                        if (parseInt(i) == 1) {
+                            $('#myModal').modal("hide");
+                            calendar.fullCalendar('removeEvents', id);
+                        }
+                    });
+                }
+            }
+        }
+
+        function Validate() {
+            var form = $('#myModal form');
+            var status = form.validate().form();
+            var data = form.serializeObject();
+            if ($("#ItemData_ItemName") != null && $("#ItemData_ItemName").val() == "") {
+                $("#ItemData_ItemName").addClass("input-validation-error");
+                status = false;
+            }
+            else if ($("#ItemData_ItemDescription") != null && $("#ItemData_ItemDescription").val() == "") {
+                $("#ItemData_ItemDescription").addClass("input-validation-error");
+                status = false;
+            }
+            else if (data.ItemTypeId == "") {
+                status = false;
+            }
+            else if (data.ItemScopeId == "") {
+                status = false;
+            }
+            else if (data.NotificationTypeId == "") {
+                status = false;
+            }
+            else if (new Date(data.EventEndDate) < new Date(data.EventStartDate)) {
+                status = false;
+            }
+            return status;
+        }
+
+    </script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -46,4 +270,7 @@
             });
         });
     </script>
+    @HelperAssets.LoadAjaxData("/Calendar/");
+    
+  @HelperAssets.SaveAndLoadData("/Calendar/", "ViewCalendar");
 }

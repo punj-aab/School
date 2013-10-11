@@ -62,7 +62,7 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.ClassRoomId, type = this.ViewContext.Controller.GetType().Name });
+                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.ClassRoomId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
 
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>

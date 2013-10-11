@@ -59,7 +59,7 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name });
+                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
                    
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">
