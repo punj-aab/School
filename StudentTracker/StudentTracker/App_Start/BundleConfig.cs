@@ -56,6 +56,10 @@ namespace StudentTracker
                 "~/Areas/SAS/assets/plugins/parallax-slider/js/jquery.cslider.js",
                 "~/Areas/SAS/assets/plugins/back-to-top.js",
                 "~/Areas/SAS/assets/js/app.js"));
+
+            bundles.Add(new StyleBundle("~/Content/calendercss").Include("~/Content/Calender/fullcalendar.css", "~/Content/Calender/fullcalendar.print.css"));
+            bundles.Add(new ScriptBundle("~/bundles/calender").Include(
+                       "~/Scripts/Calender/fullcalendar.js"));
         }
     }
 }
