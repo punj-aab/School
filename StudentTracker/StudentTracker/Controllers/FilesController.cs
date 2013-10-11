@@ -86,7 +86,7 @@ namespace StudentTracker.Controllers
             //if not then create a directory
             if (ifExist)
             {
-                string filePath = Path.Combine(directory,fileName);
+                string filePath = Path.Combine(directory, fileName);
                 if (System.IO.File.Exists(filePath))
                     System.IO.File.Delete(filePath);
             }
@@ -142,11 +142,12 @@ namespace StudentTracker.Controllers
             }
         }
 
-        public ActionResult ShowAttachedFiles(int itemId, string type)
+        public ActionResult ShowAttachedFiles(int itemId, string type, bool isEditMode = false)
         {
             StudentContext db = new StudentContext();
             List<Attachment> attachments = new List<Attachment>();
             attachments = db.Attachments.Where(a => a.ItemId == itemId && a.ParentType == type).ToList();
+            ViewBag.IsEditMode = isEditMode;
             return View(attachments);
         }
     }
