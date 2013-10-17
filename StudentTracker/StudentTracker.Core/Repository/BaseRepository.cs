@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web.Configuration;
 using Dapper;
+using System.Collections.Generic;
 
 namespace StudentTracker.Core.Repositories
 {
@@ -21,6 +22,33 @@ namespace StudentTracker.Core.Repositories
             IDbConnection connection = new SqlConnection(WebConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString);
             connection.Open();
             return connection;
+        }
+
+        public List<T> Get<T>(string sql)
+        {
+            List<T> objlist = new List<T>();
+            using (IDbConnection connection = OpenConnection())
+            {
+                return objlist = connection.Query<T>(sql).ToList();
+            }
+        }
+
+        public List<T> Find<T>(string sql, long id)
+        {
+            List<T> objList = new List<T>();
+            using (IDbConnection connection = OpenConnection())
+            {
+                return objList = connection.Query<T>(sql, new { id = id }).ToList();
+            }
+        }
+
+        public T SingleOrDefault<T>(string sql, long id)
+        {
+            T obj;
+            using (IDbConnection connection = OpenConnection())
+            {
+                return obj = connection.Query<T>(sql, new { id = id }).SingleOrDefault();
+            }
         }
     }
 }

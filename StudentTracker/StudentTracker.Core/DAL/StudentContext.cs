@@ -38,6 +38,9 @@ namespace StudentTracker.Core.DAL
         public DbSet<Section> Sections { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<ClassRoom> ClassRooms { get; set; }
+
+        public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<Group> Groups { get; set; }
         #endregion
 
         #region Methods
@@ -54,6 +57,6 @@ namespace StudentTracker.Core.DAL
 
         #endregion
         public DbSet<Attachment> Attachments { get; set; }
-        public DbSet<Schedule> Schedules { get; set; }
+
     }
 }

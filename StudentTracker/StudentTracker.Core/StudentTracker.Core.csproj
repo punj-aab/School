@@ -67,7 +67,9 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\Group.cs" />
     <Compile Include="Entities\Organization.cs" />
+    <Compile Include="Entities\OrganizationCoursesRoot.cs" />
     <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\Region.cs" />
     <Compile Include="Entities\RegistrationToken.cs" />
