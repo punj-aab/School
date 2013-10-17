@@ -18,7 +18,7 @@ namespace StudentTracker.Controllers
 
         // GET: /Organization/
         StudentContext db = new StudentContext();
-        OrganizationRepository objRep = new OrganizationRepository();
+        StudentRepository objRep = new StudentRepository();
         public ActionResult Index()
         {
             return View();
@@ -48,17 +48,13 @@ namespace StudentTracker.Controllers
                     {
                         objOrganization.CreatedDate = DateTime.Now;
                         objOrganization.CreatedBy = _userStatistics.UserId;
-
-                        if (objRep.CreateOrganization(objOrganization))
+                        RegistrationToken objToken = new RegistrationToken();
+                        objToken.Token = UserStatistics.GenerateToken();
+                        objToken.RoleId = (int)UserRoles.OrganizationAdmin;
+                        objToken.CreatedBy = _userStatistics.UserId;
+                        if (objRep.CreateOrganization(objOrganization, objToken))
                         {
-                            RegistrationToken objToken = new RegistrationToken();
-                            objToken.OrganizationId = objOrganization.OrganizationId;
-                            objToken.Token = UserStatistics.GenerateToken();
-                            objToken.RoleId = (int)UserRoles.OrganizationAdmin;
-                            objToken.CreatedBy = _userStatistics.UserId;
-                            objToken.DepartmentId = 0;
-                            db.RegistrationTokens.Add(objToken);
-                            db.SaveChanges();
+                            //objRep.CreateRegistrationToken(objToken);
                             SaveFiles(token, this.GetType().Name, objOrganization.OrganizationId);
                             EmailHandler.Utilities.SendRegistationEmail(objToken.Token, objOrganization.Email);
                             return Convert.ToString(true);
@@ -138,14 +134,14 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public string Edit(Organization organization, string token)
+        public string Edit(DBConnectionString.Organization organization, string token)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     organization.ModifiedBy = _userStatistics.UserId;
-                    if (objRep.Update(organization))
+                    if (organization.Update() > 0)
                     {
                         SaveFiles(token, this.GetType().Name, organization.OrganizationId);
                         return Convert.ToString(true);
@@ -165,11 +161,12 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                DeleteFiles(this.GetType().Name, id);
-                Organization organization = db.Organizations.Find(id);
-                db.Organizations.Remove(organization);
-                db.SaveChanges();
-                return Convert.ToString(true);
+                if (objRep.DeleteOrganization(id))
+                {
+                    //DeleteFiles(this.GetType().Name, id);
+                    return Convert.ToString(true);
+                }
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {
@@ -202,5 +199,7 @@ namespace StudentTracker.Controllers
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
+       
     }
 }

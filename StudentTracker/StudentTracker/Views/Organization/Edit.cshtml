@@ -24,7 +24,7 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.OrganizationId)
-                   
+                   @Html.HiddenFor(m => m.CreatedBy)
                     @Html.HiddenFor(m => m.CreatedDate)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })

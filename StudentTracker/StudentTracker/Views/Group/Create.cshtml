@@ -1,0 +1,55 @@
+﻿@model StudentTracker.Core.Entities.Group
+
+@{
+    ViewBag.Title = "Create";
+}
+@Scripts.Render("~/bundles/jqueryval")
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Create New Class
+                      <span class="mini-title">Simple form for new Class
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.GroupName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.TextBoxFor(m => m.GroupName, new { placeholder = "Group Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.GroupName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions no-margin">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Group</a>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

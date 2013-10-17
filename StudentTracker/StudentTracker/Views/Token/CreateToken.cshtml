@@ -27,7 +27,8 @@
                         <div class="controls">
                             @if (User.IsInRole("SiteAdmin"))
                             {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetCourseAndDepartment(event)", action = "GetDepartmentandCourse", getType = "Course" })
+                                @Html.ValidationMessageFor(m => m.OrganizationId)
                             }
                             else
                             {
@@ -46,29 +47,39 @@
                     <div class="control-group">
                         @Html.LabelFor(model => model.CourseId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6" })
-                            @Html.ValidationMessageFor(model => model.CourseId)
+                             @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClass", getType = "Class" })
+                            @Html.ValidationMessageFor(m => m.CourseId)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6", onChange = "GetData(event)", action = "GetSection", getType = "Section" })
+                            @Html.ValidationMessageFor(m => m.ClassId)
+
                         </div>
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(model => model.SectionId, new { Class = "control-label" })
                         <div class="controls controls-row">
                             @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { Class = "span6" })
-
                             @Html.ValidationMessageFor(model => model.SectionId)
                         </div>
                     </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.RoleId, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DropDownListFor(m => m.RoleId, Model.RoleList, "Select Roles", new { Class = "span6" })
+                            @Html.ValidationMessageFor(model => model.RoleId)
+                        </div>
+                    </div>
                     <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a class="btn btn-primary" href="javascript:;" id="btnCreateToken">Create </a>
+                        <a class="btn btn-primary" href="javascript:;" id="btnCreateToken">Create</a>
                         <div class="clearfix">
                         </div>
                     </div>
-                    
                 }
-
             </div>
         </div>
     </div>

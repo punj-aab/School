@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=BAINS\SQLEXPRESS;Initial Catalog=student_uk;User ID=sa;Password =bains@awan;Integrated Security=False`
+//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student1;User ID=sa;password=**zapped**;`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -1011,6 +1011,112 @@ namespace DBConnectionString
 
 
 		[Column] public string DayIds { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Group")]
+
+
+	[PrimaryKey("GroupId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Group : DBConnectionStringDB.Record<Group>  
+    {
+
+
+
+		[Column] public long GroupId { get; set; }
+
+
+
+
+
+		[Column] public string GroupName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public long? ModifieBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Attachments")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Attachment : DBConnectionStringDB.Record<Attachment>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public string Filename { get; set; }
+
+
+
+
+
+		[Column] public string ParentType { get; set; }
+
+
+
+
+
+		[Column] public long ItemId { get; set; }
+
+
+
+
+
+		[Column] public string FilePath { get; set; }
+
+
+
+
+
+		[Column] public bool IsDeleted { get; set; }
 
 
 

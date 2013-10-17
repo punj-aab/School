@@ -1,6 +1,9 @@
 ﻿using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
+using StudentTracker.Core.Repository;
 using StudentTracker.Core.Utilities;
+using StudentTracker.Repository;
+using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +17,7 @@ namespace StudentTracker.Controllers
     {
         //
         // GET: /Token/
-        private StudentContext db = new StudentContext();
-
+        private StudentRepository repository = new StudentRepository();
         public ActionResult Index()
         {
             return View();
@@ -38,9 +40,11 @@ namespace StudentTracker.Controllers
                 {
                     token.Token = UserStatistics.GenerateToken();
                     token.CreatedBy = _userStatistics.UserId;
-                    db.RegistrationTokens.Add(token);
-                    db.SaveChanges();
-                    return token.Token;
+                    if (repository.CreateToken(token) > 0)
+                    {
+                        return token.Token;
+                    }
+                    return "Please try again.";
                 }
                 return null;
             }
@@ -62,30 +66,54 @@ namespace StudentTracker.Controllers
         {
             SelectList OrganizationList = null;
             List<Organization> organizationList = new List<Organization>();
-            organizationList = db.Organizations.ToList();
-
-            objToken.DepartmentList = new SelectList(db.Departments.ToList(), "DepartmentId", "DepartmentName", "");
-
-            objToken.CourseList = new SelectList(db.Courses.ToList(), "CourseId", "CourseName", "");
-
-            objToken.SectionList = new SelectList(db.Sections.ToList(), "SectionId", "SectionName", "");
+            List<Department> depList = new List<Department>();
+            List<Course> crsList = new List<Course>();
+            List<Class> clsList = new List<Class>();
+            List<Section> secList = new List<Section>();
+            List<SelectListItem> roleTypes = Enum.GetValues(typeof(StudentTracker.Core.Utilities.UserRoles)).Cast<StudentTracker.Core.Utilities.UserRoles>().Select(v => new SelectListItem
+            {
+                Text = v.ToString(),
+                Value = ((int)v).ToString()
+            }).ToList();
 
             if (User.IsInRole("SiteAdmin"))
             {
-                OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", "");
+                OrganizationList = new SelectList(repository.Organizations(), "OrganizationId", "OrganizationName", "");
+                objToken.RoleList = new SelectList(roleTypes, "Value", "Text");
             }
             else
             {
-                var organization = db.Organizations.Single(x => x.OrganizationName == User.Identity.Name);
+                var organization = repository.Organizations(_userStatistics.OrganizationId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
-
-                //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
+                objToken.RoleList = new SelectList(roleTypes.Skip(2), "Value", "Text");
             }
+
             objToken.OrganizationList = OrganizationList;
-
-
+            objToken.CourseList = new SelectList(crsList, "CourseId", "CourseName");
+            objToken.ClassList = new SelectList(clsList, "ClassId", "ClassName");
+            objToken.SectionList = new SelectList(secList, "SectionId", "SectionName");
+            objToken.DepartmentList = new SelectList(depList, "DepartmentId", "DepartmentName");
         }
 
+        public JsonResult GetCourse(long id)
+        {
+            return Json(repository.CourseByOrganization(id), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetClass(long id)
+        {
+            return Json(repository.ClassByCourse(id), JsonRequestBehavior.AllowGet); //Json(repository.Find<Class>("select * from Classes where CourseId = @id", id), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetSection(long id)
+        {
+            return Json(repository.SectionByClass(id), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDepartmentandCourse(long id)
+        {
+            ScheduleViewModel objVM = new ScheduleViewModel();
+            objVM.CourseList = repository.CourseByOrganization(id); //repository.Find<Course>("select * from Courses where OrganisationId = @id", id);
+            objVM.DepartmentList = repository.DepartmenstByOrganization(id); //repository.Find<Department>("select * from Departments where OrganizationId = @id", id);
+            return Json(objVM, "application/json;", JsonRequestBehavior.AllowGet);
+        }
     }
 }

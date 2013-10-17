@@ -7,13 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
-using StudentTracker.Repository;
+using StudentTracker.Core.Repository;
 namespace StudentTracker.Controllers
 {
     public class SubjectController : BaseController
     {
         private StudentContext db = new StudentContext();
-        SubjectRepository objRep = new SubjectRepository();
+        CommonRepository objRep = new CommonRepository();
 
         //
         // GET: /Subject/
@@ -102,14 +102,15 @@ namespace StudentTracker.Controllers
         // POST: /Subject/Edit/5
 
         [HttpPost]
-        public string Edit(Subject subject, string token)
+        public string Edit(DBConnectionString.Subject subject, string token)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     subject.ModifiedBy = _userStatistics.UserId;
-                    if (objRep.Update(subject))
+                    subject.ModifiedOn = DateTime.Now;
+                    if (subject.Update() > 0)
                     {
                         SaveFiles(token, this.GetType().Name, subject.SubjectId);
                         return Convert.ToString(true);
@@ -131,7 +132,7 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                if (objRep.Delete(id))
+                if (objRep.DeleteSubject(id))
                 {
                     DeleteFiles(this.GetType().Name, id);
                     return Convert.ToString(true);
