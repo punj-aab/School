@@ -57,6 +57,7 @@ namespace StudentTracker.Core.DAL
 
         #endregion
         public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<Template> Templates { get; set; }
 
     }
 }

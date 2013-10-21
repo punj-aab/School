@@ -132,6 +132,22 @@ namespace StudentTracker.Core.Repository
         {
             return this.SingleOrDefault<Organization>("Select OrganizationId, OrganizationName from organizations where OrganizationId = @id", id);
         }
+        public List<Template> GetTemplates(long? organizationId = null)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "sp_GetTemplates";
+                return connection.Query<Template>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public Template GetTemplates(long templateId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "sp_GetTemplates";
+                return connection.Query<Template>(storedProcedure, new { TemplateId = templateId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -349,6 +365,29 @@ namespace StudentTracker.Core.Repository
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 //SetIdentity<int>(connection, id => objToken.TokenId = id);
                 return rowsAffected;
+            }
+        }
+        public bool CreateTemplate(Template objTemplate)
+        {
+            var parameters = new
+            {
+                Name = objTemplate.Name,
+                Description = objTemplate.Description,
+                TemplateText = objTemplate.TemplateText,
+                IsActive = objTemplate.IsActive,
+                InsertedOn = objTemplate.InsertedOn,
+                InsertedBy = objTemplate.InsertedBy
+            };
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "sp_AddTemplates";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objTemplate.TemplateId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
             }
         }
 
