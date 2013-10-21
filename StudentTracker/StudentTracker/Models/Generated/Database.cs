@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student1;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student2;User ID=sa;password=**zapped**;`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -616,6 +616,12 @@ namespace DBConnectionString
 
 
 
+		[Column] public long ClassId { get; set; }
+
+
+
+
+
 		[Column] public int SectionId { get; set; }
 
 
@@ -1117,6 +1123,74 @@ namespace DBConnectionString
 
 
 		[Column] public bool IsDeleted { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Template")]
+
+
+	[PrimaryKey("TemplateId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Template : DBConnectionStringDB.Record<Template>  
+    {
+
+
+
+		[Column] public long TemplateId { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public string TemplateText { get; set; }
+
+
+
+
+
+		[Column] public bool IsActive { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UpdatedOn { get; set; }
+
+
+
+
+
+		[Column] public long? UpdatedBy { get; set; }
 
 
 
