@@ -1,0 +1,82 @@
+﻿@model StudentTracker.Core.Entities.Template
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Bootstrap-wysihtml5 
+                                                
+                    <span class="mini-title">Simple, beautiful wysiwyg editors
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                </span>
+            </div>
+            <div class="widget-body">
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.InsertedBy)
+                    @Html.HiddenFor(m => m.InsertedOn)
+                    @Html.HiddenFor(m => m.TemplateId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Name, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.TextBoxFor(m => m.Name, new { placeholder = "Template Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Name)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.TemplateText, new { Class = "control-label" })
+                        <div class="controls wysiwyg-container">
+
+                            @Html.TextAreaFor(m => m.TemplateText, new { Class = "wysiwyg input-block-level", style = "height: 200px" })
+                            @Html.ValidationMessageFor(m => m.TemplateText)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.TextAreaFor(m => m.Description, new { placeholder = "Template Description", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.Description)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.IsActive, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.CheckBoxFor(m => m.IsActive)
+
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .dashboard-wrapper .left-sidebar {
+        margin-right: 260px;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //wysihtml5
+        $('.wysiwyg').wysihtml5();
+        $('.right-sidebar').show();
+    });
+</script>

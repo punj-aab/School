@@ -36,6 +36,8 @@
     @Styles.Render("~/Content/css")
     <link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
     <link href="/Content/alertify.core.css" rel="stylesheet" id="toggleCSS" />
+    <link href="~/Content/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet" />
+    <link href="~/Content/wysiwyg/wysiwyg-color.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     <!-- Important. For Theming change primary-color variable in main.css  -->
     <!--[if lte IE 7]>
@@ -89,6 +91,9 @@
     
     @Scripts.Render("~/bundles/BlockUI")
     @Scripts.Render("~/bundles/DataTable")
+    <script src="~/Scripts/wysiwyg/wysihtml5-0.3.0.js"></script>
+    <script src="~/Scripts/wysiwyg/bootstrap-wysihtml5.js"></script>
+    
     @RenderSection("Scripts", false)
 
     <script type="text/javascript">

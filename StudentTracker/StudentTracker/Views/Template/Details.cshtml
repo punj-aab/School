@@ -1,0 +1,103 @@
+﻿@model StudentTracker.Core.Entities.Template
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Subject Details
+                      <span class="mini-title">Simple form for Display Subject
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(m => m.TemplateId)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Name, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.Description)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.TemplateText, new { Class = "control-label" })
+                        <div class="controls wysiwyg-container">
+
+                            @Html.TextAreaFor(m => m.TemplateText, new { Class = "wysiwyg input-block-level", style = "height: 200px" })
+                            @Html.ValidationMessageFor(m => m.TemplateText)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.IsActive, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.IsActive)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.InsertedOn, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.InsertedOn)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Created By</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.InsertedByName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.UpdatedOn, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.UpdatedOn)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Updated By</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.UpdatedByName)
+
+                        </div>
+                    </div>
+                    <div class="form-actions no-margin">
+                        @* <button type="submit" class="btn btn-info pull-right">
+                                Create Organization
+                            </button>*@
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.TemplateId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //wysihtml5
+        $('.wysiwyg').wysihtml5();
+    });
+</script>

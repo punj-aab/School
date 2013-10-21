@@ -1,0 +1,162 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewTemplates">View Templates
+            </a>
+        </li>
+        <li>
+            <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Template
+            </a>
+        </li>
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+           
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        @{
+            Html.RenderAction("ViewTemplates");
+        }
+    </div>
+    <div class="right-sidebar">
+
+
+        <div class="wrapper">
+            <button class="btn btn-block btn-info" type="button">
+                Template Instructions
+            </button>
+        </div>
+        
+        <hr class="hr-stylish-1">
+
+        <div class="wrapper">
+            <ul class="progress-statistics">
+                <li>
+                    <div class="details">
+                        <span>Windows
+                        </span>
+                        <span class="pull-right">78%
+                        </span>
+                    </div>
+                    <div class="progress">
+                        <div class="bar" style="width: 78%;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="details">
+                        <span>Windows 8
+                        </span>
+                        <span class="pull-right">32%
+                        </span>
+                    </div>
+                    <div class="progress progress-success">
+                        <div class="bar" style="width: 32%;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="details">
+                        <span>Mac
+                        </span>
+                        <span class="pull-right">84%
+                        </span>
+                    </div>
+                    <div class="progress progress-warning">
+                        <div class="bar" style="width: 84%;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="details">
+                        <span>Linux
+                        </span>
+                        <span class="pull-right">44%
+                        </span>
+                    </div>
+                    <div class="progress progress-danger">
+                        <div class="bar" style="width: 44%;">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="details">
+                        <span>IPhone/IPad
+                        </span>
+                        <span class="pull-right">67%
+                        </span>
+                    </div>
+                    <div class="progress progress-info">
+                        <div class="bar" style="width: 67%;">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <hr class="hr-stylish-1">
+
+        <div class="wrapper">
+            <div class="btn-toolbar no-margin">
+                <div class="btn-group">
+                    <a href="#" class="btn btn-success" data-original-title="">
+                        <i class="icon-white icon-headphones"></i>
+                    </a>
+                    <a href="#" class="btn btn-warning" data-original-title="">
+                        <i class="icon-white icon-thumbs-down"></i>
+                    </a>
+                    <a href="#" class="btn btn-warning2" data-original-title="">
+                        <i class="icon-white icon-signal"></i>
+                    </a>
+                    <a href="#" class="btn btn-info" data-original-title="">
+                        <i class="icon-white icon-share-alt"></i>
+                    </a>
+                </div>
+                <div class="btn-group">
+                    <a href="#" class="btn btn-inverse" data-original-title="">
+                        <i class="icon-white icon-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<style type="text/css">
+    .right-sidebar {
+        display: none;
+    }
+</style>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.lnkTemplates').addClass('selected');
+            $('#lnkViewAll').addClass('selected');
+            $('.subButton').click(function () {
+                $("a.subButton").removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
+    </script>
+    @HelperAssets.LoadAjaxData("/Template/");
+  @HelperAssets.DataTable();
+  @HelperAssets.SaveAndLoadData("/Template/", "ViewTemplates");
+}

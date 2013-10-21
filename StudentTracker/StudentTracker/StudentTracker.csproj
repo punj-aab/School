@@ -138,6 +138,7 @@
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Controllers\TokenController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -990,6 +991,8 @@
     <Content Include="Content\themes\custom\js\wysiwyg\locales\bootstrap-wysihtml5.zh-CN.js" />
     <Content Include="Content\themes\custom\js\wysiwyg\locales\bootstrap-wysihtml5.zh-TW.js" />
     <Content Include="Content\themes\custom\js\wysiwyg\wysihtml5-0.3.0.js" />
+    <Content Include="Content\wysiwyg\bootstrap-wysihtml5.css" />
+    <Content Include="Content\wysiwyg\wysiwyg-color.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\themes\custom\css\main.scss" />
     <Content Include="Content\themes\custom\icomoon\fonts\icomoon.eot" />
@@ -1126,6 +1129,34 @@
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\wysiwyg\bootstrap-wysihtml5.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ar-AR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.bg-BG.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ca-CT.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.cs-CZ.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.de-DE.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.el-GR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.es-AR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.es-ES.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.fr-FR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.hr-HR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.it-IT.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ja-JP.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ko-KR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.lt-LT.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.mo-MD.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.nb-NB.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.nl-NL.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.pl-PL.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.pt-BR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ru-RU.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.sk-SK.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.sv-SE.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.tr-TR.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ua-UA.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.zh-CN.js" />
+    <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.zh-TW.js" />
+    <Content Include="Scripts\wysiwyg\wysihtml5-0.3.0.js" />
     <Content Include="SqlScripts\StoredProcedure\NewStoredProcedures.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
     <Content Include="Web.config">
@@ -1212,6 +1243,11 @@
     <Content Include="Views\Group\ViewGroups.cshtml" />
     <Content Include="Views\Group\Create.cshtml" />
     <Content Include="Views\Group\Edit.cshtml" />
+    <Content Include="Views\Template\Create.cshtml" />
+    <Content Include="Views\Template\Index.cshtml" />
+    <Content Include="Views\Template\ViewTemplates.cshtml" />
+    <Content Include="Views\Template\Details.cshtml" />
+    <Content Include="Views\Template\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
