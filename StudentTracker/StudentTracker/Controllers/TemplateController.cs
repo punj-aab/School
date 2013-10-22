@@ -30,9 +30,9 @@ namespace StudentTracker.Controllers
                     {
                         return Convert.ToString(true);
                     }
-                    return Convert.ToString(true);
+                    return Convert.ToString(false);
                 }
-                return Convert.ToString(true);
+                return Convert.ToString(false);
             }
             catch (Exception ex)
             {

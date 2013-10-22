@@ -53,9 +53,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.IsActive, new { Class = "control-label" })
                         <div class="controls">
-
-                            @Html.CheckBoxFor(m => m.IsActive)
-
+                            <input type="checkbox" class="chkActive" name="IsActive" />
                         </div>
                     </div>
                     <div class="form-actions no-margin">
@@ -78,5 +76,14 @@
         //wysihtml5
         $('.wysiwyg').wysihtml5();
         $('.right-sidebar').show();
+
+        $('.chkActive').change(function (e) {
+            if (e.target.checked) {
+                $(e.target).val(true);
+            }
+            else {
+                $(e.target).val(false);
+            }
+        });
     });
 </script>
