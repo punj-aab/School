@@ -3,6 +3,7 @@
     ViewBag.Title = "RegisterUserStep2";
     Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
 }
+
 @Html.Partial("BreadcrumbsPartial")
 <!--=== Content Part ===-->
 <div class="container">
@@ -15,8 +16,6 @@
             </div>
             <div class="progress">
                 <div class="bar progress-info" style="width: 24%;"></div>
-
-
             </div>
         </div>
 
@@ -26,7 +25,8 @@
             <h3>You can rely on informationMail because we provide best services</h3>
 
 
-            @Html.TextBoxFor(m => m.Token, new { placeholder = "Please enter your code", Class = "span7 border-radius-none fild_text" })
+            @Html.TextBoxFor(m => m.Token, new { placeholder = "Please enter your code", Class = "span7 border-radius-none fild_text", name = "Token", required = "required" })
+            @Html.ValidationMessageFor(m => m.Token)
             <p><span>Please enter your registration code, we will verify your code you have given</span></p>
 
             <div class="controls form-inline">
@@ -42,5 +42,12 @@
     </div>
     <!--/row-fluid-->
 </div>
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+        });
+    </script>
+}
 <!--/container-->
 <!--=== End Content Part ===-->

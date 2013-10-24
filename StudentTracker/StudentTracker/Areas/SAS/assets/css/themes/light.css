@@ -372,3 +372,14 @@ ul.unstyled li a i.dinner_img{ background:url(../../img/ico/dinner_w.png) no-rep
 ul.unstyled li a i.tickets_img{ background:url(../../img/ico/tickets_w.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
 ul.unstyled li a i.emanagment_img{ background:url(../../img/ico/emanagement_w.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
 ul.unstyled li a i.shop_img{ background:url(../../img/ico/shop_w.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
+
+
+.btn-Nxt {background:#58595B;}
+.btn-Nxt:hover {background:#717377;}
+.progress .bar{background-color:#58595b;}
+
+
+
+
+
+

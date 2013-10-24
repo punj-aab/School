@@ -363,7 +363,9 @@ ul.unstyled li a i.emanagment_img{ background:url(../../img/ico/emanagement_r.pn
 ul.unstyled li a i.shop_img{ background:url(../../img/ico/shop_r.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
 
 
-
+.btn-Nxt {background:#e74c3c;}
+.btn-Nxt:hover {background:#d04537;}
+.progress .bar{background-color:#e74c3c;}
 
 
 

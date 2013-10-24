@@ -362,4 +362,6 @@ ul.unstyled li a i.tickets_img{ background:url(../../img/ico/tickets_o.png) no-r
 ul.unstyled li a i.emanagment_img{ background:url(../../img/ico/emanagement_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
 ul.unstyled li a i.shop_img{ background:url(../../img/ico/shop_o.png) no-repeat left center; background-size:100% 100%; width:24px; height:24px; top:7px; display:inline-block;}
 
-
+.btn-Nxt {background:#e67e22;}
+.btn-Nxt:hover {background:#ce7628;}
+.progress .bar{background-color:#e67e22;}
