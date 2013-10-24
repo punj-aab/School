@@ -28,7 +28,7 @@
                             {
                                 <tr>
                                     <td>@Html.DisplayFor(model => item.Name)</td>
-                                    <td>@Html.DisplayFor(model => item.TemplateText)</td>
+                                    <td>@Html.Raw(item.TemplateText)</td>
                                     <td>@Html.DisplayFor(model => item.Description)</td>
                                     <td>@Html.DisplayFor(model => item.InsertedByName)</td>
                                     <td>

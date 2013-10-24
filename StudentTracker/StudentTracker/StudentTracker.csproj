@@ -1166,6 +1166,8 @@
     <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.zh-CN.js" />
     <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.zh-TW.js" />
     <Content Include="Scripts\wysiwyg\wysihtml5-0.3.0.js" />
+    <Content Include="SqlScripts\StoredProcedure\addOrganizations.sql" />
+    <Content Include="SqlScripts\StoredProcedure\getSchedule.sql" />
     <Content Include="SqlScripts\StoredProcedure\NewStoredProcedures.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
     <Content Include="Web.config">

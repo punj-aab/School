@@ -33,7 +33,7 @@
             <p>We need your contact details to keep in touch with you.</p>
             <div class="controls form-inline">
                 <a href="/SAS/SASHome/RegisterUserStep3" class="btn-Nxt" type="submit">Back</a>
-                <input type="submit" name="submit" value="Next" class="btn-Nxt" />
+                <a type="submit" onclick="$(this).closest('form').submit();" class="btn-Nxt" >Next</a>
             </div>
 
         }

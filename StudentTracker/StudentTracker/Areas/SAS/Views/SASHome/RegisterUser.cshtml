@@ -37,7 +37,8 @@
 
 
             <div class="controls form-inline">
-                <a href="/SAS/SASHome/RegisterUserStep2" class="btn-Nxt" type="submit">Next</a>
+                @*<a href="/SAS/SASHome/RegisterUserStep2/" class="btn-Nxt" type="submit">Next</a>*@
+                @Html.ActionLink("Next", "RegisterUserStep2", "sashome", new { area = "sas", id = ViewBag.Token }, new { @class = "btn-Nxt", @type = "submit" })
             </div>
 
         </form>

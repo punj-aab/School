@@ -98,6 +98,23 @@ public sealed class WebSecurity
         return success;
     }
 
+    public static bool ResetPassword(string userName, string newPassword)
+    {
+        bool success = false;
+        try
+        {
+            MembershipUser currentUser = Membership.GetUser(userName, true);
+            string currentPassword = currentUser.ResetPassword("test");
+            success = currentUser.ChangePassword(currentPassword, newPassword);
+        }
+        catch (ArgumentException)
+        {
+
+        }
+
+        return success;
+    }
+
     public static bool DeleteUser(string Username)
     {
         return Membership.DeleteUser(Username);

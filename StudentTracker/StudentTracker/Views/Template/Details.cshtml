@@ -38,9 +38,9 @@
                     </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.TemplateText, new { Class = "control-label" })
-                        <div class="controls wysiwyg-container">
-
-                            @Html.TextAreaFor(m => m.TemplateText, new { Class = "wysiwyg input-block-level", style = "height: 200px" })
+                        <div class="controls">
+                            @Html.Raw(Model.TemplateText)
+                          
                             @Html.ValidationMessageFor(m => m.TemplateText)
 
                         </div>

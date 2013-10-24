@@ -59,15 +59,18 @@ namespace StudentTracker.Areas.SAS.Controllers
             return View();
         }
 
-        public ActionResult RegisterUser()
+        public ActionResult RegisterUser(string id = "")
         {
+            ViewBag.Token = id;
             return View();
         }
 
-        public ActionResult RegisterUserStep2()
+        public ActionResult RegisterUserStep2(string id = "")
         {
             ViewBag.Error = false;
-            return View();
+            RegistrationToken objToken = new RegistrationToken();
+            objToken.Token = id;
+            return View(objToken);
         }
         [HttpPost]
         public ActionResult RegisterUserStep2(RegistrationToken objToken)
@@ -134,7 +137,12 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep5(User objUser)
         {
             DBConnectionString.User User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
-            User.Password = objUser.Password;
+
+            // User.Password = objUser.Password;
+            WebSecurity.ResetPassword(User.Username, objUser.Password);
+            User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
+
+            // WebSecurity.ChangePassword(User.Username, User.Password, objUser.Password);
             User.SecurityQuestionId = objUser.SecurityQuestionId;
             User.SecurityAnswer = objUser.SecurityAnswer;
             if (User.Update() > 0)
@@ -175,15 +183,14 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep8(User objUser)
         {
             DBConnectionString.User User = DBConnectionString.User.SingleOrDefault(objUser.UserId);
-            if (User.Password == objUser.Password)
+
+            if (WebSecurity.Login(User.Username, objUser.Password))
             {
-                if (WebSecurity.Login(User.Username, User.Password))
-                {
-                    Session["UserId"] = Convert.ToInt32(WebSecurity.GetUser(User.Username).ProviderUserKey);
-                    string returnUrl = "/SAS/SASHome";
-                    return RedirectToAction(returnUrl);
-                }
+                Session["UserId"] = Convert.ToInt32(WebSecurity.GetUser(User.Username).ProviderUserKey);
+                string returnUrl = "/SAS/SASHome";
+                return RedirectToAction(returnUrl);
             }
+
             ViewBag.Error = true;
             return View();
         }

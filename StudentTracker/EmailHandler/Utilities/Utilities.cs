@@ -81,12 +81,12 @@ namespace EmailHandler
 
             MailAddress fromAddress = new MailAddress(EmailFrom);
             MailAddress toAddress = new MailAddress(user.Email);
-            string subject = "Please Verify your Account";
-            string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear " + user.UserName +
+            string subject = "Verification Email";
+            string body = string.Format("<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear {0}" + user.UserName +
                        ", </p><p>To verify your account, please click the following link:</p>"
-                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\">Click here verify..."
+                       + "<p><a href=\"{1}\" target=\"_blank\">Click here verify..."
                        + "</a></p><div>Best regards,</div><div>Someone</div><p>Do not forward "
-                       + "this email. The verify link is private.</p></body></html>";
+                       + "this email. The verify link is private.</p></body></html>", user.UserName, verifyUrl);
 
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage(fromAddress.Address, toAddress.Address, subject, body);
             msg.IsBodyHtml = true;
@@ -105,14 +105,14 @@ namespace EmailHandler
             //var user = Membership.GetUser(userName.ToString());
             //var confirmationGuid = user.ProviderUserKey.ToString();
             var verifyUrl = HttpContext.Current.Request.Url.GetLeftPart
-               (UriPartial.Authority) + "/Account/RegisterUser/" + token;
+               (UriPartial.Authority) + "/sas/sashome/RegisterUser/" + token;
 
             MailAddress fromAddress = new MailAddress(EmailFrom);
             MailAddress toAddress = new MailAddress(emailTo);
             string subject = "Registeration Invitation";
-            string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear Guest"   +
+            string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear Guest" +
                        ", </p><p>To verify your account, please click the following link:</p>"
-                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\"> Register here..." 
+                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\"> Register here..."
                        + "</a></p><div>Best regards,</div><div>Admin Student</div><p>Do not forward "
                        + "this email. The verify link is private.</p></body></html>";
 

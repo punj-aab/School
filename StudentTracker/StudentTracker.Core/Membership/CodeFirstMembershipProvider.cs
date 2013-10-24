@@ -233,6 +233,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                 if (userIsOnline)
                 {
                     User.LastActivityDate = DateTime.UtcNow;
+                    User.ConfirmPassword = User.Password;
                     Context.SaveChanges();
                 }
                 return new MembershipUser(Membership.Provider.Name, User.Username, User.UserId, User.Email, null, null, User.StatusId == (int)UserStatus.Active, User.IsLockedOut, User.InsertedOn, User.LastLoginDate.Value, User.LastActivityDate.Value, User.LastPasswordChangedDate.Value, User.LastLockoutDate.Value);
@@ -323,6 +324,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                 return false;
             }
             User.Password = NewHashedPassword;
+            User.ConfirmPassword = NewHashedPassword;
             User.LastPasswordChangedDate = DateTime.UtcNow;
             Context.SaveChanges();
             return true;
@@ -601,11 +603,24 @@ public class CodeFirstMembershipProvider : MembershipProvider
     //CodeFirstMembershipProvider does not support password reset scenarios.
     public override bool EnablePasswordReset
     {
-        get { return false; }
+        get { return true; }
     }
     public override string ResetPassword(string username, string answer)
     {
-        throw new NotSupportedException("Consider using methods from WebSecurity module.");
+        string pass = string.Empty;
+        using (StudentContext Context = new StudentContext())
+        {
+
+            var currentUser = Context.Users.Where(u => u.Username == username).SingleOrDefault();
+
+            Random rdm = new Random(9978787);
+            pass = rdm.Next().ToString();
+            string hashedPass = Crypto.HashPassword(pass);
+            currentUser.Password = hashedPass;
+            currentUser.ConfirmPassword = hashedPass;
+            Context.SaveChanges();
+        }
+        return pass;
     }
 
     //CodeFirstMembershipProvider does not support question and answer scenarios.

@@ -1,6 +1,77 @@
 ﻿@{
     Layout = null;
 }
-<p>
-    <h1>Your Token is : @ViewBag.Token</h1>
-</p>
+
+<style>
+    .width50 {
+        max-width: 50%;
+    }
+</style>
+<div class="widget">
+    <div class="widget-header">
+        <div class="title">
+            Registeration Code<a id="accordion" data-original-title="">Code</a>
+        </div>
+        <span class="tools">
+            <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+        </span>
+    </div>
+    <div class="widget-body">
+        <div class="alert alert-success width50">
+            <strong>Your Token is :</strong> @ViewBag.Token
+        </div>
+        <div id="accordion1" class="accordion no-margin width50">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a href="#collapseOne" data-parent="#accordion1" data-toggle="collapse" class="accordion-toggle" data-original-title="">
+                        <i class="icon-user"></i>
+                        Send Email 
+                    </a>
+                </div>
+                <div class="accordion-body collapse" id="collapseOne" style="height: 0px;">
+                    <div class="accordion-inner">
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <span class="add-on">@@
+                                </span>
+                                <input class="span4" id="email2" type="text" placeholder="Email">
+                                &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="SendTokenEmail();" class="btn btn-primary">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function SendTokenEmail() {
+        
+        var emailAdd = $("#email2").val();
+        
+        if (ValisdateEmailAddress(emailAdd)) {
+            $.ajax({
+                type: "POST",
+                url: "/token/emailToken",
+                data: { email: emailAdd, token: '@ViewBag.Token' },
+                success: function () {
+                    alertify.success("email sent successfully");
+                },
+                error: function () {
+                    alertify.error("error in sending email");
+                }
+            });
+
+        }
+        else {
+            alertify.error("Please enter valid email address");
+        }
+    }
+
+    function ValisdateEmailAddress(email) {
+        var re = /\S+@@\S+\.\S+/;
+        return re.test(email);
+    }
+</script>

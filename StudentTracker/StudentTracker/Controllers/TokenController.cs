@@ -1,4 +1,5 @@
-﻿using StudentTracker.Core.DAL;
+﻿using EmailHandler;
+using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.Repository;
 using StudentTracker.Core.Utilities;
@@ -32,7 +33,7 @@ namespace StudentTracker.Controllers
         }
 
         [HttpPost]
-        public string Create(RegistrationToken token)
+        public ActionResult Create(RegistrationToken token)
         {
             try
             {
@@ -42,9 +43,10 @@ namespace StudentTracker.Controllers
                     token.CreatedBy = _userStatistics.UserId;
                     if (repository.CreateToken(token) > 0)
                     {
-                        return token.Token;
+                        ViewBag.Token = token.Token;
+                        return View("ViewToken", token);
                     }
-                    return "Please try again.";
+                    return View(token);
                 }
                 return null;
             }
@@ -53,6 +55,13 @@ namespace StudentTracker.Controllers
                 return null;
             }
 
+        }
+
+        [HttpPost]
+        public bool EmailToken(string email, string token)
+        {
+            Utilities.SendRegistationEmail(token, email);
+            return true;
         }
 
         [Authorize]
