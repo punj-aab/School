@@ -1065,6 +1065,15 @@
     <Content Include="Areas\SAS\Views\SASHome\Blog.cshtml" />
     <Content Include="Areas\SAS\Views\SASHome\Support.cshtml" />
     <Content Include="Areas\SAS\Views\SASHome\ContactUs.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUser.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep2.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep3.cshtml" />
+    <Content Include="Areas\SAS\Views\Shared\BreadcrumbsPartial.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep4.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep5.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep6.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep7.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep8.cshtml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <Content Include="Areas\SAS\Views\Shared\LayoutAreas.cshtml" />
