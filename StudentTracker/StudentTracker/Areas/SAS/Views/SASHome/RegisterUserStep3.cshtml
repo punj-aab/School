@@ -33,10 +33,10 @@
             <input type="text" class="span7 border-radius-none" value="Date of Birth" onfocus="this.value=''" onblur="this.value='Date of Birth'" />*@
 	        
             @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.Username, new { placeholder = "User Name", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.DateOfBirth, new { placeholder = "Date Of Birth", Class = "span7 border-radius-none fild_text" })
+            @Html.TextBoxFor(m => m.Username, new { placeholder = "User Name", Class = "span7 border-radius-none " })
+            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none " })
+            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none " })
+            @Html.TextBoxFor(m => m.DateOfBirth, new { placeholder = "Date Of Birth", Class = "span7 border-radius-none " })
                 
             <div class="controls form-inline">
                 <a href="/SAS/SASHome/RegisterUserStep2" class="btn-Nxt" type="submit">Back</a>
