@@ -41,6 +41,7 @@ namespace StudentTracker.Core.DAL
 
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<SecurityQuestion> SecurityQuestions { get; set; }
         #endregion
 
         #region Methods

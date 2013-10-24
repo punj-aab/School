@@ -1388,6 +1388,42 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public string Title { get; set; }
+
+
+
+
+
+		[Column] public DateTime? DateOfBirth { get; set; }
+
+
+
+
+
+		[Column] public string MobileNumber { get; set; }
+
+
+
+
+
+		[Column] public string HomeTelephoneNumber { get; set; }
+
+
+
+
+
+		[Column] public long? SecurityQuestionId { get; set; }
+
+
+
+
+
+		[Column] public string SecurityAnswer { get; set; }
+
+
+
 	}
 
     

@@ -34,7 +34,7 @@
         [Required, DataType(DataType.Password)]
         public virtual string Password { get; set; }
 
-        
+
         [NotMapped]
         [Required, DataType(DataType.Password)]
         public virtual string ConfirmPassword { get; set; }
@@ -83,8 +83,17 @@
         [ScaffoldColumn(false)]
         public virtual ICollection<Role> Roles { get; set; }
 
-        //[ForeignKey("UserId")]
-        //public virtual Profile Profile { get; set; }
+        public string Title { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public string MobileNumber { get; set; }
+        public string HomeTelephoneNumber { get; set; }
+        public long? SecurityQuestionId { get; set; }
+        public string SecurityAnswer { get; set; }
 
+        [NotMapped]
+        public long RoleId { get; set; }
+
+        [NotMapped]
+        public SelectList SecurityQuestionList { get; set; }
     }
 }

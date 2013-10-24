@@ -33,7 +33,7 @@ public sealed class WebSecurity
         get { return User.Identity.IsAuthenticated; }
     }
 
-    public static MembershipCreateStatus Register(string Username, string Password, string Email, bool IsApproved, string FirstName, string LastName)
+    public static MembershipCreateStatus Register(string Username, string Password, string Email, bool IsApproved, string FirstName, string LastName, DateTime? DateOfBirth = null, string Title = null)
     {
         MembershipCreateStatus CreateStatus;
         Membership.CreateUser(Username, Password, Email, null, null, IsApproved, Guid.NewGuid(), out CreateStatus);
@@ -46,6 +46,8 @@ public sealed class WebSecurity
                 User.FirstName = FirstName;
                 User.LastName = LastName;
                 User.ConfirmPassword = User.Password;
+                User.DateOfBirth = DateOfBirth;
+                User.Title = Title;
                 Context.SaveChanges();
             }
 
@@ -172,5 +174,36 @@ public sealed class WebSecurity
     public static void InitializeDatabaseConnection(string connectionString, string providerName, string userTableName, string userIdColumn, string userNameColumn, bool autoCreateTables)
     {
 
+    }
+
+    public static long RegisterNewUser(string Username, string Password, string Email, bool IsApproved, string FirstName, string LastName, long organizationId, string token, DateTime? DateOfBirth = null, string Title = null)
+    {
+        MembershipCreateStatus CreateStatus;
+        Membership.CreateUser(Username, Password, Email, null, null, IsApproved, Guid.NewGuid(), out CreateStatus);
+
+        if (CreateStatus == MembershipCreateStatus.Success)
+        {
+            StudentTracker.Core.Entities.User User = null;
+            using (StudentContext Context = new StudentContext())
+            {
+                User = Context.Users.FirstOrDefault(Usr => Usr.Username == Username);
+                User.FirstName = FirstName;
+                User.LastName = LastName;
+                User.ConfirmPassword = User.Password;
+                User.DateOfBirth = DateOfBirth;
+                User.Title = Title;
+                User.OrgainzationId = organizationId;
+                User.RegistrationToken = token;
+                Context.SaveChanges();
+
+            }
+
+            if (IsApproved)
+            {
+                FormsAuthentication.SetAuthCookie(Username, false);
+            }
+            return User.UserId;
+        }
+        return -1;
     }
 }

@@ -1,0 +1,44 @@
+﻿@model StudentTracker.Core.Entities.User
+@{
+    ViewBag.Title = "RegisterUserStep4";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+@Html.Partial("BreadcrumbsPartial")
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid">
+        <div class="progressBar">
+
+            <div class="details">
+                <span>Step 4 </span>
+                <span class="pull-right">48% </span>
+            </div>
+            <div class="progress">
+                <div class="bar progress-info" style="width: 48%;"></div>
+
+
+            </div>
+        </div>
+
+        @using (Html.BeginForm("RegisterUserStep4", "SASHome", FormMethod.Post, new { @class = "log-page2" }))
+        {
+            <h3>Contact details</h3>
+            @Html.HiddenFor(m => m.UserId)
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span7 border-radius-none fild_text" })
+            @Html.TextBoxFor(m => m.MobileNumber, new { placeholder = "Mobile No", Class = "span7 border-radius-none fild_text" })
+            @Html.TextBoxFor(m => m.HomeTelephoneNumber, new { placeholder = "Home telephone (optional)", Class = "span7 border-radius-none fild_text" })
+            @*<input type="text" class="span7 border-radius-none" value="Email" onfocus="this.value=''" onblur="this.value='Email'" />
+            <input type="text" class="span7 border-radius-none" value="Mobile No" onfocus="this.value=''" onblur="this.value='Mobile No'" />
+            <input type="text" class="span7 border-radius-none" value="Home telephone (optional)" onfocus="this.value=''" onblur="this.value='Home telephone (optional)'" />*@
+            <p>We need your contact details to keep in touch with you.</p>
+            <div class="controls form-inline">
+                <a href="/SAS/SASHome/RegisterUserStep3" class="btn-Nxt" type="submit">Back</a>
+                <input type="submit" name="submit" value="Next" class="btn-Nxt" />
+            </div>
+
+        }
+    </div>
+    <!--/row-fluid-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->

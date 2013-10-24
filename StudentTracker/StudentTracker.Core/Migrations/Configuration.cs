@@ -5,7 +5,6 @@ namespace StudentTracker.Core.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using System.Web.Security;
 
     internal sealed class Configuration : DbMigrationsConfiguration<StudentTracker.Core.DAL.StudentContext>
     {
@@ -16,9 +15,9 @@ namespace StudentTracker.Core.Migrations
 
         protected override void Seed(StudentTracker.Core.DAL.StudentContext context)
         {
-            Seed objseed = new Seed();
-            //objseed.AddCountriesToDB(context);
-            //objseed.AddStatesToDB(context);
+            Seed obj = new Seed();
+            obj.AddCountriesToDB(context);
+            obj.AddStatesToDB(context);
         }
     }
 }

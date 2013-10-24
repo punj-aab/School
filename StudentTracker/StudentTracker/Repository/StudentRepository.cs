@@ -31,5 +31,10 @@ namespace StudentTracker.Repository
         {
             return this.Find<Department>("select * from Departments where OrganizationId = @id", id);
         }
+        public List<SecurityQuestion> SecurityQuestions()
+        {
+            return this.Get<SecurityQuestion>("select * from SecurityQuestion");
+        }
+
     }
 }

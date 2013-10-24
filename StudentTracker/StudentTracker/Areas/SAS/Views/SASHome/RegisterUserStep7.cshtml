@@ -1,0 +1,40 @@
+﻿@model StudentTracker.Core.Entities.User
+@{
+    ViewBag.Title = "RegisterUserStep7";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+@Html.Partial("BreadcrumbsPartial")
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid">
+        <div class="progressBar">
+
+            <div class="details">
+                <span>Step 7 </span>
+                <span class="pull-right">84% </span>
+            </div>
+            <div class="progress">
+                <div class="bar progress-info" style="width: 84%;"></div>
+
+
+            </div>
+        </div>
+
+
+        @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "log-page2" }))
+        {
+            <h3>Thankyou, your account has been created </h3>	
+			       	
+            @Html.HiddenFor(m => m.UserId)	 
+            <p class="">we will verify your email now, please go to your email which you have given to us and click on verification link</p>
+            <div class="controls form-inline">
+                @Html.ActionLink("Next", "RegisterUserStep8", new { userId = Model.UserId }, new { @class = "btn-Nxt", @type = "submit", @name = "submit" })
+            </div>
+            
+        }
+    </div>
+    <!--/row-fluid-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->
+

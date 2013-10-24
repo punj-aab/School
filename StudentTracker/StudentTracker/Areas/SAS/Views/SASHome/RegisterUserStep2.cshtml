@@ -1,0 +1,46 @@
+﻿@model StudentTracker.Core.Entities.RegistrationToken
+@{
+    ViewBag.Title = "RegisterUserStep2";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+@Html.Partial("BreadcrumbsPartial")
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid">
+        <div class="progressBar">
+
+            <div class="details">
+                <span>Step 2 </span>
+                <span class="pull-right">24% </span>
+            </div>
+            <div class="progress">
+                <div class="bar progress-info" style="width: 24%;"></div>
+
+
+            </div>
+        </div>
+
+
+        @using (Html.BeginForm("RegisterUserStep2", "SASHome", FormMethod.Post, new { @class = "log-page2" }))
+        {
+            <h3>You can rely on informationMail because we provide best services</h3>
+
+
+            @Html.TextBoxFor(m => m.Token, new { placeholder = "Please enter your code", Class = "span7 border-radius-none fild_text" })
+            <p><span>Please enter your registration code, we will verify your code you have given</span></p>
+
+            <div class="controls form-inline">
+                @*<a class="btn-Nxt" type="submit">Next</a>*@
+                <input type="submit" name="submit" value="Next" class="btn-Nxt" />
+            </div>
+            if (@ViewBag.Error)
+            { 
+            <p><span class="Error">No Registration token found for entered code.</span></p>
+            }
+
+        }
+    </div>
+    <!--/row-fluid-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->

@@ -1,0 +1,45 @@
+﻿@model StudentTracker.Core.Entities.User
+@{
+    ViewBag.Title = "RegisterUserStep8";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+@Html.Partial("BreadcrumbsPartial")
+
+
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid">
+        <div class="progressBar">
+
+            <div class="details">
+                <span>Step 8 </span>
+                <span class="pull-right">100% </span>
+            </div>
+            <div class="progress">
+                <div class="bar progress-info" style="width: 100%;"></div>
+
+
+            </div>
+        </div>
+
+
+        @using (Html.BeginForm("RegisterUserStep8", "SASHome", FormMethod.Post, new { @class = "log-page2" }))
+        {
+            @Html.HiddenFor(m => m.UserId)
+            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none fild_text" })
+
+            <p class="">Please enter your password to activate your account</p>
+            <div class="controls form-inline">
+                <button class="btn-Nxt" type="submit">Finish</button>
+            </div>
+            if (@ViewBag.Error)
+            { 
+            <p class="">Please enter your correct password for confirm your account! Thanks.</p>
+            }
+
+        }
+    </div>
+    <!--/row-fluid-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->
