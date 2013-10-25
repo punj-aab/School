@@ -1,4 +1,5 @@
-﻿using StudentTracker.Core.Entities;
+﻿using EmailHandler;
+using StudentTracker.Core.Entities;
 using StudentTracker.Repository;
 using System;
 using System.Collections.Generic;
@@ -166,15 +167,19 @@ namespace StudentTracker.Areas.SAS.Controllers
 
         public ActionResult RegisterUserStep7(long userId)
         {
+            DBConnectionString.User User = DBConnectionString.User.SingleOrDefault(userId);
+
             User objUser = new User();
+            Utilities.SendConfirmationEmail(User.Username);
+           
             objUser.UserId = userId;
             return View(objUser);
         }
 
-        public ActionResult RegisterUserStep8(long userId)
+        public ActionResult RegisterUserStep8(long id)
         {
             User objUSer = new User();
-            objUSer.UserId = userId;
+            objUSer.UserId = id;
             ViewBag.Error = false;
             return View(objUSer);
         }

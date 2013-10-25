@@ -77,7 +77,7 @@ namespace EmailHandler
             var user = Membership.GetUser(userName.ToString());
             var confirmationGuid = user.ProviderUserKey.ToString();
             var verifyUrl = HttpContext.Current.Request.Url.GetLeftPart
-               (UriPartial.Authority) + "/Account/Verify/" + confirmationGuid;
+               (UriPartial.Authority) + "/sas/sashome/RegisterUserStep8/" + confirmationGuid;
 
             MailAddress fromAddress = new MailAddress(EmailFrom);
             MailAddress toAddress = new MailAddress(user.Email);
