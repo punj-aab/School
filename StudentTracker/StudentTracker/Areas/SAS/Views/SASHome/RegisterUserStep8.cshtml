@@ -26,8 +26,10 @@
         @using (Html.BeginForm("RegisterUserStep8", "SASHome", FormMethod.Post, new { @class = "log-page2" }))
         {
             @Html.HiddenFor(m => m.UserId)
-            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none fild_text" })
-
+            <div class="fild_text">
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none " })
+                @Html.ValidationMessageFor(m => m.Password)
+            </div>
             <p class="">Please enter your password to activate your account</p>
             <div class="controls form-inline">
                 <button class="btn-Nxt" type="submit">Finish</button>

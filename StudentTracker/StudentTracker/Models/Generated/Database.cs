@@ -1079,6 +1079,44 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("SecurityQuestion")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class SecurityQuestion : DBConnectionStringDB.Record<SecurityQuestion>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public string Question { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public string InsertedBy { get; set; }
+
+
+
+	}
+
+    
 	[TableName("Attachments")]
 
 
@@ -1396,7 +1434,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public DateTime? DateOfBirth { get; set; }
+		[Column] public DateTime DateOfBirth { get; set; }
 
 
 
@@ -1414,7 +1452,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public long? SecurityQuestionId { get; set; }
+		[Column] public long SecurityQuestionId { get; set; }
 
 
 

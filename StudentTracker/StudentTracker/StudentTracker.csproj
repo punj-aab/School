@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Areas\SAS\Controllers\OrganizationController.cs" />
     <Compile Include="Areas\SAS\Controllers\SASHomeController.cs" />
     <Compile Include="Areas\SAS\SASAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -1074,6 +1075,7 @@
     <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep6.cshtml" />
     <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep7.cshtml" />
     <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep8.cshtml" />
+    <Content Include="Areas\SAS\Views\SASHome\TermsAndConditions.cshtml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <Content Include="Areas\SAS\Views\Shared\LayoutAreas.cshtml" />

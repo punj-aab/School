@@ -32,15 +32,16 @@
             <input type="text" class="span7 border-radius-none" value="Last Name" onfocus="this.value=''" onblur="this.value='Last Name'" />
             <input type="text" class="span7 border-radius-none" value="Date of Birth" onfocus="this.value=''" onblur="this.value='Date of Birth'" />*@
 	        
-            @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.Username, new { placeholder = "User Name", Class = "span7 border-radius-none " })
-            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none " })
-            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none " })
-            @Html.TextBoxFor(m => m.DateOfBirth, new { placeholder = "Date Of Birth", Class = "span7 border-radius-none " })
-                
+            <div class="fild_text">
+                @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", Class = "span7 border-radius-none fild_text txtUser" })@Html.ValidationMessageFor(m => m.Title)
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "User Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.Username)
+                @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.FirstName)
+                @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.LastName)
+                @Html.TextBoxFor(m => m.DateOfBirth, new { placeholder = "Date Of Birth", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.DateOfBirth)
+            </div>
             <div class="controls form-inline">
                 <a href="/SAS/SASHome/RegisterUserStep2" class="btn-Nxt" type="submit">Back</a>
-                <a type="submit" href="javascript:;" name="submit" onclick="$(this).closest('form').submit();" class="btn-Nxt">Next</a>
+                <a type="submit" href="javascript:;" name="submit" id="lnkAdd" class="btn-Nxt" onclick=" $(this).closest('form').submit();">Next</a>
             </div>
             
         }
@@ -50,10 +51,11 @@
 <!--/container-->
 <!--=== End Content Part ===-->
 @section scripts{
-    
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#DateOfBirth').datepicker();
         });
     </script>
-    }
+}
+

@@ -2538,3 +2538,11 @@ i.style-switcher-btn-option {
 .Error {
     color: red;
 }
+
+.ValidationError {
+    border: 1px solid rgb(216, 83, 83) !important;
+}
+
+.field-validation-error {
+    color: red;
+}

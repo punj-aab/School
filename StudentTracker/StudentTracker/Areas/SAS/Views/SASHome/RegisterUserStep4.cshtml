@@ -24,16 +24,17 @@
         {
             <h3>Contact details</h3>
             @Html.HiddenFor(m => m.UserId)
-            @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.MobileNumber, new { placeholder = "Mobile No", Class = "span7 border-radius-none " })
-            @Html.TextBoxFor(m => m.HomeTelephoneNumber, new { placeholder = "Home telephone (optional)", Class = "span7 border-radius-none " })
-            @*<input type="text" class="span7 border-radius-none" value="Email" onfocus="this.value=''" onblur="this.value='Email'" />
-            <input type="text" class="span7 border-radius-none" value="Mobile No" onfocus="this.value=''" onblur="this.value='Mobile No'" />
-            <input type="text" class="span7 border-radius-none" value="Home telephone (optional)" onfocus="this.value=''" onblur="this.value='Home telephone (optional)'" />*@
+            <div class="fild_text">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span7 border-radius-none  txtUser" })
+                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.MobileNumber, new { placeholder = "Mobile No", Class = "span7 border-radius-none txtUser" })
+                @Html.ValidationMessageFor(m => m.MobileNumber)
+                @Html.TextBoxFor(m => m.HomeTelephoneNumber, new { placeholder = "Home telephone (optional)", Class = "span7 border-radius-none txtUser" })
+                @Html.ValidationMessageFor(m => m.HomeTelephoneNumber)
+            </div>
             <p>We need your contact details to keep in touch with you.</p>
             <div class="controls form-inline">
-                <a href="/SAS/SASHome/RegisterUserStep3" class="btn-Nxt" type="submit">Back</a>
-                <a type="submit" onclick="$(this).closest('form').submit();" class="btn-Nxt" >Next</a>
+                <a type="submit" href="javascript:;" onclick="$(this).closest('form').submit();" name="submit" id="lnkAdd" class="btn-Nxt">Next</a>
             </div>
 
         }

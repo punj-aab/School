@@ -14,6 +14,7 @@ namespace StudentTracker.Core.Entities
         public long TokenId { get; set; }
 
         [ScaffoldColumn(false)]
+        [Required(ErrorMessage = "*")]
         public string Token { get; set; }
 
         [Required]

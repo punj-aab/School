@@ -28,7 +28,8 @@
             <p><span>Lorem Ipsum is simply dummy text of the printing and typesetting.</span></p>
             <p><span>Lorem Ipsum is simply dummy text of the printing and typesetting.</span></p>
 
-            <p class="fild_text">Please read and Agree our terms & condition</p>
+            
+            @Html.ActionLink("Please read and Agree our terms & condition.", "TermsAndConditions", null, new { @class = "fild_text" })
             <div class="controls form-inline">
                 <a href="/SAS/SASHome/RegisterUserStep5" class="btn-Nxt" type="submit">Back</a>
                 <a type="submit" onclick="$(this).closest('form').submit();" class="btn-Nxt">Next</a>

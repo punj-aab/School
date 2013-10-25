@@ -199,5 +199,10 @@ namespace StudentTracker.Areas.SAS.Controllers
             ViewBag.Error = true;
             return View();
         }
+
+        public ActionResult TermsAndConditions()
+        {
+            return View();
+        }
     }
 }

@@ -24,14 +24,20 @@
         @using (Html.BeginForm("RegisterUserStep5", "SASHome", FormMethod.Post, new { @class = "log-page2" }))
         {
             @Html.HiddenFor(m => m.UserId)
-            @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none fild_text" })
-            @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span7 border-radius-none " })
-            @Html.DropDownListFor(m => m.SecurityQuestionId, Model.SecurityQuestionList, new { @class = "span7 border-radius-none" })
-            @Html.TextBoxFor(m => m.SecurityAnswer, new { placeholder = "Answer", Class = "span7 border-radius-none " })
+            <div class="fild_text">
+                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none txtUser" })
+                @Html.ValidationMessageFor(m => m.Password)
+                @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span7 border-radius-none txtUser " })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword)<br />
+                @Html.DropDownListFor(m => m.SecurityQuestionId, Model.SecurityQuestionList, new { @class = "span7 border-radius-none txtUser" })
+                @Html.ValidationMessageFor(m => m.SecurityQuestionId)
+                @Html.TextBoxFor(m => m.SecurityAnswer, new { placeholder = "Answer", Class = "span7 border-radius-none txtUser" })
+                @Html.ValidationMessageFor(m => m.SecurityAnswer)
+            </div>
             <p>Please always keep safe your password</p>
             <div class="controls form-inline">
-                <a href="/SAS/SASHome/RegisterUserStep4" class="btn-Nxt" type="submit">Back</a>
-                <a type="submit" onclick="$(this).closest('form').submit();" class="btn-Nxt">Next</a>
+                @*<a href="/SAS/SASHome/RegisterUserStep4" class="btn-Nxt" type="submit">Back</a>*@
+                <a type="submit" href="javascript:;" name="submit" onclick=" $(this).closest('form').submit();" id="lnkAdd" class="btn-Nxt">Next</a>
             </div>
         }
     </div>
