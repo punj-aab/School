@@ -1,4 +1,4 @@
-USE [Student]
+-- USE [Student]
 GO
 
 /****** Object:  StoredProcedure [dbo].[addOrganization]    Script Date: 10/07/2013 19:56:30 ******/

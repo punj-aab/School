@@ -144,7 +144,7 @@ namespace StudentTracker.Areas.SAS.Controllers
             User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
 
             // WebSecurity.ChangePassword(User.Username, User.Password, objUser.Password);
-            User.SecurityQuestionId = objUser.SecurityQuestionId;
+            User.SecurityQuestionId = objUser.SecurityQuestionId == null ? 1 : objUser.SecurityQuestionId.Value;
             User.SecurityAnswer = objUser.SecurityAnswer;
             if (User.Update() > 0)
             {
@@ -192,7 +192,7 @@ namespace StudentTracker.Areas.SAS.Controllers
             if (WebSecurity.Login(User.Username, objUser.Password))
             {
                 Session["UserId"] = Convert.ToInt32(WebSecurity.GetUser(User.Username).ProviderUserKey);
-                string returnUrl = "/SAS/SASHome";
+                string returnUrl = "/";
                 return RedirectToAction(returnUrl);
             }
 

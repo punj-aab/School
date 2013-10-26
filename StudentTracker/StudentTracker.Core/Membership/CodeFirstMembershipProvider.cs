@@ -123,9 +123,26 @@ public class CodeFirstMembershipProvider : MembershipProvider
                 IsLockedOut = false,
                 LastPasswordFailureDate = DateTime.UtcNow
             };
-            NewUser.ConfirmPassword = password;
-            Context.Users.Add(NewUser);
-            Context.SaveChanges();
+            NewUser.ConfirmPassword = HashedPassword;
+            try
+            {
+                Context.Users.Add(NewUser);
+                Context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
             status = MembershipCreateStatus.Success;
             return new MembershipUser(Membership.Provider.Name, NewUser.Username, NewUser.UserId, NewUser.Email, null, null, NewUser.StatusId == 1, NewUser.IsLockedOut, NewUser.InsertedOn, NewUser.LastLoginDate.Value, NewUser.LastActivityDate.Value, NewUser.LastPasswordChangedDate.Value, NewUser.LastLockoutDate.Value);
         }
@@ -190,7 +207,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
             {
                 // Your code...
                 // Could also be before try if you know the exception occurs in SaveChanges
-                User.ConfirmPassword = password;
+                User.ConfirmPassword = User.Password;
                 Context.SaveChanges();
             }
             catch (DbEntityValidationException e)
