@@ -390,38 +390,38 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
-        public long CreateUser(User objUser)
-        {
-            var parameters = new
-            {
-                StatusId = objUser.StatusId,
-                Username = objUser.Username,
-                Email = objUser.Email,
-                Password = objUser.Password,
-                FirstName = objUser.FirstName,
-                LastName = objUser.LastName,
-                RegistrationToken = objUser.RegistrationToken,
-                OrgainzationId = objUser.OrgainzationId,
-                Title = objUser.Title,
-                DateOfBirth = objUser.DateOfBirth,
-                MobileNumber = objUser.MobileNumber,
-                HomeTelephoneNumber = objUser.HomeTelephoneNumber,
-                SecurityQuestionId = objUser.SecurityQuestionId,
-                SecurityAnswer = objUser.SecurityAnswer
-            };
+        //public long CreateUser(User objUser)
+        //{
+        //    var parameters = new
+        //    {
+        //        StatusId = objUser.StatusId,
+        //        Username = objUser.Username,
+        //        Email = objUser.Email,
+        //        Password = objUser.Password,
+        //        FirstName = objUser.FirstName,
+        //        LastName = objUser.LastName,
+        //        RegistrationToken = objUser.RegistrationToken,
+        //        OrgainzationId = objUser.OrgainzationId,
+        //        //Title = objUser.Title,
+        //        //DateOfBirth = objUser.DateOfBirth,
+        //        //MobileNumber = objUser.MobileNumber,
+        //        //HomeTelephoneNumber = objUser.HomeTelephoneNumber,
+        //        //SecurityQuestionId = objUser.SecurityQuestionId,
+        //        //SecurityAnswer = objUser.SecurityAnswer
+        //    };
 
-            using (IDbConnection connection = OpenConnection())
-            {
-                const string storedProcedure = "usp_addCourse";
-                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-                SetIdentity<int>(connection, id => objUser.UserId = id);
-                if (rowsAffected > 0)
-                {
-                    return objUser.UserId;
-                }
-                return -1;
-            }
-        }
+        //    using (IDbConnection connection = OpenConnection())
+        //    {
+        //        const string storedProcedure = "addCourse";
+        //        int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+        //        SetIdentity<int>(connection, id => objUser.UserId = id);
+        //        if (rowsAffected > 0)
+        //        {
+        //            return objUser.UserId;
+        //        }
+        //        return -1;
+        //    }
+        //}
 
         public bool DeleteGroup(long groupId)
         {

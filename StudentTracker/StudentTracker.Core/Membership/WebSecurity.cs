@@ -46,8 +46,8 @@ public sealed class WebSecurity
                 User.FirstName = FirstName;
                 User.LastName = LastName;
                 User.ConfirmPassword = User.Password;
-                User.DateOfBirth = DateOfBirth;
-                User.Title = Title;
+                //  User.DateOfBirth = DateOfBirth;
+                // User.Title = Title;
                 Context.SaveChanges();
             }
 
@@ -207,12 +207,9 @@ public sealed class WebSecurity
                 User.FirstName = FirstName;
                 User.LastName = LastName;
                 User.ConfirmPassword = User.Password;
-                User.DateOfBirth = DateOfBirth;
-                User.Title = Title;
                 User.OrgainzationId = organizationId;
                 User.RegistrationToken = token;
                 Context.SaveChanges();
-
             }
 
             if (IsApproved)

@@ -24,33 +24,27 @@
         [ScaffoldColumn(false)]
         public long MasterId { get; set; }
 
-        [Required(ErrorMessage = "*")]
-        // [Remote("CheckUser", "Organization")]
-        [Remote("CheckUser")]
+        [Required]
+        [Remote("CheckUser", "Organization")]
         public string Username { get; set; }
 
         [Editable(false)]
-
         public virtual string Email { get; set; }
 
-        [Required(ErrorMessage = "*"), DataType(DataType.Password)]
+        [Required, DataType(DataType.Password)]
         public virtual string Password { get; set; }
 
 
         [NotMapped]
-        [Required(ErrorMessage = "*"), DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "<span title='The password and confirmation password do not match.'>*</span>")]
+        [Required, DataType(DataType.Password)]
         public virtual string ConfirmPassword { get; set; }
 
-        // [Required(ErrorMessage = "*")]
+
         public virtual string FirstName { get; set; }
 
-        // [Required(ErrorMessage = "*")]
         public virtual string LastName { get; set; }
 
         [ScaffoldColumn(false)]
-        // [Required]
         public virtual string RegistrationToken { get; set; }
 
         [ScaffoldColumn(false)]
@@ -89,23 +83,8 @@
         [ScaffoldColumn(false)]
         public virtual ICollection<Role> Roles { get; set; }
 
-        //  [Required(ErrorMessage = "*")]
-        public string Title { get; set; }
-        //[Required(ErrorMessage = "*")]
-        public DateTime? DateOfBirth { get; set; }
-        //[Required(ErrorMessage = "*")]
-        public string MobileNumber { get; set; }
-        // [Required(ErrorMessage = "*")]
-        public string HomeTelephoneNumber { get; set; }
-        //[Required(ErrorMessage = "*")]
-        public long? SecurityQuestionId { get; set; }
-        // [Required(ErrorMessage = "*")]
-        public string SecurityAnswer { get; set; }
-
         [NotMapped]
         public long RoleId { get; set; }
 
-        [NotMapped]
-        public SelectList SecurityQuestionList { get; set; }
     }
 }
