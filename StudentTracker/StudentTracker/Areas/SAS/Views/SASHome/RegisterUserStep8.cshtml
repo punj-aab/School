@@ -27,7 +27,7 @@
         {
             @Html.HiddenFor(m => m.UserId)
             <div class="fild_text">
-                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none " })
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none " })
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
             <p class="">Please enter your password to activate your account</p>

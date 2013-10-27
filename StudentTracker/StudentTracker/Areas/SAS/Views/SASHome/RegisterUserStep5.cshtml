@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.User
+﻿@model StudentTracker.Core.Entities.Profile
 @{
     ViewBag.Title = "RegisterUserStep5";
     Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
@@ -25,9 +25,9 @@
         {
             @Html.HiddenFor(m => m.UserId)
             <div class="fild_text">
-                @Html.TextBoxFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none txtUser" })
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Password", Class = "span7 border-radius-none txtUser" })
                 @Html.ValidationMessageFor(m => m.Password)
-                @Html.TextBoxFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span7 border-radius-none txtUser " })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Confirm Password", Class = "span7 border-radius-none txtUser " })
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)<br />
                 @Html.DropDownListFor(m => m.SecurityQuestionId, Model.SecurityQuestionList, new { @class = "span7 border-radius-none txtUser" })
                 @Html.ValidationMessageFor(m => m.SecurityQuestionId)

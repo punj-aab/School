@@ -88,69 +88,87 @@ namespace StudentTracker.Areas.SAS.Controllers
 
         public ActionResult RegisterUserStep3(string token)
         {
-            User objUser = new User();
-            objUser.RegistrationToken = token;
-            return View(objUser);
+            Profile objProfile = new Profile();
+            objProfile.RegistrationToken = token;
+            return View(objProfile);
         }
 
         [HttpPost]
-        public ActionResult RegisterUserStep3(User objUser)
+        public ActionResult RegisterUserStep3(Profile objProfile)
         {
-            RegistrationToken Token = repository.GetRegistrationCode(objUser.RegistrationToken);
-            long userId = WebSecurity.RegisterNewUser(objUser.Username, "none", "none", false, objUser.FirstName, objUser.LastName, Token.OrganizationId, Token.Token, objUser.DateOfBirth, objUser.Title);
+            RegistrationToken Token = repository.GetRegistrationCode(objProfile.RegistrationToken);
+            long userId = WebSecurity.RegisterNewUser(objProfile.UserName, "none", "none", false, objProfile.FirstName, objProfile.LastName, Token.OrganizationId, Token.Token);
+            DBConnectionString.Profile Profile = new DBConnectionString.Profile();
             if (userId != -1)
             {
-                Roles.AddUserToRole(objUser.Username, "Student");
+                Profile.UserId = userId;
+                Profile.Title = objProfile.Title;
+                Profile.Address1 = "none";
+                Profile.Address2 = "none";
+                Profile.InsertedOn = DateTime.Now;
+                Profile.EmailAddress1 = "user@dummy.com";
+                Profile.HomeTelephoneNumber = DateTime.Now.Ticks.ToString();
+                Profile.SecurityQuestionId = 1;
+                Profile.SecurityAnswer = "none";
+                Profile.DateOfBirth = objProfile.DateOfBirth;
+                Profile.ModifiedOn = null;
+                Profile.MobileNumber = "none";
+                int recAffected = Convert.ToInt32(Profile.Insert());
+
+                Roles.AddUserToRole(objProfile.UserName, "Student");
                 return RedirectToAction("RegisterUserStep4", new { userId });
             }
-            return View(objUser);
+            return View(objProfile);
         }
 
         public ActionResult RegisterUserStep4(long userId)
         {
-            User objUser = new User();
-            objUser.UserId = userId;
-            return View(objUser);
+            Profile objProfile = new Profile();
+            objProfile.UserId = userId;
+            return View(objProfile);
         }
 
         [HttpPost]
-        public ActionResult RegisterUserStep4(User objUser)
+        public ActionResult RegisterUserStep4(Profile objProfile)
         {
-            DBConnectionString.User User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
-            User.Email = objUser.Email;
-            User.MobileNumber = objUser.MobileNumber;
-            User.HomeTelephoneNumber = objUser.HomeTelephoneNumber;
-            if (User.Update() > 0)
+            DBConnectionString.User User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objProfile.UserId);
+            DBConnectionString.Profile Profile = DBConnectionString.Profile.FirstOrDefault("select * from Profile where UserId=@0", objProfile.UserId);
+            User.Email = objProfile.EmailAddress1;
+            Profile.MobileNumber = objProfile.MobileNumber;
+            Profile.HomeTelephoneNumber = objProfile.HomeTelephoneNumber;
+            Profile.EmailAddress1 = objProfile.EmailAddress1;
+            Profile.HomeTelephoneNumber = objProfile.HomeTelephoneNumber;
+
+            if (User.Update() > 0 && Profile.Update() > 0)
             {
                 return RedirectToAction("RegisterUserStep5", new { userId = User.UserId });
             }
-            return View(objUser);
+            return View(objProfile);
         }
 
         public ActionResult RegisterUserStep5(long userId)
         {
-            User objUser = new User();
-            objUser.UserId = userId;
-            objUser.SecurityQuestionList = new SelectList(repository.SecurityQuestions(), "Id", "Question");
-            return View(objUser);
+            Profile objProfile = new Profile();
+            objProfile.UserId = userId;
+            objProfile.SecurityQuestionList = new SelectList(repository.SecurityQuestions(), "Id", "Question");
+            return View(objProfile);
         }
         [HttpPost]
-        public ActionResult RegisterUserStep5(User objUser)
+        public ActionResult RegisterUserStep5(Profile objProfile)
         {
-            DBConnectionString.User User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
-
+            DBConnectionString.User User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objProfile.UserId);
+            DBConnectionString.Profile Profile = DBConnectionString.Profile.FirstOrDefault("select * from Profile where UserId=@0", objProfile.UserId);
             // User.Password = objUser.Password;
-            WebSecurity.ResetPassword(User.Username, objUser.Password);
-            User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objUser.UserId);
+            WebSecurity.ResetPassword(User.Username, objProfile.Password);
+            User = DBConnectionString.User.FirstOrDefault("select * from Users where UserId=@0", objProfile.UserId);
 
-            // WebSecurity.ChangePassword(User.Username, User.Password, objUser.Password);
-            User.SecurityQuestionId = objUser.SecurityQuestionId == null ? 1 : objUser.SecurityQuestionId.Value;
-            User.SecurityAnswer = objUser.SecurityAnswer;
-            if (User.Update() > 0)
+            Profile.SecurityQuestionId = objProfile.SecurityQuestionId;
+            Profile.SecurityAnswer = objProfile.SecurityAnswer;
+            if (User.Update() > 0 && Profile.Update() > 0)
             {
                 return RedirectToAction("RegisterUserStep6", new { userId = User.UserId });
             }
-            return View(objUser);
+            return View(objProfile);
         }
 
         public ActionResult RegisterUserStep6(long userId)
@@ -171,7 +189,7 @@ namespace StudentTracker.Areas.SAS.Controllers
 
             User objUser = new User();
             Utilities.SendConfirmationEmail(User.Username);
-           
+
             objUser.UserId = userId;
             return View(objUser);
         }

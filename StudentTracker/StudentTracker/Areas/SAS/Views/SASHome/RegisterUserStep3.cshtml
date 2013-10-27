@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.User
+﻿@model StudentTracker.Core.Entities.Profile
 @{
     ViewBag.Title = "RegisterUserStep3";
     Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
@@ -33,8 +33,8 @@
             <input type="text" class="span7 border-radius-none" value="Date of Birth" onfocus="this.value=''" onblur="this.value='Date of Birth'" />*@
 	        
             <div class="fild_text">
-                @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", Class = "span7 border-radius-none fild_text txtUser" })@Html.ValidationMessageFor(m => m.Title)
-                @Html.TextBoxFor(m => m.Username, new { placeholder = "User Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.Username)
+                @Html.TextBoxFor(m => m.Title, new { placeholder = "Title", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.Title)
+                @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.FirstName)
                 @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.LastName)
                 @Html.TextBoxFor(m => m.DateOfBirth, new { placeholder = "Date Of Birth", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.DateOfBirth)

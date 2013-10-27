@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.User
+﻿@model StudentTracker.Core.Entities.Profile
 @{
     ViewBag.Title = "RegisterUserStep4";
     Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
@@ -25,8 +25,8 @@
             <h3>Contact details</h3>
             @Html.HiddenFor(m => m.UserId)
             <div class="fild_text">
-                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span7 border-radius-none  txtUser" })
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.TextBoxFor(m => m.EmailAddress1, new { placeholder = "Email", Class = "span7 border-radius-none  txtUser" })
+                @Html.ValidationMessageFor(m => m.EmailAddress1)
                 @Html.TextBoxFor(m => m.MobileNumber, new { placeholder = "Mobile No", Class = "span7 border-radius-none txtUser" })
                 @Html.ValidationMessageFor(m => m.MobileNumber)
                 @Html.TextBoxFor(m => m.HomeTelephoneNumber, new { placeholder = "Home telephone (optional)", Class = "span7 border-radius-none txtUser" })
