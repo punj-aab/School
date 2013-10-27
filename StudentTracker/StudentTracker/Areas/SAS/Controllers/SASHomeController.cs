@@ -1,5 +1,6 @@
 ﻿using EmailHandler;
 using StudentTracker.Core.Entities;
+using StudentTracker.Core.Utilities;
 using StudentTracker.Repository;
 using System;
 using System.Collections.Generic;
@@ -113,9 +114,12 @@ namespace StudentTracker.Areas.SAS.Controllers
                 Profile.DateOfBirth = objProfile.DateOfBirth;
                 Profile.ModifiedOn = null;
                 Profile.MobileNumber = "none";
+
                 int recAffected = Convert.ToInt32(Profile.Insert());
 
-                Roles.AddUserToRole(objProfile.UserName, "Student");
+                string roleName = ((UserRoles)Convert.ToInt16(Token.RoleId)).ToString();
+                Roles.AddUserToRole(objProfile.UserName, roleName);
+
                 return RedirectToAction("RegisterUserStep4", new { userId });
             }
             return View(objProfile);
