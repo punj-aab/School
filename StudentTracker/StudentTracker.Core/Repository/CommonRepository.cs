@@ -116,12 +116,12 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Group>(storedProcedure, new { groupId = groupId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
-        public List<Group> GetGroups()
+        public List<Group> GetGroups(long? organizationId = null)
         {
             using (IDbConnection connection = OpenConnection())
             {
                 const string storedProcedure = "usp_GetGroups";
-                return connection.Query<Group>(storedProcedure, commandType: CommandType.StoredProcedure).ToList();
+                return connection.Query<Group>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
         public List<Organization> GetOrganizations()
@@ -148,6 +148,25 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Template>(storedProcedure, new { TemplateId = templateId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
+        public List<Section> GetSections(long? organizationId = null)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetSections";
+                return connection.Query<Section>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+
+        public Section GetSections(long sectionId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetSections";
+                return connection.Query<Section>(storedProcedure, new { sectionId = sectionId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
+
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
