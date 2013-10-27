@@ -85,7 +85,7 @@ namespace StudentTracker.Repository
 
         public Organization GetOrganization()
         {
-            Organization objModel = db.Query<Organization> ("exec getOrganizations output").SingleOrDefault();
+            Organization objModel = db.Query<Organization> ("exec usp_getOrganizations output").SingleOrDefault();
             return objModel;
         }
     }

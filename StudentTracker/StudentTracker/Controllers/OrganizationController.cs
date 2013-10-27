@@ -13,6 +13,7 @@ using StudentTracker.Core.Utilities;
 using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
+    [Authorize]
     public class OrganizationController : BaseController
     {
 
@@ -24,6 +25,7 @@ namespace StudentTracker.Controllers
             return View();
         }
 
+        [Authorize(Roles = "SiteAdmin")]
         public ActionResult AddOrganizations()
         {
             SelectList ContList = null;
@@ -101,7 +103,13 @@ namespace StudentTracker.Controllers
         public ActionResult ViewOrganizations()
         {
             OrganizationsViewModel objViewModel = new OrganizationsViewModel();
-            objViewModel.OrganizationList = objRep.SelectOrganizations();
+            if (User.IsInRole("SiteAdmin"))
+                objViewModel.OrganizationList = objRep.SelectOrganizations();
+            else
+            {
+                objViewModel.OrganizationList = new List<Organization>();
+                objViewModel.OrganizationList.Add(objRep.SelectOrganizations(_userStatistics.OrganizationId));
+            }
             return PartialView(objViewModel);
         }
         public ActionResult Details(long id)
@@ -114,6 +122,7 @@ namespace StudentTracker.Controllers
             return PartialView(organization);
         }
 
+        
         public ActionResult Edit(long id)
         {
             Organization objModel = objRep.SelectOrganizations(id);
@@ -156,6 +165,7 @@ namespace StudentTracker.Controllers
             }
         }
 
+        [Authorize(Roles = "SiteAdmin")]
         [HttpPost]
         public string DeleteConfirmed(long id)
         {
@@ -200,6 +210,5 @@ namespace StudentTracker.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-       
     }
 }

@@ -16,7 +16,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "dbo.getOrganizations";
+                const string storedProcedure = "dbo.usp_getOrganizations";
                 return connection.Query<Organization>(storedProcedure, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -24,7 +24,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "dbo.getOrganizations";
+                const string storedProcedure = "dbo.usp_getOrganizations";
                 return connection.Query<Organization>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -32,7 +32,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getCourses";
+                const string storedProcedure = "usp_getCourses";
                 return connection.Query<Course>(storedProcedure, new { courseId = courseId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -40,7 +40,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getCourses";
+                const string storedProcedure = "usp_getCourses";
                 return connection.Query<Course>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -48,7 +48,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getClasses";
+                const string storedProcedure = "usp_getClasses";
                 return connection.Query<Class>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -56,7 +56,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getClasses";
+                const string storedProcedure = "usp_getClasses";
                 return connection.Query<Class>(storedProcedure, new { classId = classId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -64,7 +64,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getSubjects";
+                const string storedProcedure = "usp_getSubjects";
                 return connection.Query<Subject>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -72,7 +72,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getSubjects";
+                const string storedProcedure = "usp_getSubjects";
                 return connection.Query<Subject>(storedProcedure, new { subjectId = subjectId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -80,7 +80,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getClassRooms";
+                const string storedProcedure = "usp_getClassRooms";
                 return connection.Query<ClassRoom>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -88,7 +88,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getClassRooms";
+                const string storedProcedure = "usp_getClassRooms";
                 return connection.Query<ClassRoom>(storedProcedure, new { classRoomId = classRoomId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -96,7 +96,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getDepartments";
+                const string storedProcedure = "usp_getDepartments";
                 return connection.Query<Department>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -104,7 +104,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "getDepartments";
+                const string storedProcedure = "usp_getDepartments";
                 return connection.Query<Department>(storedProcedure, new { departmentId = departmentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -112,7 +112,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_GetGroups";
+                const string storedProcedure = "usp_GetGroups";
                 return connection.Query<Group>(storedProcedure, new { groupId = groupId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -120,7 +120,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_GetGroups";
+                const string storedProcedure = "usp_GetGroups";
                 return connection.Query<Group>(storedProcedure, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -136,7 +136,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_GetTemplates";
+                const string storedProcedure = "usp_GetTemplates";
                 return connection.Query<Template>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -144,7 +144,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_GetTemplates";
+                const string storedProcedure = "usp_GetTemplates";
                 return connection.Query<Template>(storedProcedure, new { TemplateId = templateId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
@@ -170,7 +170,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addOrganization";
+                const string storedProcedure = "usp_addOrganization";
                 int rowsAffected = 0;
                 rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objOrganization.OrganizationId = id);
@@ -201,7 +201,7 @@ namespace StudentTracker.Core.Repository
 
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addCourse";
+                const string storedProcedure = "usp_addCourse";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objCourse.CourseId = id);
                 if (rowsAffected > 0)
@@ -225,7 +225,7 @@ namespace StudentTracker.Core.Repository
 
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addClass";
+                const string storedProcedure = "usp_addClass";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objClass.ClassId = id);
                 if (rowsAffected > 0)
@@ -247,7 +247,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_AddDepartment";
+                const string storedProcedure = "usp_AddDepartment";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objDep.DepartmentId = id);
                 if (rowsAffected > 0)
@@ -270,7 +270,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addSubject";
+                const string storedProcedure = "usp_addSubject";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objSubject.SubjectId = id);
                 if (rowsAffected > 0)
@@ -293,7 +293,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addClassRoom";
+                const string storedProcedure = "usp_addClassRoom";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objClass.ClassRoomId = id);
                 if (rowsAffected > 0)
@@ -315,7 +315,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addSection";
+                const string storedProcedure = "usp_addSection";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objSection.SectionId = id);
                 if (rowsAffected > 0)
@@ -336,7 +336,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_AddGroups";
+                const string storedProcedure = "usp_AddGroups";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objGroup.GroupId = id);
                 if (rowsAffected > 0)
@@ -361,7 +361,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "SP_AddRegistrationToken";
+                const string storedProcedure = "usp_AddRegistrationToken";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 //SetIdentity<int>(connection, id => objToken.TokenId = id);
                 return rowsAffected;
@@ -380,7 +380,7 @@ namespace StudentTracker.Core.Repository
             };
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_AddTemplates";
+                const string storedProcedure = "usp_AddTemplates";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objTemplate.TemplateId = id);
                 if (rowsAffected > 0)
@@ -412,7 +412,7 @@ namespace StudentTracker.Core.Repository
 
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "addCourse";
+                const string storedProcedure = "usp_addCourse";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objUser.UserId = id);
                 if (rowsAffected > 0)
@@ -427,7 +427,7 @@ namespace StudentTracker.Core.Repository
         {
             using (IDbConnection connection = OpenConnection())
             {
-                const string storedProcedure = "sp_DeleteGroup";
+                const string storedProcedure = "usp_DeleteGroup";
                 int recAffected = connection.Execute(storedProcedure, new { GroupId = groupId }, commandType: CommandType.StoredProcedure);
                 if (recAffected > 0)
                 {
@@ -441,8 +441,8 @@ namespace StudentTracker.Core.Repository
             using (IDbConnection connection = OpenConnection())
             {
 
-                const string storedProcedureCourses = "sp_GetOrganization_Courses";
-                const string storedProcedureDepartments = "sp_GetOrganization_Departments";
+                const string storedProcedureCourses = "usp_GetOrganization_Courses";
+                const string storedProcedureDepartments = "usp_GetOrganization_Departments";
 
                 List<OrganizationCoursesRoot> objCourseModelList = connection.Query<OrganizationCoursesRoot>(storedProcedureCourses, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
                 List<OrganizationCoursesRoot> objDepartmentModelList = connection.Query<OrganizationCoursesRoot>(storedProcedureDepartments, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
@@ -629,7 +629,7 @@ namespace StudentTracker.Core.Repository
                 RoleId = objToken.RoleId,
                 CreatedBy = objToken.CreatedBy,
             };
-            const string storedProcedure = "SP_AddRegistrationToken";
+            const string storedProcedure = "usp_AddRegistrationToken";
             int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
             //SetIdentity<int>(connection, id => objToken.TokenId = id);
             return rowsAffected;

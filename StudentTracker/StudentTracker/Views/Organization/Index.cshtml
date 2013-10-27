@@ -11,10 +11,13 @@
             <a id="lnkViewAll" class="organizations" href="#" onclick="LoadAjax(event)" action="ViewOrganizations">View Organization
             </a>
         </li>
-        <li>
-            <a id="lnkAddNew" class="organizations" onclick="LoadAjax(event)" href="#" action="AddOrganizations">Add Organization
-            </a>
-        </li>
+        @if (User.IsInRole("SiteAdmin"))
+        {
+            <li>
+                <a id="lnkAddNew" class="organizations" onclick="LoadAjax(event)" href="#" action="AddOrganizations">Add Organization
+                </a>
+            </li>
+        }
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">

@@ -40,7 +40,6 @@
                                 <th style="width: auto" class="hidden-phone">Created By
                                 </th>
                                 <th>Manage</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +66,7 @@
                                     </td>
                                     <td>@data.Phone2</td>
                                     <td>@data.InsertedByName</td>
+
                                     <td>
                                         <div class="btn-group">
                                             <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
@@ -78,15 +78,20 @@
                                                 <li>
                                                     <a class="lnkDetails" href="#" itemId="@data.OrganizationId" action="Details" onclick="LoadViewById(event)">Details</a>
                                                 </li>
+
                                                 <li>
                                                     <a class="lnkEdit" href="#" action="Edit" itemId="@data.OrganizationId" onclick="LoadViewById(event)">Edit</a>
                                                 </li>
-                                                <li>
-                                                    <a class="lnkDelete" href="#" itemId="@data.OrganizationId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
-                                                </li>
+                                                @if (User.IsInRole("SiteAdmin"))
+                                                {
+                                                    <li>
+                                                        <a class="lnkDelete" href="#" itemId="@data.OrganizationId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                                    </li>
+                                                }
                                             </ul>
                                         </div>
                                     </td>
+
                                 </tr>
                             }
                         </tbody>

@@ -12,6 +12,11 @@ namespace StudentTracker
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(
+               name: "CheckUser",
+               url: "Organization/CheckUser/{id}",
+               defaults: new { controller = "Organization", action = "CheckUser", id = UrlParameter.Optional }
+           );
 
             routes.MapRoute(
                 name: "Default",

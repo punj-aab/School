@@ -25,11 +25,12 @@
         public long MasterId { get; set; }
 
         [Required(ErrorMessage = "*")]
-        [Remote("CheckUser", "Organization")]
+        // [Remote("CheckUser", "Organization")]
+        [Remote("CheckUser")]
         public string Username { get; set; }
 
         [Editable(false)]
-       
+
         public virtual string Email { get; set; }
 
         [Required(ErrorMessage = "*"), DataType(DataType.Password)]
@@ -42,14 +43,14 @@
         [Compare("Password", ErrorMessage = "<span title='The password and confirmation password do not match.'>*</span>")]
         public virtual string ConfirmPassword { get; set; }
 
-       // [Required(ErrorMessage = "*")]
+        // [Required(ErrorMessage = "*")]
         public virtual string FirstName { get; set; }
 
-       // [Required(ErrorMessage = "*")]
+        // [Required(ErrorMessage = "*")]
         public virtual string LastName { get; set; }
 
         [ScaffoldColumn(false)]
-       // [Required]
+        // [Required]
         public virtual string RegistrationToken { get; set; }
 
         [ScaffoldColumn(false)]
@@ -88,17 +89,17 @@
         [ScaffoldColumn(false)]
         public virtual ICollection<Role> Roles { get; set; }
 
-      //  [Required(ErrorMessage = "*")]
+        //  [Required(ErrorMessage = "*")]
         public string Title { get; set; }
         //[Required(ErrorMessage = "*")]
         public DateTime? DateOfBirth { get; set; }
         //[Required(ErrorMessage = "*")]
         public string MobileNumber { get; set; }
-       // [Required(ErrorMessage = "*")]
+        // [Required(ErrorMessage = "*")]
         public string HomeTelephoneNumber { get; set; }
         //[Required(ErrorMessage = "*")]
         public long? SecurityQuestionId { get; set; }
-       // [Required(ErrorMessage = "*")]
+        // [Required(ErrorMessage = "*")]
         public string SecurityAnswer { get; set; }
 
         [NotMapped]

@@ -33,7 +33,7 @@
                             }
                             else
                             {
-                                @ViewBag.Organization
+                                <label class="control-label" for="OrganisationId" style="text-align:left">@ViewBag.Organization</label>
                                 @Html.HiddenFor(m => m.OrganisationId)
                             }
                         </div>
@@ -51,7 +51,7 @@
                             @Html.EditorFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6" })
                         </div>
                     </div>
-                       <div class="control-group">
+                    <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
                     <div class="form-actions no-margin">

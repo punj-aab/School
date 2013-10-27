@@ -16,6 +16,8 @@ namespace StudentTracker.Repository
             List<Section> modelList = db.Query<Section>(sql).ToList();
             return modelList;
         }
+
+
         public Section GetSections(long id)
         {
             string sql = "select SectionId,SectionName,SectionDescription,Sections.ClassId,Sections.InsertedOn,CreatedBy,Sections.ModifiedBy,Sections.ModifiedOn,Users.Username as InsertedByName,Users_1.Username as ModifiedByName, Classes.ClassName ";

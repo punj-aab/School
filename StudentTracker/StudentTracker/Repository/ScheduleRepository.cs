@@ -125,7 +125,7 @@ namespace StudentTracker.Models
             {
                 con.Open();
             }
-            using (SqlCommand cmd = new SqlCommand("getSchedules", con))
+            using (SqlCommand cmd = new SqlCommand("usp_getSchedules", con))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@userRole", SqlDbType.VarChar, 50).Value = userRole;

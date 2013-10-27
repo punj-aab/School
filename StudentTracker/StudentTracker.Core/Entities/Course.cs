@@ -22,6 +22,7 @@ namespace StudentTracker.Core.Entities
         public string CourseDescription { get; set; }
 
         [ScaffoldColumn(false)]
+        [Display(Name = "Organization")]
         public int OrganisationId { get; set; }
         [ScaffoldColumn(false)]
         public long? CreatedBy { get; set; }
