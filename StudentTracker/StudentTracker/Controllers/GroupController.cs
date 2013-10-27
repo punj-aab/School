@@ -128,7 +128,14 @@ namespace StudentTracker.Controllers
         public ActionResult ViewGroups()
         {
             List<Group> GroupList = null;
-            GroupList = objRep.GetGroups();
+            if (User.IsInRole("SiteAdmin"))
+            {
+                GroupList = objRep.GetGroups();
+            }
+            else
+            {
+                GroupList = objRep.GetGroups(organizationId: _userStatistics.OrganizationId);
+            }
             return PartialView(GroupList);
         }
 
