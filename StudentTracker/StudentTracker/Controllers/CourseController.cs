@@ -123,7 +123,7 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                if (objRep.Delete(id))
+                if (objRep.DeleteCourse(id))
                 {
                     DeleteFiles(this.GetType().Name, id);
                     return Convert.ToString(true);

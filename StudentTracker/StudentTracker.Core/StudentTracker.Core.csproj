@@ -105,6 +105,7 @@
     <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="SqlScripts\StoredProcedure\Changes_002.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -43,7 +43,7 @@ namespace StudentTracker.Core.Entities
         [NotMapped]
         public string OrganizationName { get; set; }
         [NotMapped]
-        public string CreatedByName { get; set; }
+        public string InsertedByName { get; set; }
         [NotMapped]
         public string ModifiedByName { get; set; }
     }

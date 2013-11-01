@@ -149,8 +149,6 @@
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PetaPoco.cs" />
-    <Compile Include="Repository\ClassRepository.cs" />
-    <Compile Include="Repository\ClassRoomRepository.cs" />
     <Compile Include="Repository\CommonRepository.cs" />
     <Compile Include="Repository\OrganizationRepository.cs" />
     <Compile Include="Repository\StudentRepository.cs">

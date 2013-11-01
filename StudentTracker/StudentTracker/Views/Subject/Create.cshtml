@@ -1,5 +1,4 @@
 ﻿@model StudentTracker.Core.Entities.Subject
-
 @{
     ViewBag.Title = "Create";
     string token = DateTime.UtcNow.Ticks.ToString();
@@ -24,6 +23,21 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
+                            }
+                            else
+                            {
+                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                        </div>
+                    </div>
+                    
                     <div class="control-group">
                         @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
                         <div class="controls">
@@ -53,7 +67,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.SubjectDescription, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.SubjectDescription, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.SubjectDescription, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                             @Html.ValidationMessageFor(m => m.SubjectDescription)
                         </div>
                     </div>

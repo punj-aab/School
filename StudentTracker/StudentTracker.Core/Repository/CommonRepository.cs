@@ -282,6 +282,7 @@ namespace StudentTracker.Core.Repository
             {
                 SubjectName = objSubject.SubjectName,
                 SubjectDescription = objSubject.SubjectDescription,
+                OrganizationId = objSubject.OrganizationId,
                 CourseId = objSubject.CourseId,
                 ClassId = objSubject.ClassId,
                 CreatedBy = objSubject.CreatedBy,
@@ -308,7 +309,8 @@ namespace StudentTracker.Core.Repository
                 Location = objClass.Location,
                 InsertedOn = DateTime.Now,
                 InsertedBy = objClass.InsertedBy,
-                DepartmentId = objClass.DepartmentId
+                DepartmentId = objClass.DepartmentId,
+                OrganizationId = objClass.OrganizationId
             };
             using (IDbConnection connection = OpenConnection())
             {
@@ -557,13 +559,20 @@ namespace StudentTracker.Core.Repository
             using (IDbConnection connection = OpenConnection())
             {
                 IDbTransaction transaction = connection.BeginTransaction();
-                int recordAffected = DeleteClass(id, connection, transaction);
-                if (recordAffected > 0)
+                try
                 {
-                    transaction.Commit();
-                    return true;
+                    int recordAffected = DeleteClass(id, connection, transaction);
+                    if (recordAffected > 0)
+                    {
+                        transaction.Commit();
+                        return true;
+                    }
                 }
-                transaction.Rollback();
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
                 return false;
             }
         }
@@ -572,13 +581,42 @@ namespace StudentTracker.Core.Repository
             using (IDbConnection connection = OpenConnection())
             {
                 IDbTransaction transaction = connection.BeginTransaction();
-                int recordAffected = DeleteCourse(id, connection, transaction);
-                if (recordAffected > 0)
+                try
                 {
-                    transaction.Commit();
-                    return true;
+                    int recordAffected = DeleteCourse(id, connection, transaction);
+                    if (recordAffected > 0)
+                    {
+                        transaction.Commit();
+                        return true;
+                    }
                 }
-                transaction.Rollback();
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+                return false;
+            }
+        }
+        public bool DeleteClassRoom(long id)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                IDbTransaction transaction = connection.BeginTransaction();
+                try
+                {
+                    int recordAffected = DeleteClassRoom(id, connection, transaction);
+                    if (recordAffected > 0)
+                    {
+                        transaction.Commit();
+                        return true;
+                    }
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
                 return false;
             }
         }
@@ -618,12 +656,16 @@ namespace StudentTracker.Core.Repository
         private int DeleteClass(long id, IDbConnection connection, IDbTransaction transaction)
         {
             int recordAffected = 0;
-            return recordAffected = connection.Execute("Delete from Classes where ClassId=@id", new { id = id }, transaction);
+            recordAffected = connection.Execute("delete from Subjects where ClassId = @id", new { id = id }, transaction);
+            return recordAffected += connection.Execute("Delete from Classes where ClassId = @id", new { id = id }, transaction);
         }
         private int DeleteCourse(long id, IDbConnection connection, IDbTransaction transaction)
         {
             int recordAffected = 0;
-            return recordAffected = connection.Execute("Delete from Courses where CourseId = @id", new { id = id }, transaction);
+            recordAffected = connection.Execute("delete from Schedule where CourseId= @id", new { id = id }, transaction);
+            recordAffected += connection.Execute("delete from Subjects where CourseId= @id", new { id = id }, transaction);
+            recordAffected += connection.Execute("Delete from Classes where CourseId = @id", new { id = id }, transaction);
+            return recordAffected += connection.Execute("Delete from Courses where CourseId = @id", new { id = id }, transaction);
         }
         private int DeleteDepartment(long id, IDbConnection connection, IDbTransaction transaction)
         {

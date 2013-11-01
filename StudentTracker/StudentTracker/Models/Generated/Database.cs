@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student2;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student4;User ID=sa;password=**zapped**;`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -804,6 +804,18 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public long CourseId { get; set; }
+
+
+
 	}
 
     
@@ -872,6 +884,12 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
 	}
 
     
@@ -889,6 +907,12 @@ namespace DBConnectionString
 
 
 		[Column] public long ClassRoomId { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
 
 
 
@@ -1109,6 +1133,12 @@ namespace DBConnectionString
 
 
 		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
 
 
 

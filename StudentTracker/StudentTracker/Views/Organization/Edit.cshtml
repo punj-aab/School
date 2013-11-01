@@ -24,7 +24,7 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.OrganizationId)
-                   @Html.HiddenFor(m => m.CreatedBy)
+                    @Html.HiddenFor(m => m.CreatedBy)
                     @Html.HiddenFor(m => m.CreatedDate)
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
@@ -36,7 +36,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.OrganizationDesc, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.OrganizationDesc, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                             @Html.ValidationMessageFor(m => m.OrganizationDesc)
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.Address2, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2" })
+                            @Html.TextBoxFor(m => m.Address2, new { placeholder = "Address2", Class = "span6" })
                         </div>
                     </div>
                     <div class="control-group">

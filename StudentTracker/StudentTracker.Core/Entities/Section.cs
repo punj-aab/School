@@ -47,5 +47,27 @@ namespace StudentTracker.Core.Entities
 
         [NotMapped]
         public string ClassName { get; set; }
+
+        [Required]
+        public long OrganizationId { get; set; }
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+        [ScaffoldColumn(false)]
+        [ForeignKey("OrganizationId")]
+        public virtual Organization Organizations { get; set; }
+        [NotMapped]
+        public string OrganizationName { get; set; }
+
+
+        [NotMapped]
+        public SelectList CourseList { get; set; }
+        [NotMapped]
+        public string CourseName { get; set; }
+        [ScaffoldColumn(false)]
+        [ForeignKey("CourseId")]
+        public virtual Course Course { get; set; }
+        [Required]
+        public long CourseId { get; set; }
+
     }
 }

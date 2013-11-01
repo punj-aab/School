@@ -11,8 +11,7 @@ namespace StudentTracker.Controllers
 {
     public class ClassRoomController : BaseController
     {
-        StudentContext db = new StudentContext();
-        ClassRoomRepository objRep = new ClassRoomRepository();
+        StudentRepository objRep = new StudentRepository();
         public ActionResult Index()
         {
             return View();
@@ -37,7 +36,12 @@ namespace StudentTracker.Controllers
         public ActionResult Create()
         {
             ClassRoom objClass = new ClassRoom();
-            objClass.DepartmentList = LoadSelectList();
+            SelectList departmentList = null;
+            SelectList organizationList = null;
+            LoadSelectList(out organizationList, out departmentList);
+            objClass.DepartmentList = departmentList;
+            objClass.OrganizationList = organizationList;
+            objClass.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objClass);
         }
 
@@ -76,7 +80,12 @@ namespace StudentTracker.Controllers
             {
                 return HttpNotFound();
             }
-            objClass.DepartmentList = LoadSelectList(objClass.DepartmentId);
+            SelectList departmentList = null;
+            SelectList organizationList = null;
+            LoadSelectList(out organizationList, out departmentList, objClass.OrganizationId, objClass.DepartmentId);
+            objClass.DepartmentList = departmentList;
+            objClass.OrganizationList = organizationList;
+            objClass.OrganizationId = ViewBag.OrganizationId == null ? objClass.OrganizationId : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objClass);
         }
 
@@ -84,14 +93,15 @@ namespace StudentTracker.Controllers
         // POST: /Class/Edit/5
 
         [HttpPost]
-        public string Edit(ClassRoom objClass, string token)
+        public string Edit(DBConnectionString.ClassRoom objClass, string token)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     objClass.ModifiedBy = _userStatistics.UserId;
-                    if (objRep.UpdateClassRoom(objClass))
+                    objClass.ModifiedOn = DateTime.Now;
+                    if (objClass.Update() > 0)
                     {
                         SaveFiles(token, this.GetType().Name, objClass.ClassRoomId);
                         return Convert.ToString(true);
@@ -137,24 +147,45 @@ namespace StudentTracker.Controllers
             }
             return PartialView(classList);
         }
-        public SelectList LoadSelectList(long id = -1)
+        public void LoadSelectList(out SelectList organizationList, out SelectList deparmentList, long organizationId = -1, long departmentId = -1)
         {
-            List<Department> deparmentList = null;
+            organizationList = null;
+            deparmentList = null;
+            List<Department> objDeparmentList = null;
+            List<Organization> objOrganizationList = null;
+            objOrganizationList = new List<Organization>();
             if (User.IsInRole("SiteAdmin"))
             {
-                deparmentList = objRep.GetDepartments();
+                objOrganizationList = objRep.SelectOrganizations();
             }
             else
             {
-                deparmentList = objRep.GetDepartments(organizationId: _userStatistics.OrganizationId);
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
             }
-            SelectList list = new SelectList(deparmentList, "DepartmentId", "DepartmentName", id);
-            return list;
+
+            if (departmentId != -1)
+            {
+                objDeparmentList = objRep.GetDepartments(organizationId: organizationId);
+            }
+            else
+            {
+                objDeparmentList = new List<Department>();
+            }
+            organizationList = new SelectList(objOrganizationList, "OrganizationId", "OrganizationName", organizationId);
+            deparmentList = new SelectList(objDeparmentList, "DepartmentId", "DepartmentName", departmentId);
+        }
+
+        public JsonResult GetDepartments(long id)
+        {
+            List<Department> classList = objRep.DepartmenstByOrganization(id);
+            return Json(classList, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            //db.Dispose();
             base.Dispose(disposing);
         }
     }

@@ -13,7 +13,7 @@ namespace StudentTracker.Controllers
     public class ClassController : BaseController
     {
         private StudentContext db = new StudentContext();
-        ClassRepository objRep = new ClassRepository();
+        StudentRepository objRep = new StudentRepository();
         //
         // GET: /Class/
 
@@ -100,14 +100,15 @@ namespace StudentTracker.Controllers
         // POST: /Class/Edit/5
 
         [HttpPost]
-        public string Edit(Class objClass)
+        public string Edit(DBConnectionString.Class objClass)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     objClass.ModifiedBy = _userStatistics.UserId;
-                    if (objRep.UpdateClass(objClass))
+                    objClass.ModifiedOn = DateTime.Now;
+                    if (objClass.Update() > 0)
                     {
                         return Convert.ToString(true);
                     }

@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace StudentTracker.Core.Entities
 {
+    [Table("Group")]
     public class Group
     {
         [Key]
@@ -23,5 +25,16 @@ namespace StudentTracker.Core.Entities
         public string InsertedByName { get; set; }
         [NotMapped]
         public string ModifiedByName { get; set; }
+
+        [Required]
+        public long OrganizationId { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+
+        [ForeignKey("OrganizationId")]
+        public virtual Organization Organizations { get; set; }
+        [NotMapped]
+        public string OrganizationName { get; set; }
     }
 }

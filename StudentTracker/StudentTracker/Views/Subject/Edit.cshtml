@@ -26,6 +26,20 @@
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
+                            }
+                            else
+                            {
+                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
                         <div class="controls">
                             @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
@@ -56,7 +70,7 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.SubjectId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
+                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.SubjectId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
 
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">

@@ -8,10 +8,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 namespace StudentTracker.Core.Entities
 {
+    [Table("ClassRoom")]
     public class ClassRoom
     {
         [Key]
         public long ClassRoomId { get; set; }
+
+        [Required]
+        //[Display(Name = "Organization Name")]
+        public long OrganizationId { get; set; }
 
         [Required]
         [Display(Name = "Department")]
@@ -52,5 +57,13 @@ namespace StudentTracker.Core.Entities
         [NotMapped]
         public string ModifiedByName { get; set; }
 
+        
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+
+        [ForeignKey("OrganizationId")]
+        public virtual Organization Organizations { get; set; }
+        [NotMapped]
+        public string OrganizationName { get; set; }
     }
 }

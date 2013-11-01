@@ -17,9 +17,8 @@ namespace StudentTracker.Core.Entities
         [Display(Name = "Subject Name")]
         public string SubjectName { get; set; }
 
-        [Required]
+        //[Required]
         [Display(Name = "Description")]
-
         [DataType(DataType.MultilineText)]
         public string SubjectDescription { get; set; }
 
@@ -63,5 +62,15 @@ namespace StudentTracker.Core.Entities
         public string InsertedByName { get; set; }
         [NotMapped]
         public string ModifiedByName { get; set; }
+
+        [Required]
+        public long OrganizationId { get; set; }
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+        [ScaffoldColumn(false)]
+        [ForeignKey("OrganizationId")]
+        public virtual Organization Organizations { get; set; }
+        [NotMapped]
+        public string OrganizationName { get; set; }
     }
 }

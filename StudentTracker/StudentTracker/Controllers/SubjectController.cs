@@ -8,12 +8,13 @@ using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.DAL;
 using StudentTracker.Core.Repository;
+using StudentTracker.Repository;
 namespace StudentTracker.Controllers
 {
     public class SubjectController : BaseController
     {
         private StudentContext db = new StudentContext();
-        CommonRepository objRep = new CommonRepository();
+        StudentRepository objRep = new StudentRepository();
 
         //
         // GET: /Subject/
@@ -47,9 +48,12 @@ namespace StudentTracker.Controllers
             Subject objSubject = new Subject();
             SelectList courseList = null;
             SelectList classList = null;
-            LoadSelectLists(out classList, out courseList);
+            SelectList organizationList = null;
+            LoadSelectLists(out classList, out courseList, out organizationList, false);
             objSubject.CourseList = courseList;
             objSubject.ClassList = classList;
+            objSubject.OrganizationList = organizationList;
+            objSubject.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objSubject);
         }
 
@@ -92,9 +96,12 @@ namespace StudentTracker.Controllers
             }
             SelectList courseList = null;
             SelectList classList = null;
-            LoadSelectLists(out classList, out courseList, subject.ClassId, subject.CourseId);
+            SelectList organizationList = null;
+            LoadSelectLists(out classList, out courseList, out organizationList, true, subject.ClassId, subject.CourseId, subject.OrganizationId);
             subject.CourseList = courseList;
             subject.ClassList = classList;
+            subject.OrganizationList = organizationList;
+            subject.OrganizationId = ViewBag.OrganizationId == null ? subject.OrganizationId : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(subject);
         }
 
@@ -159,43 +166,53 @@ namespace StudentTracker.Controllers
             return PartialView(subjectList);
         }
 
-        private void LoadSelectLists(out SelectList classList, out SelectList courseList, long classId = -1, long courseId = -1)
+        private void LoadSelectLists(out SelectList classList, out SelectList courseList, out SelectList organizationList, bool isEdit, long classId = -1, long courseId = -1, long organizationId = -1)
         {
             classList = null;
             courseList = null;
+            organizationList = null;
+
             List<Course> objCourseList = null;
             List<Class> objClassList = null;
+            List<Organization> objorganizationList = new List<Organization>();
+
             if (User.IsInRole("SiteAdmin"))
             {
-                objCourseList = objRep.GetCourses();
-                if (courseId != -1)
-                {
-                    objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();
-                }
-                else
-                {
-                    objClassList = new List<Class>();
-                }
+                objorganizationList = objRep.SelectOrganizations();
+
             }
             else
             {
-                objCourseList = objRep.GetCourses(organizationId: _userStatistics.OrganizationId);
-                if (courseId != -1)
-                {
-                    objClassList = db.Classes.Where(x => x.CourseId == courseId).ToList();
-                }
-                else
-                {
-                    objClassList = new List<Class>();
-                }
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
             }
+
+            if (isEdit)
+            {
+                objCourseList = objRep.GetCourses(organizationId: organizationId);
+                objClassList = objRep.ClassByCourse(courseId);// db.Classes.Where(x => x.CourseId == courseId).ToList();
+            }
+            else
+            {
+                objCourseList = new List<Course>();
+                objClassList = new List<Class>();
+            }
+
+            organizationList = new SelectList(objorganizationList, "OrganizationId", "OrganizationName", organizationId);
             courseList = new SelectList(objCourseList, "CourseId", "CourseName", courseId);
             classList = new SelectList(objClassList, "ClassId", "ClassName", classId);
+
         }
 
         public JsonResult GetClasses(long id)
         {
-            List<Class> classList = db.Classes.Where(x => x.CourseId == id).ToList();
+            List<Class> classList = objRep.ClassByCourse(id);
+            return Json(classList, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetCourses(long id)
+        {
+            List<Course> classList = objRep.CourseByOrganization(id);
             return Json(classList, JsonRequestBehavior.AllowGet);
         }
 

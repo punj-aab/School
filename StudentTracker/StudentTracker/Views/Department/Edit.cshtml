@@ -54,13 +54,13 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.DepartmentDesc, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.TextBoxFor(m => m.DepartmentDesc, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.DepartmentDesc, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                         </div>
                     </div>
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
+                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
 
                     <div class="form-actions no-margin">
                         @* <button type="submit" class="btn btn-info pull-right">

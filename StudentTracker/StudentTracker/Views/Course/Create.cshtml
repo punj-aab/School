@@ -33,7 +33,7 @@
                             }
                             else
                             {
-                                <label class="control-label" for="OrganisationId" style="text-align:left">@ViewBag.Organization</label>
+                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
                                 @Html.HiddenFor(m => m.OrganisationId)
                             }
                         </div>
@@ -48,7 +48,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.CourseDescription, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                         </div>
                     </div>
                     <div class="control-group">

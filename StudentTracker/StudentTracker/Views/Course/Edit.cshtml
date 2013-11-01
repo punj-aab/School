@@ -52,7 +52,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.CourseDescription, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.EditorFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6" })
+                            @Html.TextAreaFor(m => m.CourseDescription, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                             @Html.ValidationMessageFor(m => m.CourseDescription)
                         </div>
                     </div>

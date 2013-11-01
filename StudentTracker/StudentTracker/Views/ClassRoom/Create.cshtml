@@ -24,6 +24,21 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
+
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetDepartments", getType = "Department" })
+                            }
+                            else
+                            {
+                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                        </div>
+                    </div>
                     <div class="control-group">
                         @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
                         <div class="controls">
