@@ -15,7 +15,14 @@ namespace StudentTracker.Controllers
         StudentRepository repository = new StudentRepository();
         public ActionResult Create()
         {
-            return PartialView();
+            Template objTemplate = new Template();
+            SelectList organizationList = null;
+            SelectList templateTypeList = null;
+            LoadSelectLists(out organizationList, out templateTypeList);
+            objTemplate.OrganizationList = organizationList;
+            objTemplate.TemplateTypeList = templateTypeList;
+            objTemplate.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
+            return PartialView(objTemplate);
         }
         [HttpPost]
         public string Create(Template objTemplate)
@@ -64,6 +71,12 @@ namespace StudentTracker.Controllers
         public ActionResult Edit(long id)
         {
             Template objTemplate = repository.GetTemplates(templateId: id);
+            SelectList organizationList = null;
+            SelectList templateTypeList = null;
+            LoadSelectLists(out organizationList, out templateTypeList);
+            objTemplate.OrganizationList = organizationList;
+            objTemplate.TemplateTypeList = templateTypeList;
+            objTemplate.OrganizationId = ViewBag.OrganizationId == null ? objTemplate.OrganizationId : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objTemplate);
         }
         [HttpPost]
@@ -103,6 +116,27 @@ namespace StudentTracker.Controllers
             {
                 return ex.Message.ToString();
             }
+        }
+
+        public void LoadSelectLists(out SelectList organizationList, out SelectList templateTypeList, long organizationId = -1, long templateTypeId = -1)
+        {
+            organizationList = null;
+            templateTypeList = null;
+            List<Organization> objOrganizationList = new List<Organization>();
+            List<TemplateType> objTemplateTypeList = new List<TemplateType>();
+            if (User.IsInRole("SiteAdmin"))
+            {
+                objOrganizationList = repository.SelectOrganizations();
+            }
+            else
+            {
+                var organization = repository.SelectOrganizations(_userStatistics.OrganizationId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
+            }
+            objTemplateTypeList = repository.TemplateTypes();
+            organizationList = new SelectList(objOrganizationList, "OrganizationId", "OrganizationName", organizationId);
+            templateTypeList = new SelectList(objTemplateTypeList, "TemplateTypeId", "Name", templateTypeId);
         }
     }
 }

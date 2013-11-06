@@ -150,6 +150,7 @@ namespace StudentTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     organization.ModifiedBy = _userStatistics.UserId;
+                    organization.ModifiedDate = DateTime.Now;
                     if (organization.Update() > 0)
                     {
                         SaveFiles(token, this.GetType().Name, organization.OrganizationId);

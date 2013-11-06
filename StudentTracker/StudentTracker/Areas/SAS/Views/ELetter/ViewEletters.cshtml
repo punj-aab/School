@@ -1,0 +1,67 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.ELetter>
+@{
+    ViewBag.Title = "AboutUs";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+<!--=== Breadcrumbs ===-->
+<div class="row-fluid breadcrumbs margin-bottom-40">
+    <div class="container">
+        <h1 class="pull-left">ELetters</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+            <li class="active">ELetters</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid margin-bottom-30">
+        <table id="tblEletters">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Organization</th>
+                    <th>Letter Name</th>
+                    <th>Created By</th>
+                    <th>Created On</th>
+                    <th>Is Read?</th>
+                    <th>View Eletter</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                { 
+                    <tr>
+                        <td>
+                            @item.OrganizationName
+                        </td>
+                        <td>@item.OrganizationName</td>
+                        <td>@item.TemplateName</td>
+                        <td>@item.InsertedByName</td>
+                        <td>@item.InsertedOn</td>
+                        <td>@Html.DisplayFor(m => item.IsRead)</td>
+                        <td>@Html.ActionLink("View", "UserEletter", new { eLetterId = @item.EletterId })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.lnkMenu').removeClass("active");
+            $('#lnkEletter').addClass("active");
+            $('#tblEletters').dataTable();
+        });
+    </script>
+    <style type="text/css">
+        table.dataTable td {
+            text-align: center;
+        }
+    </style>
+}

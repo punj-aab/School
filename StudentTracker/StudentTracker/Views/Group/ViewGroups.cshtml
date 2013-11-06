@@ -20,6 +20,7 @@
                             <tr>
                                 <th>Group Name</th>
                                 <th>Group Description</th>
+                                <th>Organization</th>
                                 <th>Created By</th>
                                 <th>Manage</th>
                             </tr>
@@ -30,6 +31,7 @@
                                 <tr>
                                     <td>@Html.DisplayFor(model => item.GroupName)</td>
                                     <td>@Html.DisplayFor(model => item.Description)</td>
+                                    <td>@Html.DisplayFor(model => item.OrganizationName)</td>
                                     <td>@Html.DisplayFor(model => item.InsertedByName)</td>
                                     <td>
                                         <div class="btn-group">

@@ -36,7 +36,10 @@ namespace StudentTracker.Controllers
 
         public ActionResult Create()
         {
-            return PartialView();
+            Group objGroup = new Group();
+            objGroup.OrganizationList = LoadSelectLists();
+            objGroup.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
+            return PartialView(objGroup);
         }
 
         //
@@ -72,6 +75,8 @@ namespace StudentTracker.Controllers
         public ActionResult Edit(long id = 0)
         {
             Group objGroup = objRep.GetGroups(id);
+            objGroup.OrganizationList = LoadSelectLists(objGroup.OrganizationId);
+            objGroup.OrganizationId = ViewBag.OrganizationId == null ? objGroup.OrganizationId : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objGroup);
         }
 
@@ -139,5 +144,25 @@ namespace StudentTracker.Controllers
             return PartialView(GroupList);
         }
 
+        public SelectList LoadSelectLists(long id = -1)
+        {
+            SelectList OrganizationList = null;
+            List<Organization> organizationList = new List<Organization>();
+
+            if (User.IsInRole("SiteAdmin"))
+            {
+                organizationList = objRep.SelectOrganizations();
+            }
+            else
+            {
+                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
+                ViewBag.OrganizationId = organization.OrganizationId;
+                ViewBag.Organization = organization.OrganizationName;
+
+                //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
+            }
+            OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
+            return OrganizationList;
+        }
     }
 }

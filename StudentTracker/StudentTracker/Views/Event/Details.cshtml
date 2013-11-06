@@ -1,4 +1,4 @@
-﻿@model StudentTracker.Core.Entities.Subject
+﻿@model StudentTracker.Core.Entities.Event
 
 @{
     ViewBag.Title = "Details";
@@ -9,8 +9,8 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    Subject Details
-                      <span class="mini-title">Simple form for Display Subject
+                    Event Details
+                      <span class="mini-title">Simple form for Display Event
                       </span>
                 </div>
                 <span class="tools">
@@ -22,17 +22,23 @@
                 {
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
-                    @Html.HiddenFor(m => m.SubjectId)
+                    @Html.HiddenFor(m => m.EventId)
                     <div class="control-group">
-                        @Html.LabelFor(m => m.SubjectName, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.EventName, new { Class = "control-label" })
                         <div class="controls">
-                            @Html.DisplayFor(m => m.SubjectName)
+                            @Html.DisplayFor(m => m.EventName)
                         </div>
                     </div>
                     <div class="control-group">
-                        @Html.LabelFor(m => m.SubjectDescription, new { Class = "control-label" })
+                        @Html.LabelFor(m => m.EventTypeName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.EventTypeName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.SubjectDescription)
+                            @Html.DisplayFor(m => m.Description)
 
                         </div>
                     </div>
@@ -58,6 +64,49 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label">Section Name</label>
+                        <div class="controls controls-row">
+                            @Html.DisplayFor(m => m.SectionName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.StartDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.StartDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.EndDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.EndDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.StartDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.StartDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.EndTime, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.EndTime)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.NotificationTypeName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.NotificationTypeName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.IsActive, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.DisplayFor(m => m.IsActive)
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.InsertedOn, new { Class = "control-label" })
                         <div class="controls">
                             @Html.DisplayFor(m => m.InsertedOn)
@@ -79,7 +128,7 @@
                     <div class="control-group">
                         <label class="control-label">Modified By</label>
                         <div class="controls controls-row">
-                            @Html.DisplayFor(m => m.ModifiedByName)
+                            @Html.DisplayFor(m => m.UpdatedByName)
 
                         </div>
                     </div>
@@ -87,7 +136,7 @@
                         @* <button type="submit" class="btn btn-info pull-right">
                                 Create Organization
                             </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.SubjectId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.EventId" onclick="Edit(event)" id="lnkEdit">Edit</a>
 
                         <div class="clearfix">
                         </div>
@@ -95,7 +144,7 @@
 
                 }
                 @{
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.SubjectId, type = this.ViewContext.Controller.GetType().Name });
+                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.EventId, type = this.ViewContext.Controller.GetType().Name });
                 }
             </div>
         </div>

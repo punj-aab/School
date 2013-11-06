@@ -131,6 +131,8 @@
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Areas\SAS\Controllers\ELetterController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1077,6 +1079,7 @@
     <Content Include="Areas\SAS\Views\SASHome\RegisterUserStep8.cshtml" />
     <Content Include="Areas\SAS\Views\SASHome\TermsAndConditions.cshtml" />
     <Content Include="Areas\SAS\Views\Shared\_LoginPartialSAS.cshtml" />
+    <Content Include="Areas\SAS\Views\ELetter\UserEletter.cshtml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <Content Include="Areas\SAS\Views\Shared\LayoutAreas.cshtml" />
@@ -1258,6 +1261,12 @@
     <Content Include="Views\Template\ViewTemplates.cshtml" />
     <Content Include="Views\Template\Details.cshtml" />
     <Content Include="Views\Template\Edit.cshtml" />
+    <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
+    <Content Include="Views\Event\ViewEvents.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Areas\SAS\Views\ELetter\ViewEletters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

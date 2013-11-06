@@ -12,7 +12,7 @@
         //this function is used to validate and saving the data.
         function Save(e) {
             var action = $(e.target).attr('action');
-            var queryString='';
+            var queryString = '';
             if ($("#token").val() != undefined && $("#token").val() != '') {
                 queryString = "?token=" + $("#token").val();
                 ////alert(queryString);
@@ -256,8 +256,11 @@
             return o;
         };
 
-        //binding time pickers
-        $('.timePicker').timepicker();
+        // binding time pickers
+        //$('.timePicker').timepicker();
+        // $('.txtDate').datepicker();
+        //$('#StartDate').datepicker();
+        //$('#EndDate').datepicker();
 
 
         function compareTime(startTime, endTime) {

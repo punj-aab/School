@@ -37,12 +37,24 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.Raw(Model.OrganizationName)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.TemplateTypeName, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.Raw(Model.TemplateTypeName)
+
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
                         @Html.LabelFor(m => m.TemplateText, new { Class = "control-label" })
                         <div class="controls">
                             @Html.Raw(Model.TemplateText)
-                          
-                            @Html.ValidationMessageFor(m => m.TemplateText)
-
                         </div>
                     </div>
                     <div class="control-group">

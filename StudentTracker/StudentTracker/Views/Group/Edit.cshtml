@@ -26,6 +26,22 @@
                     @Html.HiddenFor(m => m.InsertedOn)
                     @Html.HiddenFor(m => m.InsertedBy)
                     <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6" })
+                                
+                            }
+                            else
+                            {
+                                @ViewBag.Organization
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                            @Html.ValidationMessageFor(m => m.OrganizationId)
+                        </div>
+                    </div>
+                    <div class="control-group">
                         @Html.LabelFor(m => m.GroupName, new { Class = "control-label" })
                         <div class="controls controls-row">
                             @Html.TextBoxFor(m => m.GroupName, new { placeholder = "Class Name", Class = "span6" })

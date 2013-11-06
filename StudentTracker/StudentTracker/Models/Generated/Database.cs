@@ -1183,50 +1183,252 @@ namespace DBConnectionString
 	}
 
     
-	[TableName("Attachments")]
+	[TableName("EventType")]
 
 
-	[PrimaryKey("Id")]
+	[PrimaryKey("EventTypeId")]
 
 
 
 	[ExplicitColumns]
-    public partial class Attachment : DBConnectionStringDB.Record<Attachment>  
+    public partial class EventType : DBConnectionStringDB.Record<EventType>  
     {
 
 
 
-		[Column] public long Id { get; set; }
+		[Column] public long EventTypeId { get; set; }
 
 
 
 
 
-		[Column] public string Filename { get; set; }
+		[Column] public string EventName { get; set; }
 
 
 
 
 
-		[Column] public string ParentType { get; set; }
+		[Column] public string Description { get; set; }
 
 
 
 
 
-		[Column] public long ItemId { get; set; }
+		[Column] public DateTime InsertedOn { get; set; }
 
 
 
 
 
-		[Column] public string FilePath { get; set; }
+		[Column] public long InsertedBy { get; set; }
 
 
 
 
 
-		[Column] public bool IsDeleted { get; set; }
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("ELetter")]
+
+
+	[PrimaryKey("EletterId")]
+
+
+
+	[ExplicitColumns]
+    public partial class ELetter : DBConnectionStringDB.Record<ELetter>  
+    {
+
+
+
+		[Column] public long EletterId { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public long EventId { get; set; }
+
+
+
+
+
+		[Column] public long TemplateId { get; set; }
+
+
+
+
+
+		[Column] public long OrganizaionId { get; set; }
+
+
+
+
+
+		[Column] public bool IsRead { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Event")]
+
+
+	[PrimaryKey("EventId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Event : DBConnectionStringDB.Record<Event>  
+    {
+
+
+
+		[Column] public long EventId { get; set; }
+
+
+
+
+
+		[Column] public long EventTypeId { get; set; }
+
+
+
+
+
+		[Column] public string EventName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public DateTime? StartDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? EndDate { get; set; }
+
+
+
+
+
+		[Column] public string StartTime { get; set; }
+
+
+
+
+
+		[Column] public string EndTime { get; set; }
+
+
+
+
+
+		[Column] public bool IsActive { get; set; }
+
+
+
+
+
+		[Column] public int NotificationTypeId { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public long CourseId { get; set; }
+
+
+
+
+
+		[Column] public long ClassId { get; set; }
+
+
+
+
+
+		[Column] public int SectionId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
 
 
 
@@ -1295,6 +1497,186 @@ namespace DBConnectionString
 
 
 		[Column] public long? UpdatedBy { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public long TemplateTypeId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TemplateType")]
+
+
+	[PrimaryKey("TemplateTypeId")]
+
+
+
+	[ExplicitColumns]
+    public partial class TemplateType : DBConnectionStringDB.Record<TemplateType>  
+    {
+
+
+
+		[Column] public long TemplateTypeId { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("FormattingField")]
+
+
+	[PrimaryKey("EventTypeId")]
+
+
+
+	[ExplicitColumns]
+    public partial class FormattingField : DBConnectionStringDB.Record<FormattingField>  
+    {
+
+
+
+		[Column] public long EventTypeId { get; set; }
+
+
+
+
+
+		[Column] public long TemplateTypeId { get; set; }
+
+
+
+
+
+		[Column] public string FieldName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Attachments")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Attachment : DBConnectionStringDB.Record<Attachment>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public string Filename { get; set; }
+
+
+
+
+
+		[Column] public string ParentType { get; set; }
+
+
+
+
+
+		[Column] public long ItemId { get; set; }
+
+
+
+
+
+		[Column] public string FilePath { get; set; }
+
+
+
+
+
+		[Column] public bool IsDeleted { get; set; }
 
 
 

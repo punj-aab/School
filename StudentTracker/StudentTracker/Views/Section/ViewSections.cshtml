@@ -20,6 +20,8 @@
                             <tr>
                                 <th>@Html.DisplayNameFor(model => model.SectionName)</th>
                                 <th>@Html.DisplayNameFor(model => model.SectionDescription)</th>
+                                <th>@Html.DisplayNameFor(model => model.OrganizationName)</th>
+                                <th>@Html.DisplayNameFor(model => model.CourseName)</th>
                                 <th>@Html.DisplayNameFor(model => model.ClassName)</th>
                                 <th>Created By</th>
                                 <th>Manage</th>
@@ -31,6 +33,8 @@
                                 <tr>
                                     <td>@Html.DisplayFor(model => item.SectionName)</td>
                                     <td>@Html.DisplayFor(model => item.SectionDescription)</td>
+                                    <td>@Html.DisplayFor(model => item.OrganizationName)</td>
+                                    <td>@Html.DisplayFor(model => item.CourseName)</td>
                                     <td>@Html.DisplayFor(model => item.ClassName)</td>
                                     <td>@item.InsertedByName</td>
                                     <td>

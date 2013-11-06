@@ -17,6 +17,9 @@
     <link href="/Areas/SAS/assets/css/themes/default.css" id="style_color" rel="stylesheet" />
     <link rel="stylesheet" href="/Areas/SAS/assets/css/themes/headers/default.css" id="style_color-header-1">
     <link href="/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+
+    <link href="~/Content/DataTables-1.9.4/media/css/demo_table_jui.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -84,6 +87,10 @@
                             <li class="lnkMenu" id="lnkBlog"><a href="/SAS/SASHome/Blog">BLOG</a></li>
                             <li class="lnkMenu" id="lnkSupport"><a href="/SAS/SASHome/Support">SUPPORT</a></li>
                             <li class="lnkMenu" id="lnkContact"><a href="/SAS/SASHome/ContactUs">CONTACT US </a></li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="lnkMenu" id="lnkEletter"><a href="/SAS/ELetter/ViewEletters">ELetters </a></li>
+                            }
                             <li><a class="search"><i class="icon-search search-btn"></i></a></li>
                         </ul>
                         <div class="search-open">
@@ -238,8 +245,12 @@
 </body>
 </html>
 <!-- JS Global Compulsory -->
+ 
 @Scripts.Render("~/bundles/Areas")
 @Scripts.Render("~/bundles/jqueryval")
+
+@Styles.Render("~/bundles/jqueryui")
+@Scripts.Render("~/bundles/DataTable")
 <script src="/Scripts/jquery-ui-1.10.3.js"></script>
 @RenderSection("Scripts", false)
 <script type="text/javascript">

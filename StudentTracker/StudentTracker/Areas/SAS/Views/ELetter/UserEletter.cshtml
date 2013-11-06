@@ -1,0 +1,41 @@
+﻿@model StudentTracker.Core.Entities.ELetter
+@{
+    ViewBag.Title = "UserEltetter";
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+
+<div class="row-fluid breadcrumbs margin-bottom-40">
+    <div class="container">
+        <h1 class="pull-left">Letter Detail</h1>
+        <ul class="pull-right breadcrumb">
+            <li><a href="index.html">Home</a> <span class="divider">/</span></li>
+            <li class="active">
+                @Html.ActionLink("ELetters", "ViewEletters")
+                <span class="divider">/</span></li>
+            <li class="active">View ELetter</li>
+        </ul>
+    </div>
+    <!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
+<div class="container">
+    <div class="row-fluid margin-bottom-30">
+        @Html.Raw(Model.TemplateText)
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            $('.lnkMenu').removeClass("active");
+            $('#lnkEletter').addClass("active");
+            $('#tblEletters').dataTable();
+        });
+    </script>
+    <style type="text/css">
+        
+    </style>
+}
+

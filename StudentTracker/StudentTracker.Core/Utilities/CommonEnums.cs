@@ -49,4 +49,10 @@ namespace StudentTracker.Core.Utilities
         OtherStaff = 6
 
     }
+
+    public enum NotificationTypes
+    {
+        SMS = 1,
+        Email = 2
+    }
 }

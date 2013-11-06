@@ -29,6 +29,7 @@
                             @if (User.IsInRole("SiteAdmin"))
                             {
                                 @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
+                                @Html.ValidationMessageFor(m => m.OrganizationId)
                             }
                             else
                             {

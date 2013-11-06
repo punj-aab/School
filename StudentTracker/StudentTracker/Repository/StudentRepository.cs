@@ -36,5 +36,18 @@ namespace StudentTracker.Repository
             return this.Get<SecurityQuestion>("select * from SecurityQuestion");
         }
 
+        public List<TemplateType> TemplateTypes()
+        {
+            return this.Get<TemplateType>("select * from TemplateType");
+        }
+        public List<Template> Templates()
+        {
+            return this.Get<Template>("select * from Template");
+        }
+
+        public List<FormattingField> FormattingFields(long templateTypeId)
+        {
+            return this.Find<FormattingField>("select * from FormattingField where TemplateTypeId = @TemplateTypeId", templateTypeId);
+        }
     }
 }

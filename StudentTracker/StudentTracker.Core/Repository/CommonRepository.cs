@@ -156,8 +156,22 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Section>(storedProcedure, new { organizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
-
-
+        public List<Event> GetEvents(long? organizationId = null)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetEvents";
+                return connection.Query<Event>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public Event GetEvents(long eventId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetEvents";
+                return connection.Query<Event>(storedProcedure, new { EventId = eventId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
         public Section GetSections(long sectionId)
         {
             using (IDbConnection connection = OpenConnection())
@@ -166,7 +180,30 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Section>(storedProcedure, new { sectionId = sectionId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
-
+        public List<ELetter> GetUsersForEvent(long eventId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetUsersForEvent";
+                return connection.Query<ELetter>(storedProcedure, new { EventId = eventId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public List<ELetter> GetEletters(long userId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetEletters";
+                return connection.Query<ELetter>(storedProcedure, new { UserId = userId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public ELetter GetEletters(long userId, long eLetterId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetEletters";
+                return connection.Query<ELetter>(storedProcedure, new { UserId = userId, EletterId = eLetterId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -353,7 +390,8 @@ namespace StudentTracker.Core.Repository
                 GroupName = objGroup.GroupName,
                 Description = objGroup.Description,
                 InsertedOn = objGroup.InsertedOn,
-                InsertedBy = objGroup.InsertedBy
+                InsertedBy = objGroup.InsertedBy,
+                OrganizationId = objGroup.OrganizationId
             };
             using (IDbConnection connection = OpenConnection())
             {
@@ -397,7 +435,9 @@ namespace StudentTracker.Core.Repository
                 TemplateText = objTemplate.TemplateText,
                 IsActive = objTemplate.IsActive,
                 InsertedOn = objTemplate.InsertedOn,
-                InsertedBy = objTemplate.InsertedBy
+                InsertedBy = objTemplate.InsertedBy,
+                OrganizationId = objTemplate.OrganizationId,
+                TemplateTypeId = objTemplate.TemplateTypeId
             };
             using (IDbConnection connection = OpenConnection())
             {
@@ -411,38 +451,64 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
-        //public long CreateUser(User objUser)
-        //{
-        //    var parameters = new
-        //    {
-        //        StatusId = objUser.StatusId,
-        //        Username = objUser.Username,
-        //        Email = objUser.Email,
-        //        Password = objUser.Password,
-        //        FirstName = objUser.FirstName,
-        //        LastName = objUser.LastName,
-        //        RegistrationToken = objUser.RegistrationToken,
-        //        OrgainzationId = objUser.OrgainzationId,
-        //        //Title = objUser.Title,
-        //        //DateOfBirth = objUser.DateOfBirth,
-        //        //MobileNumber = objUser.MobileNumber,
-        //        //HomeTelephoneNumber = objUser.HomeTelephoneNumber,
-        //        //SecurityQuestionId = objUser.SecurityQuestionId,
-        //        //SecurityAnswer = objUser.SecurityAnswer
-        //    };
+        public bool CreateEvent(Event objEvent)
+        {
+            var parameters = new
+            {
+                EventTypeId = objEvent.EventTypeId,
+                EventName = objEvent.EventName,
+                Description = objEvent.Description,
+                StartDate = objEvent.StartDate,
+                EndDate = objEvent.EndDate,
+                StartTime = objEvent.StartTime,
+                EndTime = objEvent.EndTime,
+                IsActive = objEvent.IsActive,
+                NotificationTypeId = objEvent.NotificationTypeId,
+                OrganizationId = objEvent.OrganizationId,
+                CourseId = objEvent.CourseId,
+                ClassId = objEvent.ClassId,
+                SectionId = objEvent.SectionId,
+                InsertedOn = objEvent.InsertedOn,
+                InsertedBy = objEvent.InsertedBy
+            };
 
-        //    using (IDbConnection connection = OpenConnection())
-        //    {
-        //        const string storedProcedure = "addCourse";
-        //        int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-        //        SetIdentity<int>(connection, id => objUser.UserId = id);
-        //        if (rowsAffected > 0)
-        //        {
-        //            return objUser.UserId;
-        //        }
-        //        return -1;
-        //    }
-        //}
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_AddEvent";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objEvent.EventId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public bool CreateEletter(ELetter objEletter)
+        {
+            var parameters = new
+            {
+                UserId = objEletter.UserId,
+                EventId = objEletter.EventId,
+                TemplateId = objEletter.TemplateId,
+                OrganizationId = objEletter.OrganizationId,
+                IsRead = false,
+                InsertedOn = DateTime.Now,
+                InsertedBy = objEletter.InsertedBy
+            };
+
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_AddEletters";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objEletter.EletterId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         public bool DeleteGroup(long groupId)
         {

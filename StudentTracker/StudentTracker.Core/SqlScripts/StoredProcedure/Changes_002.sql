@@ -22,6 +22,7 @@ null,
 )
 
 Go
+
 ALTER procedure [dbo].[usp_getSubjects] --@organizationId=17
 (
 @organizationId bigint=null,
@@ -29,8 +30,7 @@ ALTER procedure [dbo].[usp_getSubjects] --@organizationId=17
 @subjectId bigint=null
 )
 as
-select SubjectId,
-       SubjectName,
+select SubjectId,SubjectName,
        SubjectDescription,
        Subjects.CourseId,
        Courses.CourseName, 
@@ -44,11 +44,13 @@ select SubjectId,
        Users.Username as InsertedByName,
        Users_1.Username as ModifiedByName,
        Organizations.OrganizationId,
-       OrganizationName
+       Organizations.OrganizationName
 from Subjects 
 join Organizations on Subjects.OrganizationId = Organizations.OrganizationId
-join Courses on Subjects.CourseId = Courses.CourseId 
-join Classes on Subjects.ClassId = Classes.ClassId join Users on Subjects.CreatedBy=Users.UserId left join Users as Users_1 on  Subjects.ModifiedBy=Users_1.UserId
+join Courses on Subjects.CourseId=Courses.CourseId 
+join Classes on Subjects.ClassId = Classes.ClassId 
+join Users on Subjects.CreatedBy=Users.UserId 
+left join Users as Users_1 on  Subjects.ModifiedBy=Users_1.UserId
 where (@organizationId is null or Courses.OrganisationId =@organizationId)
 and (@subjectId is null or SubjectId=@subjectId)
 
@@ -108,3 +110,225 @@ join Users on ClassRoom.InsertedBy=Users.UserId
 left join Users as Users_1 on  ClassRoom.ModifiedBy=Users_1.UserId
 where (@organizationId is null or Departments.OrganizationId =@organizationId)
 and (@classRoomId is null or ClassRoomId=@classRoomId)
+
+go 
+alter procedure [dbo].[usp_addSection]
+(
+@SectionName as varchar(100),        
+@SectionDescription as varchar(100),
+@ClassId as bigint,            
+@CreatedBy as bigint,         
+@InsertedOn as datetime,
+@OrganizationId as bigint,
+@CourseId as bigint         
+)
+as
+BEGIN
+insert into Sections values(
+@SectionName        ,
+@SectionDescription ,
+@ClassId            ,
+@InsertedOn         ,
+@CreatedBy          ,
+null,
+null,
+@OrganizationId,
+@CourseId
+)
+END
+go
+ALTER procedure [dbo].[usp_GetSections] 
+(
+@organizationId as bigint = null,
+@sectionId as bigint = null
+)
+as 
+
+BEGIN
+  select SectionId,
+         SectionName,
+         SectionDescription,
+         Sections.ClassId,
+         Sections.InsertedOn,
+         sections.CreatedBy,
+         Sections.ModifiedBy,
+         Sections.ModifiedOn,
+         Users.Username as InsertedByName,
+         Users_1.Username as ModifiedByName, 
+         Classes.ClassName,
+         Organizations.OrganizationId,
+         organizations.OrganizationName,
+         Courses.CourseId,
+         Courses.CourseName
+
+ from Sections 
+ join Organizations on Sections.OrganizationId = Organizations.OrganizationId
+ join Courses on Sections.CourseId = Courses.CourseId
+ join Classes on Sections.ClassId=Classes.ClassId 
+ join Users on Sections.CreatedBy=Users.UserId 
+ left join Users as Users_1 on  Sections.ModifiedBy=Users_1.UserId
+
+ where (@sectionId is null or Sections.SectionId = @sectionId)
+   and (@organizationId is null or Users.OrgainzationId = @organizationId)
+END
+GO
+
+ALTER procedure [dbo].[usp_AddGroups]
+(
+@GroupName as varchar(100),  
+@Description as varchar(500),
+@InsertedOn  as datetime,
+@InsertedBy  as bigint,
+@OrganizationId as bigint
+)
+as
+BEGIN
+insert into [Group] values(
+@GroupName   ,
+@Description, 
+@InsertedOn,  
+@InsertedBy,
+null,
+null,
+@OrganizationId
+)  
+END
+
+GO
+ALTER procedure [dbo].[usp_GetGroups] --@organizationId=1
+(
+@groupId as bigint = null,
+@organizationId as bigint = null 
+)
+as
+BEGIN
+ Select GroupId, 
+        GroupName, 
+        Description,
+        G.InsertedOn,
+        InsertedBy,
+        ModifieBy,
+        ModifiedOn,
+        Users.Username as InsertedByName,
+        User_1.Username as ModifiedByName,
+        O.OrganizationId,
+        O.OrganizationName
+from [Group] as G
+ join Organizations as O on G.OrganizationId = O.OrganizationId
+ join Users on G.InsertedBy = Users.UserId
+ left join Users as User_1 on G.ModifieBy = User_1.UserId
+  where (@groupId is null or GroupId=@groupId)
+  and (@organizationId is null or Users.OrgainzationId = @organizationId)
+ 
+END
+GO
+-- Add templates
+ALTER procedure [dbo].[usp_AddTemplates]
+(
+            @Name as varchar(100)
+           ,@Description as varchar(500)
+           ,@TemplateText as nvarchar(max)
+           ,@IsActive as bit
+           ,@InsertedOn as datetime
+           ,@InsertedBy as bigint
+           ,@OrganizationId as bigint
+           ,@TemplateTypeId as bigint
+)
+as
+BEGIN
+INSERT INTO [Template]
+           ([Name]
+           ,[Description]
+           ,[TemplateText]
+           ,[IsActive]
+           ,[InsertedOn]
+           ,[InsertedBy]
+           ,[UpdatedOn]
+           ,[UpdatedBy]
+           ,[OrganizationId]
+           ,[TemplateTypeId])
+     VALUES
+           (@Name
+           ,@Description
+           ,@TemplateText
+           ,@IsActive
+           ,@InsertedOn
+           ,@InsertedBy
+           ,null
+           ,null
+           ,@OrganizationId
+           ,@TemplateTypeId
+           )
+ END
+
+ GO
+ ALTER procedure usp_GetTemplates
+(
+@TemplateId as bigint=null,
+@OrganizationId as bigint = null
+)
+as
+Begin
+select 
+TemplateId,
+Template.Name,
+Template.Description,
+Template.OrganizationId,
+Template.TemplateTypeId,
+TemplateText ,
+IsActive,
+Template.InsertedOn,
+Template.InsertedBy,
+UpdatedOn,
+UpdatedBy,
+Users.Username as InsertedByName,
+User_1.Username as UpdatedByName,
+TemplateType.name as TemplateTypeName,
+Organizations.OrganizationName as OrganizationName
+
+
+from Template
+join Organizations on Template.OrganizationId = Organizations.OrganizationId
+join TemplateType on Template.TemplateTypeId = TemplateType.TemplateTypeId
+join Users on Template.InsertedBy = Users.UserId
+left join Users as User_1 on Template.UpdatedBy = User_1.UserId
+where (@TemplateId is null or Template.TemplateId = @TemplateId)
+and (@OrganizationId is null or Users.OrgainzationId=@OrganizationId)
+END
+
+GO
+CREATE procedure usp_GetEletters    --1
+(  
+@UserId as bigint  
+)  
+as   
+BEGIN  
+  SELECT [EletterId]  
+     ,EL.[UserId]  
+     ,EL.[EventId]  
+     ,EL.[TemplateId]  
+     ,[OrganizaionId]  
+     ,[IsRead]  
+     ,EL.[InsertedOn]  
+     ,EL.[InsertedBy]  
+     ,EL.[ModifiedOn]  
+     ,EL.[ModifiedBy]  
+     ,US.Username  
+     ,E.EventName  
+     ,TL.Name as TemplateName  
+     ,O.OrganizationName  
+     ,U.Username as InsertedByName  
+     ,U_1.Username as UpdatedByName  
+  
+    FROM [ELetter] as EL  
+    join Users as US on EL.UserId = US.UserId  
+    join [Event] as E on EL.EventId = E.EventId  
+    join Template as TL on E.EventTypeId = TL.TemplateTypeId
+    join Organizations as O on EL.OrganizaionId = O.OrganizationId  
+    join Users as U on EL.InsertedBy = U.UserId  
+    left join Users as U_1 on EL.ModifiedBy = U_1.UserId  
+      
+  Where EL.UserId = @UserId  
+order by EL.[InsertedOn] desc  
+END  
+GO

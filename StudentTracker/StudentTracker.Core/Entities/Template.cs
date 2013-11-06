@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Web.Mvc;
 
 namespace StudentTracker.Core.Entities
 {
@@ -26,5 +27,31 @@ namespace StudentTracker.Core.Entities
         public string InsertedByName { get; set; }
         [NotMapped]
         public string UpdatedByName { get; set; }
+
+        [Required]
+        [Display(Name = "Organization")]
+        public long OrganizationId { get; set; }
+
+        [Required]
+        [Display(Name = "Template")]
+        public long TemplateTypeId { get; set; }
+
+        [ForeignKey("TemplateTypeId")]
+        public TemplateType TemplateTypes { get; set; }
+
+        [ForeignKey("OrganizationId")]
+        public Organization Organization { get; set; }
+
+
+        [NotMapped]
+        public string OrganizationName { get; set; }
+
+        [NotMapped]
+        public string TemplateTypeName { get; set; }
+
+        [NotMapped]
+        public SelectList OrganizationList { get; set; }
+        [NotMapped]
+        public SelectList TemplateTypeList { get; set; }
     }
 }

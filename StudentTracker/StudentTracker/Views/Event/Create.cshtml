@@ -1,0 +1,190 @@
+﻿@model StudentTracker.Core.Entities.Event
+@{
+    ViewBag.Title = "Create";
+    string token = DateTime.UtcNow.Ticks.ToString();
+}
+@Scripts.Render("~/bundles/jqueryval")
+@Html.Hidden("token", token)
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Create New Subject
+                      <span class="mini-title">Simple form for new Subject
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.EventTypeId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.EventTypeId, Model.EventTypeList, "Select Event Type", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.EventTypeId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.EventName, new { Class = "control-label" })
+                        <div class="controls controls-row">
+                            @Html.TextBoxFor(m => m.EventName, new { placeholder = "Event Name", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.EventName)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.Description, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
+                            @Html.ValidationMessageFor(m => m.Description)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.StartDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.StartDate, new { placeholder = "Start Date", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.StartDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.EndDate, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.EndDate, new { placeholder = "End Date", Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.EndDate)
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Start Time</label>
+                        <div class="controls">
+                            <div class="input-append bootstrap-timepicker">
+                                @Html.TextBoxFor(m => m.StartTime, new { placeholder = "Start Time", Class = "timePicker" })
+                                @Html.ValidationMessageFor(m => m.StartTime)
+                                <span class="add-on btn">
+                                    <i class="icon-time"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">End Time</label>
+                        <div class="controls">
+                            <div class="input-append bootstrap-timepicker">
+                                @Html.TextBoxFor(m => m.EndTime, new { placeholder = "End Time", Class = "timePicker" })
+                                @Html.ValidationMessageFor(m => m.EndTime)
+
+                                <span class="add-on btn"><i class="icon-time"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.IsActive, new { Class = "control-label" })
+                        <div class="controls">
+                            <input type="checkbox" class="chkActive" name="IsActive" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.NotificationTypeId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.NotificationTypeId, Model.NotificationTypeList, "Select Notification Type", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.NotificationTypeId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                        <div class="controls">
+                            @if (User.IsInRole("SiteAdmin"))
+                            {
+                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
+                                @Html.ValidationMessageFor(m => m.OrganizationId)
+                            }
+                            else
+                            {
+                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                @Html.HiddenFor(m => m.OrganizationId)
+                            }
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
+                            @Html.ValidationMessageFor(m => m.CourseId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6", onChange = "GetData(event)", action = "GetSections", getType = "Section" })
+                            @Html.ValidationMessageFor(m => m.ClassId)
+
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.SectionId, new { Class = "control-label" })
+                        <div class="controls">
+
+                            @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { Class = "span6" })
+                            @Html.ValidationMessageFor(m => m.SectionId)
+
+                        </div>
+                    </div>             
+                    <div class="control-group">
+                        @HelperAssets.FileUploadHtml()
+                    </div>                 
+                    <div class="form-actions no-margin">
+                         <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="" id="btnAdd">Add Event</a>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@HelperAssets.FileUploadScript(token);
+<script src="/Scripts/jquery-ui-1.10.3.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.chkActive').change(function (e) {
+            if (e.target.checked) {
+                $(e.target).val(true);
+            }
+            else {
+                $(e.target).val(false);
+            }
+        });
+
+        $('.timePicker').timepicker();
+        $('#StartDate').datepicker();
+        $('#EndDate').datepicker();
+        
+
+        $('#btnAdd').click(function (e) {
+            var st = $('#StartTime').val();
+            var et = $('#EndTime').val();
+            if (Date.parse("1-1-2000 " + st) > Date.parse("1-1-2000 " + et)) {
+                alertify.alert("Start time cannot be greater than End time.");
+                return false;
+            }
+            Save(e);
+        });
+    });
+</script>
+
