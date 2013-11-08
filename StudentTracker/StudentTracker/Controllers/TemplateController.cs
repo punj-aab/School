@@ -118,6 +118,14 @@ namespace StudentTracker.Controllers
             }
         }
 
+        public JsonResult GetFormattingFields(long templateTypeId)
+        {
+            List<FormattingField> objModelList = repository.FormattingFields(templateTypeId);
+            return Json(objModelList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
         public void LoadSelectLists(out SelectList organizationList, out SelectList templateTypeList, long organizationId = -1, long templateTypeId = -1)
         {
             organizationList = null;
