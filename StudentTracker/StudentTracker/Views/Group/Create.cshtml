@@ -50,8 +50,16 @@
                             @Html.TextAreaFor(m => m.Description, new { placeholder = "Description", Class = "span6", @rows = 4, @cols = 400 })
                             @Html.ValidationMessageFor(m => m.Description)
                         </div>
-                    </div>
+                    </div>@*
                     
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.GroupMembers, new { Class = "control-label" })
+                        <div class="controls">
+                            @Html.TextAreaFor(m => m.GroupMembers, new { placeholder = "Group Members", Class = "span6", @rows = 8, @cols = 450 })
+                            @Html.ValidationMessageFor(m => m.GroupMembers)
+                        </div>
+                    </div>*@
+                     
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Group</a>
                         <div class="clearfix">
