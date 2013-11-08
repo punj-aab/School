@@ -91,6 +91,7 @@ namespace StudentTracker.Areas.SAS.Controllers
         {
             Profile objProfile = new Profile();
             objProfile.RegistrationToken = token;
+            objProfile.TitleList = new SelectList(new[] { new { Id = "Mr.", Value = "Mr." }, new { Id = "Miss.", Value = "Miss." } }, "Id", "Value");
             return View(objProfile);
         }
 
