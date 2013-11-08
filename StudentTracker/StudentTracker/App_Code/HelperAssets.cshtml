@@ -269,6 +269,28 @@
                 return false;
             }
         }
+
+        function GetFormattingFields(e) {
+            var templateTypeId = $(e.target).val();
+            var listItem = '';
+            $('#formattingFieldList').html('');
+            $.ajax({
+                type: 'POST',
+                url: '/Template/GetFormattingFields',
+                data: {
+                    templateTypeId: templateTypeId
+                },
+                success: function (response) {
+                    $.each(response, function (index, value) {
+                        listItem += '<li><div class="details"><span>Use {' + value.FieldName + '} For ' + value.FieldName + '</span></div></li>';
+                    });
+                    $('#formattingFieldList').append(listItem);
+                },
+                error: function () {
+
+                }
+            })
+        }
     </script>
 }
 
