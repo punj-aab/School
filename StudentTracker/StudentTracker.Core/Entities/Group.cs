@@ -36,5 +36,10 @@ namespace StudentTracker.Core.Entities
         public virtual Organization Organizations { get; set; }
         [NotMapped]
         public string OrganizationName { get; set; }
+        [NotMapped]
+        [Display(Name = "Group Members")]
+        public string GroupMembers { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }

@@ -22,7 +22,6 @@ null,
 )
 
 Go
-
 ALTER procedure [dbo].[usp_getSubjects] --@organizationId=17
 (
 @organizationId bigint=null,
@@ -82,7 +81,6 @@ BEGIN
 END
 
 go
-
 ALTER procedure [dbo].[usp_getClassRooms] --@organizationId=18
 (
 @organizationId bigint=null,
@@ -171,8 +169,8 @@ BEGIN
  where (@sectionId is null or Sections.SectionId = @sectionId)
    and (@organizationId is null or Users.OrgainzationId = @organizationId)
 END
-GO
 
+GO
 ALTER procedure [dbo].[usp_AddGroups]
 (
 @GroupName as varchar(100),  
@@ -221,6 +219,7 @@ from [Group] as G
   and (@organizationId is null or Users.OrgainzationId = @organizationId)
  
 END
+
 GO
 -- Add templates
 ALTER procedure [dbo].[usp_AddTemplates]
@@ -261,7 +260,7 @@ INSERT INTO [Template]
            )
  END
 
- GO
+GO
  ALTER procedure usp_GetTemplates
 (
 @TemplateId as bigint=null,
@@ -297,17 +296,19 @@ and (@OrganizationId is null or Users.OrgainzationId=@OrganizationId)
 END
 
 GO
-CREATE procedure usp_GetEletters    --1
+CREATE procedure [dbo].[usp_GetEletters] --@UserId=1
 (  
-@UserId as bigint  
+@UserId as bigint,
+@EletterId as bigint = null  
 )  
 as   
 BEGIN  
   SELECT [EletterId]  
      ,EL.[UserId]  
      ,EL.[EventId]  
-     ,EL.[TemplateId]  
-     ,[OrganizaionId]  
+     ,EL.[TemplateId]
+     ,TL.TemplateText  
+     ,EL.[OrganizationId]  
      ,[IsRead]  
      ,EL.[InsertedOn]  
      ,EL.[InsertedBy]  
@@ -323,12 +324,12 @@ BEGIN
     FROM [ELetter] as EL  
     join Users as US on EL.UserId = US.UserId  
     join [Event] as E on EL.EventId = E.EventId  
-    join Template as TL on E.EventTypeId = TL.TemplateTypeId
-    join Organizations as O on EL.OrganizaionId = O.OrganizationId  
+    join Template as TL on El.TemplateId = TL.TemplateId
+    join Organizations as O on EL.OrganizationId = O.OrganizationId  
     join Users as U on EL.InsertedBy = U.UserId  
     left join Users as U_1 on EL.ModifiedBy = U_1.UserId  
       
-  Where EL.UserId = @UserId  
+  Where (EL.UserId = @UserId)
+    and (@EletterId is null or El.EletterId = @EletterId)
 order by EL.[InsertedOn] desc  
 END  
-GO

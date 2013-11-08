@@ -33,7 +33,7 @@ namespace StudentTracker.Core.Entities
         public long OrganizationId { get; set; }
 
         [Required]
-        [Display(Name = "Template")]
+        [Display(Name = "Template Type")]
         public long TemplateTypeId { get; set; }
 
         [ForeignKey("TemplateTypeId")]

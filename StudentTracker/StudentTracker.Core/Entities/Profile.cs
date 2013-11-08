@@ -82,5 +82,7 @@ namespace StudentTracker.Core.Entities
         [Compare("Password", ErrorMessage = "<span title='Password and confirm password must match.'>*</span>")]
         public virtual string ConfirmPassword { get; set; }
 
+        [NotMapped]
+        public SelectList TitleList { get; set; }
     }
 }
