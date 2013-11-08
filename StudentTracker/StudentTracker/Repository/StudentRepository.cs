@@ -47,7 +47,7 @@ namespace StudentTracker.Repository
 
         public List<FormattingField> FormattingFields(long templateTypeId)
         {
-            return this.Find<FormattingField>("select * from FormattingField where TemplateTypeId = @TemplateTypeId", templateTypeId);
+            return this.Find<FormattingField>("select * from FormattingField where TemplateTypeId = @id", templateTypeId);
         }
     }
 }
