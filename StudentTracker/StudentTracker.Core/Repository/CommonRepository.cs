@@ -509,6 +509,28 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
+        public bool AssignGroupToUser(UserGroup objUserGroup)
+        {
+            var parameters = new
+            {
+                UserId = objUserGroup.UserId,
+                GroupId = objUserGroup.GroupId,
+                InsertedOn = DateTime.Now,
+                InsertedBy = objUserGroup.InsertedBy
+            };
+
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_AssignGroupToUser";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                SetIdentity<int>(connection, id => objUserGroup.GroupId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         public bool DeleteGroup(long groupId)
         {
@@ -686,6 +708,14 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
+        public void DeleteUserGroup(long userId, long groupId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                connection.Execute("Delete from UserGroup where UserId = @UserId and GroupId=@GroupId", new { UserId = userId, GroupId = groupId });
+            }
+        }
+
 
         private int DeleteSchedule(long id, IDbConnection connection, IDbTransaction transaction)
         {
@@ -771,6 +801,7 @@ namespace StudentTracker.Core.Repository
                 Directory.Delete(destDirectory, true);
             }
         }
+
 
         public RegistrationToken GetRegistrationCode(string registrationCode)
         {

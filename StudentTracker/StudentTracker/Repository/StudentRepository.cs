@@ -49,5 +49,14 @@ namespace StudentTracker.Repository
         {
             return this.Find<FormattingField>("select * from FormattingField where TemplateTypeId = @id", templateTypeId);
         }
+
+        public List<User> Users(long organizationId)
+        {
+            return this.Find<User>("select * from Users where OrgainzationId = @id", organizationId);
+        }
+        public List<UserGroup> UserGroupsByGroup(long groupId)
+        {
+            return this.Find<UserGroup>("select * from UserGroup where GroupId = @id", groupId);
+        }
     }
 }

@@ -41,5 +41,7 @@ namespace StudentTracker.Core.Entities
         public string GroupMembers { get; set; }
 
         public ICollection<User> Users { get; set; }
+        [NotMapped]
+        public ICollection<UserGroup> UserGroups { get; set; }
     }
 }

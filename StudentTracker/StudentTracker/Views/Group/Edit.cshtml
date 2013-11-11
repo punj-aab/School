@@ -55,6 +55,48 @@
                             @Html.ValidationMessageFor(m => m.Description)
                         </div>
                     </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.GroupMembers, new { Class = "control-label" })
+                        <div class="controls">
+                            <a id="lnkAddMember">+Edit</a>
+                            <div id="divAddNewUser">
+                                <div id="divLeft">
+                                    <div class="divHeader">
+                                        Groups
+                                    <a>+</a>
+                                    </div>
+                                    @foreach (var user in Model.Users)
+                                    {
+                                        <div class="divUserList" id="@user.UserId">
+                                            <div class="divRow">
+                                                @Html.DisplayFor(m => user.FirstName)
+                                                &nbsp;
+                                            @Html.DisplayFor(m => user.LastName)
+                                            </div>
+                                            <a class="lnkAddNewRow" userId="@user.UserId" onclick="">+</a>
+                                            <hr />
+                                        </div>
+                                        
+                                    }
+                                </div>
+                                <div id="divRight">
+                                    <div class="divHeader">
+                                        Memebers<a>Delete</a>
+                                    </div>
+                                    @foreach (var userGroup in Model.UserGroups)
+                                    {
+                                        foreach (var user in Model.Users)
+                                        {
+                                            if (user.UserId == userGroup.UserId)
+                                            {
+                                        <div class="divUserList">@user.FirstName&nbsp;@user.LastName<a class="lnkDelete" onClick=EditRow(event) id="@userGroup.UserId">Delete</a></div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
                         <div class="clearfix">
@@ -70,3 +112,115 @@
 </div>
 
 
+<style type="text/css">
+    #divAddNewUser {
+    }
+
+    .lnkUserAdd {
+    }
+
+    #divLeft {
+        float: left;
+        width: 300px;
+    }
+
+    #divRight {
+        float: left;
+        width: 300px;
+        margin-left: 10px;
+    }
+
+    .divHeader {
+        float: left;
+        background: black;
+        width: 100%;
+        color: white;
+    }
+
+        .divHeader > a {
+            float: right;
+            color: white;
+            background: blue;
+            width: 40px;
+            text-align: center;
+        }
+
+    .divUserList > a {
+        float: right;
+        color: white;
+        background: blue;
+        width: 40px;
+        text-align: center;
+    }
+
+    .divUserList {
+        margin-top: 5px;
+        float: left;
+        width: 100%;
+    }
+
+    .divRow {
+        width: 260px;
+        float: left;
+    }
+
+    a {
+        cursor: pointer;
+    }
+
+    #divAddNewUser {
+        display: none;
+    }
+
+        #divAddNewUser > div {
+            border: 1px solid black;
+        }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#lnkAddMember').click(function () {
+            $('#divAddNewUser').toggle();
+        });
+
+        $('.lnkAddNewRow').click(function (e) {
+            var userId = $(e.target).attr('userId');
+            var groupId = $('#GroupId').val();
+            $.ajax({
+                type: 'POST',
+                url: '/Group/AddNewUserGroup/',
+                data: {
+                    userId: userId, groupId: groupId
+                },
+                success: function () {
+                    EditAddNewRow(e);
+                },
+                error: function () { }
+            })
+        });
+    });
+
+    function EditAddNewRow(e) {
+        var $this = $(e.target);
+        $this.parent().hide();
+        var id = $this.parent().attr('id');
+        var row = '<div class="divUserList">' + $this.prev().text() + '<a class="lnkDelete" onClick=EditRow(event) id=' + id + '>Delete</a><hr /></div>';
+        $('#divRight').append(row);
+    }
+
+    function EditRow(e) {
+        var $this = $(e.target);
+        var userId = $(e.target).attr('id');
+        var groupId = $('#GroupId').val();
+        $.ajax({
+            type: 'POST',
+            url: '/Group/DeleteUserGroup/',
+            data: {
+                userId: userId, groupId: groupId
+            },
+            success: function () {
+                deleteRow(e);
+            },
+            error: function () { }
+        })
+    }
+</script>

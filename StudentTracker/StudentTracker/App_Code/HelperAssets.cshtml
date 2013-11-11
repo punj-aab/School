@@ -291,6 +291,22 @@
                 }
             })
         }
+
+        function AddNewRow(e) {
+            var $this = $(e.target);
+            $this.parent().hide();
+            var id = $this.parent().attr('id');
+            var row = '<div class="divUserList">' + $this.prev().text() + '<a class="lnkDelete" onClick=deleteRow(event) id=' + id + '>Delete</a><hr /></div>';
+            $('#divRight').append(row);
+        }
+
+        function deleteRow(e) {
+            var $this = $(e.target);
+            var id = $this.attr('id');
+            $('#' + id).show();
+            $this.parent().remove();
+            $('#GroupMembers').val('');
+        }
     </script>
 }
 

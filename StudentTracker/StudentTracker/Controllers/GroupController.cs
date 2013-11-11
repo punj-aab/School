@@ -1,5 +1,6 @@
 ﻿using StudentTracker.Core.Entities;
 using StudentTracker.Core.Repository;
+using StudentTracker.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace StudentTracker.Controllers
     {
         //
         // GET: /Group/
-        CommonRepository objRep = new CommonRepository();
+        StudentRepository repository = new StudentRepository();
         public ActionResult Index()
         {
             return View();
@@ -23,7 +24,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult Details(long id = 0)
         {
-            Group objGroup = objRep.GetGroups(id);
+            Group objGroup = repository.GetGroups(id);
             if (objGroup == null)
             {
                 return HttpNotFound();
@@ -37,6 +38,9 @@ namespace StudentTracker.Controllers
         public ActionResult Create()
         {
             Group objGroup = new Group();
+
+            objGroup.Users = this.repository.Users(_userStatistics.OrganizationId);
+
             objGroup.OrganizationList = LoadSelectLists();
             objGroup.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objGroup);
@@ -54,8 +58,20 @@ namespace StudentTracker.Controllers
                 {
                     objGroup.InsertedOn = DateTime.Now;
                     objGroup.InsertedBy = _userStatistics.UserId;
-                    if (objRep.CreateGroup(objGroup))
+                    var userIds = objGroup.GroupMembers.Split(',');
+                    UserGroup objUserGroup = null;
+                    if (repository.CreateGroup(objGroup))
                     {
+
+
+                        foreach (var id in userIds)
+                        {
+                            objUserGroup = new UserGroup();
+                            objUserGroup.UserId = Convert.ToInt32(id);
+                            objUserGroup.GroupId = objGroup.GroupId;
+                            objUserGroup.InsertedBy = _userStatistics.UserId;
+                            this.repository.AssignGroupToUser(objUserGroup);
+                        }
                         return Convert.ToString(true);
                     }
                     return Convert.ToString(false);
@@ -74,7 +90,9 @@ namespace StudentTracker.Controllers
 
         public ActionResult Edit(long id = 0)
         {
-            Group objGroup = objRep.GetGroups(id);
+            Group objGroup = repository.GetGroups(id);
+            objGroup.Users = this.repository.Users(_userStatistics.OrganizationId);
+            objGroup.UserGroups = this.repository.UserGroupsByGroup(objGroup.GroupId);
             objGroup.OrganizationList = LoadSelectLists(objGroup.OrganizationId);
             objGroup.OrganizationId = ViewBag.OrganizationId == null ? objGroup.OrganizationId : Convert.ToInt32(ViewBag.OrganizationId);
             return PartialView(objGroup);
@@ -112,7 +130,7 @@ namespace StudentTracker.Controllers
         {
             try
             {
-                if (objRep.DeleteGroup(id))
+                if (repository.DeleteGroup(id))
                 {
                     return Convert.ToString(true);
                 }
@@ -126,7 +144,7 @@ namespace StudentTracker.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            objRep = null;
+            repository = null;
             base.Dispose(disposing);
         }
 
@@ -135,11 +153,11 @@ namespace StudentTracker.Controllers
             List<Group> GroupList = null;
             if (User.IsInRole("SiteAdmin"))
             {
-                GroupList = objRep.GetGroups();
+                GroupList = repository.GetGroups();
             }
             else
             {
-                GroupList = objRep.GetGroups(organizationId: _userStatistics.OrganizationId);
+                GroupList = repository.GetGroups(organizationId: _userStatistics.OrganizationId);
             }
             return PartialView(GroupList);
         }
@@ -151,11 +169,11 @@ namespace StudentTracker.Controllers
 
             if (User.IsInRole("SiteAdmin"))
             {
-                organizationList = objRep.SelectOrganizations();
+                organizationList = repository.SelectOrganizations();
             }
             else
             {
-                var organization = objRep.SelectOrganizations(_userStatistics.OrganizationId);
+                var organization = repository.SelectOrganizations(_userStatistics.OrganizationId);
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 
@@ -163,6 +181,20 @@ namespace StudentTracker.Controllers
             }
             OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             return OrganizationList;
+        }
+
+        public void AddNewUserGroup(long userId, long groupId)
+        {
+            UserGroup objGroup = new UserGroup();
+            objGroup.UserId = userId;
+            objGroup.GroupId = groupId;
+            objGroup.InsertedBy = _userStatistics.UserId;
+            this.repository.AssignGroupToUser(objGroup);
+        }
+
+        public void DeleteUserGroup(long userId, long groupId)
+        {
+            this.repository.DeleteUserGroup(userId, groupId);
         }
     }
 }
