@@ -80,6 +80,7 @@
     <Compile Include="Entities\Schedule.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\SecurityQuestion.cs" />
+    <Compile Include="Entities\Staff.cs" />
     <Compile Include="Entities\State.cs" />
     <Compile Include="Entities\Subject.cs" />
     <Compile Include="Entities\Template.cs" />
