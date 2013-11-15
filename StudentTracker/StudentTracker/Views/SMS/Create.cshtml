@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Create SMS </button>
+                        <div class="nav-collapse collapse">
+                            <span class="mini-title minLft">
+                                <img alt="" src="img/email2.png"></span>
+                            <div class="createHdr">
+                                <ul>
+                                    <li><a href="#" class="btn btn-info">Save As Templates</a></li>
+                                    <li><a href="#" class="btn btn-info">Templates</a></li>
+                                    <li>Create SMS</li>
+                                    <li class="dropdown"><a href="#" id="btnAddReciepents" class="btn btn-info">Add Recipients 
+                        
+                        + </a></li>
+                                    <li><a href="#" class="btn btn-info">Cancel</a></li>
+                                    <li><a href="#" class="btn btn-info">Send</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="addRecp3">
+                            <form class="form-horizontal no-margin">
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Subject : </label>
+                                    <div class="controls controls-row">
+                                        <input class="span8" type="text" placeholder="">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Message : </label>
+                                    <div class="controls controls-row">
+                                        <textarea class="span8">Hello</textarea>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls controls-row">
+                                        <div class="seduleTime">
+                                            <h3>Schedule Time :</h3>
+                                            <div class="">
+                                                <label class="radio inline">
+                                                    <input id="inlineRadioA" type="radio" checked="" value="optiona" name="optionsRadioG">
+                                                    Send SMS immidately
+                                                </label>
+                                                <label class="radio inline">
+                                                    <input id="inlineRadioB" type="radio" value="optionb" name="optionsRadioG">
+                                                    Schedule SMS
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="dateBox">
+                                            <label class="control-label lbl" for="report_range1">
+                                                <input type="text" name="date_range1" id="date_range1" class="date_picker span9" placeholder="01/29/2013 - 01/31/2013" />
+                                                <span class="add-on btn date_picker"><i class="icon-calendar"></i></span>
+                                            </label>
+                                            <div class="controls">
+                                                <div class="bootstrap-timepicker">
+                                                    <input id="timepicker2" type="text" value="10:40 AM">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+    <div id="dialog"></div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.left').removeClass('active');
+            $('#divSMS').addClass('active');
+
+            //load dialog box for Add recipients
+            $('#btnAddReciepents').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Eletters/AddRecipients',
+                    async: false,
+                    success: function (response) {
+                        $('#dialog').html(response);
+                        //
+                    },
+                    error: function () { }
+                });
+                $('#dialog').dialog("open");
+            });
+
+            $('#dialog').dialog({
+                autoOpen: false,
+                width: 700,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            //Date picker
+            $('.date_picker').daterangepicker({
+                opens: 'right'
+            });
+        });
+    </script>
+}

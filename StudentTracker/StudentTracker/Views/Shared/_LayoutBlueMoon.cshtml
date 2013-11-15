@@ -38,6 +38,7 @@
     <link href="/Content/alertify.core.css" rel="stylesheet" id="toggleCSS" />
     <link href="~/Content/wysiwyg/bootstrap-wysihtml5.css" rel="stylesheet" />
     <link href="~/Content/wysiwyg/wysiwyg-color.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-switch.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
     <!-- Important. For Theming change primary-color variable in main.css  -->
     <!--[if lte IE 7]>
@@ -83,22 +84,29 @@
         </p>
     </footer>
     @Scripts.Render("~/bundles/jquery")
-    
-    @Styles.Render("~/bundles/jqueryui")
+
+
     @Scripts.Render("~/bundles/jqueryval")
-   
+
+    @*@Styles.Render("~/bundles/jqueryui")*@
+    <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
-    
+
     @Scripts.Render("~/bundles/BlockUI")
     @Scripts.Render("~/bundles/DataTable")
     <script src="~/Scripts/wysiwyg/wysihtml5-0.3.0.js"></script>
     <script src="~/Scripts/wysiwyg/bootstrap-wysihtml5.js"></script>
-    
+    <script src="~/Scripts/js/bootstrap-switch.js"></script>
+    <script src="~/Scripts/ckeditor.js"></script>
+    <script src="~/Scripts/js/jquery.scrollUp.js"></script>
+    <script src="~/Scripts/js/date-picker/date.js"></script>
+    <script src="~/Scripts/js/date-picker/daterangepicker.js"></script>
     @RenderSection("Scripts", false)
 
     <script type="text/javascript">
         //Tooltip
         $('a').tooltip('hide');
+        $('i').tooltip('hide');
 
         //Popover
         $('.popover-pop').popover('hide');
@@ -114,6 +122,33 @@
         }).ajaxStop(function () {
             $('div.dashboard-wrapper').unblock();
         });
+
+        $(function () {
+            $.scrollUp({
+                scrollName: 'scrollUp', // Element ID
+                topDistance: '300', // Distance from top before showing element (px)
+                topSpeed: 300, // Speed back to top (ms)
+                animation: 'fade', // Fade, slide, none
+                animationInSpeed: 400, // Animation in speed (ms)
+                animationOutSpeed: 400, // Animation out speed (ms)
+                scrollText: 'Scroll to top', // Text for element
+                activeOverlay: false, // Set CSS color to display scrollUp active point, e.g '#00FFFF'
+            });
+
+            //Date picker
+            $('.date_picker').daterangepicker({
+                opens: 'right'
+            });
+        });
+
+        jQuery('.delete-row').click(function () {
+            var conf = confirm('Continue delete?');
+            if (conf) jQuery(this).parents('tr').fadeOut(function () {
+                jQuery(this).remove();
+            });
+            return false;
+        });
+
     </script>
 </body>
 </html>

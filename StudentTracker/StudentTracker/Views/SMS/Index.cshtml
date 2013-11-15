@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<div class="dashboard-wrapper">
+
+    <div class="left-sidebar">
+
+        <div class="divClacc">
+
+            <div class="row-fluid">
+                <div class="span12" id="wid2">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title textAlign">
+                                <span class="mini-title minLft">
+                                    <img src="img/email2.png" alt="">
+                                </span>
+                                View SMS                     
+                            </div>
+                            <span class="tools tls">
+                                <a href="/SMS/Create" class="btn btn-info">Create New
+                                </a>
+                            </span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="row-fluid">
+
+                                <div class="scroll">
+                                    <div id="scrollbar">
+                                        <div class="scrollbar">
+                                            <div class="track">
+                                                <div class="thumb">
+                                                    <div class="end"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="viewport">
+                                            <div class="overview">
+                                                <div class="featured-articles-container">
+                                                    <div class="articles2">
+                                                        <ul>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/man.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/girl.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/man.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/girl.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/man.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div class="pull-left">
+                                                                    <img src="img/girl.png" alt="">
+                                                                </div>
+                                                                <div>
+                                                                    <p><strong>Alex Doe</strong> Changed his profile Photo. <span>Take a Look</span></p>
+                                                                    <h3>
+                                                                        <i class="fs1" aria-hidden="true" data-icon="&#xe048;"></i>
+                                                                        2 Hours ago                                 </h3>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="moreActiv">
+                                        <a href="#">Click Here to view More</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.left').removeClass('active');
+            $('#divSMS').addClass('active');
+        });
+    </script>
+}

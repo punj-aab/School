@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<h2>Index</h2>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="sub-nav2">
+                        <div class="row-fluid">
+                            <ul>
+                                <li class="span2"><a href="above.html" class="btn btn-info">Download</a></li>
+                                <li class="span8">View Trips/Events</li>
+                                <li class="span2"><a href="/Trip/Create" class="btn btn-info">Create New</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget-header">
+                        <div class="title">
+                            View Trips/Events
+                        </div>
+
+                    </div>
+                    <div class="widget-body">
+                        <div id="dt_example" class="example_alt_pagination">
+                            <table class="table table-bordered pull-left" id="data-table">
+
+                                <thead>
+                                    <tr>
+                                        <th style="width: 17%">Name of Payment
+                                        </th>
+                                        <th style="width: 20%">Discription
+                                        </th>
+                                        <th style="width: 16%">View Groups
+                                        </th>
+                                        <th style="width: 16%">Created Date
+                                        </th>
+                                        <th style="width: 16%">Status
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="">
+                                        <td>Name of Fee
+                                        </td>
+                                        <td>Discription
+                                        </td>
+                                        <td>View Groups
+                                        </td>
+                                        <td>Created Date
+                                        </td>
+                                        <td>Active
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.left').removeClass('active');
+            $('#divTrips').addClass('active');
+        });
+    </script>
+}

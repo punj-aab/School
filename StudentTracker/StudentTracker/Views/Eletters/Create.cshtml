@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "CreateEletter";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Create Eletter </button>
+                        <div class="nav-collapse collapse">
+                            <span class="mini-title minLft">
+                                <img alt="" src="/img/email2.png"></span>
+                            <div class="createHdr">
+                                <ul>
+                                    <li><a href="#" class="btn btn-info">Save As Templates</a></li>
+                                    <li><a href="#" class="btn btn-info">Templates</a></li>
+                                    <li>Create Eletter</li>
+                                    <li class="dropdown"><a href="#" id="btnAddReciepents" class="btn btn-info">Add Recipients 
+                        
+                        + </a></li>
+                                    <li><a href="#" class="btn btn-info">Cancel</a></li>
+                                    <li><a href="#" class="btn btn-info">Send</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="wysiwyg-container">
+                            <form action="sample_posteddata.php" method="post">
+                                <!--<label for="editor1">
+			CKEditor output the entire page including content outside of
+			<code>&lt;body&gt;</code> element, so content like meta and title can be changed:
+		</label>-->
+                                <textarea cols="80" id="editor1" name="editor1" rows="10">
+			&lt;a href=&quot;#&quot; class=&quot;imgLogo&quot;&gt;&lt;img src=&quot;/img/logo1.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
+                    &lt;h1&gt;Subject 1&lt;/h1&gt;
+                    &lt;h3&gt;&lt;span&gt;&lt;strong&gt;Date :&lt;/strong&gt;&lt;/span&gt; 2/11/2013&lt;/h3&gt;
+                    &lt;p&gt;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
+                    
+                    &lt;a href=&quot;#&quot;&gt;Buttom of eletter&lt;/a&gt;
+                    
+                    &lt;ol&gt;
+&lt;li&gt;
+&lt;strong&gt;Address:&lt;/strong&gt;
+Lorem Ipsum is simply dummy text of the printing and typesetting industry
+&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Phone No:&lt;/strong&gt;
+9258625436
+&lt;/li&gt;
+&lt;li&gt;
+&lt;strong&gt;Email:&lt;/strong&gt;
+&lt;a href=&quot;#&quot;&gt;information@gmail.com&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+		</textarea>
+
+                                <p>
+                                    <input type="submit" value="Submit">
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+    <div id="dialog"></div>
+</div>
+@section scripts{
+    
+    <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.left').removeClass('active');
+            $('#divEletter').addClass('active');
+
+            //load dialog box for Add recipients
+            $('#btnAddReciepents').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Eletters/AddRecipients',
+                    async: false,
+                    success: function (response) {
+                        $('#dialog').html(response);
+                        //
+                    },
+                    error: function () { }
+                });
+                $('#dialog').dialog("open");
+            });
+
+            $('#dialog').dialog({
+                autoOpen: false,
+                width: 700,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+
+        });
+
+        CKEDITOR.replace('editor1', {
+            fullPage: true,
+            allowedContent: true,
+            extraPlugins: 'wysiwygarea'
+        });
+
+    </script>
+}
