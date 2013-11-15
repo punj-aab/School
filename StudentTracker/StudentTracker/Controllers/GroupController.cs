@@ -87,7 +87,6 @@ namespace StudentTracker.Controllers
 
         //
         // GET: /Group/Edit/5
-
         public ActionResult Edit(long id = 0)
         {
             Group objGroup = repository.GetGroups(id);
