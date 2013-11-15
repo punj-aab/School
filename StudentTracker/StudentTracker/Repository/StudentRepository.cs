@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using StudentTracker.Core.Entities;
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
+using System.Web.Mvc;
 namespace StudentTracker.Repository
 {
     public class StudentRepository : StudentTracker.Core.Repository.CommonRepository
@@ -57,6 +61,118 @@ namespace StudentTracker.Repository
         public List<UserGroup> UserGroupsByGroup(long groupId)
         {
             return this.Find<UserGroup>("select * from UserGroup where GroupId = @id", groupId);
+        }
+
+
+
+        public Staff LoadStaffLists(string userRole, long organizationId = -1, long scheduleId = -1)
+        {
+            Staff objStaff = null;
+            if (scheduleId != -1)
+            {
+                //objStaff = this.GetSchedule(scheduleId);
+            }
+            if (objStaff == null)
+            {
+                objStaff = new Staff();
+            }
+            //list class objects
+            List<Organization> listOrganizations = new List<Organization>();
+            List<Course> courseList = new List<Course>();
+            List<Class> classList = new List<Class>();
+            List<Subject> subjectList = new List<Subject>();
+            List<Department> departmentList = new List<Department>();
+            List<Section> sectionList = new List<Section>();
+
+            //class objects
+            Organization objOrganization = null;
+            Course objCourse = null;
+            Class objClass = null;
+            Subject objSubject = null;
+            Department objDep = null;
+            Section objSection = null;
+
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["StudentContext"].ConnectionString);
+            if (con.State == ConnectionState.Closed)
+            {
+                con.Open();
+            }
+            using (SqlCommand cmd = new SqlCommand("usp_getSchedules", con))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@userRole", SqlDbType.VarChar, 50).Value = userRole;
+                cmd.Parameters.Add("@organizationId", SqlDbType.BigInt).Value = objStaff.OrganizationId;
+                cmd.Parameters.Add("@courseId", SqlDbType.BigInt).Value = objStaff.CourseId;
+                cmd.Parameters.Add("@departmentId", SqlDbType.BigInt).Value = objStaff.DepartmentId;
+                cmd.Parameters.Add("@classId", SqlDbType.BigInt).Value = objStaff.ClassId;
+                cmd.Parameters.Add("@createdByOrganization", SqlDbType.BigInt, 50).Value = organizationId;
+
+                SqlDataAdapter adp = new SqlDataAdapter();
+                adp.SelectCommand = cmd;
+                DataSet dataSet = new DataSet();
+                adp.Fill(dataSet);
+
+                foreach (DataRow row in dataSet.Tables[0].Rows)
+                {
+                    objOrganization = new Organization();
+                    objOrganization.OrganizationId = Convert.ToInt64(row["OrganizationId"]);
+                    objOrganization.OrganizationName = Convert.ToString(row["OrganizationName"]);
+                    listOrganizations.Add(objOrganization);
+                    if (userRole != "SiteAdmin")
+                    {
+                        objStaff.OrganizationName = objOrganization.OrganizationName;
+                    }
+                }
+
+                foreach (DataRow row in dataSet.Tables[1].Rows)
+                {
+                    objCourse = new Course();
+                    objCourse.CourseId = Convert.ToInt64(row["CourseId"]);
+                    objCourse.CourseName = Convert.ToString(row["CourseName"]);
+                    courseList.Add(objCourse);
+                }
+
+                foreach (DataRow row in dataSet.Tables[2].Rows)
+                {
+                    objClass = new Class();
+                    objClass.ClassId = Convert.ToInt64(row["ClassId"]);
+                    objClass.ClassName = Convert.ToString(row["ClassName"]);
+                    classList.Add(objClass);
+                }
+
+                foreach (DataRow row in dataSet.Tables[3].Rows)
+                {
+                    objSubject = new Subject();
+                    objSubject.SubjectId = Convert.ToInt64(row["SubjectId"]);
+                    objSubject.SubjectName = Convert.ToString(row["SubjectName"]);
+                    subjectList.Add(objSubject);
+                }
+
+                foreach (DataRow row in dataSet.Tables[4].Rows)
+                {
+                    objDep = new Department();
+                    objDep.DepartmentId = Convert.ToInt64(row["DepartmentId"]);
+                    objDep.DepartmentName = Convert.ToString(row["DepartmentName"]);
+                    departmentList.Add(objDep);
+                }
+
+                foreach (DataRow row in dataSet.Tables[6].Rows)
+                {
+                    objSection = new Section();
+                    objSection.SectionId = Convert.ToInt32(row["SectionId"]);
+                    objSection.SectionName = Convert.ToString(row["SectionName"]);
+                    sectionList.Add(objSection);
+                }
+
+
+            }
+            objStaff.OrganizationList = new SelectList(listOrganizations, "OrganizationId", "OrganizationName", objStaff.OrganizationId);
+            objStaff.CourseList = new SelectList(courseList, "CourseId", "CourseName", objStaff.CourseId);
+            objStaff.ClassList = new SelectList(classList, "ClassId", "ClassName", objStaff.ClassId);
+            objStaff.SubjectList = new SelectList(subjectList, "SubjectId", "SubjectName", objStaff.SubjectId);
+            objStaff.DepartmentList = new SelectList(departmentList, "DepartmentId", "DepartmentName", objStaff.DepartmentId);
+            objStaff.SectionList = new SelectList(sectionList, "SectionId", "SectionName", objStaff.SectionId);
+            return objStaff;
         }
     }
 }

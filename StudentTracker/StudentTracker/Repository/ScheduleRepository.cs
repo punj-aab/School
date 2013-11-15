@@ -93,7 +93,7 @@ namespace StudentTracker.Models
             }
         }
 
-        public Schedule LoadScheduleLists(string userRole, long createdBy = -1, long scheduleId = -1)
+        public Schedule LoadScheduleLists(string userRole, long organizationId = -1, long scheduleId = -1)
         {
             Schedule schedule = null;
             if (scheduleId != -1)
@@ -133,7 +133,7 @@ namespace StudentTracker.Models
                 cmd.Parameters.Add("@courseId", SqlDbType.BigInt).Value = schedule.CourseId;
                 cmd.Parameters.Add("@departmentId", SqlDbType.BigInt).Value = schedule.DepartmentId;
                 cmd.Parameters.Add("@classId", SqlDbType.BigInt).Value = schedule.ClassId;
-                cmd.Parameters.Add("@createdBy", SqlDbType.BigInt, 50).Value = createdBy;
+                cmd.Parameters.Add("@createdByOrganization", SqlDbType.BigInt, 50).Value = organizationId;
 
                 SqlDataAdapter adp = new SqlDataAdapter();
                 adp.SelectCommand = cmd;
