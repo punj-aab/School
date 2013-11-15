@@ -22,5 +22,10 @@ namespace StudentTracker.Controllers
                 return RedirectToAction("", "", new { area = "sas" });
         }
 
+        public ActionResult MasterSetup()
+        {
+            return View();
+        }
+
     }
 }
