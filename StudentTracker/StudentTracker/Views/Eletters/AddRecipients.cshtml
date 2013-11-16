@@ -42,72 +42,22 @@
                                     <h2>Groups <a class="addBtn" href="#">+</a></h2>
 
                                     <div class="tripSec">
-                                        <ul>
+                                        <ul id="ulLeft">
                                             <li>
                                                 <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
+                                                    <div class="span8 colorSpn divName">Trip(Euan)</div>
                                                     <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
+                                                    <div class="span2 colorSpn2"><a class="addBtn" onclick="AddNewRow(event)" href="#">+</a></div>
                                                 </div>
                                             </li>
                                             <li>
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn">Basket Ball Team (Admin)</div>
                                                     <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Basket Ball Team (Admin)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Basket Ball Team (Admin)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" href="#">+</a></div>
+                                                    <div class="span2 colorSpn2"><a class="addBtn" onclick="AddNewRow(event)" href="#">+</a></div>
                                                 </div>
                                             </li>
                                         </ul>
-
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +68,15 @@
                                     </a></h2>
 
                                     <div class="tripSec">
+                                        <ul id="ulRight">
+                                            <li>
+                                                <div class="row-fluid">
+                                                    <div class="span8 colorSpn divName">Trip(Euan)</div>
+                                                    <div class="span2 colorSpn2">7</div>
+                                                    <div class="span2 colorSpn2"><a class="deleteBtn" onclick="deleteRow(event)" href="#"><i class="icon-trash"></i></a></div>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
 

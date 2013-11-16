@@ -2,62 +2,85 @@
     Layout = null;
     bool canEdit = false;
 }
-<style>
-    #calendar {
-        width: 90%;
-        margin: 0 auto;
-    }
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget no-margin">
+                    <div class="widget-header">
+                        <div class="title">Calendar </div>
+                        <span class="tools tls3"><a href="createNew1.html" data-original-title="">Create New </a></span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="cal_select">
+                            <ul>
+                                <li><span class="slt_txt">Filters</span> </li>
+                                <li>
+                                    <select name="select" class="selectpicker bla bla bli" id="select">
+                                        <option>All Courses</option>
+                                        <option>All Courses</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select id="id_select" class="selectpicker bla bla bli">
+                                        <option>All Departments</option>
+                                        <option>bull</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select id="id_select" class="selectpicker bla bla bli">
+                                        <option>All classes</option>
+                                        <option>bull</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select id="id_select" class="selectpicker bla bla bli">
+                                        <option>All Staff</option>
+                                        <option>bull</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <select id="id_select" class="selectpicker bla bla bli">
+                                        <option>All subjects</option>
+                                        <option>bull</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="cal_all">
+                            <ul>
+                                <li>
+                                    <input type="checkbox" name="a" />
+                                    <span>All</span>
+                                    <img src="img/green.jpg" alt=" " />
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="a" />
+                                    <span>Payments</span>
+                                    <img src="img/picock-blue.jpg" alt=" " />
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="a" />
+                                    <span>Events</span>
+                                    <img src="img/PINK.jpg" alt=" " />
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="a" />
+                                    <span>Holidays</span>
+                                    <img src="img/light-pink.jpg" alt=" " />
+                                </li>
+                                <li>
+                                    <input type="checkbox" name="a" />
+                                    <span>Test Centre</span> </li>
+                            </ul>
+                        </div>
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
 
-    .Assignment {
-        background-color: #ffd800 !important;
-        color: #fff !important;
-    }
 
-    .Holiday {
-        background-color: palegreen !important;
-        color: #fff !important;
-    }
-
-    .ClassTest {
-        background-color: #ff6a00 !important;
-        color: #fff !important;
-    }
-
-    body .modal {
-        /* new custom width */
-        width: 800px;
-        /* must be half of the width, minus scrollbar on the left (30px) */
-        margin-left: -400px;
-    }
-
-    #loading {
-        display: none;
-    }
-
-    #dvLoading {
-        background: url(../../images/ajax-loader.gif) no-repeat center center;
-        height: 100px;
-        width: 100px;
-        position: fixed;
-        z-index: 1000;
-        left: 50%;
-        top: 50%;
-        margin: -25px 0 0 -25px;
-    }
-
-    #filelist div.Attachment {
-        border: 1px solid #ccc;
-        padding: 5px;
-        margin-bottom: 2px;
-    }
-
-        #filelist div.Attachment a.deleteFile {
-            float: right;
-        }
-</style>
-<div id='calendar'></div>
-
-@section scripts
-{
-    
-}

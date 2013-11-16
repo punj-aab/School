@@ -2,12 +2,22 @@
     <ul>
         @if (User.Identity.IsAuthenticated)
         {
-            <li>
-                <a href="/home" id="navDashboard">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe00d;"></div>
-                    Master Setup
-                </a>
-            </li>
+            <li><a href="/home" id="divHome">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe000;"></div>
+                Home </a></li>
+            <li><a href="/Individual" id="divIndividual">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe070;"></div>
+                Individuals </a></li>
+            <li><a href="/Group" id="divGroup">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe071;"></div>
+                Groups </a></li>
+            <li><a href="#">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
+                Reports </a></li>
+            <li><a href="/payment" id="divPayment">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe004;"></div>
+                payments </a></li>
+           
             if (User.IsInRole("SiteAdmin"))
             {
             <li>
@@ -18,7 +28,7 @@
             </li>
             }
             
-            <li>
+@*<li>
                 <a class="lnkToken" id="tabToken" href="/token">
                     <div class="fs1" aria-hidden="true" data-icon="&#xe021;"></div>
                     Reg.Codes
@@ -59,23 +69,11 @@
                     <div class="fs1" aria-hidden="true" data-icon="&#xe150;"></div>
                     Classes
                 </a>
-            </li>
+            </li>*@
             <li>
                 <a href="/Schedule" class="lnkSchedules">
                     <div class="fs1" aria-hidden="true" data-icon="&#xe096;"></div>
                     Schedules
-                </a>
-            </li>
-             <li>
-                <a href="/Calendar" class="lnkCalendar">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe052;"></div>
-                    Calendar
-                </a>
-            </li>
-            <li>
-                <a href="/Group" class="lnkGroup">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe052;"></div>
-                    Groups
                 </a>
             </li>
             <li>
@@ -100,6 +98,12 @@
                 </a>
             </li>
         }
+        <li>
+            <a href="/home/MasterSetup" id="navDashboard">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe00d;"></div>
+                Master Setup
+            </a>
+        </li>
     </ul>
     <div class="clearfix">
     </div>

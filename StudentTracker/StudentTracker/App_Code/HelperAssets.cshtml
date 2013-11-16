@@ -294,17 +294,25 @@
 
         function AddNewRow(e) {
             var $this = $(e.target);
-            $this.parent().hide();
-            var id = $this.parent().attr('id');
-            var row = '<div class="divUserList">' + $this.prev().text() + '<a class="lnkDelete" onClick=deleteRow(event) id=' + id + '>Delete</a><hr /></div>';
-            $('#divRight').append(row);
+            $this.parent().parent().parent().hide();
+            var id = $this.attr('id');
+            // var row = '<div class="divUserList">' + + '<a class="lnkDelete" onClick=deleteRow(event) id=' + id + '>Delete</a><hr /></div>';
+
+            var row = '<li><div class="row-fluid">' +
+                                                     '<div class="span8 colorSpn">' + $this.parent().prev().prev().text() + '</div>' +
+                                                     '<div class="span2 colorSpn2">7</div>' +
+                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" id="2" href="#"></a></div>' +
+ '                                                </div>' +
+                                             '</li>';
+
+            $('#ulRight').append(row);
         }
 
         function deleteRow(e) {
             var $this = $(e.target);
             var id = $this.attr('id');
             $('#' + id).show();
-            $this.parent().remove();
+            $this.parent().parent().parent().remove();
             $('#GroupMembers').val('');
         }
     </script>

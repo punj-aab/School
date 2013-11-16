@@ -43,7 +43,7 @@ namespace StudentTracker.Controllers
 
             objGroup.OrganizationList = LoadSelectLists();
             objGroup.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
-            return PartialView(objGroup);
+            return View(objGroup);
         }
 
         //

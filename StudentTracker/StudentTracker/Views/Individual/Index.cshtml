@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+<div class="sub-nav">
+    <ul>
+        <li><a href="" class="heading">Individuals</a></li>
+    </ul>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+
+
+        @Html.Partial("_IndividualPartial")
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">View Groups </div>
+                        <span class="tools"><a class="fs1" data-icon="" aria-hidden="true" data-original-title=""></a></span>
+                    </div>
+                    <div class="widget-body">
+                        <div id="dt_example" class="example_alt_pagination">
+                            <table class="table table-bordered pull-left" id="data-table">
+                                <thead>
+                                    <tr class="bluRow">
+                                        <th>Name </th>
+                                        <th>Children </th>
+                                        <th class="hidden-phone">Groups </th>
+                                        <th class="hidden-phone">Course,Department, Class </th>
+                                        <th class="hidden-phone">Manage </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
+                                        <td><span class="name">Amit </span></td>
+                                        <td class="hidden-phone">PTM,Shop </td>
+                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
+                                        <td class="hidden-phone">
+                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
+                                        <td><span class="name">Amit </span></td>
+                                        <td class="hidden-phone">PTM,Shop </td>
+                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
+                                        <td class="hidden-phone">
+                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
+                                        <td><span class="name">Amit </span></td>
+                                        <td class="hidden-phone">PTM,Shop </td>
+                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
+                                        <td class="hidden-phone">
+                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
+                                        <td><span class="name">Amit </span></td>
+                                        <td class="hidden-phone">PTM,Shop </td>
+                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
+                                        <td class="hidden-phone">
+                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
+                                        <td><span class="name">Amit </span></td>
+                                        <td class="hidden-phone">PTM,Shop </td>
+                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
+                                        <td class="hidden-phone">
+                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // $('.left').removeClass('active');
+            $('#divIndividual').addClass('selected');
+        });
+    </script>
+}

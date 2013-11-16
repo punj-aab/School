@@ -1,0 +1,205 @@
+﻿@{
+    ViewBag.Title = "CreateStudent";
+}
+
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="sub-nav2">
+                        <div class="row-fluid">
+                            <ul>
+
+
+                                <li class="span8">New Student</li>
+                                <li class="span2">
+                                    <a class="btn btn-info" href="edit-profile.html">Save</a></li>
+                                <li class="span2">
+                                    <a class="btn btn-info" href="edit-profile.html">Cancel</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="widget-body">
+                        <div class="container-fluid">
+
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div class="thumbnail">
+                                        <img alt="300x200" src="img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title="">
+Change Picture
+                                                        <input type="file">
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="span9">
+                                    <form class="form-horizontal">
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Title
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                First Name
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Last Name
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                DOB
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Phone
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Home
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Email
+                                            </label>
+                                            <div class="controls">
+                                                <input class="span8" type="text" name="" value="">
+                                            </div>
+                                        </div>
+
+
+                                    </form>
+
+
+
+                                </div>
+
+
+
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row-fluid">
+
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Assign Department/Classes
+                        </div>
+
+                    </div>
+
+                    <div class="row-fluid">
+                        <div class="span12">
+
+                            <div class="widget-body topUp">
+                                <table class="table table-bordered no-margin">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <select>
+                                                    <option>Course</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select>
+                                                    <option>Department</option>
+                                                </select>
+                                            </td>
+                                            <td class="hidden-phone">
+                                                <select>
+                                                    <option>Classes</option>
+                                                </select>
+                                            </td>
+                                            <td class="hidden-phone">
+                                                <select>
+                                                    <option>Sections</option>
+                                                </select>
+                                            </td>
+                                            <td class="hidden-phone">
+
+                                                <div class="dropdown">
+                                                    <a href="groupsStudent2.html">Groups
+                                                                    <b class="caret2">+ </b>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="hidden-phone">
+                                                <div class="dropdown">
+                                                    <a href="groupsStudent.html">Subjects
+                                                                    <b class="caret2">+ </b>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="hidden-phone">
+                                                <a href="#" class="btn btn-info">Save</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>

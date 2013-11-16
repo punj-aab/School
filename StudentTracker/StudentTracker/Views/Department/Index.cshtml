@@ -32,7 +32,9 @@
             Html.RenderAction("ViewDepartments");
         }
     </div>
-    <div class="right-sidebar"></div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
 </div>
 @section Scripts
 {
@@ -47,7 +49,7 @@
             });
         });
     </script>
-  @HelperAssets.LoadAjaxData("/Department/");
+    @HelperAssets.LoadAjaxData("/Department/");
   @HelperAssets.DataTable();
   @HelperAssets.SaveAndLoadData("/Department/", "ViewDepartments");
 }

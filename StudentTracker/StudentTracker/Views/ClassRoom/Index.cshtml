@@ -32,7 +32,9 @@
             Html.RenderAction("ViewClassRooms");
         }
     </div>
-    <div class="right-sidebar"></div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
 </div>
 @section Scripts
 {

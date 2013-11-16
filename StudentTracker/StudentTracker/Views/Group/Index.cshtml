@@ -27,12 +27,10 @@
     </div>
 </div>
 <div class="dashboard-wrapper">
-    <div class="left-sidebar" id="divOuter">
-        @{
-            Html.RenderAction("ViewGroups");
-        }
-    </div>
-    <div class="right-sidebar"></div>
+    @{
+        Html.RenderAction("ViewGroups");
+    }
+</div>
 </div>
 @section Scripts
 {
@@ -40,6 +38,7 @@
 
         $(document).ready(function () {
             $('.lnkGroup').addClass('selected');
+            $('#divGroup').addClass('selected');
             $('#lnkViewAll').addClass('selected');
             $('.subButton').click(function () {
                 $("a.subButton").removeClass('selected');
