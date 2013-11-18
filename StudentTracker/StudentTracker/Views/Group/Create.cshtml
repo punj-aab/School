@@ -20,7 +20,7 @@
                             <div class="title textAlign">Create Groups </div>
                             <span class="tools tls2">
                                 <a name="submit" class="btn btn-info" href="javascript:;" action="create" id="btnAdd">Save</a>
-                                <a href="#" class="btn btn-info">Cancel</a> </span>
+                                <a href="/Group" class="btn btn-info">Cancel</a> </span>
                         </div>
                         <div class="widget-body">
 
@@ -59,60 +59,23 @@
                                 <label class="control-label" for="repPassword">&nbsp; </label>
                                 <div class="controls">
                                     <div class="span6">
-                                        <div class="dropdown flt"><a href="javascript:;" id="btnAddReciepents">Add Recipients <b class="caret2">+ </b></a></div>
+                                        <div class="dropdown flt"><a href="javascript:;" class="btnAddReciepents">Add Recipients <b class="caret2">+ </b></a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label" for="password1">Group Members </label>
                                 <div class="controls">
-                                    @Html.TextAreaFor(m => m.GroupMembers, new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
-                                    @Html.ValidationMessageFor(m => m.GroupMembers)
+                                    @Html.TextAreaFor(m => m.Members, new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
+                                    @Html.ValidationMessageFor(m => m.Members)
                                 </div>
                             </div>
-                            @*
-                    
-                            <div class="control-group">
-                                @Html.LabelFor(m => m.GroupMembers, new { Class = "control-label" })
-                                <div class="controls">
-                                    <a id="lnkAddMember">+Add</a>
-                                    <div id="divAddNewUser">
-                                        <div id="divLeft">
-                                            <div class="divHeader">
-                                                Users
-                                    <a>+</a>
-                                            </div>
-                                            @foreach (var user in Model.Users)
-                                            {
-                                                <div class="divUserList" id="@user.UserId">
-                                                    <div class="divRow">
-                                                        @Html.DisplayFor(m => user.FirstName)
-                                                        &nbsp;
-                                            @Html.DisplayFor(m => user.LastName)
-                                                    </div>
-                                                    <a onclick="AddNewRow(event)">+</a>
-                                                    <hr />
-                                                </div>
-                                        
-                                            }
-                                        </div>
-                                        <div id="divRight">
-                                            <div class="divHeader">
-                                                Memebers<a>Delete</a>
-                                            </div>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>*@
-
 
                             <div class="form-actions no-margin">
-                                @*<a name="submit" class="btn btn-primary" href="javascript:;" action="create" id="btnAdd">Add Group</a>*@
                                 <div class="clearfix">
                                 </div>
                             </div>
-                            @Html.HiddenFor(m => m.GroupMembers)
+                            @*@Html.HiddenFor(m => m.Members)*@
 
 
                         </div>
@@ -127,109 +90,13 @@
     </div>
     <div id="dialog"></div>
 </div>
-@*<style type="text/css">
-    #divAddNewUser {
-    }
-
-    .lnkUserAdd {
-    }
-
-    #divLeft {
-        float: left;
-        width: 300px;
-    }
-
-    #divRight {
-        float: left;
-        width: 300px;
-        margin-left: 10px;
-    }
-
-    .divHeader {
-        float: left;
-        background: black;
-        width: 100%;
-        color: white;
-    }
-
-        .divHeader > a {
-            float: right;
-            color: white;
-            background: blue;
-            width: 40px;
-            text-align: center;
-        }
-
-    .divUserList > a {
-        float: right;
-        color: white;
-        background: blue;
-        width: 40px;
-        text-align: center;
-    }
-
-    .divUserList {
-        margin-top: 5px;
-        float: left;
-        width: 100%;
-    }
-
-    .divRow {
-        width: 260px;
-        float: left;
-    }
-
-    a {
-        cursor: pointer;
-    }
-
-    #divAddNewUser {
-        display: none;
-    }
-</style>*@
-@*<script src="~/Scripts/jquery-2.0.3.js"></script>*@
 @section scripts{
     @HelperAssets.SaveAndLoadData("/Group/", "ViewGroups");
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#lnkAddMember').click(function () {
-                $('#divAddNewUser').toggle();
-            });
-
-
-
+            $('#divGroup').addClass('selected');
             $('#btnAdd').click(function (e) {
-                var ids = [];
-                $('.lnkDelete').each(function () {
-                    ids.push($(this).attr('id'));
-                });
-                $('#GroupMembers').val(ids.toString());
                 Save(e);
-            });
-
-            //load dialog box for Add recipients
-            $('#btnAddReciepents').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Eletters/AddRecipients',
-                    async: false,
-                    success: function (response) {
-                        $('#dialog').html(response);
-                        //
-                    },
-                    error: function () { }
-                });
-                $('#dialog').dialog("open");
-            });
-
-            $('#dialog').dialog({
-                autoOpen: false,
-                width: 700,
-                buttons: {
-                    Done: function () {
-                        $(this).dialog("close");
-                    }
-                }
             });
         });
 

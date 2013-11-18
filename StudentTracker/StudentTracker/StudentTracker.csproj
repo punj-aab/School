@@ -1350,6 +1350,7 @@
     <Content Include="Scripts\skins\moono\images\lock-open.png" />
     <Content Include="Scripts\skins\moono\images\lock.png" />
     <Content Include="Scripts\skins\moono\images\refresh.png" />
+    <Content Include="Scripts\styles.js" />
     <Content Include="Scripts\wysiwyg\bootstrap-wysihtml5.js" />
     <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.ar-AR.js" />
     <Content Include="Scripts\wysiwyg\locales\bootstrap-wysihtml5.bg-BG.js" />

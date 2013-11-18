@@ -8,8 +8,8 @@
             <div class="widget">
                 <div class="sub-nav2">
                     <ul>
-                        <li><a class="btn btn-info" href="index.html">Home</a> </li>
-                        <li><a class="btn btn-info" data-original-title="" href="#">Groups</a> </li>
+                        <li><a class="btn btn-info" href="/home">Home</a> </li>
+                        <li><a class="btn btn-info" data-original-title="" href="/group">Groups</a> </li>
                         <li><a class="btn btn-info" href="/Group/Create">New</a> </li>
                     </ul>
                 </div>
@@ -26,31 +26,31 @@
                             <div class="overview">
                                 <ul class="chats">
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Srinu Baswa </a><span class="date-time">at Feb 14, 2013 12:20 </span><span class="body">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Reprehenderit butcher retro keffiyeh dreamcatcher synth terry richardsoAustin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Kelly </a><span class="date-time">at Feb 8, 2013 04:21 </span><span class="body">Beard stumptown, cardigans banh mi lomo thundercats. whatever keytar, scenester farm-to-table banksy Austin twitter handle freegan cred raw denim single-origin coffee viral. </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Bulley </a><span class="date-time">at jan 14, 2013 06:43 </span><span class="body">Tight pants next level keffiyeh you probably haven't heard of fixie sustainable quinoa 8-bit american apparel have a terry richardson vinyl chambray. Beard stumptown, cardigans banh mi lomo thundercats. </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Ganggyy </a><span class="date-time">at Jan 03, 2013 09:09 </span><span class="body">Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Cockoo </a><span class="date-time">at Dec 28, 2012 02:39 </span><span class="body">Dnim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Anim pariatur cliche reprehenderit, </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Ganggyy </a><span class="date-time">at Jan 03, 2013 09:09 </span><span class="body">Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. </span></div>
                                     </li>
                                     <li class="in">
-                                        <img class="avatar" alt="" src="img/profile.jpg">
+                                        <img class="avatar" alt="" src="/img/profile.jpg">
                                         <div class="message"><span class="arrow"></span><a href="#" class="name">Cockoo </a><span class="date-time">at Dec 28, 2012 02:39 </span><span class="body">Dnim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.Enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Anim pariatur cliche reprehenderit, </span></div>
                                     </li>
                                 </ul>
@@ -104,7 +104,8 @@
                                                         <a class="lnkDetails" href="#" itemId="@item.GroupId" action="Details" onclick="LoadViewById(event)">Details</a>
                                                     </li>
                                                     <li>
-                                                        <a class="lnkEdit" href="#" action="Edit" itemId="@item.GroupId" onclick="LoadViewById(event)">Edit</a>
+                                                       @* <a class="lnkEdit" href="/Group/Edit" action="Edit" itemId="@item.GroupId" onclick="">Edit</a>*@
+                                                        @Html.ActionLink("Edit", "Edit", new { id = @item.GroupId }, new {@class="lnkEdit" })
                                                     </li>
                                                     <li>
                                                         <a class="lnkDelete" href="#" itemId="@item.GroupId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>

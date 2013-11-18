@@ -58,22 +58,29 @@ namespace StudentTracker.Controllers
                 {
                     objGroup.InsertedOn = DateTime.Now;
                     objGroup.InsertedBy = _userStatistics.UserId;
-                    var userIds = objGroup.GroupMembers.Split(',');
+
                     UserGroup objUserGroup = null;
                     if (repository.CreateGroup(objGroup))
                     {
 
-
-                        foreach (var id in userIds)
+                        if (objGroup.Members != null)
                         {
-                            objUserGroup = new UserGroup();
-                            objUserGroup.UserId = Convert.ToInt32(id);
-                            objUserGroup.GroupId = objGroup.GroupId;
-                            objUserGroup.InsertedBy = _userStatistics.UserId;
-                            this.repository.AssignGroupToUser(objUserGroup);
+                            var userIds = objGroup.Members.Split(',');
+
+                            foreach (var id in userIds)
+                            {
+                                objUserGroup = new UserGroup();
+                                objUserGroup.UserId = Convert.ToInt32(id);
+                                objUserGroup.GroupId = objGroup.GroupId;
+                                objUserGroup.InsertedBy = _userStatistics.UserId;
+                                this.repository.AssignGroupToUser(objUserGroup);
+                            }
+
+                            return Convert.ToString(true);
                         }
                         return Convert.ToString(true);
                     }
+
                     return Convert.ToString(false);
                 }
 

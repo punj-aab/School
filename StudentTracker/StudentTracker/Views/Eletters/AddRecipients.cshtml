@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<StudentTracker.Core.Entities.User>
+@{
     ViewBag.Title = "AddRecipients";
 }
 
@@ -43,20 +44,23 @@
 
                                     <div class="tripSec">
                                         <ul id="ulLeft">
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn divName">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" onclick="AddNewRow(event)" href="#">+</a></div>
-                                                </div>
-                                            </li>
-                                            <li>
+                                            @foreach (var user in Model)
+                                            { 
+                                                <li class="@user.UserId">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn divName">@user.FirstName&nbsp;@user.LastName</div>
+                                                        <div class="span2 colorSpn2">0</div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" id="@user.UserId" onclick="AddNewRow(event)" href="#">+</a></div>
+                                                    </div>
+                                                </li>
+                                            }
+                                            @*<li>
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn">Basket Ball Team (Admin)</div>
                                                     <div class="span2 colorSpn2">7</div>
                                                     <div class="span2 colorSpn2"><a class="addBtn" onclick="AddNewRow(event)" href="#">+</a></div>
                                                 </div>
-                                            </li>
+                                            </li>*@
                                         </ul>
                                     </div>
                                 </div>
@@ -69,13 +73,6 @@
 
                                     <div class="tripSec">
                                         <ul id="ulRight">
-                                            <li>
-                                                <div class="row-fluid">
-                                                    <div class="span8 colorSpn divName">Trip(Euan)</div>
-                                                    <div class="span2 colorSpn2">7</div>
-                                                    <div class="span2 colorSpn2"><a class="deleteBtn" onclick="deleteRow(event)" href="#"><i class="icon-trash"></i></a></div>
-                                                </div>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>

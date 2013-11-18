@@ -37,7 +37,10 @@
                         if (data == 'True') {
                             $('#lnkAddNew').removeClass('selected');
                             $('#lnkViewAll').addClass('selected');
-                            AfterSuccess('@resultView');
+
+                            //AfterSuccess('@resultView');
+                            window.location.href = '@controller';
+
                             alertify.success("Action successfully completed.");
                         }
                         else if (data == 'False') {
@@ -301,20 +304,51 @@
             var row = '<li><div class="row-fluid">' +
                                                      '<div class="span8 colorSpn">' + $this.parent().prev().prev().text() + '</div>' +
                                                      '<div class="span2 colorSpn2">7</div>' +
-                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" id="2" href="#"></a></div>' +
+                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" id=' + id + ' href="#"></a></div>' +
  '                                                </div>' +
                                              '</li>';
 
             $('#ulRight').append(row);
+            var ids = [];
+            $('.deleteBtn').each(function () {
+                ids.push($(this).attr('id'));
+            });
+            $('#Members').val(ids.toString());
         }
 
         function deleteRow(e) {
             var $this = $(e.target);
             var id = $this.attr('id');
-            $('#' + id).show();
+            $('.' + id).show();
             $this.parent().parent().parent().remove();
             $('#GroupMembers').val('');
         }
+
+        $(document).ready(function () {
+            //load dialog box for Add recipients
+            $('.btnAddReciepents').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Eletters/AddRecipients',
+                    async: false,
+                    success: function (response) {
+                        $('#dialog').html(response);
+                    },
+                    error: function () { }
+                });
+                $('#dialog').dialog("open");
+            });
+
+            $('#dialog').dialog({
+                autoOpen: false,
+                width: 700,
+                buttons: {
+                    Done: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
     </script>
 }
 

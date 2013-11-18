@@ -7,13 +7,13 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewGroups">View Group
+            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewGroups">Groups
             </a>
         </li>
-        <li>
+        @*<li>
             <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Group
             </a>
-        </li>
+        </li>*@
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">
@@ -26,7 +26,7 @@
 
     </div>
 </div>
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper" id="divOuter">
     @{
         Html.RenderAction("ViewGroups");
     }
@@ -39,7 +39,7 @@
         $(document).ready(function () {
             $('.lnkGroup').addClass('selected');
             $('#divGroup').addClass('selected');
-            $('#lnkViewAll').addClass('selected');
+           // $('#lnkViewAll').addClass('selected');
             $('.subButton').click(function () {
                 $("a.subButton").removeClass('selected');
                 $(this).addClass('selected');
