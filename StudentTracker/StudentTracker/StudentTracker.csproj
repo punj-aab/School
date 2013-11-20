@@ -136,6 +136,7 @@
     <Compile Include="Controllers\EmailController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\FilesController.cs" />
+    <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
@@ -1502,6 +1503,7 @@
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Shared\_IndividualPartial.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Global\AddRecipients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

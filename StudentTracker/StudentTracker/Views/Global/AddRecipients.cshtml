@@ -1,0 +1,179 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.User>
+@{
+    ViewBag.Title = "AddRecipients";
+}
+
+<div class="">
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header widget-header2">
+                        <div class="title textAlign">
+                            Select Group Member
+                        </div>
+                        <span class="tools tls2">
+                            <a href="#" class="btn btn-info">Done</a>
+
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="mnuSec2">
+                            <ul>
+                                <li><a href="#" class="btn" type="User" id="lnkIndividual" action="GetAllUsers" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Individuals</a></li>
+                                <li><a href="#" class="btn" type="Group" id="lnkGroup" action="GetGroups" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Groups</a></li>
+                                <li><a href="#" class="btn" type="Class" id="lnkClass" action="GetClasses" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Classes</a></li>
+                            </ul>
+                        </div>
+                        <div class="srchBox">
+                            <input class="x-large" type="text" placeholder="Search Here">
+                            <span class="crs">
+                                <img src="/img/clear.png" alt=""></span>
+                        </div>
+
+
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="groups">
+                                    <h2><span id="spnHeader">Groups </span><a class="addBtn" href="#">+</a></h2>
+
+                                    <div class="tripSec">
+                                        <ul id="ulLeft">
+                                            @foreach (var user in Model)
+                                            { 
+                                                <li class="@user.Username">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn divName">@user.FirstName&nbsp;@user.LastName</div>
+                                                        <div class="span2 colorSpn2">0</div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" id="@user.Username" onclick="AddNewRow(event)" href="#">+</a></div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <div class="groups">
+                                    <h2>Members <a class="delete-row pls" data-original-title="Delete" href="#">
+                                        <i class="icon-trash"></i>
+                                    </a></h2>
+
+                                    <div class="tripSec">
+                                        <ul id="ulRight">
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .left-sidebar {
+        margin: 0px !important;
+    }
+</style>
+<script type="text/javascript">
+    function loadHtml(e) {
+        $('#spnHeader').text('Individuals');
+        // $('#ulLeft').html('');
+        var actionName = $(e.target).attr('action');
+        var type = $(e.target).attr('type');
+        var row = '';
+        $.ajax({
+            type: 'POST',
+            url: '/Global/' + actionName,
+            async: false,
+            success: function (response) {
+                switch (type) {
+                    case 'User':
+                        row = FillUsers(response);
+                        break;
+                    case 'Group':
+                        row = FillGroups(response);
+                        break;
+                    case 'Class':
+                        row = FillClasses(response);
+                        break;
+                }
+                $('#ulLeft').append(row);
+
+            },
+            error: function () { }
+        });
+    }
+
+    function FillUsers(response) {
+        var row = '';
+        var validate = true;
+        $.each(response, function (index, value) {
+            validate = true;
+            $('#ulLeft>li').each(function () {
+                if ($(this).attr('class') == value.Username) {
+                    validate = false;
+                }
+            });
+            if (validate) {
+                row += '<li class="' + value.Username + '">' +
+                      '<div class="row-fluid">' +
+                          '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
+                          '<div class="span2 colorSpn2">0</div>' +
+                          '<div class="span2 colorSpn2"><a class="addBtn" id="' + value.Username + '" onclick="AddNewRow(event)" href="#">+</a></div>' +
+                      '</div>' +
+                  '</li>';
+            }
+        });
+
+        return row;
+    }
+    function FillGroups(response) {
+        var row = '';
+        var validate = true;
+        $.each(response, function (index, value) {
+            validate = true;
+            $('#ulLeft>li').each(function () {
+                if ($(this).attr('class') == value.GroupId) {
+                    validate = false;
+                }
+            });
+            if (validate) {
+                row += '<li class=' + value.GroupId + '>' +
+              '<div class="row-fluid">' +
+                  '<div class="span8 colorSpn divName">' + value.GroupName + '</div>' +
+                  '<div class="span2 colorSpn2">0</div>' +
+                  '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.GroupId + ' onclick="AddNewRow(event)" href="#">+</a></div>' +
+              '</div>' +
+          '</li>';
+            }
+        });
+        return row;
+    }
+    function FillClasses(response) {
+        var row = '';
+        var validate = true;
+        $.each(response, function (index, value) {
+            validate = true;
+            $('#ulLeft>li').each(function () {
+                if ($(this).attr('class') == value.ClassName) {
+                    validate = false;
+                }
+            });
+            if (validate) {
+                row += '<li class=' + value.ClassName + '>' +
+                '<div class="row-fluid">' +
+                    '<div class="span8 colorSpn divName">' + value.ClassName + '</div>' +
+                    '<div class="span2 colorSpn2">0</div>' +
+                    '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.ClassName + ' onclick="AddNewRow(event)" href="#">+</a></div>' +
+                '</div>' +
+            '</li>';
+            }
+        });
+        return row;
+    }
+</script>

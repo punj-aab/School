@@ -324,12 +324,14 @@
             $('#GroupMembers').val('');
         }
 
+
+
         $(document).ready(function () {
             //load dialog box for Add recipients
             $('.btnAddReciepents').click(function () {
                 $.ajax({
                     type: 'POST',
-                    url: '/Eletters/AddRecipients',
+                    url: '/Global/AddRecipients',
                     async: false,
                     success: function (response) {
                         $('#dialog').html(response);
