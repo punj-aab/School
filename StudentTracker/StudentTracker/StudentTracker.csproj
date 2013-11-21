@@ -139,6 +139,7 @@
     <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
     <Compile Include="Controllers\OnlineFeeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -177,23 +178,20 @@
     <Compile Include="Repository\SectionRepository.cs" />
     <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="ViewModels\ForgetPasswordModel.cs" />
+    <Compile Include="ViewModels\jQueryDataTableViewModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\OrganizationCursesRootViewModel.cs" />
     <Compile Include="ViewModels\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="Attachments\AttachedFiles\DepartmentController\11\banner-1.png" />
-    <Content Include="Attachments\AttachedFiles\OrganizationController\4\404.png" />
-    <Content Include="Attachments\TempFiles\635164205032504368\banner-4.png" />
     <Content Include="Areas\SAS\assets\css\animate.css" />
     <Content Include="Areas\SAS\assets\css\effects.css" />
     <Content Include="Areas\SAS\assets\css\headers\header1.css" />
-    <Content Include="Attachments\TempFiles\635167625878183286\155700_377368072392785_2015172909_n %281%29.jpg" />
-    <Content Include="Attachments\TempFiles\635167625878183286\47334_382531098500636_634497985_n.jpg" />
     <Content Include="Areas\SAS\assets\css\headers\header2.css" />
     <Content Include="Areas\SAS\assets\css\img-hover-effect.css" />
     <Content Include="Areas\SAS\assets\css\style.css" />
@@ -1503,12 +1501,15 @@
     <Content Include="Views\Staff\Create.cshtml" />
     <Content Include="Views\Shared\_IndividualPartial.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Import\Index.cshtml" />
+    <Content Include="Views\Import\ImportStudents.cshtml" />
     <Content Include="Views\Global\AddRecipients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\SAS\Models\" />
-    <Folder Include="Attachments\TempFiles\635164191509321352\" />
+    <Folder Include="Attachments\AttachedFiles\" />
+    <Folder Include="Attachments\TempFiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

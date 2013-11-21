@@ -85,7 +85,7 @@ namespace StudentTracker.Controllers
             SelectList courseList = null;
             SelectList classList = null;
             SelectList organizationList = null;
-            LoadSelectLists(out classList, out courseList, out organizationList, true, objSection.ClassId, objSection.CourseId, objSection.OrganizationId);
+            LoadSelectLists(out classList, out courseList, out organizationList, true, objSection.ClassId, objSection.CourseId, objSection.OrganizationId.Value);
             objSection.CourseList = courseList;
             objSection.ClassList = classList;
             objSection.OrganizationList = organizationList;

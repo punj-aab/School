@@ -46,6 +46,7 @@ namespace StudentTracker.Core.DAL
         public DbSet<Event> Events { get; set; }
         public DbSet<FormattingField> FormattingFields { get; set; }
         public DbSet<UserGroup> UserGroups { get; set; }
+        public DbSet<Student> Students { get; set; }
         #endregion
 
         #region Methods

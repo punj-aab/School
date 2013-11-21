@@ -6,9 +6,8 @@ using StudentTracker.Core.Entities;
 
 namespace StudentTracker.ViewModels
 {
-    public class StudentViewModel
+    public class StudentViewModel : Student
     {
         public Profile Profile { get; set; }
-        public Student Student { get; set; }
     }
 }

@@ -10,6 +10,11 @@ namespace StudentTracker.Core.Entities
     [Table("Sections")]
     public class Section
     {
+        public Section()
+        {
+            this.OrganizationId = 1;
+        }
+
         [Key]
         public int SectionId { get; set; }
 
@@ -49,7 +54,7 @@ namespace StudentTracker.Core.Entities
         public string ClassName { get; set; }
 
         [Required]
-        public long OrganizationId { get; set; }
+        public long? OrganizationId { get; set; }
         [NotMapped]
         public SelectList OrganizationList { get; set; }
         [ScaffoldColumn(false)]
