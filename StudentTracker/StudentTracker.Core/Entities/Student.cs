@@ -84,6 +84,8 @@ namespace StudentTracker.Core.Entities
 
         public string Email { get; set; }
 
+        public string FullName { get; set; }
+
         [ForeignKey("CourseId")]
         public Course Course { get; set; }
 

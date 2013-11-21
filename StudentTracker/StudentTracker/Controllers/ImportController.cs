@@ -10,6 +10,7 @@ using System.Data;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -56,12 +57,12 @@ namespace StudentTracker.Controllers
 
                         string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
                         string filename = Path.GetFileName(Request.Files[upload].FileName);
-
-
+                        filename = Regex.Replace(filename, @"\s+", "");
+                        
                         //fetch path of the local directory from iCATStaticItemClass.
                         string targetFolderPath = Path.GetTempPath();//Server.MapPath("~/Administrator/TempFiles/" + iCATGlobal.CurrentTenantInfo.TenantName);  // This is the part Im wondering about. Will this still function the way it should on the webserver after upload?
                         //create target filePath 
-                        string targetFilePath = Path.Combine(destDirectory, "_" + filename);
+                        string targetFilePath = Path.Combine(destDirectory, filename);
                         //Check if directory exists.
                         if (Directory.Exists(targetFolderPath))
                         {
@@ -100,7 +101,7 @@ namespace StudentTracker.Controllers
                         Attachment att = new Attachment();
                         att.Filename = fileinfo.Name;
                         att.ParentType = "Student";
-                        att.FilePath = Path.Combine(fileUrl, "Student", importId, fileinfo.Name);
+                        att.FilePath = Path.Combine(fileUrl, "Student", importId, filename);
                         att.ItemId = Convert.ToInt64(importId);
                         db.Attachments.Add(att);
                         db.SaveChanges();
@@ -123,7 +124,7 @@ namespace StudentTracker.Controllers
                              RollNo = String.IsNullOrEmpty(row.Field<string>(0))
                                  ? "not found"
                                  : row.Field<string>(0),
-                             StudentName = String.IsNullOrEmpty(row.Field<string>(1))
+                             FullName = String.IsNullOrEmpty(row.Field<string>(1))
                                  ? "not found"
                                  : row.Field<string>(1),
                              CourseName = String.IsNullOrEmpty(row.Field<string>(2))
@@ -178,6 +179,7 @@ namespace StudentTracker.Controllers
                 {
                     student.CourseId = GetCourseId(context, student.CourseName, organizationId);
                     student.ImportId = importId;
+                    student.OrganizationId = organizationId;
                     student.ClassId = GetClassId(context, student.ClassName, student.CourseId, organizationId);
                     student.SectionId = GetSectionId(context, student.SectionName, student.ClassId, student.CourseId, organizationId);
                     context.Students.Add(student);
@@ -279,29 +281,13 @@ namespace StudentTracker.Controllers
             StudentContext context = new StudentContext();
             var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
             List<Student> objModelList = repository.GetImportedSudents(importId);
-            List<string[]> obj = new List<string[]>();
-            obj = new List<string[]>();
-            foreach (var a in objModelList)
-            {
-                string[] newString ={
-                               a.RollNo,
-                               a.StudentName,
-                               a.Email,
-                               a.ClassName,
-                               a.SectionName,
-                               a.Remarks,
-                               a.CourseName,
-                               a.ImportDateString
-                                   };
-                obj.Add(newString);
-            }
 
             return Json(new
  {
      sEcho = param.sEcho,
      iTotalRecords = studentData.Count(),
      iTotalDisplayRecords = studentData.Count(),
-     aaData = obj
+     aaData = objModelList
  }, JsonRequestBehavior.AllowGet);
         }
 
