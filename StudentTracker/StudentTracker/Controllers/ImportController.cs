@@ -2,6 +2,7 @@
 using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.Utilities;
+using StudentTracker.Repository;
 using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace StudentTracker.Controllers
     {
         //
         // GET: /Import/
-
+        StudentRepository repository = new StudentRepository();
         public ActionResult Index()
         {
             return View();
@@ -277,13 +278,31 @@ namespace StudentTracker.Controllers
         {
             StudentContext context = new StudentContext();
             var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
-            return Json(new
+            List<Student> objModelList = repository.GetImportedSudents(importId);
+            List<string[]> obj = new List<string[]>();
+            obj = new List<string[]>();
+            foreach (var a in objModelList)
             {
-                sEcho = param.sEcho,
-                iTotalRecords = studentData.Count(),
-                iTotalDisplayRecords = studentData.Count(),
-                aaData = studentData
-            }, JsonRequestBehavior.AllowGet);
+                string[] newString ={
+                               a.RollNo,
+                               a.StudentName,
+                               a.Email,
+                               a.ClassName,
+                               a.SectionName,
+                               a.Remarks,
+                               a.CourseName,
+                               a.ImportDateString
+                                   };
+                obj.Add(newString);
+            }
+
+            return Json(new
+ {
+     sEcho = param.sEcho,
+     iTotalRecords = studentData.Count(),
+     iTotalDisplayRecords = studentData.Count(),
+     aaData = obj
+ }, JsonRequestBehavior.AllowGet);
         }
 
 

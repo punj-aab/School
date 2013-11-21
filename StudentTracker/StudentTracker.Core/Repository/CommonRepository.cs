@@ -204,6 +204,23 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<ELetter>(storedProcedure, new { UserId = userId, EletterId = eLetterId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
+        public List<UserGroup> GetGroupUsers(long groupId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetGroupUsers";
+                return connection.Query<UserGroup>(storedProcedure, new { GroupId = groupId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public List<Student> GetImportedSudents(string importId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetImportedStudents";
+                return connection.Query<Student>(storedProcedure, new { ImportId = importId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {

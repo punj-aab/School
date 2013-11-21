@@ -17,6 +17,9 @@ namespace StudentTracker.Core.Entities
         public long? UserId { get; set; }
 
         [Required]
+        public long OrganizationId { get; set; }
+
+        [Required]
         public long CourseId { get; set; }
 
         public long? DepartmentId { get; set; }
@@ -55,7 +58,13 @@ namespace StudentTracker.Core.Entities
         public SelectList SectionList { get; set; }
 
         [NotMapped]
+        public SelectList OrganizationList { get; set; }
+
+        [NotMapped]
         public string StudentName { get; set; }
+
+        [NotMapped]
+        public string OrganizationName { get; set; }
 
         [NotMapped]
         public string CourseName { get; set; }
