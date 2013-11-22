@@ -61,12 +61,12 @@ alter procedure [dbo].[usp_addClassRoom]
 @Location as varchar(100),   
 @InsertedOn as datetime, 
 @InsertedBy as bigint, 
-@DepartmentId as bigint,
-@OrganizationId as bigint
+@DepartmentId as int,
+@OrganizationId as int
 )
 as 
 BEGIN
-     insert into ClassRoom values
+     insert into ClassRoom(OrganizationId,DepartmentId,Name,Description,Location,InsertedOn,InsertedBy,ModifiedOn,ModifiedBy) values
      (
 		@OrganizationId,
 		@DepartmentId,
