@@ -21,12 +21,11 @@ namespace StudentTracker.Core.Entities
         [Display(Name = "Organization")]
         public long OrganizationId { get; set; }
 
-        [Required]
         [Display(Name = "Department")]
         public int? DepartmentId { get; set; }
 
         [Display(Name = "Course")]
-        public int CourseId { get; set; }
+        public long CourseId { get; set; }
 
         [Display(Name = "Class")]
         public long ClassId { get; set; }
@@ -36,6 +35,8 @@ namespace StudentTracker.Core.Entities
 
         [Display(Name = "Role")]
         public int RoleId { get; set; }
+
+        public long? StudentId { get; set; }
 
         [ScaffoldColumn(false)]
         public long CreatedBy { get; set; }

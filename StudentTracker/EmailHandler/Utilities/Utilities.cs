@@ -128,5 +128,32 @@ namespace EmailHandler
             client.Send(msg);
         }
 
+
+        public static void SendRegistationEmail(string token, string emailTo, string verifyUrl)
+        {
+            //var user = Membership.GetUser(userName.ToString());
+            //var confirmationGuid = user.ProviderUserKey.ToString();
+
+            MailAddress fromAddress = new MailAddress(EmailFrom);
+            MailAddress toAddress = new MailAddress(emailTo);
+            string subject = "Registration Invitation";
+            string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear Guest" +
+                       ", </p><p>To verify your account, please click the following link:</p>"
+                       + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\"> Register here..."
+                       + "</a></p><div>Best regards,</div><div>Admin Student</div><p>Do not forward "
+                       + "this email. The verify link is private.</p></body></html>";
+
+            System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage(fromAddress.Address, toAddress.Address, subject, body);
+            msg.IsBodyHtml = true;
+
+            var client = new SmtpClient("smtp.gmail.com", 587)
+            {
+                Credentials = new NetworkCredential("library.lakhwant@gmail.com", "bains@awan"),
+                EnableSsl = true
+            };
+
+            client.Send(msg);
+        }
+
     }
 }

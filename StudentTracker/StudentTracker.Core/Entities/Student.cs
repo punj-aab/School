@@ -22,7 +22,7 @@ namespace StudentTracker.Core.Entities
         [Required]
         public long CourseId { get; set; }
 
-        public long? DepartmentId { get; set; }
+        public Int32? DepartmentId { get; set; }
 
         [Required]
         public long ClassId { get; set; }
