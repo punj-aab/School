@@ -111,6 +111,7 @@
             uploader.bind('FileUploaded', function (up, file) {
 
                 $('#' + file.id + " b").html("100%");
+                $("#recordsFiled").show();
                 //InitializeDataTable();
                 refreshDatatable();
             });
@@ -159,6 +160,7 @@
            
             $('a#uploadfiles').hide();
             $('.uploadedReport').show();
+           
             var currentSource = "/Import/ShowExcelFileContent?importId=" + $("#importId").val();
             var oTable = $('#MyPengoReport').dataTable({
                 //"bProcessing": true,
@@ -182,7 +184,23 @@
                                 
                 ]
             });
+
+            $('#btnSendEmails').show();
         }
 
+
+        function SendEmails() {
+            var currentSource = "/Import/SendRegistrationEmailToStudents?importId=" + $("#importId").val();
+            $.ajax({
+                type: "GET",
+                url: currentSource,
+                error: function () {
+                },
+                success: function () {
+                }
+
+
+            })
+        }
     </script>
 }

@@ -1,4 +1,5 @@
-﻿using ImportStuff.ViewModels;
+﻿using EmailHandler;
+using ImportStuff.ViewModels;
 using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.Utilities;
@@ -11,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -58,7 +60,7 @@ namespace StudentTracker.Controllers
                         string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
                         string filename = Path.GetFileName(Request.Files[upload].FileName);
                         filename = Regex.Replace(filename, @"\s+", "");
-                        
+
                         //fetch path of the local directory from iCATStaticItemClass.
                         string targetFolderPath = Path.GetTempPath();//Server.MapPath("~/Administrator/TempFiles/" + iCATGlobal.CurrentTenantInfo.TenantName);  // This is the part Im wondering about. Will this still function the way it should on the webserver after upload?
                         //create target filePath 
@@ -279,19 +281,76 @@ namespace StudentTracker.Controllers
         public JsonResult ShowExcelFileContent(jQueryDataTableViewModel param, string importId)
         {
             StudentContext context = new StudentContext();
-            var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
+            // var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
             List<Student> objModelList = repository.GetImportedSudents(importId);
 
             return Json(new
- {
-     sEcho = param.sEcho,
-     iTotalRecords = studentData.Count(),
-     iTotalDisplayRecords = studentData.Count(),
-     aaData = objModelList
- }, JsonRequestBehavior.AllowGet);
+                        {
+                            sEcho = param.sEcho,
+                            iTotalRecords = objModelList.Count(),
+                            iTotalDisplayRecords = objModelList.Count(),
+                            aaData = objModelList
+                        }, JsonRequestBehavior.AllowGet);
         }
 
+        public bool SendRegistrationEmailToStudents(string importId)
+        {
+            try
+            {
+                List<Student> objModelList = repository.GetImportedSudents(importId);
+                StudentContext context = new StudentContext();
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                //  RegistrationToken tokenObj = new RegistrationToken();
+                foreach (var student in objModelList)
+                {
+                    string token = UserStatistics.GenerateToken();
 
+                    RegistrationToken tokenObj = new RegistrationToken();
+                    tokenObj.ClassId = student.ClassId;
+                    tokenObj.CourseId = student.CourseId;
+                    tokenObj.DepartmentId = student.DepartmentId;
+                    tokenObj.OrganizationId = student.OrganizationId;
+                    tokenObj.RoleId = Convert.ToInt32(UserRoles.Student);
+                    tokenObj.SectionId = student.SectionId;
+                    tokenObj.Token = token;
+                    tokenObj.StudentId = student.StudentId;
+                    context.RegistrationTokens.Add(tokenObj);
+                    parameters.Add(token, student.Email);
+                }
+
+                context.SaveChanges();
+
+                Task.Factory.StartNew(() => SendEmails(parameters));
+
+                //SendEmails(parameters);
+                return true;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }
+
+        public void SendEmails(Dictionary<string, string> parameters)
+        {
+
+            foreach (var user in parameters)
+            {
+                var verifyUrl = "http://" + Request.UrlReferrer.Authority + "/sas/sashome/RegisterUser/" + user.Key;
+
+                Utilities.SendRegistationEmail(user.Key, user.Value, verifyUrl);
+            }
+        }
         public ActionResult ImportStaff()
         {
             return View();
@@ -300,6 +359,12 @@ namespace StudentTracker.Controllers
         public ActionResult ImportParents()
         {
             return View();
+        }
+
+        public FileResult DownloadSample()
+        {
+            string filePath = Server.MapPath("~/App_Data/Sample/Sample.xlsx");
+            return File(filePath, "text/octet-stream", "sample.xlsx");
         }
 
     }
