@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student4;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student5;User ID=sa;password=**zapped**;`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -1183,62 +1183,6 @@ namespace DBConnectionString
 	}
 
     
-	[TableName("EventType")]
-
-
-	[PrimaryKey("EventTypeId")]
-
-
-
-	[ExplicitColumns]
-    public partial class EventType : DBConnectionStringDB.Record<EventType>  
-    {
-
-
-
-		[Column] public long EventTypeId { get; set; }
-
-
-
-
-
-		[Column] public string EventName { get; set; }
-
-
-
-
-
-		[Column] public string Description { get; set; }
-
-
-
-
-
-		[Column] public DateTime InsertedOn { get; set; }
-
-
-
-
-
-		[Column] public long InsertedBy { get; set; }
-
-
-
-
-
-		[Column] public DateTime? ModifiedOn { get; set; }
-
-
-
-
-
-		[Column] public long? ModifiedBy { get; set; }
-
-
-
-	}
-
-    
 	[TableName("ELetter")]
 
 
@@ -1276,7 +1220,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public long OrganizaionId { get; set; }
+		[Column] public long OrganizationId { get; set; }
 
 
 
@@ -1435,6 +1379,62 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("TemplateType")]
+
+
+	[PrimaryKey("TemplateTypeId")]
+
+
+
+	[ExplicitColumns]
+    public partial class TemplateType : DBConnectionStringDB.Record<TemplateType>  
+    {
+
+
+
+		[Column] public long TemplateTypeId { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+	}
+
+    
 	[TableName("Template")]
 
 
@@ -1509,62 +1509,6 @@ namespace DBConnectionString
 
 
 		[Column] public long TemplateTypeId { get; set; }
-
-
-
-	}
-
-    
-	[TableName("TemplateType")]
-
-
-	[PrimaryKey("TemplateTypeId")]
-
-
-
-	[ExplicitColumns]
-    public partial class TemplateType : DBConnectionStringDB.Record<TemplateType>  
-    {
-
-
-
-		[Column] public long TemplateTypeId { get; set; }
-
-
-
-
-
-		[Column] public string Name { get; set; }
-
-
-
-
-
-		[Column] public string Description { get; set; }
-
-
-
-
-
-		[Column] public DateTime InsertedOn { get; set; }
-
-
-
-
-
-		[Column] public long InsertedBy { get; set; }
-
-
-
-
-
-		[Column] public DateTime? ModifiedOn { get; set; }
-
-
-
-
-
-		[Column] public long? ModifiedBy { get; set; }
 
 
 
@@ -1737,6 +1681,166 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("UserGroup")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class UserGroup : DBConnectionStringDB.Record<UserGroup>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public long GroupId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UpdatedOn { get; set; }
+
+
+
+
+
+		[Column] public long? UpdatedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Student")]
+
+
+	[PrimaryKey("StudentId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Student : DBConnectionStringDB.Record<Student>  
+    {
+
+
+
+		[Column] public long StudentId { get; set; }
+
+
+
+
+
+		[Column] public long? UserId { get; set; }
+
+
+
+
+
+		[Column] public long CourseId { get; set; }
+
+
+
+
+
+		[Column] public long? DepartmentId { get; set; }
+
+
+
+
+
+		[Column] public long ClassId { get; set; }
+
+
+
+
+
+		[Column] public int SectionId { get; set; }
+
+
+
+
+
+		[Column] public string RollNo { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+
+
+		[Column] public long? ModifiedBy { get; set; }
+
+
+
+
+
+		[Column] public string ImportId { get; set; }
+
+
+
+
+
+		[Column] public string Remarks { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+	}
+
+    
 	[TableName("Users")]
 
 
@@ -1871,6 +1975,12 @@ namespace DBConnectionString
 
 
 		[Column] public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
+
+
+
+
+
+		[Column] public long? Group_GroupId { get; set; }
 
 
 

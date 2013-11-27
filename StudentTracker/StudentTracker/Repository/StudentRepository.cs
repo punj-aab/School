@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using System.Web.Mvc;
+using StudentTracker.ViewModels;
 namespace StudentTracker.Repository
 {
     public class StudentRepository : StudentTracker.Core.Repository.CommonRepository
@@ -63,7 +64,25 @@ namespace StudentTracker.Repository
             return this.Find<UserGroup>("select * from UserGroup where GroupId = @id", groupId);
         }
 
-
+        public bool CreateNewStudent(StudentViewModel objViewModel)
+        {
+            Student objStudent = new Student();
+            objStudent.UserId = objViewModel.UserId;
+            objStudent.CourseId = objViewModel.CourseId;
+            objStudent.DepartmentId = objViewModel.DepartmentId;
+            objStudent.ClassId = objViewModel.ClassId;
+            objStudent.SectionId = objViewModel.SectionId;
+            objStudent.RollNo = objViewModel.RollNo;
+            objStudent.InsertedOn = DateTime.Now;
+            objStudent.InsertedBy = objViewModel.InsertedBy;
+            objStudent.Email = objViewModel.Email;
+            objStudent.OrganizationId = objViewModel.OrganizationId;
+            if (this.CreateStudent(objStudent))
+            {
+                return true;
+            }
+            return false;
+        }
 
         public Staff LoadStaffLists(string userRole, long organizationId = -1, long scheduleId = -1)
         {

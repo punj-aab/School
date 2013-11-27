@@ -165,7 +165,7 @@
             var id = $(e.target).val();
             var action = $(e.target).attr('action');
             var type = $(e.target).attr('getType');
-            var url = '@controller' + action;
+            var url = '/Global/' + action;
             $('#' + type + 'Id').html('<option>--Select ' + type + '--</option>');
             var row = '';
             if (id == '') {
@@ -299,19 +299,20 @@
             var $this = $(e.target);
             $this.parent().parent().parent().hide();
             var id = $this.attr('id');
+            var userId = $this.attr('userId');
             // var row = '<div class="divUserList">' + + '<a class="lnkDelete" onClick=deleteRow(event) id=' + id + '>Delete</a><hr /></div>';
 
-            var row = '<li><div class="row-fluid">' +
-                                                     '<div class="span8 colorSpn">' + $this.parent().prev().prev().text() + '</div>' +
+            var row = '<li class=' + id + '><div class="row-fluid">' +
+                                                     '<div class="span8 colorSpn divName">' + $this.parent().prev().prev().text() + '</div>' +
                                                      '<div class="span2 colorSpn2">7</div>' +
-                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" id=' + id + ' href="#"></a></div>' +
+                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" userId=' + userId + ' id=' + id + ' href="#"></a></div>' +
  '                                                </div>' +
                                              '</li>';
 
             $('#ulRight').append(row);
             var ids = [];
             $('.deleteBtn').each(function () {
-                ids.push($(this).attr('id'));
+                ids.push($(this).attr('userId'));
             });
             $('#Members').val(ids.toString());
         }
@@ -346,7 +347,13 @@
                 width: 700,
                 buttons: {
                     Done: function () {
+                        var text = [];
+                        $('.divName').each(function () {
+                            text.push($(this).text());
+                        });
+                        $('#GroupMembers').val(text.toString());
                         $(this).dialog("close");
+
                     }
                 }
             });

@@ -66,7 +66,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="password1">Group Members </label>
                                 <div class="controls">
-                                    @Html.TextAreaFor(m => m.Members, new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
+                                    @Html.TextArea("GroupMembers", new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
                                     @Html.ValidationMessageFor(m => m.Members)
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <div class="clearfix">
                                 </div>
                             </div>
-                            @*@Html.HiddenFor(m => m.Members)*@
+                            @Html.HiddenFor(m => m.Members)
 
 
                         </div>

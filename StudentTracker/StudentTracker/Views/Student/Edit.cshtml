@@ -1,321 +1,224 @@
-﻿@{
-    ViewBag.Title = "Edit";
+﻿@model StudentTracker.ViewModels.StudentViewModel
+@{
+    ViewBag.Title = "CreateStudent";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
 
+
 <div class="dashboard-wrapper">
-    <div class="left-sidebar">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="widget">
-                    <div class="sub-nav2">
-                        <div class="row-fluid">
-                            <ul>
-                                <li class="span2"><a class="btn btn-info" href="manualPayment.html">Payments</a></li>
-                                <li class="span6">Srinu Baswa</li>
-                                <li class="span2"><a class="btn btn-info" href="edit-student.html">Edit</a></li>
-                                <li class="span2"><a class="btn btn-info" href="individual.html">Back</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="widget-body">
-                        <div class="container-fluid">
+    @using (Html.BeginForm("CreateStudent", "Student", null, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.HiddenFor(m => m.GroupMembers)
+        @Html.HiddenFor(m => m.StudentSubjects)
+        <div class="left-sidebar">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="sub-nav2">
                             <div class="row-fluid">
-                                <div class="span3">
-                                    <div class="thumbnail">
-                                        <img alt="300x200" src="img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title=""> Change Picture
-                        <input type="file">
-                                        </a>
+                                <ul>
+                                    <li class="span8">New Student</li>
+                                    <li class="span2">
+                                        <input type="submit" name="Create" value="Save" class="btn btn-info" />
+                                    </li>
+                                    <li class="span2">
+                                        <a class="btn btn-info" href="edit-profile.html">Cancel</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                        <div class="widget-body">
+                            <div class="container-fluid">
+
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="/img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title="">
+Change Picture
+                                                        <input type="file">
+                                            </a>
+
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="span9">
-                                    <form class="form-horizontal">
-                                        <div class="control-group">
-                                            <label class="control-label">Title </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">First Name </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Last Name </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">DOB </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Phone </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">Home </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div id="dhtmlgoodies_slidedown">
-                                            <div id="dhtmlgoodies_control"><a href="#" onclick="slidedown_showHide();return false;" class="btn btn-info">More Details</a> </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div id="dhtmlgoodies_contentBox">
-                                    <div id="dhtmlgoodies_content">
-                                        <div class="row-fluid">
-                                            <div class="span12">
-                                                <div class="widget">
-                                                    <div class="widget-header">
-                                                        <div class="title">Edit Permissions </div>
-                                                    </div>
-                                                    <div class="row-fluid">
-                                                        <div class="span12">
-                                                            <div class="messge">
-                                                                <h2>Messaging</h2>
-                                                                <div class="row-fluid">
-                                                                    <div class="span12">
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <h2>Users</h2>
-                                                                <div class="row-fluid">
-                                                                    <div class="span12">
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <h2>Payments</h2>
-                                                                <div class="row-fluid">
-                                                                    <div class="span12">
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div class="span6">
-                                                                            <ul>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div class="spanLft">Send eLetters</div>
-                                                                                    <div class="spnRight">
-                                                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                                                            <input type="checkbox" checked>
-                                                                                        </div>
-                                                                                        <a href="#">
-                                                                                            <img src="img/q.png" alt=""></a>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                    <div class="span9">
+                                        <form class="form-horizontal">
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Title
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.Title, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.Title)
                                                 </div>
                                             </div>
-                                        </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    First Name
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.FirstName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.FirstName)
+                                                </div>
+                                            </div>
+
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Last Name
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.LastName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.LastName)
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    DOB
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.DateOfBirth, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.DateOfBirth)
+                                                </div>
+                                            </div>
+
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Phone
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.Phone1, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.Phone1)
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Home
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.HomeTelephoneNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.HomeTelephoneNumber)
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Email
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Email, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Email)
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    RollNo
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.RollNo, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.RollNo)
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+            </div>
+
+
+            <div class="row-fluid">
+
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title">
+                                Assign Department/Classes
+                            </div>
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+
+                                <div class="widget-body topUp">
+                                    <table class="table table-bordered no-margin">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClass", getType = "Class" })
+                                                    @Html.ValidationMessageFor(m => m.CourseId)
+                                                </td>
+                                                <td>
+                                                    @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department")
+                                                    @Html.ValidationMessageFor(m => m.DepartmentId)
+                                                </td>
+                                                <td class="hidden-phone">
+                                                    @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { onChange = "GetData(event)", action = "GetSection", getType = "Section" })
+                                                    @Html.ValidationMessageFor(m => m.ClassId)
+                                                </td>
+                                                <td class="hidden-phone">
+                                                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section")
+                                                    @Html.ValidationMessageFor(m => m.SectionId)
+                                                </td>
+                                                <td class="hidden-phone">
+
+                                                    <div class="dropdown">
+                                                        <a href="javascript:;">Groups
+                                                                    <b class="caret2">+ </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="hidden-phone">
+                                                    <div class="dropdown">
+                                                        <a href="javascript:;">Subjects
+                                                                    <b class="caret2">+ </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="hidden-phone">
+                                                    <a href="javascript:;" class="btn btn-info">Save</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
-    <div class="right-sidebar">
-        @Html.Partial("_RightMenuPartial")
-    </div>
+
+        <div class="right-sidebar">
+            @Html.Partial("_RightMenuPartial")
+        </div>
+    }
 </div>
+
+@section scripts{
+    @HelperAssets.SaveAndLoadData("Student", "")
+
+    <style type="text/css">
+        input[type="submit"] {
+            color: #FFFFFF !important;
+            font-size: 13px;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 20px;
+            text-shadow: none;
+            display: block;
+            text-shadow: none;
+            margin: 5px;
+            float: right;
+        }
+    </style>
+}

@@ -20,7 +20,7 @@
                     <div class="widget-body">
                         <div class="mnuSec2">
                             <ul>
-                                <li><a href="#" class="btn" type="User" id="lnkIndividual" action="GetAllUsers" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Individuals</a></li>
+                                <li><a href="#" class="btn active" type="User" id="lnkIndividual" action="GetAllUsers" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Individuals</a></li>
                                 <li><a href="#" class="btn" type="Group" id="lnkGroup" action="GetGroups" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Groups</a></li>
                                 <li><a href="#" class="btn" type="Class" id="lnkClass" action="GetClasses" onclick="loadHtml(event)"><span class="fs1" data-icon="" aria-hidden="true"></span>Classes</a></li>
                             </ul>
@@ -35,7 +35,7 @@
                         <div class="row-fluid">
                             <div class="span6">
                                 <div class="groups">
-                                    <h2><span id="spnHeader">Groups </span><a class="addBtn" href="#">+</a></h2>
+                                    <h2><span id="spnHeader">Individuals </span><a class="addBtn" href="#">+</a></h2>
 
                                     <div class="tripSec">
                                         <ul id="ulLeft">
@@ -43,9 +43,9 @@
                                             { 
                                                 <li class="@user.Username">
                                                     <div class="row-fluid">
-                                                        <div class="span8 colorSpn divName">@user.FirstName&nbsp;@user.LastName</div>
+                                                        <div class="span8 colorSpn">@user.FirstName&nbsp;@user.LastName</div>
                                                         <div class="span2 colorSpn2">0</div>
-                                                        <div class="span2 colorSpn2"><a class="addBtn" id="@user.Username" onclick="AddNewRow(event)" href="#">+</a></div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" userId="@user.UserId" id="@user.Username" onclick="AddNewRow(event)" href="#">+</a></div>
                                                     </div>
                                                 </li>
                                             }
@@ -78,14 +78,23 @@
     .left-sidebar {
         margin: 0px !important;
     }
+
+    .active {
+        background: #3693cf !important;
+        color: #fff !important;
+    }
 </style>
 <script type="text/javascript">
+
     function loadHtml(e) {
-        $('#spnHeader').text('Individuals');
+
         // $('#ulLeft').html('');
         var actionName = $(e.target).attr('action');
         var type = $(e.target).attr('type');
         var row = '';
+        $('.btn').removeClass('active');
+        $(e.target).addClass('active');
+        $('#ulLeft').html('');
         $.ajax({
             type: 'POST',
             url: '/Global/' + actionName,
@@ -112,6 +121,7 @@
     function FillUsers(response) {
         var row = '';
         var validate = true;
+        $('#spnHeader').text('Individuals');
         $.each(response, function (index, value) {
             validate = true;
             $('#ulLeft>li').each(function () {
@@ -122,9 +132,9 @@
             if (validate) {
                 row += '<li class="' + value.Username + '">' +
                       '<div class="row-fluid">' +
-                          '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
+                          '<div class="span8 colorSpn">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
                           '<div class="span2 colorSpn2">0</div>' +
-                          '<div class="span2 colorSpn2"><a class="addBtn" id="' + value.Username + '" onclick="AddNewRow(event)" href="#">+</a></div>' +
+                          '<div class="span2 colorSpn2"><a class="addBtn" userId=' + value.UserId + ' id="' + value.Username + '" onclick="AddNewRow(event)" href="#">+</a></div>' +
                       '</div>' +
                   '</li>';
             }
@@ -132,9 +142,11 @@
 
         return row;
     }
+
     function FillGroups(response) {
         var row = '';
         var validate = true;
+        $('#spnHeader').text('Groups');
         $.each(response, function (index, value) {
             validate = true;
             $('#ulLeft>li').each(function () {
@@ -145,18 +157,20 @@
             if (validate) {
                 row += '<li class=' + value.GroupId + '>' +
               '<div class="row-fluid">' +
-                  '<div class="span8 colorSpn divName">' + value.GroupName + '</div>' +
+                  '<div class="span8 colorSpn">' + value.GroupName + '</div>' +
                   '<div class="span2 colorSpn2">0</div>' +
-                  '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.GroupId + ' onclick="AddNewRow(event)" href="#">+</a></div>' +
+                  '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.GroupId + ' onclick="AddGroupUsers(event)" href="#">+</a></div>' +
               '</div>' +
           '</li>';
             }
         });
         return row;
     }
+
     function FillClasses(response) {
         var row = '';
         var validate = true;
+        $('#spnHeader').text('Classes');
         $.each(response, function (index, value) {
             validate = true;
             $('#ulLeft>li').each(function () {
@@ -167,13 +181,82 @@
             if (validate) {
                 row += '<li class=' + value.ClassName + '>' +
                 '<div class="row-fluid">' +
-                    '<div class="span8 colorSpn divName">' + value.ClassName + '</div>' +
+                    '<div class="span8 colorSpn">' + value.ClassName + '</div>' +
                     '<div class="span2 colorSpn2">0</div>' +
-                    '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.ClassName + ' onclick="AddNewRow(event)" href="#">+</a></div>' +
+                    '<div class="span2 colorSpn2"><a class="addBtn" id=' + value.ClassName + ' onclick="AddClassUsers(event)" href="#">+</a></div>' +
                 '</div>' +
             '</li>';
             }
         });
         return row;
     }
+
+    function AddGroupUsers(e) {
+        var row = '';
+        var validate = true;
+        var id = $(e.target).attr('id');
+        $.ajax({
+            type: 'GET',
+            url: '/Global/GetGroupUsers',
+            data: {
+                id: id
+            },
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    validate = true;
+                    $('#ulRight>li').each(function () {
+                        if ($(this).attr('class') == value.Username) {
+                            validate = false;
+                        }
+                    });
+                    if (validate) {
+                        row += '<li class=' + value.Username + '>' +
+                        '<div class="row-fluid">' +
+                            '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
+                            '<div class="span2 colorSpn2">0</div>' +
+                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" userId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
+                        '</div>' +
+                    '</li>';
+                    }
+                });
+                $('#ulRight').append(row);
+            }
+        })
+
+
+
+    }
+
+    function AddClassUsers(e) {
+        var row = '';
+        var validate = true;
+        $.ajax({
+            type: 'GET',
+            url: '/Global/GetClassUsers',
+            success: function (response) {
+                $.each(response, function (index, value) {
+                    validate = true;
+                    $('#ulRight>li').each(function () {
+                        if ($(this).attr('class') == value.Username) {
+                            validate = false;
+                        }
+                    });
+                    if (validate) {
+                        row += '<li class=' + value.Username + '>' +
+                        '<div class="row-fluid">' +
+                            '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
+                            '<div class="span2 colorSpn2">0</div>' +
+                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" userId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
+                        '</div>' +
+                    '</li>';
+                    }
+                });
+                $('#ulRight').append(row);
+            }
+        })
+
+
+
+    }
+
 </script>

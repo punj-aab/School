@@ -9,5 +9,8 @@ namespace StudentTracker.ViewModels
     public class StudentViewModel : Student
     {
         public Profile Profile { get; set; }
+        public Student Student { get; set; }
+        public string GroupMembers { get; set; }
+        public string StudentSubjects { get; set; }
     }
 }
