@@ -45,7 +45,7 @@
                                                     <div class="row-fluid">
                                                         <div class="span8 colorSpn">@user.FirstName&nbsp;@user.LastName</div>
                                                         <div class="span2 colorSpn2">0</div>
-                                                        <div class="span2 colorSpn2"><a class="addBtn" userId="@user.UserId" id="@user.Username" onclick="AddNewRow(event)" href="#">+</a></div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" itemId="@user.UserId" id="@user.Username" onclick="AddNewRow(event)" href="#">+</a></div>
                                                     </div>
                                                 </li>
                                             }
@@ -134,7 +134,7 @@
                       '<div class="row-fluid">' +
                           '<div class="span8 colorSpn">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
                           '<div class="span2 colorSpn2">0</div>' +
-                          '<div class="span2 colorSpn2"><a class="addBtn" userId=' + value.UserId + ' id="' + value.Username + '" onclick="AddNewRow(event)" href="#">+</a></div>' +
+                          '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + value.UserId + ' id="' + value.Username + '" onclick="AddNewRow(event)" href="#">+</a></div>' +
                       '</div>' +
                   '</li>';
             }
@@ -214,7 +214,7 @@
                         '<div class="row-fluid">' +
                             '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
                             '<div class="span2 colorSpn2">0</div>' +
-                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" userId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
+                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" itemId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
                         '</div>' +
                     '</li>';
                     }
@@ -246,7 +246,7 @@
                         '<div class="row-fluid">' +
                             '<div class="span8 colorSpn divName">' + value.FirstName + '&nbsp;' + value.LastName + '</div>' +
                             '<div class="span2 colorSpn2">0</div>' +
-                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" userId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
+                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" itemId=' + value.UserId + ' id=' + value.Username + ' onclick="deleteRow(event)" href="#"></a></div>' +
                         '</div>' +
                     '</li>';
                     }

@@ -172,14 +172,14 @@ Change Picture
                                                 <td class="hidden-phone">
 
                                                     <div class="dropdown">
-                                                        <a href="javascript:;">Groups
+                                                        <a href="javascript:;" class="btnAssign" property="GroupIds" action="AddGroups">Groups
                                                                     <b class="caret2">+ </b>
                                                         </a>
                                                     </div>
                                                 </td>
                                                 <td class="hidden-phone">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;">Subjects
+                                                        <a href="javascript:;" class="btnAssign" property="SubjectIds" action="AddSubjects">Subjects
                                                                     <b class="caret2">+ </b>
                                                         </a>
                                                     </div>
@@ -204,10 +204,11 @@ Change Picture
         </div>
     }
 </div>
+<div id="dialog"></div>
 
 @section scripts{
     @HelperAssets.SaveAndLoadData("Student", "")
-
+    @HelperAssets.AssingGroupAndSubjects()
     <style type="text/css">
         input[type="submit"] {
             color: #FFFFFF !important;
