@@ -193,5 +193,14 @@ namespace StudentTracker.Repository
             objStaff.SectionList = new SelectList(sectionList, "SectionId", "SectionName", objStaff.SectionId);
             return objStaff;
         }
+
+        public List<Group> GroupsByOrganization(long organizationId)
+        {
+            return this.Find<Group>("select * from Group where OrganizationId= = @id", organizationId);
+        }
+        public List<Subject> SubjectByClass(long classId)
+        {
+            return this.Find<Subject>("select * from Subjects where classId = @id", classId);
+        }
     }
 }

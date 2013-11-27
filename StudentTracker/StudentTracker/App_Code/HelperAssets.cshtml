@@ -299,22 +299,20 @@
             var $this = $(e.target);
             $this.parent().parent().parent().hide();
             var id = $this.attr('id');
-            var userId = $this.attr('userId');
-            // var row = '<div class="divUserList">' + + '<a class="lnkDelete" onClick=deleteRow(event) id=' + id + '>Delete</a><hr /></div>';
-
+            var userId = $this.attr('itemId');
             var row = '<li class=' + id + '><div class="row-fluid">' +
-                                                     '<div class="span8 colorSpn divName">' + $this.parent().prev().prev().text() + '</div>' +
-                                                     '<div class="span2 colorSpn2">7</div>' +
-                                                     '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" userId=' + userId + ' id=' + id + ' href="#"></a></div>' +
- '                                                </div>' +
-                                             '</li>';
+                                           '<div class="span8 colorSpn divName">' + $this.parent().prev().prev().text() + '</div>' +
+                                           '<div class="span2 colorSpn2">7</div>' +
+                                           '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" itemId=' + userId + ' id=' + id + ' href="#"></a></div>' +
+'                                                </div>' +
+                                   '</li>';
 
             $('#ulRight').append(row);
-            var ids = [];
-            $('.deleteBtn').each(function () {
-                ids.push($(this).attr('userId'));
-            });
-            $('#Members').val(ids.toString());
+            //var ids = [];
+            //$('.deleteBtn').each(function () {
+            //    ids.push($(this).attr('itemId'));
+            //});
+            //$('#Members').val(ids.toString());
         }
 
         function deleteRow(e) {
@@ -348,9 +346,16 @@
                 buttons: {
                     Done: function () {
                         var text = [];
+                        var ids = [];
                         $('.divName').each(function () {
                             text.push($(this).text());
                         });
+
+                        $('.deleteBtn').each(function () {
+                            ids.push($(this).attr('itemId'));
+                        });
+
+                        $('#Members').val(ids.toString());
                         $('#GroupMembers').val(text.toString());
                         $(this).dialog("close");
 
@@ -546,5 +551,44 @@
                 //alert(result);
             });
         }
+    </script>
+}
+
+@helper AssingGroupAndSubjects()
+{
+    <script type="text/ecmascript">
+        var property = '';
+        $(document).ready(function () {
+            //load dialog box for Add recipients
+            $('.btnAssign').click(function () {
+                property = $(this).attr('property');
+                var action = $(this).attr('action');
+                $.ajax({
+                    type: 'POST',
+                    url: '/Global/' + action,
+                    async: false,
+                    success: function (response) {
+                        $('#dialog').html(response);
+                    },
+                    error: function () { }
+                });
+                $('#dialog').dialog("open");
+            });
+
+            $('#dialog').dialog({
+                autoOpen: false,
+                width: 700,
+                buttons: {
+                    Done: function () {
+                        var text = [];
+                        $('.deleteBtn').each(function () {
+                            text.push($(this).attr('itemId'));
+                        });
+                        $('#' + property).val(text.toString());
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        });
     </script>
 }

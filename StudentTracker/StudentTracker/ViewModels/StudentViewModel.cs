@@ -12,5 +12,7 @@ namespace StudentTracker.ViewModels
         public Student Student { get; set; }
         public string GroupMembers { get; set; }
         public string StudentSubjects { get; set; }
+        public string GroupIds { get; set; }
+        public string SubjectIds { get; set; }
     }
 }

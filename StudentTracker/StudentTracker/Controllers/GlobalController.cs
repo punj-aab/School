@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using StudentTracker.Core.Entities;
 using StudentTracker.Repository;
 using StudentTracker.ViewModels;
+using StudentTracker.Core.DAL;
 namespace StudentTracker.Controllers
 {
     public class GlobalController : BaseController
@@ -36,11 +37,11 @@ namespace StudentTracker.Controllers
             List<Group> modelList = this.repository.GetGroups(organizationId: _userStatistics.OrganizationId);
             return Json(modelList, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetClasses()
-        {
-            List<Class> modelList = this.repository.GetClasses(organizationId: _userStatistics.OrganizationId);
-            return Json(modelList, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetClasses()
+        //{
+        //    List<Class> modelList = this.repository.GetClasses(organizationId: _userStatistics.OrganizationId);
+        //    return Json(modelList, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult GetGroupUsers(long id)
         {
@@ -54,13 +55,13 @@ namespace StudentTracker.Controllers
             return Json(objModelList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetCourse(long id)
+        public JsonResult GetCourses(long id)
         {
             List<Course> classList = repository.CourseByOrganization(id);
             return Json(classList, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetClass(long id)
+        public JsonResult GetClasses(long id)
         {
             List<Class> classList = repository.ClassByCourse(id);
             return Json(classList, JsonRequestBehavior.AllowGet);
@@ -90,6 +91,27 @@ namespace StudentTracker.Controllers
             objVM.CourseList = repository.CourseByOrganization(id); //db.Courses.Where(x => x.OrganisationId == id).ToList();
             objVM.DepartmentList = repository.DepartmenstByOrganization(id); //db.Departments.Where(x => x.OrganizationId == id).ToList();
             return Json(objVM, "application/json;", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AddGroups()
+        {
+            StudentContext db = new StudentContext();
+            List<Group> objGroup = db.Groups.Where(x => x.OrganizationId == _userStatistics.OrganizationId).ToList(); //repository.GroupsByOrganization(_userStatistics.OrganizationId);
+            return PartialView(objGroup);
+        }
+        public ActionResult AddSubjects()
+        {
+            SubjectViewModel objSubject = new SubjectViewModel();
+            objSubject.CourseList = new SelectList(repository.CourseByOrganization(_userStatistics.OrganizationId), "CourseId", "CourseName");
+            objSubject.ClassList = new SelectList(new List<Class>());
+            objSubject.SectionList = new SelectList(new List<Section>());
+            return PartialView(objSubject);
+        }
+
+        public JsonResult GetSubjectByClass(long classId)
+        {
+            List<Subject> objSubject = repository.SubjectByClass(classId);
+            return Json(objSubject, JsonRequestBehavior.AllowGet);
         }
     }
 }
