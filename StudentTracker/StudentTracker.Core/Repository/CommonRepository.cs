@@ -548,6 +548,28 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
+        public bool AssignSubjectToUser(UserSubjects objUserSubject)
+        {
+            var parameters = new
+            {
+                UserId = objUserSubject.UserId,
+                SubjectId = objUserSubject.SubjectId,
+                InsertedOn = DateTime.Now,
+                InsertedBy = objUserSubject.InsertedBy
+            };
+
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_AssignSubjectToUser";
+                int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+              //  SetIdentity<int>(connection, id => objUserSubject.GroupId = id);
+                if (rowsAffected > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
         public bool CreateStudent(Student objStudent)
         {
             var parameters = new
