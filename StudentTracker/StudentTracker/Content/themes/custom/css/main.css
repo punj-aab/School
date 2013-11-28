@@ -5998,7 +5998,7 @@ a.addBtn2 { float:left; background:#3693CF;color:#fff !important; padding:5px 10
 .mnuSec2 li a:hover {background:#3693CF; color:#fff;}
 
 .srchBox { width:100%; display:inline-block; margin:15px 0;}
-.srchBox input { background:url(../img/magnifai.jpg) no-repeat 10px 5px; padding-left:30px; float:left; }
+.srchBox input { background:url(/img/magnifai.jpg) no-repeat 10px 5px; padding-left:30px; float:left; }
 .crs { margin-left:-20px; margin-top:4px; float:left;  }
 .groups { width:100%; float:left; border:1px solid #000; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;  }
 .groups h2 { padding:0 0 0 10px; background:#000; color:#fff; font-family:Arial; font-size:16px; font-weight:bold; margin:0; }

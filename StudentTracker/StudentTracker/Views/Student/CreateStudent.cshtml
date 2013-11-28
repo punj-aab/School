@@ -8,8 +8,8 @@
 <div class="dashboard-wrapper">
     @using (Html.BeginForm("CreateStudent", "Student", null, FormMethod.Post, new { @class = "form-horizontal" }))
     {
-        @Html.HiddenFor(m => m.GroupMembers)
-        @Html.HiddenFor(m => m.StudentSubjects)
+        @Html.HiddenFor(m => m.GroupIds)
+        @Html.HiddenFor(m => m.SubjectIds)
         <div class="left-sidebar">
 
             <div class="row-fluid">
@@ -154,7 +154,7 @@ Change Picture
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClass", getType = "Class" })
+                                                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
                                                     @Html.ValidationMessageFor(m => m.CourseId)
                                                 </td>
                                                 <td>
@@ -184,9 +184,9 @@ Change Picture
                                                         </a>
                                                     </div>
                                                 </td>
-                                                <td class="hidden-phone">
+                                                @*<td class="hidden-phone">
                                                     <a href="javascript:;" class="btn btn-info">Save</a>
-                                                </td>
+                                                </td>*@
                                             </tr>
                                         </tbody>
                                     </table>
@@ -223,4 +223,10 @@ Change Picture
             float: right;
         }
     </style>
+    <script type="text/javascript">
+        function GetSubjectAndSection(e) {
+            GetData(e);
+            LoadSubjects(e);
+        }
+    </script>
 }

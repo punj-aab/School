@@ -16,6 +16,7 @@ namespace StudentTracker.Controllers
         //
         // GET: /Student/
         StudentRepository repository = new StudentRepository();
+
         public ActionResult Index()
         {
             return View();
@@ -66,6 +67,8 @@ namespace StudentTracker.Controllers
                     objViewModel.UserId = userId;
                     if (repository.CreateNewStudent(objViewModel))
                     {
+                        this.AssignGroup(objViewModel.GroupIds, userId);
+                        this.AssignSubject(objViewModel.SubjectIds, userId);
                         SaveFiles(token, this.GetType().Name, objViewModel.StudentId);
                         EmailHandler.Utilities.SendRegistationEmail(token, objViewModel.Email);
                     }
@@ -79,6 +82,7 @@ namespace StudentTracker.Controllers
         {
             return View();
         }
+
         public string CreateToken(StudentViewModel objViewModel)
         {
             int recordAffected = 0;
@@ -133,6 +137,40 @@ namespace StudentTracker.Controllers
             sectionList = new SelectList(objSectionList, "SectionId", "SectionName", sectionId);
             departmentList = new SelectList(objDepartmentList, "DepartmentId", "DepartmentName", departmentId);
 
+        }
+
+        private void AssignSubject(string subjectIds, long userId)
+        {
+            if (subjectIds != null)
+            {
+                var idList = subjectIds.Split(',');
+                UserSubjects objUserSubject = null;
+                foreach (var subjectId in idList)
+                {
+                    objUserSubject = new UserSubjects();
+                    objUserSubject.UserId = userId;
+                    objUserSubject.SubjectId = Convert.ToInt32(subjectId);
+                    objUserSubject.InsertedBy = _userStatistics.UserId;
+                    this.repository.AssignSubjectToUser(objUserSubject);
+                }
+            }
+        }
+
+        private void AssignGroup(string groupIds, long userId)
+        {
+            if (groupIds != null)
+            {
+                var idList = groupIds.Split(',');
+                UserGroup objUserGroup = null;
+                foreach (var groupId in idList)
+                {
+                    objUserGroup = new UserGroup();
+                    objUserGroup.UserId = userId;
+                    objUserGroup.GroupId = Convert.ToInt32(groupId);
+                    objUserGroup.InsertedBy = _userStatistics.UserId;
+                    this.repository.AssignGroupToUser(objUserGroup);
+                }
+            }
         }
     }
 }

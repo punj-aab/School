@@ -199,6 +199,12 @@
                                 case 'Section':
                                     row += '<option value=' + value.SectionId + '>' + value.SectionName + '</option>';
                                     break;
+                                case 'class':
+                                    row += '<option value=' + value.ClassId + '>' + value.ClassName + '</option>';
+                                    break;
+                                case 'section':
+                                    row += '<option value=' + value.SectionId + '>' + value.SectionName + '</option>';
+                                    break;
                             }
                         });
                         $('#' + type + 'Id').append(row);
@@ -585,10 +591,51 @@
                             text.push($(this).attr('itemId'));
                         });
                         $('#' + property).val(text.toString());
+                        alert($('#' + property).val());
                         $(this).dialog("close");
                     }
                 }
             });
         });
+
+        function LoadSubjects(e) {
+
+            var classId = $(e.target).val();
+            var validate = true;
+            $('#ulLeft').html('');
+            if (classId == '') {
+                return false;
+            }
+            else {
+                var row = '';
+                $.ajax({
+                    type: 'POST',
+                    url: '/Global/GetSubjectByClass',
+                    data: { classId: classId },
+                    success: function (response) {
+                        $.each(response, function (i, v) {
+                            validate = true;
+                            $('#ulLeft>li').each(function () {
+                                if ($(this).attr('class') == v.SubjectId) {
+                                    validate = false;
+                                }
+                            });
+                            if (validate) {
+                                row += '<li class=' + v.SubjectId + '>' +
+                                           '<div class="row-fluid">' +
+                                                  '<div class="span8 colorSpn">' + v.SubjectName + '</div>' +
+                                                   '<div class="span2 colorSpn2">7</div>' +
+                                                   '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>' +
+                                             '</div>' +
+                                        '</li>';
+                            }
+                        });
+                        $('#ulLeft').append(row);
+                    },
+                    error: function () { }
+                });
+            }
+
+        }
     </script>
 }

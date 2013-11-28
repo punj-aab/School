@@ -8,18 +8,18 @@
         <div class="span12">
             <div class="widget">
 
-                <div class="widget-header">
+                @*<div class="widget-header">
                     <div class="title textAlign">
                         Subjects
                     </div>
                     <span class="tools tls2"><a href="#" class="btnBlu2" data-original-title="">Done</a></span>
-                </div>
+                </div>*@
 
 
                 <div class="widget-body">
-                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
-                    @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { onChange = "GetData(event)", action = "GetSection", getType = "Section" })
-                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section")
+                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClasses", getType = "class" })
+                    @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { onChange = "GetSubjectAndSection(event)", id = "classId", action = "GetSection", getType = "section" })
+                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { id="sectionId"})
                     <div class="srchBox">
                         <input class="x-large" type="text" placeholder="Search Here">
                         <span class="crs">
@@ -68,7 +68,7 @@
         color: #fff !important;
     }
 </style>
-<script type="text/javascript">
+@*<script type="text/javascript">
     $(document).ready(function () {
         $('#ClassId').change(function () {
             var row = '';
@@ -94,5 +94,23 @@
                 })
             }
         });
-    })
-</script>
+
+
+        $('#CourseId').change(function () {
+            var courseId = $(this).val();
+            var row = '';
+            alert(1);
+            $.ajax({
+                type: 'GET',
+                url: '/Global/GetClasses',
+                data: { courseId: courseId },
+                success: function (response) {
+                    $.each(response, function (i, v) {
+                        row += '<option value=' + v.classId + '>' + v.ClassName + '</option>'
+                    });
+                    $('#ClassId').append(row);
+                }
+            });
+        });
+    });
+</script>*@
