@@ -24,22 +24,82 @@ BEGIN
 END
 GO
 
-
-CREATE procedure [dbo].[usp_GetUsersForEvent]  
+CREATE procedure [dbo].[usp_AddStudent]
 (
-@EventId as bigint
+ @UserId as bigint
+,@CourseId as bigint
+,@DepartmentId as bigint
+,@ClassId as bigint
+,@SectionId as bigint
+,@RollNo as nvarchar(100)
+,@InsertedOn as datetime
+,@InsertedBy as bigint
+,@Email as varchar(100)
+,@OrganizationId as bigint
 )
 as
 BEGIN
-		select 
-			   Users.UserId,
-			   EventId,
-			   Template.TemplateId,
-			   E.OrganizationId
-			   from [Event] as E
-		join RegistrationToken on E.ClassId = RegistrationToken.ClassId
-	    join Users on RegistrationToken.Token = Users.RegistrationToken
-		join Template on E.EventTypeId = Template.TemplateTypeId
-		where E.EventId = @EventId
-		END
+		INSERT INTO Student
+				   ([UserId]
+				   ,[CourseId]
+				   ,[DepartmentId]
+				   ,[ClassId]
+				   ,[SectionId]
+				   ,[RollNo]
+				   ,[InsertedOn]
+				   ,[InsertedBy]
+				   ,[ModifiedOn]
+				   ,[ModifiedBy]
+				   ,[ImportId]
+				   ,[Remarks]
+				   ,[Email]
+				   ,[OrganizationId])
+			 VALUES
+				   (@UserId
+				   ,@CourseId
+				   ,@DepartmentId
+				   ,@ClassId
+				   ,@SectionId
+				   ,@RollNo
+				   ,@InsertedOn
+				   ,@InsertedBy
+				   ,null
+				   ,null
+				   ,null
+				   ,null
+				   ,@Email
+				   ,@OrganizationId)
+END
+
 GO
+
+GO
+
+create procedure [dbo].[usp_AssignGroupToUser]
+(
+            @UserId as bigint
+           ,@GroupId as bigint
+           ,@InsertedOn as datetime
+           ,@InsertedBy as bigint
+)
+as
+BEGIN
+INSERT INTO [Student5].[dbo].[UserGroup]
+           ([UserId]
+           ,[GroupId]
+           ,[InsertedOn]
+           ,[InsertedBy]
+           ,[UpdatedOn]
+           ,[UpdatedBy])
+     VALUES
+           (@UserId
+           ,@GroupId
+           ,@InsertedOn
+           ,@InsertedBy
+           ,null
+           ,null)
+           END
+
+GO
+
+
