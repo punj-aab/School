@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<StudentTracker.Core.Entities.Student>
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
@@ -25,58 +26,40 @@
                                 <thead>
                                     <tr class="bluRow">
                                         <th>Name </th>
-                                        <th>Children </th>
                                         <th class="hidden-phone">Groups </th>
                                         <th class="hidden-phone">Course,Department, Class </th>
                                         <th class="hidden-phone">Manage </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
-                                        <td><span class="name">Amit </span></td>
-                                        <td class="hidden-phone">PTM,Shop </td>
-                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
-                                        <td class="hidden-phone">
-                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
-                                        <td><span class="name">Amit </span></td>
-                                        <td class="hidden-phone">PTM,Shop </td>
-                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
-                                        <td class="hidden-phone">
-                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
-                                        <td><span class="name">Amit </span></td>
-                                        <td class="hidden-phone">PTM,Shop </td>
-                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
-                                        <td class="hidden-phone">
-                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
-                                        <td><span class="name">Amit </span></td>
-                                        <td class="hidden-phone">PTM,Shop </td>
-                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
-                                        <td class="hidden-phone">
-                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="name">Mahendra Singh Dhoni </span></td>
-                                        <td><span class="name">Amit </span></td>
-                                        <td class="hidden-phone">PTM,Shop </td>
-                                        <td class="hidden-phone">Primary,Kids, L.K.G </td>
-                                        <td class="hidden-phone">
-                                            <div class="btn-group"><a href="stafView.html" class="btn btn-mini">Action</a> </div>
-                                        </td>
-                                    </tr>
+                                    @foreach (var data in Model)
+                                    {
+                                        <tr>
+                                            <td><span class="name">@data.StudentName </span></td>
+                                            <td class="hidden-phone">PTM,Shop </td>
+                                            <td class="hidden-phone">@data.CourseName,@data.DepartmentName, @data.ClassName </td>
+                                            <td class="hidden-phone">
+                                                <div class="btn-group">
+                                                    <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                                        Action 
+                               
+                                                <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a class="lnkDetails" href="/Student/Details/@data.StudentId">Details</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="lnkEdit" href="/Student/Edit/@data.StudentId">Edit</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="lnkDelete" href="/Student/DeleteConfirm/@data.StudentId">Delete</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                             <div class="clearfix"></div>

@@ -22,7 +22,7 @@ namespace StudentTracker.Core.Entities
         public long OrganizationId { get; set; }
 
         [Display(Name = "Department")]
-        public int? DepartmentId { get; set; }
+        public long? DepartmentId { get; set; }
 
         [Display(Name = "Course")]
         public long CourseId { get; set; }

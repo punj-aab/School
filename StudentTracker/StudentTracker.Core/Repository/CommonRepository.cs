@@ -220,7 +220,22 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Student>(storedProcedure, new { ImportId = importId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
-
+        public List<Student> GetStudents(long organizationId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetStudents";
+                return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public Student GetStudents(long organizationId,long studentId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetStudents";
+                return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId, StudentId=studentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -562,7 +577,7 @@ namespace StudentTracker.Core.Repository
             {
                 const string storedProcedure = "usp_AssignSubjectToUser";
                 int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
-              //  SetIdentity<int>(connection, id => objUserSubject.GroupId = id);
+                //  SetIdentity<int>(connection, id => objUserSubject.GroupId = id);
                 if (rowsAffected > 0)
                 {
                     return true;
@@ -580,7 +595,7 @@ namespace StudentTracker.Core.Repository
                 ClassId = objStudent.ClassId,
                 SectionId = objStudent.SectionId,
                 RollNo = objStudent.RollNo,
-                InsertedOn =objStudent.InsertedOn,
+                InsertedOn = objStudent.InsertedOn,
                 InsertedBy = objStudent.InsertedBy,
                 Email = objStudent.Email,
                 OrganizationId = objStudent.OrganizationId

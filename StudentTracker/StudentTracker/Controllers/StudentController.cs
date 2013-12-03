@@ -19,7 +19,8 @@ namespace StudentTracker.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            List<Student> objModel = this.repository.GetStudents(_userStatistics.OrganizationId);
+            return View(objModel);
         }
 
         public ActionResult CreateStudent()
@@ -65,6 +66,9 @@ namespace StudentTracker.Controllers
                     string roleName = UserRoles.Student.ToString(); //((UserRoles)Convert.ToInt16(Token.RoleId)).ToString();
                     Roles.AddUserToRole(objViewModel.Email, roleName);
                     objViewModel.UserId = userId;
+
+                    objViewModel.InsertedBy = _userStatistics.UserId;
+                    objViewModel.OrganizationId = _userStatistics.OrganizationId;
                     if (repository.CreateNewStudent(objViewModel))
                     {
                         this.AssignGroup(objViewModel.GroupIds, userId);
@@ -172,5 +176,7 @@ namespace StudentTracker.Controllers
                 }
             }
         }
+
+
     }
 }

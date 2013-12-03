@@ -102,4 +102,42 @@ INSERT INTO [Student5].[dbo].[UserGroup]
 
 GO
 
-
+ALTER procedure usp_GetStudents --1,3
+(
+@OrganizationId as bigint,
+@StudentId as bigint = null
+)
+as
+BEGIN
+		SELECT [StudentId]
+		      ,[UserId]
+		      ,S.[CourseId]
+		      ,S.[DepartmentId]
+		      ,S.[ClassId]
+		      ,S.[SectionId]
+		      ,[RollNo]
+		      ,S.[InsertedOn]
+		      ,S.[InsertedBy]
+		      ,S.[ModifiedOn]
+		      ,S.[ModifiedBy]
+		      ,[ImportId]
+		      ,[Remarks]
+		      ,[Email]
+		      ,S.[OrganizationId]
+		      ,[FullName],
+		      C.CourseId,
+		      C.CourseName,
+		      D.DepartmentId,
+		      D.DepartmentName,
+		      CL.ClassId,
+		      CL.ClassName,
+		      SC.SectionId,
+		      SC.SectionName
+		  FROM Student as S
+		  join Courses As C on S.CourseId = C.CourseId
+		  left join Departments as D on S.DepartmentId = D.DepartmentId
+		  join Classes as CL on S.ClassId = CL.ClassId
+		  join Sections as SC on S.SectionId = SC.SectionId
+        Where S.OrganizationId = @OrganizationId and (@StudentId is null or S.StudentId = @StudentId)		  
+END
+GO
