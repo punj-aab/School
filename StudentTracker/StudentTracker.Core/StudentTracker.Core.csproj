@@ -126,6 +126,7 @@
   <ItemGroup>
     <Content Include="SqlScripts\StoredProcedure\Changes_002.sql" />
     <Content Include="SqlScripts\StoredProcedure\Changes_003.sql" />
+    <Content Include="SqlScripts\StoredProcedure\Changes_004.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
