@@ -1516,6 +1516,7 @@
     <Content Include="Views\Import\Index.cshtml" />
     <Content Include="Views\Global\AddGroups.cshtml" />
     <Content Include="Views\Global\AddSubjects.cshtml" />
+    <Content Include="Views\Shared\_ViewStudents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

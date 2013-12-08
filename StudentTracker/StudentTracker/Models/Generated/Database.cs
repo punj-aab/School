@@ -640,13 +640,13 @@ namespace DBConnectionString
 
 
 
-		[Column] public int DepartmentId { get; set; }
+		[Column] public long? DepartmentId { get; set; }
 
 
 
 
 
-		[Column] public int CourseId { get; set; }
+		[Column] public long CourseId { get; set; }
 
 
 
@@ -671,6 +671,12 @@ namespace DBConnectionString
 
 
 		[Column] public long CreatedBy { get; set; }
+
+
+
+
+
+		[Column] public long? StudentId { get; set; }
 
 
 
@@ -1835,6 +1841,68 @@ namespace DBConnectionString
 
 
 		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public string FullName { get; set; }
+
+
+
+	}
+
+    
+	[TableName("UserSubjects")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class UserSubject : DBConnectionStringDB.Record<UserSubject>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public long SubjectId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UpdatedOn { get; set; }
+
+
+
+
+
+		[Column] public long? UpdatedBy { get; set; }
 
 
 

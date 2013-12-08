@@ -33,7 +33,7 @@
             <input type="text" class="span7 border-radius-none" value="Date of Birth" onfocus="this.value=''" onblur="this.value='Date of Birth'" />*@
 	        
             <div class="fild_text">
-                @Html.DropDownListFor(m => m.Title, Model.TitleList, "Select Title", new { Class = "span7 border-radius-none"})@Html.ValidationMessageFor(m => m.Title)
+                @Html.DropDownListFor(m => m.Title, Model.TitleList, "Select Title", new { Class = "span7 border-radius-none" })@Html.ValidationMessageFor(m => m.Title)
                 @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.UserName)
                 @Html.TextBoxFor(m => m.FirstName, new { placeholder = "First Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.FirstName)
                 @Html.TextBoxFor(m => m.LastName, new { placeholder = "Last Name", Class = "span7 border-radius-none txtUser" })@Html.ValidationMessageFor(m => m.LastName)
@@ -54,7 +54,12 @@
     <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#DateOfBirth').datepicker();
+            //$('#DateOfBirth').datepicker();
+            $('#DateOfBirth').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-90:+0'
+            });
         });
     </script>
 }

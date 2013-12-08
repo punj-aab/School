@@ -22,46 +22,7 @@
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-                            <table class="table table-bordered pull-left" id="data-table">
-                                <thead>
-                                    <tr class="bluRow">
-                                        <th>Name </th>
-                                        <th class="hidden-phone">Groups </th>
-                                        <th class="hidden-phone">Course,Department, Class </th>
-                                        <th class="hidden-phone">Manage </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var data in Model)
-                                    {
-                                        <tr>
-                                            <td><span class="name">@data.StudentName </span></td>
-                                            <td class="hidden-phone">PTM,Shop </td>
-                                            <td class="hidden-phone">@data.CourseName,@data.DepartmentName, @data.ClassName </td>
-                                            <td class="hidden-phone">
-                                                <div class="btn-group">
-                                                    <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
-                                                        Action 
-                               
-                                                <span class="caret"></span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a class="lnkDetails" href="/Student/Details/@data.StudentId">Details</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="lnkEdit" href="/Student/Edit/@data.StudentId">Edit</a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="lnkDelete" href="/Student/DeleteConfirm/@data.StudentId">Delete</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
+                            @Html.Partial("_ViewStudents", Model)
                             <div class="clearfix"></div>
                         </div>
                     </div>

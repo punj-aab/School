@@ -99,5 +99,7 @@ namespace StudentTracker.Core.Entities
         [ScaffoldColumn(false)]
         public string ImportDateString { get { return InsertedOn.ToString("MM/dd/yyyy"); } }
 
+        [NotMapped]
+        public string GroupNames { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace StudentTracker.Repository
             objStudent.InsertedBy = objViewModel.InsertedBy;
             objStudent.Email = objViewModel.Email;
             objStudent.OrganizationId = objViewModel.OrganizationId;
+            objStudent.FullName = objViewModel.Profile.FirstName + " " + objViewModel.Profile.LastName;
             if (this.CreateStudent(objStudent))
             {
                 return true;
@@ -201,6 +202,67 @@ namespace StudentTracker.Repository
         public List<Subject> SubjectByClass(long classId)
         {
             return this.Find<Subject>("select * from Subjects where classId = @id", classId);
+        }
+
+        public StudentViewModel GetStudents(long organizationId, long studentId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                Dictionary<string, long> parameters = new Dictionary<string, long>();
+                parameters["OrganizationId"] = organizationId;
+                parameters["StudentId"] = studentId;
+                const string storedProcedure = "usp_GetStudents";
+                return this.GetStudents<StudentViewModel>(storedProcedure, organizationId, studentId);
+            }
+        }
+
+        public bool UpdateStudent(StudentViewModel objViewModel)
+        {
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+
+            DBConnectionString.User user = DBConnectionString.User.SingleOrDefault(objViewModel.UserId);
+            DBConnectionString.Student student = DBConnectionString.Student.SingleOrDefault(objViewModel.StudentId);
+            DBConnectionString.Profile profile = db.Query<DBConnectionString.Profile>("Select * from  profile where UserId = @0", student.UserId).SingleOrDefault();
+            db.BeginTransaction();
+            try
+            {
+                user.FirstName = objViewModel.FirstName;
+                user.LastName = objViewModel.LastName;
+                user.Update();
+
+                student.ClassId = objViewModel.ClassId;
+                student.CourseId = objViewModel.CourseId;
+                student.DepartmentId = objViewModel.DepartmentId;
+                student.Email = objViewModel.Email;
+                student.FullName = objViewModel.FirstName + " " + objViewModel.LastName;
+                student.ModifiedBy = objViewModel.ModifiedBy;
+                student.ModifiedOn = objViewModel.ModifiedOn;
+                student.SectionId = objViewModel.SectionId;
+                student.Update();
+
+                profile.Title = objViewModel.Title;
+                profile.DateOfBirth = objViewModel.DateOfBirth;
+                profile.Phone1 = objViewModel.Phone1;
+                profile.HomeTelephoneNumber = objViewModel.HomeTelephoneNumber;
+                profile.EmailAddress1 = objViewModel.Email;
+                profile.Update();
+                db.CompleteTransaction();
+                return true;
+            }
+            catch
+            {
+                db.AbortTransaction();
+                return false;
+            }
+        }
+
+        public List<string> GetGroupOfUser(long userId)
+        {
+            string query = "select G.GroupName from UserGroup as UG " +
+                            "inner join [Group] as G on UG.GroupId = G.GroupId " +
+                            "inner join Users as U on UG.UserId = U.UserId " +
+                            "where UG.UserId = @id";
+            return this.Find<string>(query, userId);
         }
     }
 }

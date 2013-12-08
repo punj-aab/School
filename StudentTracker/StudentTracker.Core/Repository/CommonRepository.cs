@@ -204,7 +204,7 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<ELetter>(storedProcedure, new { UserId = userId, EletterId = eLetterId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
-        public List<UserGroup> GetGroupUsers(long groupId)
+        public List<UserGroup> GetGroupUsers(long groupId) //This used for get total user of a particular group
         {
             using (IDbConnection connection = OpenConnection())
             {
@@ -228,14 +228,14 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
-        public Student GetStudents(long organizationId,long studentId)
-        {
-            using (IDbConnection connection = OpenConnection())
-            {
-                const string storedProcedure = "usp_GetStudents";
-                return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId, StudentId=studentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
-            }
-        }
+        //public Student GetStudents(long organizationId,long studentId)
+        //{
+        //    using (IDbConnection connection = OpenConnection())
+        //    {
+        //        const string storedProcedure = "usp_GetStudents";
+        //        return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId, StudentId=studentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+        //    }
+        //}
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -598,7 +598,8 @@ namespace StudentTracker.Core.Repository
                 InsertedOn = objStudent.InsertedOn,
                 InsertedBy = objStudent.InsertedBy,
                 Email = objStudent.Email,
-                OrganizationId = objStudent.OrganizationId
+                OrganizationId = objStudent.OrganizationId,
+                FullName = objStudent.FullName
             };
 
             using (IDbConnection connection = OpenConnection())

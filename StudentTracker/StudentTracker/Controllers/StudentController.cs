@@ -20,6 +20,13 @@ namespace StudentTracker.Controllers
         public ActionResult Index()
         {
             List<Student> objModel = this.repository.GetStudents(_userStatistics.OrganizationId);
+            List<string> listGroups = new List<string>();
+            for (int i = 0; i < objModel.Count; i++)
+            {
+                listGroups = this.repository.GetGroupOfUser(objModel[i].UserId.Value);
+                objModel[i].GroupNames = string.Join(", ", listGroups);
+            }
+
             return View(objModel);
         }
 
@@ -59,7 +66,7 @@ namespace StudentTracker.Controllers
                     Profile.SecurityAnswer = "none";
                     Profile.DateOfBirth = objViewModel.Profile.DateOfBirth;
                     Profile.ModifiedOn = null;
-                    Profile.MobileNumber = "none";
+                    Profile.MobileNumber = objViewModel.Profile.MobileNumber;
 
                     int recAffected = Convert.ToInt32(Profile.Insert());
 
@@ -82,15 +89,47 @@ namespace StudentTracker.Controllers
             return View();
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit(long id)
         {
-            return View();
+            SelectList classList = null;
+            SelectList courseList = null;
+            SelectList sectionList = null;
+            SelectList departmentList = null;
+            StudentViewModel objViewModel = new StudentViewModel();
+            objViewModel = this.repository.GetStudents(_userStatistics.OrganizationId, id);
+            this.LoadSelectLists(out  classList, out  courseList, out  sectionList, out  departmentList, true, objViewModel.OrganizationId, objViewModel.CourseId, objViewModel.DepartmentId, objViewModel.ClassId, objViewModel.SectionId);
+            objViewModel.CourseList = courseList;
+            objViewModel.DepartmentList = departmentList;
+            objViewModel.ClassList = classList;
+            objViewModel.SectionList = sectionList;
+
+            return View(objViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(StudentViewModel objViewModel)
+        {
+            if (this.repository.UpdateStudent(objViewModel))
+            {
+                return RedirectToAction("Index");
+            }
+            SelectList classList = null;
+            SelectList courseList = null;
+            SelectList sectionList = null;
+            SelectList departmentList = null;
+            this.LoadSelectLists(out  classList, out  courseList, out  sectionList, out  departmentList, true, objViewModel.OrganizationId, objViewModel.CourseId, objViewModel.DepartmentId, objViewModel.ClassId, objViewModel.SectionId);
+            objViewModel.CourseList = courseList;
+            objViewModel.DepartmentList = departmentList;
+            objViewModel.ClassList = classList;
+            objViewModel.SectionList = sectionList;
+
+            return View(objViewModel);
         }
 
         public string CreateToken(StudentViewModel objViewModel)
         {
             int recordAffected = 0;
-            RegistrationToken registrationToken = new RegistrationToken();
+            DBConnectionString.RegistrationToken registrationToken = new DBConnectionString.RegistrationToken();
             registrationToken.OrganizationId = _userStatistics.OrganizationId;
             registrationToken.CourseId = (int)objViewModel.CourseId;
             registrationToken.ClassId = objViewModel.ClassId;
@@ -102,7 +141,7 @@ namespace StudentTracker.Controllers
             registrationToken.Token = UserStatistics.GenerateToken();
             registrationToken.CreatedBy = _userStatistics.UserId;
             registrationToken.RoleId = (int)UserRoles.Student;
-            recordAffected = repository.CreateToken(registrationToken);
+            recordAffected = Convert.ToInt32(registrationToken.Insert());
             if (recordAffected > 0)
             {
                 return registrationToken.Token;
@@ -110,7 +149,7 @@ namespace StudentTracker.Controllers
             return string.Empty;
         }
 
-        private void LoadSelectLists(out SelectList classList, out SelectList courseList, out SelectList sectionList, out SelectList departmentList, bool isEdit, long organizationId = -1, long courseId = -1, long departmentId = -1, long classId = -1, long sectionId = -1)
+        private void LoadSelectLists(out SelectList classList, out SelectList courseList, out SelectList sectionList, out SelectList departmentList, bool isEdit, long organizationId = -1, long courseId = -1, long? departmentId = -1, long classId = -1, int sectionId = -1)
         {
             classList = null;
             courseList = null;
@@ -177,6 +216,24 @@ namespace StudentTracker.Controllers
             }
         }
 
+        public ActionResult DeleteConfirm(long id)
+        {
+            DBConnectionString.Student student = DBConnectionString.Student.SingleOrDefault(id);
+
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            db.Execute("Delete from UserGroup where UserId=@0", student.UserId);
+            db.Execute("Delete from UserSubject where UserId=@0", student.UserId);
+            db.Execute("Delete from ELetter where UserId=@0", student.UserId);
+            db.Execute("Delete from Profile where UserId=@0", student.UserId);
+            db.Execute("Delete from Users where UserId=@0", student.UserId);
+
+            if (student != null)
+            {
+                student.Delete();
+            }
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

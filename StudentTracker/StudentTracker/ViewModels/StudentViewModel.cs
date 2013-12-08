@@ -14,5 +14,11 @@ namespace StudentTracker.ViewModels
         public string StudentSubjects { get; set; }
         public string GroupIds { get; set; }
         public string SubjectIds { get; set; }
+        public string Title { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Phone1 { get; set; }
+        public string HomeTelephoneNumber { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 }
