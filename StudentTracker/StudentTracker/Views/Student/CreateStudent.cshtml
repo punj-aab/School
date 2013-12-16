@@ -21,7 +21,7 @@
                                 New Student
                             </div>
                             <span class="tools tls2">
-                                <input type="submit" name="Create" value="Save" class="btn btn-info" />
+                                <a class="btn btn-info" href="#" id="lnkSave" data-original-title="">Save</a>
                                 <a class="btn btn-info" href="/Student" data-original-title="">Cancel</a></span>
                         </div>
 
@@ -77,7 +77,7 @@ Change Picture
                                                     DOB
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.DateOfBirth, new { @class = "span8 txtDate" })
+                                                    @Html.TextBoxFor(x => x.Profile.DateOfBirth, new { @class = "span8 txtDateFormat" })
                                                     @Html.ValidationMessageFor(x => x.Profile.DateOfBirth)
                                                 </div>
                                             </div>
@@ -219,5 +219,17 @@ Change Picture
             GetData(e);
             LoadSubjects(e);
         }
+        $(document).ready(function () {
+            $('#lnkSave').click(function () {
+                $('.form-horizontal').submit();
+            });
+            $('.txtDateFormat').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-90:+0'
+            });
+
+            $('#divIndividual').addClass('selected');
+        });
     </script>
 }

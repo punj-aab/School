@@ -48,7 +48,7 @@ namespace StudentTracker.Controllers
         [HttpPost]
         public ActionResult CreateStudent(StudentViewModel objViewModel)
         {
-            string token = CreateToken(objViewModel);
+            string token = repository.CreateToken(objViewModel, _userStatistics.UserId, _userStatistics.OrganizationId);
             if (!(string.IsNullOrEmpty(token)))
             {
                 long userId = WebSecurity.RegisterNewUser(objViewModel.Email, "none", objViewModel.Email, false, objViewModel.Profile.FirstName, objViewModel.Profile.LastName, objViewModel.OrganizationId, token);
@@ -126,28 +126,7 @@ namespace StudentTracker.Controllers
             return View(objViewModel);
         }
 
-        public string CreateToken(StudentViewModel objViewModel)
-        {
-            int recordAffected = 0;
-            DBConnectionString.RegistrationToken registrationToken = new DBConnectionString.RegistrationToken();
-            registrationToken.OrganizationId = _userStatistics.OrganizationId;
-            registrationToken.CourseId = (int)objViewModel.CourseId;
-            registrationToken.ClassId = objViewModel.ClassId;
-            registrationToken.SectionId = objViewModel.SectionId;
-            if (objViewModel.DepartmentId != null)
-            {
-                registrationToken.DepartmentId = (int)objViewModel.DepartmentId;
-            }
-            registrationToken.Token = UserStatistics.GenerateToken();
-            registrationToken.CreatedBy = _userStatistics.UserId;
-            registrationToken.RoleId = (int)UserRoles.Student;
-            recordAffected = Convert.ToInt32(registrationToken.Insert());
-            if (recordAffected > 0)
-            {
-                return registrationToken.Token;
-            }
-            return string.Empty;
-        }
+        
 
         private void LoadSelectLists(out SelectList classList, out SelectList courseList, out SelectList sectionList, out SelectList departmentList, bool isEdit, long organizationId = -1, long courseId = -1, long? departmentId = -1, long classId = -1, int sectionId = -1)
         {
@@ -233,6 +212,13 @@ namespace StudentTracker.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Details(long id)
+        {
+            StudentViewModel objViewModel = new StudentViewModel();
+            objViewModel = this.repository.GetStudents(_userStatistics.OrganizationId, id);
+            return View(objViewModel);
         }
 
     }

@@ -13,25 +13,19 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Create Eletter </button>
-                        <div class="nav-collapse collapse">
+                        <div class="title textAlign">
                             <span class="mini-title minLft">
-                                <img alt="" src="/img/email2.png"></span>
-                            <div class="createHdr">
-                                <ul>
-                                    <li><a href="#" class="btn btn-info">Save As Templates</a></li>
-                                    <li><a href="#" class="btn btn-info">Templates</a></li>
-                                    <li>Create Eletter</li>
-                                    <li class="dropdown"><a href="#" id="btnAddReciepents" class="btn btn-info">Add Recipients 
-                        
-                        + </a></li>
-                                    <li><a href="#" class="btn btn-info">Cancel</a></li>
-                                    <li><a href="#" class="btn btn-info">Send</a></li>
-                                </ul>
+                                <img src="/img/leter2.png" alt=""></span>
+                            <div class="poLft">
+                                <a href="saveTemplate.html" class="btn btn-info">Save As Templates</a>
+                                <a href="template.html" class="btn btn-info">Templates</a>
                             </div>
+                            Create Eletter
                         </div>
+                        <span class="tools tls"><a href="groupsCreate3.html" class="btn btn-info">Add Recipients + </a><a href="#" class="btn btn-info">Cancel</a> <a href="#" class="btn btn-info">Send</a></span>
                     </div>
                     <div class="widget-body">
+                        <label class="control-label" for="name">&nbsp;</label>
                         <div class="wysiwyg-container">
                             <form action="sample_posteddata.php" method="post">
                                 <!--<label for="editor1">
@@ -39,8 +33,7 @@
 			<code>&lt;body&gt;</code> element, so content like meta and title can be changed:
 		</label>-->
                                 <textarea cols="80" id="editor1" name="editor1" rows="10">
-			&lt;a href=&quot;#&quot; class=&quot;imgLogo&quot;&gt;&lt;img src=&quot;/img/logo1.png&quot; alt=&quot;&quot;&gt;&lt;/a&gt;
-                    &lt;h1&gt;Subject 1&lt;/h1&gt;
+			
                     &lt;h3&gt;&lt;span&gt;&lt;strong&gt;Date :&lt;/strong&gt;&lt;/span&gt; 2/11/2013&lt;/h3&gt;
                     &lt;p&gt;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.&lt;/p&gt;
                     
@@ -61,7 +54,15 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry
 &lt;/li&gt;
 &lt;/ol&gt;
 		</textarea>
+                               @* <script>
 
+                                    CKEDITOR.replace('editor1', {
+                                        fullPage: true,
+                                        allowedContent: true,
+                                        extraPlugins: 'wysiwygarea'
+                                    });
+
+                                </script>*@
                                 <p>
                                     <input type="submit" value="Submit">
                                 </p>
@@ -78,7 +79,7 @@ Lorem Ipsum is simply dummy text of the printing and typesetting industry
     <div id="dialog"></div>
 </div>
 @section scripts{
-    
+
     <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
     <script>
         $(document).ready(function () {

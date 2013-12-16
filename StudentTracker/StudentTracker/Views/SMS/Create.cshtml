@@ -14,23 +14,13 @@
             <div class="span12">
                 <div class="widget">
                     <div class="widget-header">
-                        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">Create SMS </button>
-                        <div class="nav-collapse collapse">
+                        <div class="title textAlign">
                             <span class="mini-title minLft">
-                                <img alt="" src="img/email2.png"></span>
-                            <div class="createHdr">
-                                <ul>
-                                    <li><a href="#" class="btn btn-info">Save As Templates</a></li>
-                                    <li><a href="#" class="btn btn-info">Templates</a></li>
-                                    <li>Create SMS</li>
-                                    <li class="dropdown"><a href="#" id="btnAddReciepents" class="btn btn-info">Add Recipients 
-                        
-                        + </a></li>
-                                    <li><a href="#" class="btn btn-info">Cancel</a></li>
-                                    <li><a href="#" class="btn btn-info">Send</a></li>
-                                </ul>
-                            </div>
+                                <img src="/img/sm2.png" alt=""></span>
+                            <a href="saveTemplate.html" class="btn btn-info poLft">Save As Templates</a>
+                            Create SMS
                         </div>
+                        <span class="tools tls"><a href="#" id="btnAddReciepents" class="btn btn-info">Add Recipients + </a>&nbsp;<a href="#" class="btn btn-info">Cancel</a> <a href="#" class="btn btn-info">Send</a></span>
                     </div>
                     <div class="widget-body">
                         <div class="addRecp3">
@@ -41,12 +31,25 @@
                                         <input class="span8" type="text" placeholder="">
                                     </div>
                                 </div>
+
+                                <div class="control-group">
+                                    <label class="control-label" for="name">Select Template : </label>
+                                    <div class="controls controls-row">
+                                        <select name="" class="span8">
+                                            <option>Template 1</option>
+                                            <option>Template 2</option>
+                                            <option>Template 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div class="control-group">
                                     <label class="control-label" for="name">Message : </label>
                                     <div class="controls controls-row">
                                         <textarea class="span8">Hello</textarea>
                                     </div>
                                 </div>
+
                                 <div class="control-group">
                                     <div class="controls controls-row">
                                         <div class="seduleTime">
@@ -57,7 +60,7 @@
                                                     Send SMS immidately
                                                 </label>
                                                 <label class="radio inline">
-                                                    <input id="inlineRadioB" type="radio" value="optionb" name="optionsRadioG">
+                                                    <input id="inlineRadioB" type="radio" value="optionb" name="optionsRadioG" checked="checked">
                                                     Schedule SMS
                                                 </label>
                                             </div>

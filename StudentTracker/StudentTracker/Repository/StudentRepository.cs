@@ -8,6 +8,7 @@ using System.Data;
 using System.Configuration;
 using System.Web.Mvc;
 using StudentTracker.ViewModels;
+using StudentTracker.Core.Utilities;
 namespace StudentTracker.Repository
 {
     public class StudentRepository : StudentTracker.Core.Repository.CommonRepository
@@ -263,6 +264,57 @@ namespace StudentTracker.Repository
                             "inner join Users as U on UG.UserId = U.UserId " +
                             "where UG.UserId = @id";
             return this.Find<string>(query, userId);
+        }
+
+        public string CreateToken(StudentViewModel objViewModel, long userId, long organizationId)
+        {
+            int recordAffected = 0;
+            DBConnectionString.RegistrationToken registrationToken = new DBConnectionString.RegistrationToken();
+            registrationToken.OrganizationId = organizationId;
+            registrationToken.CourseId = (int)objViewModel.CourseId;
+            registrationToken.ClassId = objViewModel.ClassId;
+            registrationToken.SectionId = objViewModel.SectionId;
+            if (objViewModel.DepartmentId != null)
+            {
+                registrationToken.DepartmentId = (int)objViewModel.DepartmentId;
+            }
+            registrationToken.Token = UserStatistics.GenerateToken();
+            registrationToken.CreatedBy = userId;
+            registrationToken.RoleId = (int)UserRoles.Student;
+            recordAffected = Convert.ToInt32(registrationToken.Insert());
+            if (recordAffected > 0)
+            {
+                return registrationToken.Token;
+            }
+            return string.Empty;
+        }
+
+        public long CreateNewStaff(StaffViewModel objViewModel)
+        {
+            DBConnectionString.Staff objStaff = new DBConnectionString.Staff();
+            objStaff.UserId = objViewModel.UserId;
+            objStaff.Title = objViewModel.Title;
+            objStaff.InsertedOn = DateTime.Now;
+            objStaff.InsertedBy = objViewModel.InsertedBy;
+            objStaff.Title = objViewModel.Title;
+            objStaff.Email = objViewModel.Email;
+            objStaff.Insert();
+            return objStaff.StaffId;
+        }
+
+        public void AssignSubjectToTeacher(StaffViewModel objVM)
+        {
+            foreach (var data in objVM.ListFields)
+            {
+                DBConnectionString.TeacherSubject teacherSubject = new DBConnectionString.TeacherSubject();
+                teacherSubject.CourseId = data.CourseId;
+                teacherSubject.ClassId = data.ClassId;
+                teacherSubject.SectionId = data.SectionId;
+                teacherSubject.SubjectId = data.SubjectId;
+                teacherSubject.DepartmentId = data.DepartmentId;
+                teacherSubject.UserId = objVM.UserId;
+                teacherSubject.Insert();
+            }
         }
     }
 }

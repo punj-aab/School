@@ -16,12 +16,15 @@
                 @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
                 {
                     <div class="widget">
-                        <div class="widget-header widget-header2">
-                            <div class="title textAlign">Create Groups </div>
-                            <span class="tools tls2">
-                                <a name="submit" class="btn btn-info" href="javascript:;" action="create" id="btnAdd">Save</a>
+
+                        <div class="widget-header">
+                            <div class="title textAlign">
+                                Create Groups
+                            </div>
+                            <span class="tools tls2"><a name="submit" class="btn btn-info" href="javascript:;" action="create" id="btnAdd">Save</a>
                                 <a href="/Group" class="btn btn-info">Cancel</a> </span>
                         </div>
+
                         <div class="widget-body">
 
                             @Html.AntiForgeryToken()

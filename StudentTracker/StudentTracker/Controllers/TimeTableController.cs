@@ -16,5 +16,10 @@ namespace StudentTracker.Controllers
             return View();
         }
 
+        public ActionResult EditTimeTable()
+        {
+            return View();
+        }
+
     }
 }

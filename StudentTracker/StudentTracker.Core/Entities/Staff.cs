@@ -12,14 +12,11 @@ namespace StudentTracker.Core.Entities
     {
         public long StaffId { get; set; }
         [Required]
+
+        public long UserId { get; set; }
+
         public string Title { get; set; }
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public DateTime DateOfBirth { get; set; }
-        public string PhoneNumber { get; set; }
-        public string HomeNumber { get; set; }
-        [Required]
+
         public string Email { get; set; }
 
         public DateTime InsertedOn { get; set; }
@@ -42,8 +39,6 @@ namespace StudentTracker.Core.Entities
         public long ClassId { get; set; }
         [NotMapped]
         public long SectionId { get; set; }
-        [NotMapped]
-        public long GroupId { get; set; }
         [NotMapped]
         public long SubjectId { get; set; }
 

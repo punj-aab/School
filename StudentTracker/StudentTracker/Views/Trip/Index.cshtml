@@ -13,28 +13,22 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget">
-                    <div class="sub-nav2">
-                        <div class="row-fluid">
-                            <ul>
-                                <li class="span2"><a href="above.html" class="btn btn-info">Download</a></li>
-                                <li class="span8">View Trips/Events</li>
-                                <li class="span2"><a href="/Trip/Create" class="btn btn-info">Create New</a></li>
-                            </ul>
-                        </div>
-                    </div>
+
+
+
                     <div class="widget-header">
                         <div class="title">
                             View Trips/Events
                         </div>
-
+                        <span class="tools"><a href="/Trip/Create" class="btn btn-info tools2">Create New</a></span>
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-                            <table class="table table-bordered pull-left" id="data-table">
+                            <table class="table table-bordered pull-left table-hover" id="data-table">
 
                                 <thead>
-                                    <tr>
-                                        <th style="width: 17%">Name of Payment
+                                    <tr class="bluRow">
+                                        <th style="width: 17%">Name of Trip/Event
                                         </th>
                                         <th style="width: 20%">Discription
                                         </th>
@@ -47,8 +41,21 @@
 
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="">
+                                <tbody id="dhtmlgoodies_slidedown">
+                                    <tr id="dhtmlgoodies_control" onclick="slidedown_showHide();return false;">
+                                        <td>Name of Fee
+                                        </td>
+                                        <td>Discription
+                                        </td>
+                                        <td>View Groups
+                                        </td>
+                                        <td>Created Date
+                                        </td>
+                                        <td>Active
+                                        </td>
+
+                                    </tr>
+                                    <tr id="dhtmlgoodies_control" onclick="slidedown_showHide();return false;">
                                         <td>Name of Fee
                                         </td>
                                         <td>Discription

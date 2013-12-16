@@ -1909,6 +1909,124 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("Staff")]
+
+
+	[PrimaryKey("StaffId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Staff : DBConnectionStringDB.Record<Staff>  
+    {
+
+
+
+		[Column] public long StaffId { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public string Title { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public long? ModifieBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? ModifiedOn { get; set; }
+
+
+
+	}
+
+    
+	[TableName("TeacherSubjects")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class TeacherSubject : DBConnectionStringDB.Record<TeacherSubject>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public long CourseId { get; set; }
+
+
+
+
+
+		[Column] public long DepartmentId { get; set; }
+
+
+
+
+
+		[Column] public long ClassId { get; set; }
+
+
+
+
+
+		[Column] public long SectionId { get; set; }
+
+
+
+
+
+		[Column] public long SubjectId { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+	}
+
+    
 	[TableName("Users")]
 
 

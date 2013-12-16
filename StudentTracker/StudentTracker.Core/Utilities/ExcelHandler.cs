@@ -9,7 +9,6 @@ using System.Dynamic;
 using System.Data;
 using DocumentFormat.OpenXml;
 using System.Globalization;
-
 namespace StudentTracker.Core.Utilities
 {
     /// <summary>

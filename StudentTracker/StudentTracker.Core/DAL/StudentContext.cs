@@ -65,6 +65,8 @@ namespace StudentTracker.Core.DAL
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<UserSubjects> UserSubjects { get; set; }
+        public DbSet<Staff> Staff { get; set; }
+        public DbSet<TeacherSubjects> TeacherSubjects { get; set; }
 
     }
 }

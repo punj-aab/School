@@ -148,6 +148,15 @@
             });
 
             $('.txtDate').datepicker();
+
+            $('#data-table').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+
+            //selectPicker
+            $('.selectpicker').selectpicker({
+                'selectedText': 'cat'
+            });
         });
 
         jQuery('.delete-row').click(function () {

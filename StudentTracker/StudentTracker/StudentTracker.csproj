@@ -128,6 +128,7 @@
     <Compile Include="Areas\SAS\Controllers\SASHomeController.cs" />
     <Compile Include="Areas\SAS\SASAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttendanceController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CalendarController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
@@ -144,10 +145,12 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
+    <Compile Include="Controllers\OnlineAssignmentController.cs" />
     <Compile Include="Controllers\OnlineFeeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SectionController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
@@ -187,6 +190,7 @@
     <Compile Include="ViewModels\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\RegisterModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\StaffViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="ViewModels\SubjectViewModel.cs" />
   </ItemGroup>
@@ -1517,6 +1521,20 @@
     <Content Include="Views\Global\AddGroups.cshtml" />
     <Content Include="Views\Global\AddSubjects.cshtml" />
     <Content Include="Views\Shared\_ViewStudents.cshtml" />
+    <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Staff\Index.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\Report\ReportByClass.cshtml" />
+    <Content Include="Views\Report\ReportByStudents.cshtml" />
+    <Content Include="Views\Report\MonthlyReortOfStudent.cshtml" />
+    <Content Include="Views\Report\AssessmentCentre.cshtml" />
+    <Content Include="Views\OnlineAssignment\Index.cshtml" />
+    <Content Include="Views\OnlineAssignment\Test.cshtml" />
+    <Content Include="Views\OnlineAssignment\Assignment.cshtml" />
+    <Content Include="Views\TimeTable\EditTimeTable.cshtml" />
+    <Content Include="Views\Attendance\Index.cshtml" />
+    <Content Include="Views\Attendance\ViewByStaff.cshtml" />
+    <Content Include="Views\Attendance\CreateAttendance.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

@@ -10,30 +10,31 @@
 
 <div class="dashboard-wrapper">
     <div class="left-sidebar">
+
+
+
+
+
+
         <div class="row-fluid">
             <div class="span12">
                 <div class="widget">
-                    <div class="sub-nav2">
-                        <div class="row-fluid">
-                            <ul>
-                                <li class="span2"><a href="above.html" class="btn btn-info">Download</a></li>
-                                <li class="span8">Tickets</li>
-                                <li class="span2"><a href="/Ticket/Create" class="btn btn-info">Create New</a></li>
-                            </ul>
-                        </div>
-                    </div>
+
+
+
                     <div class="widget-header">
                         <div class="title">
                             View Tickets
                         </div>
 
+                        <span class="tools"><a href="/Ticket/create" class="btn btn-info tools2">Create New</a></span>
                     </div>
                     <div class="widget-body">
                         <div id="dt_example" class="example_alt_pagination">
-                            <table class="table table-bordered pull-left" id="data-table">
+                            <table class="table table-bordered pull-left table-hover" id="data-table">
 
                                 <thead>
-                                    <tr>
+                                    <tr class="bluRow">
                                         <th style="width: 17%">Name of Payment
                                         </th>
                                         <th style="width: 20%">Discription
@@ -47,8 +48,8 @@
 
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="">
+                                <tbody id="dhtmlgoodies_slidedown">
+                                    <tr id="dhtmlgoodies_control" onclick="slidedown_showHide();return false;">
                                         <td>Name of Fee
                                         </td>
                                         <td>Discription
@@ -63,15 +64,13 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="clearfix">
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
+
     <div class="right-sidebar">
         @Html.Partial("_RightMenuPartial")
     </div>

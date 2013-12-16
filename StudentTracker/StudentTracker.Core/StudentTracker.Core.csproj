@@ -94,6 +94,7 @@
     <Compile Include="Entities\State.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\Subject.cs" />
+    <Compile Include="Entities\TeacherSubjects.cs" />
     <Compile Include="Entities\Template.cs" />
     <Compile Include="Entities\TemplateType.cs" />
     <Compile Include="Entities\User.cs" />

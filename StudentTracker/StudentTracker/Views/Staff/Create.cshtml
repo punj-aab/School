@@ -1,599 +1,306 @@
-﻿@{
+﻿@model StudentTracker.ViewModels.StaffViewModel
+@{
     ViewBag.Title = "CreateStaff";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
 
-<div class="dashboard-wrapper">
-    <div class="left-sidebar">
-
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="widget">
-                    <div class="sub-nav2">
-                        <div class="row-fluid">
-                            <ul>
-
-
-                                <li class="span8">New Staff</li>
-                                <li class="span2">
-                                    <a class="btn btn-info" href="edit-profile.html">Save</a></li>
-                                <li class="span2">
-                                    <a class="btn btn-info" href="edit-profile.html">Cancel</a></li>
-
-                            </ul>
-                        </div>
-                    </div>
-
-
-                    <div class="widget-body">
-                        <div class="container-fluid">
-
-                            <div class="row-fluid">
-                                <div class="span3">
-                                    <div class="thumbnail">
-                                        <img alt="300x200" src="/img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title="">
-Change Picture
-                                            <input type="file">
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div class="span9">
-                                    <form class="form-horizontal">
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Title
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                First Name
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Last Name
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                DOB
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Phone
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Home
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="control-group">
-                                            <label class="control-label">
-                                                Email
-                                            </label>
-                                            <div class="controls">
-                                                <input class="span8" type="text" name="" value="">
-                                            </div>
-                                        </div>
-
-
-                                    </form>
-
-
-
-                                </div>
-
-
-
-
-
-                            </div>
-
-
-
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-        <div class="row-fluid">
-
-            <div class="span12">
-                <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            Assign Department/Classes
-                        </div>
-
-                    </div>
-
-                    <div class="row-fluid">
-                        <div class="span12">
-
-                            <div class="widget-body topUp">
-                                <table class="table table-bordered no-margin">
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <a href="#" class="btn btn-info">Save</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <a href="#" class="btn btn-info">Save</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <select>
-                                                    <option>Course</option>
-                                                </select>
-                                            </td>
-                                            <td class="hidden-phone">
-                                                <a href="#" class="btn btn-info">Save</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-
-                                </table>
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-
-        <div class="row-fluid">
-
-            <div class="span12">
-                <div class="widget">
-                    <div class="widget-header">
-                        <div class="title">
-                            Permissions: <span>set permissions for your staff</span>
-                        </div>
-
-                    </div>
-
-                    <div class="row-fluid">
-                        <div class="span12">
-
-                            <div class="messge">
-                                <h2>Messaging</h2>
-
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <div class="span6">
-
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-
-                                        </div>
-
-                                        <div class="span6">
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <h2>Users</h2>
-
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <div class="span6">
-
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-
-                                        </div>
-
-                                        <div class="span6">
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <h2>Payments</h2>
-
-                                <div class="row-fluid">
-                                    <div class="span12">
-                                        <div class="span6">
-
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-
-                                        </div>
-
-                                        <div class="span6">
-                                            <ul>
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-
-                                                <li>
-                                                    <div class="spanLft">Send eLetters</div>
-
-                                                    <div class="spnRight">
-                                                        <div id="label-switch" class="make-switch" data-on-label="yes" data-off-label="NO">
-                                                            <input type="checkbox" checked>
-                                                        </div>
-                                                        <a href="#">
-                                                            <img src="/img/q.png" alt=""></a>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-
-
-    </div>
-
-    <div class="right-sidebar">
-        @Html.Partial("_RightMenuPartial")
-    </div>
+<div class="sub-nav">
 </div>
+<div class="dashboard-wrapper">
+    @using (Html.BeginForm("Create", "Staff", null, FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="left-sidebar">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title textAlign">
+                                New Staff
+                            </div>
+                            <span class="tools tls2">
+                                <a class="btn btn-info" href="#" id="lnkSave" data-original-title="">Save</a>
+                                <a class="btn btn-info" href="/Staff" data-original-title="">Cancel</a></span>
+                        </div>
+
+
+                        <div class="widget-body">
+                            <div class="container-fluid">
+
+                                <div class="row-fluid">
+                                    <div class="span3">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="/img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title="">
+Change Picture
+                                                        <input type="file">
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="span9">
+                                        <form class="form-horizontal">
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Title
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.Title, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.Title)
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    First Name
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.FirstName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.FirstName)
+                                                </div>
+                                            </div>
+
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Last Name
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.LastName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.LastName)
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    DOB
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.DateOfBirth, new { @class = "span8 txtDateFormat" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.DateOfBirth)
+                                                </div>
+                                            </div>
+
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Phone
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.MobileNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.MobileNumber)
+                                                </div>
+                                            </div>
+
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Home
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Profile.HomeTelephoneNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Profile.HomeTelephoneNumber)
+                                                </div>
+                                            </div>
+                                            <div class="control-group">
+                                                <label class="control-label">
+                                                    Email
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Email, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Email)
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row-fluid">
+
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title">
+                                Assign Department/Classes
+                            </div>
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+
+                                <div class="widget-body topUp">
+                                    <table class="table table-bordered no-margin">
+                                        <tbody>
+                                            @for (int i = 0; i < Model.ListFields.Count; i++)
+                                            {
+                                                if (i > 0)
+                                                { 
+                                                <tr style="display: none">
+                                                    <td>
+                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", Class = "selectList", disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.CourseId)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department", new { Class = "selectList", disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.DepartmentId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].ClassId, Model.ListFields[i].ClassList, "Select Class", new { onChange = "loadSection(event)", id = "ClassId", Class = "Class selectList", disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.ClassId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].SectionId, Model.ListFields[i].SectionList, "Select Section", new { id = "SectionId", Class = "Section selectList", disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.SectionId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].SubjectId, Model.ListFields[i].SubjectList, "Select Subject", new { id = "SectionId", Class = "Subject selectList", disabled = "disabled" })
+                                                        @Html.ValidationMessageFor(m => m.SubjectId)
+                                                    </td>
+                                                    <td class="hidden-phone tdLast">
+                                                        <div class="dropdown">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                }
+                                                else
+                                                {
+                                                <tr>
+                                                    <td>
+                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", action = "GetClasses", getType = "Class" })
+                                                        @Html.ValidationMessageFor(m => m.CourseId)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department")
+                                                        @Html.ValidationMessageFor(m => m.DepartmentId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].ClassId, Model.ListFields[i].ClassList, "Select Class", new { onChange = "loadSection(event)", id = "ClassId", Class = "Class" })
+                                                        @Html.ValidationMessageFor(m => m.ClassId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].SectionId, Model.ListFields[i].SectionList, "Select Section", new { id = "SectionId", Class = "Section" })
+                                                        @Html.ValidationMessageFor(m => m.SectionId)
+                                                    </td>
+                                                    <td class="hidden-phone">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].SubjectId, Model.ListFields[i].SubjectList, "Select Subject", new { id = "SectionId", Class = "Subject" })
+                                                        @Html.ValidationMessageFor(m => m.SubjectId)
+                                                    </td>
+                                                    <td class="hidden-phone tdLast">
+                                                        @if (i == 0)
+                                                        {
+                                                            <div class="dropdown">
+                                                                <a onclick="addMore(event)" class="lnkAddMore">Add More</a>
+                                                            </div>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right-sidebar">
+            @Html.Partial("_RightMenuPartial")
+        </div>
+    }
+</div>
+<div id="dialog"></div>
 
 @section scripts{
+    <style type="text/css">
+        .selectList {
+            display: none;
+        }
+    </style>
     <script type="text/javascript">
+
         $(document).ready(function () {
-            // $('.left').removeClass('active');
-            $('#divIndividual').addClass('active');
+            $('#lnkSave').click(function () {
+                $('.form-horizontal').submit();
+            });
+            $('.txtDateFormat').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-90:+0'
+            });
+
+            $('#divIndividual').addClass('selected');
         });
+
+        function loadClass(e) {
+            var id = $(e.target).val();
+            var row = '';
+            var appendTo = $(e.target).parent().parent().children().find('.Class');
+            $(appendTo).html('<option>--Select Class--</option>');
+            $.ajax({
+                type: 'GET',
+                url: '/Global/GetClasses',
+                data: { id: id },
+                success: function (response) {
+                    $.each(response, function (index, value) {
+                        row += '<option value=' + value.ClassId + '>' + value.ClassName + '</option>';
+                    });
+                    $(appendTo).append(row);
+                }
+            })
+        }
+
+        function loadSection(e) {
+            var id = $(e.target).val();
+            var row = '';
+            var appendTo = $(e.target).parent().parent().children().find('.Section');
+            $(appendTo).html('<option>--Select Section--</option>');
+            $.ajax({
+                type: 'GET',
+                url: '/Global/GetSection',
+                data: { id: id },
+                success: function (response) {
+                    $.each(response, function (index, value) {
+                        row += '<option value=' + value.SectionId + '>' + value.SectionName + '</option>';
+                    });
+                    $(appendTo).append(row);
+                    loadSubjects(e);
+                }
+            })
+        }
+
+        function addMore(e) {
+            var $this = $(e.target);
+            $this.parent().parent().parent().next().show();
+            $this.parent().parent().parent().next().children().find('.selectList').removeAttr('disabled');
+            $this.parent().parent().parent().next().children().find('.dropdown').append($('.lnkAddMore'));
+        }
+
+        function loadSubjects(e) {
+            var id = $(e.target).val();
+            var row = '';
+            var appendTo = $(e.target).parent().parent().children().find('.Subject');
+            $(appendTo).html('<option>--Select Subject--</option>');
+            $.ajax({
+                type: 'GET',
+                url: '/Global/GetSubjectByClass',
+                data: { classId: id },
+                success: function (response) {
+                    $.each(response, function (index, value) {
+                        row += '<option value=' + value.SubjectId + '>' + value.SubjectName + '</option>';
+                    });
+                    $(appendTo).append(row);
+                }
+            })
+        }
     </script>
 }

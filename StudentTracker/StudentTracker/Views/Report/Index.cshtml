@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a href="#">Home
+            </a>
+        </li>
+    </ul>
+
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+
+        <div class="row-fluid">
+
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Attendance Reports <a id="buttons"></a>
+                        </div>
+                        <span class="tools">
+                            <a class="fs1" aria-hidden="true" data-icon=""></a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+
+                        <a href="/Report/ReportByClass" class="btn btn-primary bottom-margin report_blu_btn" type="button">Report by classes</a><br>
+                        <a href="Report/ReportByStudents" class="btn btn-primary bottom-margin report_blu_btn" type="button">Report by students</a><br>
+                        <a href="Report/MonthlyReortOfStudent" class="btn btn-primary bottom-margin report_blu_btn" type="button">Monthly reports of  students</a><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // $('.left').removeClass('active');
+            $('#divReport').addClass('selected');
+        });
+    </script>
+}

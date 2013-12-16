@@ -8,635 +8,209 @@
     </ul>
 </div>
 <div class="dashboard-wrapper">
-      <div class="left-sidebar">
+    <div class="left-sidebar">
         <div class="divClacc">
-          <div class="row-fluid">
-            <div class="span12" id="wid2">
-              <div class="widget">
-                <div class="widget-header">
-                  <div class="title textAlign"> <span class="mini-title minLft22">
-                    <div class="dropdown"> <a href="groupsCreate3.html" data-original-title=""> Add Students/Groups <b class="caret2"> + </b> </a> </div>
-                    </span> Time Table</div>
-                  <span class="tools tls4"> <a href="#" class="btn btn-info" data-original-title=""> Save </a> </span> </div>
-                <div class="widget-body">
-                  <div class="row-fluid">
-                    <div class="span12">
-                      <div class="timetable">
-                        <div class="fst1sec">School Time :</div>
-                        <div class="sec2Mark">
-                          <input name="" type="text">
-                          <select>
-                            <option>All</option>
-                          </select>
-                          To
-                          <input name="" type="text">
-                          <select>
-                            <option>All</option>
-                          </select>
+            <div class="row-fluid abc1">
+                <div class="span12" id="wid1" style="display: block;">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title textAlign">View Timetable </div>
+                            <span class="tools tls6"><a href="/timeTable/EditTimeTable" class="btn btn-info">Edit </a><a href="#" class="btn btn-info">Delete </a></span>
                         </div>
-                        <div class="remark"> Remark :
-                          <input name="" type="text">
+                        <div class="widget-body">
+                            <div class="row-fluid">
+                                <div class="widget-body">
+                                    <div class="assigment_ctn">
+                                        <div class="assigment_box">
+                                            <div class="cal_select " id="coll">
+                                                <ul>
+                                                    <li>
+                                                        <select id="id_select" class="selectpicker bla bla bli">
+                                                            <option>All Courses</option>
+                                                            <option>All Courses</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <select name="select2" class="selectpicker bla bla bli" id="select2">
+                                                            <option>All Departments</option>
+                                                            <option>bull</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <select id="id_select" class="selectpicker bla bla bli">
+                                                            <option>All classes</option>
+                                                            <option>bull</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <select name="select" class="selectpicker bla bla bli" id="select">
+                                                            <option>All Section</option>
+                                                            <option>bull</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <select name="select" class="selectpicker bla bla bli" id="select">
+                                                            <option>All Staff</option>
+                                                            <option>bull</option>
+                                                        </select>
+                                                    </li>
+                                                    <li>
+                                                        <select id="id_select" class="selectpicker bla bla bli">
+                                                            <option>All subjects</option>
+                                                            <option>bull</option>
+                                                        </select>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="interVel">
-                          <div class="dropdown"> <a href="viewTable.html" data-original-title=""> + Add<br>
-                            Interval </a> </div>
-                        </div>
-                      </div>
-                      <div class="timetable">
-                        <div class="fst1sec">Total Periods :</div>
-                        <div class="sec2Mark">
-                          <select>
-                            <option>All</option>
-                          </select>
-                        </div>
-                        <div class="remark">
-                          <p><span>Note :</span> Please enter time in format as shown (e.g. 08:00, 10:10)</p>
-                        </div>
-                      </div>
-                      <div class="timetable">
-                        <div class="fst1sec">School Time :</div>
-                        <div class="sec2Mark">
-                          <input name="" type="text">
-                          <select>
-                            <option>All</option>
-                          </select>
-                          To
-                          <input name="" type="text">
-                          <select>
-                            <option>All</option>
-                          </select>
-                        </div>
-                        <div class="remark"> Remark :
-                          <input name="" type="text">
-                        </div>
-                        <div class="interVel">
-                          <div class="dropdown"> <a href="viewTable.html" data-original-title=""> + Add<br>
-                            Interval </a> </div>
-                        </div>
-                      </div>
-                      <div class="bdrArea"> <span class="mini-title minLft23">
-                        <div class="dropdown"> <a href="groupsCreate3.html" data-original-title=""> Add Students/Groups <b class="caret2"> + </b> </a> </div>
-                        </span> <span class="tools tls5"> <a href="#" class="btn btn-info" data-original-title=""> Save </a> </span> </div>
-                      <div class="widget-body toppACk">
-                        <table class="table table-condensed table-striped table-bordered table-hover no-margin">
-                          <thead>
-                            <tr class="gColor">
-                              <th> Periods Time </th>
-                              <th> Monday </th>
-                              <th class="hidden-phone"> Tuesday </th>
-                              <th class="hidden-phone"> Wednesday </th>
-                              <th class="hidden-phone"> Thursday </th>
-                              <th class="hidden-phone hidden-phone2"> Friday </th>
-                              <th class="hidden-phone hidden-phone2"> Saturday </th>
-                              <th class="hidden-phone hidden-phone2"> Sunday </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td width=""><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><div class="sec2Mark2">
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                        To
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                      </div></td>
-                                  </tr>
-                                  <tr>
-                                    <td><div class="sec2Mark2">
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                        To
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                      </div></td>
-                                  </tr>
-                                  <tr>
-                                    <td><div class="sec2Mark2">
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                        To
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                      </div></td>
-                                  </tr>
-                                  <tr>
-                                    <td><div class="sec2Mark2">
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                        To
-                                        <input name="" type="text">
-                                        <select>
-                                          <option>All</option>
-                                        </select>
-                                      </div></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone hidden-phone2"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone hidden-phone2"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                              <td class="hidden-phone hidden-phone2"><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr">
-                                  <tbody><tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                  <tr>
-                                    <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="noBdr selectSml">
-                                        <tbody><tr>
-                                          <td><select name="">
-                                              <option>Subject</option>
-                                              <option>Subject</option>
-                                            </select>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                          <td><select name="">
-                                              <option>Teacher</option>
-                                              <option>Subject</option>
-                                            </select></td>
-                                        </tr>
-                                        <tr>
-                                          <td><p>Remarks</p>
-                                            <input name="" type="text">
-                                          </td>
-                                        </tr>
-                                      </tbody></table></td>
-                                  </tr>
-                                </tbody></table></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
                     </div>
-                  </div>
+                    <div class="row-fluid">
+                        <div class="widget">
+                            <a href="#" class="printPdf">
+                                <img src="img/pdf.png" alt=""></a>
+                            <div class="widget-body">
+                                <div class="pnlTable">
+                                    <table width="0" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="left" valign="top" class="pRight2"><strong>School Time :</strong></td>
+                                            <td align="left" valign="top" class="pRight2">09:00 AM-04:30 AM</td>
+                                            <td align="left" valign="top" class="pRight2">Remarks : We have 8:00 AM -08:30 Assembly time</td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left" valign="top" class="pRight2"><strong>Total Periods :</strong></td>
+                                            <td align="left" valign="top" class="pRight2">4</td>
+                                            <td align="left" valign="top" class="pRight2">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table class="table table-condensed table-striped table-bordered table-hover no-margin">
+                                    <thead>
+                                        <tr class="bluRow">
+                                            <th><strong>Period No.</strong> </th>
+                                            <th>Time </th>
+                                            <th class="hidden-phone">Monday </th>
+                                            <th class="hidden-phone">Tuesday </th>
+                                            <th class="hidden-phone">Wednesday </th>
+                                            <th class="hidden-phone">Thursday </th>
+                                            <th class="hidden-phone">Friday </th>
+                                            <th class="hidden-phone">Saturday </th>
+                                            <th class="hidden-phone">Sunday </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1 </td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone">Science<br>
+                                                <span class="colorSpn">Sukhjinder</span><br>
+                                                Remarks:Lab<br>
+                                                Room No.3<br>
+                                            </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">Maths<br>
+                                                <span class="colorSpn">Satvir</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2 </td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone">Science<br>
+                                                <span class="colorSpn">Sukhjinder</span><br>
+                                                Remarks:Lab<br>
+                                                Room No.3<br>
+                                            </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">Maths<br>
+                                                <span class="colorSpn">Satvir</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone" colspan="7">
+                                                <img src="img/breakTime.png" alt="">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3 </td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone">Science<br>
+                                                <span class="colorSpn">Sukhjinder</span><br>
+                                                Remarks:Lab<br>
+                                                Room No.3<br>
+                                            </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">Maths<br>
+                                                <span class="colorSpn">Satvir</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 </td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone">Science<br>
+                                                <span class="colorSpn">Sukhjinder</span><br>
+                                                Remarks:Lab<br>
+                                                Room No.3<br>
+                                            </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">Maths<br>
+                                                <span class="colorSpn">Satvir</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                            <td class="hidden-phone">Hindi<br>
+                                                <span class="colorSpn">Khushwant</span> </td>
+                                            <td class="hidden-phone">English<br>
+                                                <span class="colorSpn">Anthony</span> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td>09:15 AM-10:15 AM </td>
+                                            <td class="hidden-phone" colspan="7">
+                                                <img src="img/breakTime.png" alt="">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      <div class="right-sidebar">
-               @Html.Partial("_RightMenuPartial")
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
     </div>
     <div id="dialog"></div>
 </div>
