@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace StudentTracker.Controllers
 {
+    [Authorize]
     public class GroupController : BaseController
     {
         //
@@ -41,7 +42,7 @@ namespace StudentTracker.Controllers
 
             objGroup.Users = this.repository.Users(_userStatistics.OrganizationId);
 
-            objGroup.OrganizationList = LoadSelectLists();
+            objGroup.OrganizationList =  LoadSelectLists();
             objGroup.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
             return View(objGroup);
         }

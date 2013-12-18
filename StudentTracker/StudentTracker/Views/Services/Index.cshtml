@@ -1,0 +1,85 @@
+﻿@model StudentTracker.ViewModels.OrganizationServicesViewModel
+@{
+    ViewBag.Title = "Organization Services";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+<div class="sub-nav">
+    <ul>
+        <li>
+            <a class="subButton" id="lnkViewAll" href="#" onclick="" action="/">Manage Services
+            </a>
+        </li>
+       
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Manage organization services
+                      <span class="mini-title">Simple form for Managing services
+                      </span>
+                        </div>
+                        <span class="tools">
+                            <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        @using (Html.BeginForm("SaveOrganizationServices", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                                <div class="controls">
+                                    @if (User.IsInRole("SiteAdmin"))
+                                    {
+                                        @Html.DropDownListFor(m => m.OrganizationId, ViewBag.OrganizationList as IEnumerable<SelectListItem>, "Select Organization", new { Class = "span6" })
+                                    }
+                                    else
+                                    {
+                                        <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                        @Html.HiddenFor(m => m.OrganizationId)
+                                    }
+                                </div>
+                            </div>
+                    
+                           
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.lnkCourses').addClass('selected');
+            $('#lnkViewAll').addClass('selected');
+            $('.subButton').click(function () {
+                $("a.subButton").removeClass('selected');
+                $(this).addClass('selected');
+            });
+        });
+    </script>
+}                                                                   

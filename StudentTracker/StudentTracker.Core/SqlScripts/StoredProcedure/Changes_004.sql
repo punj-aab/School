@@ -7,7 +7,7 @@
 )
 as
 BEGIN
-		INSERT INTO [Student5].[dbo].[UserSubjects]
+		INSERT INTO [dbo].[UserSubjects]
 				   ([UserId]
 				   ,[SubjectId]
 				   ,[InsertedOn]
@@ -84,7 +84,7 @@ create procedure [dbo].[usp_AssignGroupToUser]
 )
 as
 BEGIN
-INSERT INTO [Student5].[dbo].[UserGroup]
+INSERT INTO [dbo].[UserGroup]
            ([UserId]
            ,[GroupId]
            ,[InsertedOn]

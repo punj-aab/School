@@ -1,6 +1,8 @@
 ﻿using StudentTracker.Core.Entities;
+using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -85,8 +87,17 @@ namespace StudentTracker.Repository
 
         public Organization GetOrganization()
         {
-            Organization objModel = db.Query<Organization> ("exec usp_getOrganizations output").SingleOrDefault();
+            Organization objModel = db.Query<Organization>("exec usp_getOrganizations output").SingleOrDefault();
             return objModel;
+        }
+
+        public List<ServiceViewModel> GetOrganizationServices(long organizationId)
+        {
+            Dictionary<string, long> parameters = new Dictionary<string, long>();
+            parameters["OrganizationId"] = organizationId;
+
+            const string storedProcedure = "usp_GetOrganizationServices";
+            return db.Fetch<ServiceViewModel>(storedProcedure, parameters);
         }
     }
 }

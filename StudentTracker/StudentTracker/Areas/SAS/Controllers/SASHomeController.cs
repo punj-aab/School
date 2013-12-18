@@ -1,4 +1,5 @@
 ﻿using EmailHandler;
+using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.Utilities;
 using StudentTracker.Repository;
@@ -90,6 +91,15 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep3(string token)
         {
             Profile objProfile = new Profile();
+            RegistrationToken objToken = repository.GetRegistrationCode(token);
+            StudentContext context = new StudentContext();
+            Student student = context.Students.Find(objToken.StudentId);
+            if (student != null)
+            {
+                objProfile.FirstName = student.FullName;
+                objProfile.EmailAddress1 = student.Email;
+            }
+
             objProfile.RegistrationToken = token;
             objProfile.TitleList = new SelectList(new[] { new { Id = "Mr.", Value = "Mr." }, new { Id = "Miss.", Value = "Miss." } }, "Id", "Value");
             return View(objProfile);
@@ -99,7 +109,16 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep3(Profile objProfile)
         {
             RegistrationToken Token = repository.GetRegistrationCode(objProfile.RegistrationToken);
+            RegistrationToken objToken = repository.GetRegistrationCode(objProfile.RegistrationToken);
+            StudentContext context = new StudentContext();
+            Student student = context.Students.Find(objToken.StudentId);
+
             long userId = WebSecurity.RegisterNewUser(objProfile.UserName, "none", "none", false, objProfile.FirstName, objProfile.LastName, Token.OrganizationId, Token.Token);
+            if (student != null)
+            {
+                student.UserId = userId;
+            }
+
             DBConnectionString.Profile Profile = new DBConnectionString.Profile();
             if (userId != -1)
             {

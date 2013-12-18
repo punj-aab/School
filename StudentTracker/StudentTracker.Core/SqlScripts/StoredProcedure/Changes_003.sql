@@ -5,7 +5,7 @@
 as  
 BEGIN  
 SELECT [StudentId],  
-S.FullName  
+	S.FullName  
       ,[UserId]  
       ,S.OrganizationId  
       ,S.[CourseId]  

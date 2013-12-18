@@ -62,11 +62,13 @@ namespace StudentTracker.Core.DAL
         }
 
         #endregion
+
         public DbSet<Attachment> Attachments { get; set; }
         public DbSet<Template> Templates { get; set; }
         public DbSet<UserSubjects> UserSubjects { get; set; }
         public DbSet<Staff> Staff { get; set; }
         public DbSet<TeacherSubjects> TeacherSubjects { get; set; }
-
+        public DbSet<Service> Services { get; set; }
+        public DbSet<OrganizationServices> OrganizationServices { get; set; }
     }
 }
