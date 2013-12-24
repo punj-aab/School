@@ -5,6 +5,7 @@ namespace StudentTracker.Core.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+    using System.Web.Security;
 
     internal sealed class Configuration : DbMigrationsConfiguration<StudentTracker.Core.DAL.StudentContext>
     {
@@ -18,6 +19,15 @@ namespace StudentTracker.Core.Migrations
             //Seed obj = new Seed();
             //obj.AddCountriesToDB(context);
             //obj.AddStatesToDB(context);
+
+            //WebSecurity.Register("Demo", "123456", "demo@demo.com", true, "Demo", "Demo");
+            //Roles.CreateRole("OrganizationAdmin");
+            //Roles.CreateRole("SiteAdmin");
+            //Roles.AddUserToRole("Demo", "SiteAdmin");
+            //Roles.CreateRole("Student");
+            //Roles.CreateRole("Parent");
+            //Roles.CreateRole("Teacher");
+            //Roles.CreateRole("OtherStaff");
         }
     }
 }

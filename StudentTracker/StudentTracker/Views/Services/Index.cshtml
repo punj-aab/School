@@ -5,11 +5,8 @@
 }
 <div class="sub-nav">
     <ul>
-        <li>
-            <a class="subButton" id="lnkViewAll" href="#" onclick="" action="/">Manage Services
-            </a>
-        </li>
-       
+        <li><a class="subButton" id="lnkViewAll" href="#" onclick="" action="/">Manage Services
+        </a></li>
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">
@@ -27,25 +24,21 @@
                 <div class="widget">
                     <div class="widget-header">
                         <div class="title">
-                            Manage organization services
-                      <span class="mini-title">Simple form for Managing services
-                      </span>
+                            Manage organization services <span class="mini-title">Simple form for Managing services
+                            </span>
                         </div>
-                        <span class="tools">
-                            <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                        </span>
+                        <span class="tools"><a class="fs1" aria-hidden="true" data-icon="" data-original-title="">
+                        </a></span>
                     </div>
                     <div class="widget-body">
-                        @using (Html.BeginForm("SaveOrganizationServices", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+                        @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
                         {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true)
                             <div class="control-group">
                                 @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
                                 <div class="controls">
                                     @if (User.IsInRole("SiteAdmin"))
                                     {
-                                        @Html.DropDownListFor(m => m.OrganizationId, ViewBag.OrganizationList as IEnumerable<SelectListItem>, "Select Organization", new { Class = "span6" })
+                                        @Html.DropDownListFor(m => m.OrganizationId, ViewBag.OrganizationList as IEnumerable<SelectListItem>, "Select Organization", new { Class = "span6", @onchange = "LoadServices();" })
                                     }
                                     else
                                     {
@@ -54,15 +47,13 @@
                                     }
                                 </div>
                             </div>
-                    
-                           
-
                         }
-
+                        <div id="services">
+                            @{Html.RenderAction("LoadServices", new { organizationId = Model.OrganizationId });}
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="right-sidebar">
@@ -80,6 +71,31 @@
                 $("a.subButton").removeClass('selected');
                 $(this).addClass('selected');
             });
+
+            //$('select#OrganizationId').onchange("LoadServices");
+            //LoadServices();
         });
+        function LoadServices() {
+            //alert(1);
+            var organizationId = $('select#OrganizationId').val();
+            console.log("orgainzationid is : " + organizationId);
+            //var dataObj = { organizationId: organizationId };
+            if (organizationId > 0) {
+                $.ajax({
+                    type: "GET",
+                    cache: false,
+                    contentType: 'application/json;',
+                    // data: JSON.stringify(dataObj),
+                    url: "/Services/LoadServices?organizationId=" + organizationId,
+                    success: function (data) {
+                        $('#services').html(data);
+                    },
+                    error: function (a, b) {
+                        alert(a);
+                        alert(b);
+                    }
+                });
+            }
+        }
     </script>
-}                                                                   
+}

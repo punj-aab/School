@@ -1533,6 +1533,7 @@
     <Content Include="Views\Attendance\ViewByStaff.cshtml" />
     <Content Include="Views\Attendance\CreateAttendance.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
+    <Content Include="Views\Services\LoadServices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

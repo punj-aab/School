@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace StudentTracker.Repository
 {
@@ -91,13 +93,36 @@ namespace StudentTracker.Repository
             return objModel;
         }
 
-        public List<ServiceViewModel> GetOrganizationServices(long organizationId)
+        public IEnumerable<ServiceViewModel> GetOrganizationServices(long organizationId)
         {
-            Dictionary<string, long> parameters = new Dictionary<string, long>();
-            parameters["OrganizationId"] = organizationId;
+            List<ServiceViewModel> obj = new List<ServiceViewModel>();
 
-            const string storedProcedure = "usp_GetOrganizationServices";
-            return db.Fetch<ServiceViewModel>(storedProcedure, parameters);
+            string query = "usp_GetOrganizationServices";
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString);
+            con.Open();
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("organizationId", SqlDbType.BigInt, int.MaxValue).Value = organizationId;
+            IDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                ServiceViewModel sv = new ServiceViewModel();
+                sv.IsAdded=Convert.ToBoolean(dr["IsAdded"]);
+                sv.Modified=Convert.ToBoolean(dr["Modified"]);
+                sv.ServiceDescription=dr["ServiceDescription"].ToString();
+                sv.ServiceId=Convert.ToInt32(dr["ServiceId"]);
+                sv.ServiceName = dr["ServiceName"].ToString();
+                sv.Id = Convert.ToInt32(dr["Id"]);
+                obj.Add(sv);
+            }
+            cmd.Dispose();
+            con.Close();
+            return obj;
+            //Dictionary<string, long> parameters = new Dictionary<string, long>();
+            //parameters["organizationId"] = organizationId;
+
+            //string storedProcedure = "exec usp_GetOrganizationServices @organizationId";
+            //return db.Query<ServiceViewModel>(storedProcedure, new { organizationId = organizationId }).ToList();
         }
     }
 }

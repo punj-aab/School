@@ -21,11 +21,11 @@ namespace StudentTracker.Controllers
         {
             OrganizationServicesViewModel obj = new OrganizationServicesViewModel();
             ViewBag.OrganizationList = LoadSelectLists();
-            obj.OrganizationId = ViewBag.OrganizationId == null ? 0 : Convert.ToInt32(ViewBag.OrganizationId);
-            if (_userStatistics.OrganizationId != 0)
-            {
-                obj.Servcies = objRep.GetOrganizationServices(_userStatistics.OrganizationId);
-            }
+            obj.OrganizationId = _userStatistics.OrganizationId;
+            ////if (_userStatistics.OrganizationId != 0)
+            ////{
+            ////    obj.Servcies = objRep.GetOrganizationServices(_userStatistics.OrganizationId);
+            ////}
 
             return View(obj);
         }
@@ -49,6 +49,58 @@ namespace StudentTracker.Controllers
             }
             OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             return OrganizationList;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult LoadServices(long organizationId)
+        {
+            try
+            {
+                OrganizationServicesViewModel obj = new OrganizationServicesViewModel();
+                if (organizationId != 0)
+                {
+                    obj.Servcies = objRep.GetOrganizationServices(organizationId);
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+                return View(obj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool AddRemoveService(int id, long organizationId, int serviceId, bool value)
+        {
+            StudentContext db = new StudentContext();
+
+            OrganizationServices orgService = db.OrganizationServices.SingleOrDefault(s => s.Id == id && s.OrganizationId == organizationId && s.ServiceId == serviceId);
+            if (orgService != null)
+            {
+                orgService.StatusId = value ? 1 : 2;
+                orgService.UpdatedBy = _userStatistics.UserId;
+                orgService.UpdatedOn = DateTime.Now;
+
+            }
+            else
+            {
+                orgService = new OrganizationServices
+                {
+                    StatusId = value ? 1 : 2,
+                    ServiceId = serviceId,
+                    OrganizationId = organizationId,
+                    InsertedBy = _userStatistics.UserId,
+                    InsertedOn = DateTime.Now,
+                    UpdatedOn = DateTime.Now
+                };
+                db.OrganizationServices.Add(orgService);
+            }
+            db.SaveChanges();
+            return true;
         }
     }
 }
