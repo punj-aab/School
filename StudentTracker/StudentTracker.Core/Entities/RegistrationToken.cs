@@ -31,12 +31,14 @@ namespace StudentTracker.Core.Entities
         public long ClassId { get; set; }
 
         [Display(Name = "Section")]
-        public int SectionId { get; set; }
+        public int? SectionId { get; set; }
 
         [Display(Name = "Role")]
         public int RoleId { get; set; }
 
         public long? StudentId { get; set; }
+
+        public long? StaffId { get; set; }
 
         [ScaffoldColumn(false)]
         public long CreatedBy { get; set; }

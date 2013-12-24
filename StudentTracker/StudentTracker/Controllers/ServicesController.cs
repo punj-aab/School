@@ -60,6 +60,7 @@ namespace StudentTracker.Controllers
                 OrganizationServicesViewModel obj = new OrganizationServicesViewModel();
                 if (organizationId != 0)
                 {
+                    obj.OrganizationId = organizationId;
                     obj.Servcies = objRep.GetOrganizationServices(organizationId);
                 }
                 else

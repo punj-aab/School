@@ -50,7 +50,7 @@ namespace StudentTracker.Controllers
                         StudentContext db = new StudentContext();
 
                         string destDirectory = Server.MapPath("~/Attachments/ImportedFiles");
-                        destDirectory = Path.Combine(destDirectory, "Student", importId);
+                        destDirectory = Path.Combine(destDirectory, type, importId);
                         if (!Directory.Exists(destDirectory))
                         {
                             Directory.CreateDirectory(destDirectory);
@@ -61,11 +61,11 @@ namespace StudentTracker.Controllers
                         filename = Regex.Replace(filename, @"\s+", "");
 
                         //fetch path of the local directory from iCATStaticItemClass.
-                        string targetFolderPath = Path.GetTempPath();//Server.MapPath("~/Administrator/TempFiles/" + iCATGlobal.CurrentTenantInfo.TenantName);  // This is the part Im wondering about. Will this still function the way it should on the webserver after upload?
+                        //string targetFolderPath = Path.GetTempPath();//Server.MapPath("~/Administrator/TempFiles/" + iCATGlobal.CurrentTenantInfo.TenantName);  // This is the part Im wondering about. Will this still function the way it should on the webserver after upload?
                         //create target filePath 
                         string targetFilePath = Path.Combine(destDirectory, filename);
                         //Check if directory exists.
-                        if (Directory.Exists(targetFolderPath))
+                        if (Directory.Exists(destDirectory))
                         {
                             //if file with the same name exist in the directory.
                             if (System.IO.File.Exists(targetFilePath))
@@ -93,7 +93,7 @@ namespace StudentTracker.Controllers
                         else
                         {
                             //if directory doesn't exist create a new directory.
-                            Directory.CreateDirectory(targetFolderPath);
+                            Directory.CreateDirectory(destDirectory);
                             //save file 
                             Request.Files[upload].SaveAs(targetFilePath);
                         }
@@ -101,8 +101,8 @@ namespace StudentTracker.Controllers
 
                         Attachment att = new Attachment();
                         att.Filename = fileinfo.Name;
-                        att.ParentType = "Student";
-                        att.FilePath = Path.Combine(fileUrl, "Student", importId, filename);
+                        att.ParentType = type;
+                        att.FilePath = Path.Combine(fileUrl, type, importId, filename);
                         att.ItemId = Convert.ToInt64(importId);
                         db.Attachments.Add(att);
                         db.SaveChanges();
@@ -118,40 +118,70 @@ namespace StudentTracker.Controllers
                         var userId = _userStatistics.UserId;
                         var organizationId = _userStatistics.OrganizationId;
 
-                        List<Student> target = table.AsEnumerable().Skip(1)
-                         .Select(row => new Student
-                         {
-                             // assuming column 0's type is Nullable<long>
-                             RollNo = String.IsNullOrEmpty(row.Field<string>(0))
-                                 ? "not found"
-                                 : row.Field<string>(0),
-                             FullName = String.IsNullOrEmpty(row.Field<string>(1))
-                                 ? "not found"
-                                 : row.Field<string>(1),
-                             CourseName = String.IsNullOrEmpty(row.Field<string>(2))
-                                 ? "not found"
-                                 : row.Field<string>(2),
-                             ClassName = String.IsNullOrEmpty(row.Field<string>(3))
-                                 ? "not found"
-                                 : row.Field<string>(3),
-                             SectionName = String.IsNullOrEmpty(row.Field<string>(4))
-                                 ? "not found"
-                                 : row.Field<string>(4),
-                             DepartmentName = String.IsNullOrEmpty(row.Field<string>(5))
-                                 ? "not found"
-                                 : row.Field<string>(5),
-                             Email = String.IsNullOrEmpty(row.Field<string>(6))
-                                 ? "not found"
-                                 : row.Field<string>(6),
-                             Remarks = String.IsNullOrEmpty(row.Field<string>(7))
-                             ? "not found"
-                             : row.Field<string>(7),
-                             InsertedOn = DateTime.Now,
-                             ImportId = importId,
+                        if (type == "student")
+                        {
 
-                         }).ToList();
+                            List<Student> target = table.AsEnumerable().Skip(1)
+                             .Select(row => new Student
+                             {
+                                 // assuming column 0's type is Nullable<long>
+                                 RollNo = String.IsNullOrEmpty(row.Field<string>(0))
+                                     ? "not found"
+                                     : row.Field<string>(0),
+                                 FullName = String.IsNullOrEmpty(row.Field<string>(1))
+                                     ? "not found"
+                                     : row.Field<string>(1),
+                                 CourseName = String.IsNullOrEmpty(row.Field<string>(2))
+                                     ? "not found"
+                                     : row.Field<string>(2),
+                                 ClassName = String.IsNullOrEmpty(row.Field<string>(3))
+                                     ? "not found"
+                                     : row.Field<string>(3),
+                                 SectionName = String.IsNullOrEmpty(row.Field<string>(4))
+                                     ? "not found"
+                                     : row.Field<string>(4),
+                                 DepartmentName = String.IsNullOrEmpty(row.Field<string>(5))
+                                     ? "not found"
+                                     : row.Field<string>(5),
+                                 Email = String.IsNullOrEmpty(row.Field<string>(6))
+                                     ? "not found"
+                                     : row.Field<string>(6),
+                                 Remarks = String.IsNullOrEmpty(row.Field<string>(7))
+                                 ? "not found"
+                                 : row.Field<string>(7),
+                                 InsertedOn = DateTime.Now,
+                                 ImportId = importId,
 
-                        SaveStudentsInDB(target, importId);
+                             }).ToList();
+
+                            SaveStudentsInDB(target, importId);
+                        }
+                        else if(type=="staff")
+                        {
+                            List<Staff> target = table.AsEnumerable().Skip(1)
+                            .Select(row => new Staff
+                            {
+                                // assuming column 0's type is Nullable<long>
+                                FullName = String.IsNullOrEmpty(row.Field<string>(0))
+                                    ? "not found"
+                                    : row.Field<string>(0),
+                               
+                                Email = String.IsNullOrEmpty(row.Field<string>(1))
+                                    ? "not found"
+                                    : row.Field<string>(1),
+                                Remarks = String.IsNullOrEmpty(row.Field<string>(3))
+                                ? "not found"
+                                : row.Field<string>(3),
+                                InsertedOn = DateTime.Now,
+                                ImportId = importId,
+                                StaffTypeName = String.IsNullOrEmpty(row.Field<string>(2))
+                                    ? "not found"
+                                    : row.Field<string>(2),
+
+                            }).ToList();
+
+                            SaveStaffInDB(target, importId);
+                        }
                     }
                     else
                     {
@@ -181,6 +211,38 @@ namespace StudentTracker.Controllers
                     student.ClassId = GetClassId(context, student.ClassName, student.CourseId, organizationId);
                     student.SectionId = GetSectionId(context, student.SectionName, student.ClassId, student.CourseId, organizationId);
                     context.Students.Add(student);
+                }
+                context.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }
+
+        public bool SaveStaffInDB(List<Staff> staff, string importId)
+        {
+            try
+            {
+                StudentContext context = new StudentContext();
+                int organizationId = Convert.ToInt32(_userStatistics.OrganizationId);
+                foreach (Staff ind in staff)
+                {
+                    ind.ImportId = importId;
+                    ind.OrganizationId = organizationId;
+                    ind.StaffTypeId = GetStaffTypeId(ind.StaffTypeName);
+                    context.Staff.Add(ind);
                 }
                 context.SaveChanges();
                 return true;
@@ -270,8 +332,24 @@ namespace StudentTracker.Controllers
 
         }
 
+        public int GetStaffTypeId(string staffTypeName)
+        {
+            if (staffTypeName == "teacher")
+            {
+                return StaffTypes.Teacher;
+            }
+            else if (staffTypeName == "coach")
+            {
+                return StaffTypes.Coach;
+            }
+            else
+            {
+                return StaffTypes.Clerk;
+            }
+        }
+
         [HttpGet]
-        public JsonResult ShowExcelFileContent(jQueryDataTableViewModel param, string importId)
+        public JsonResult ShowExcelFileContentForStudent(jQueryDataTableViewModel param, string importId)
         {
             StudentContext context = new StudentContext();
             // var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
@@ -284,6 +362,22 @@ namespace StudentTracker.Controllers
                             iTotalDisplayRecords = objModelList.Count(),
                             aaData = objModelList
                         }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ShowExcelFileContentForStaff(jQueryDataTableViewModel param, string importId)
+        {
+            StudentContext context = new StudentContext();
+            // var studentData = context.Students.Where(s => s.ImportId == importId).ToList();
+            List<Staff> objModelList = repository.GetImportedStaff(importId);
+
+            return Json(new
+            {
+                sEcho = param.sEcho,
+                iTotalRecords = objModelList.Count(),
+                iTotalDisplayRecords = objModelList.Count(),
+                aaData = objModelList
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public bool SendRegistrationEmailToStudents(string importId)
@@ -334,6 +428,54 @@ namespace StudentTracker.Controllers
             }
         }
 
+        public bool SendRegistrationEmailToStaff(string importId)
+        {
+            try
+            {
+                List<Staff> objModelList = repository.GetImportedStaff(importId);
+                StudentContext context = new StudentContext();
+                Dictionary<string, string> parameters = new Dictionary<string, string>();
+                //  RegistrationToken tokenObj = new RegistrationToken();
+                foreach (var student in objModelList)
+                {
+                    string token = UserStatistics.GenerateToken();
+
+                    RegistrationToken tokenObj = new RegistrationToken();
+                    tokenObj.ClassId = student.ClassId;
+                    tokenObj.CourseId = student.CourseId;
+                    tokenObj.DepartmentId = student.DepartmentId;
+                    tokenObj.OrganizationId = student.OrganizationId;
+                    tokenObj.RoleId = Convert.ToInt32(UserRoles.Student);
+                    tokenObj.SectionId = -1;
+                    tokenObj.Token = token;
+                    tokenObj.StudentId = student.StaffId;
+                    context.RegistrationTokens.Add(tokenObj);
+                    parameters.Add(token, student.Email);
+                }
+
+                context.SaveChanges();
+
+                Task.Factory.StartNew(() => SendEmails(parameters));
+
+                //SendEmails(parameters);
+                return true;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+        }
+
         public void SendEmails(Dictionary<string, string> parameters)
         {
 
@@ -355,9 +497,17 @@ namespace StudentTracker.Controllers
             return View();
         }
 
-        public FileResult DownloadSample()
+        public FileResult DownloadSample(string type)
         {
-            string filePath = Server.MapPath("~/App_Data/Sample/Sample.xlsx");
+            string filePath = string.Empty;
+            if (type == "staff")
+            {
+                filePath = Server.MapPath("~/App_Data/Sample/SampleStaff.xlsx");
+            }
+            else if (type == "student")
+            {
+                filePath = Server.MapPath("~/App_Data/Sample/SampleStudent.xlsx");
+            }
             return File(filePath, "text/octet-stream", "sample.xlsx");
         }
 

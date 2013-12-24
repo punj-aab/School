@@ -10,7 +10,7 @@ namespace StudentTracker.ViewModels
     {
         public IEnumerable<ServiceViewModel> Servcies { get; set; }
 
-        [Display(Name="Organization")]
+        [Display(Name = "Organization")]
         public long OrganizationId { get; set; }
 
     }

@@ -93,6 +93,7 @@
     <Compile Include="Entities\SecurityQuestion.cs" />
     <Compile Include="Entities\Service.cs" />
     <Compile Include="Entities\Staff.cs" />
+    <Compile Include="Entities\StaffTypes.cs" />
     <Compile Include="Entities\State.cs" />
     <Compile Include="Entities\Student.cs" />
     <Compile Include="Entities\Subject.cs" />
@@ -132,6 +133,7 @@
     <Content Include="SqlScripts\StoredProcedure\Changes_003.sql" />
     <Content Include="SqlScripts\StoredProcedure\Changes_004.sql" />
     <Content Include="SqlScripts\StoredProcedure\Changes_005.sql" />
+    <Content Include="SqlScripts\StoredProcedure\Changes_006.sql" />
     <Content Include="SqlScripts\StoredProcedure\StoredProcedures.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

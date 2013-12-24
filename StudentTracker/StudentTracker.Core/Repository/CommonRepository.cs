@@ -220,6 +220,16 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<Student>(storedProcedure, new { ImportId = importId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public List<Staff> GetImportedStaff(string importId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetImportedStaff";
+                return connection.Query<Staff>(storedProcedure, new { ImportId = importId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
         public List<Student> GetStudents(long organizationId)
         {
             using (IDbConnection connection = OpenConnection())

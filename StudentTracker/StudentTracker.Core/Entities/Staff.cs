@@ -11,11 +11,24 @@ namespace StudentTracker.Core.Entities
     public class Staff
     {
         public long StaffId { get; set; }
-        [Required]
 
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         public string Title { get; set; }
+
+        public string FullName { get; set; }
+
+        public int StaffTypeId { get; set; }
+
+        public string ImportId { get; set; }
+
+        public string Remarks { get; set; }
+
+        [NotMapped]
+        public string StaffTypeName { get; set; }
+
+        [ForeignKey("StaffTypeId")]
+        public StaffTypes StaffType { get; set; }
 
         public string Email { get; set; }
 
@@ -23,6 +36,11 @@ namespace StudentTracker.Core.Entities
         public long InsertedBy { get; set; }
         public long? ModifieBy { get; set; }
         public DateTime? ModifiedOn { get; set; }
+
+        [NotMapped]
+        [ScaffoldColumn(false)]
+        public string ImportDateString { get { return InsertedOn.ToString("MM/dd/yyyy"); } }
+
 
         [NotMapped]
         public string InsertedByName { get; set; }
