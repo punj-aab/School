@@ -23,6 +23,7 @@ namespace StudentTracker.Core.Utilities
 
         private string userClass;
 
+        private List<Service> servciesForThisOrganization = new List<Service>();
 
         public UserStatistics(HttpContextBase context)
         {
@@ -39,7 +40,23 @@ namespace StudentTracker.Core.Utilities
                 _context.Session["User"] = user;
             }
             userId = user.UserId;
-            organizationId = user.OrgainzationId;
+            organizationId = user.OrganizationId;
+
+            var services = db.OrganizationServices.Where(os => os.OrganizationId == organizationId && os.StatusId == 1).Join(db.Services, os => os.ServiceId, s => s.ServiceId, (os, s) => new { s.ServiceName, s.ServiceId, os.OrganizationId }).ToList();
+            servciesForThisOrganization = (from s in services
+                                           select new Service
+                                           {
+                                               ServiceId = s.ServiceId,
+                                               ServiceName = s.ServiceName
+                                           }).ToList();
+        }
+
+        public List<Service> Services
+        {
+            get
+            {
+               return this.servciesForThisOrganization;
+            }
         }
 
         public long UserId

@@ -207,7 +207,7 @@ public sealed class WebSecurity
                 User.FirstName = FirstName;
                 User.LastName = LastName;
                 User.ConfirmPassword = User.Password;
-                User.OrgainzationId = organizationId;
+                User.OrganizationId = organizationId;
                 User.RegistrationToken = token;
                 Context.SaveChanges();
             }

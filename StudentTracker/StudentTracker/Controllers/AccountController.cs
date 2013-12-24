@@ -53,7 +53,7 @@ namespace StudentTracker.Controllers
             StudentContext db = new StudentContext();
             var tokenObject = db.RegistrationTokens.Where(t => t.Token == id).FirstOrDefault();
             StudentTracker.Core.Entities.User objUser = new Core.Entities.User();
-            objUser.OrgainzationId = tokenObject.OrganizationId;
+            objUser.OrganizationId = tokenObject.OrganizationId;
             objUser.MasterId = tokenObject.CreatedBy;
             objUser.RegistrationToken = id;
             return View(objUser);
@@ -66,7 +66,7 @@ namespace StudentTracker.Controllers
         {
             StudentContext db = new StudentContext();
             var tokenObject = db.RegistrationTokens.Where(t => t.Token == objUser.RegistrationToken).FirstOrDefault();
-            objUser.OrgainzationId = tokenObject.OrganizationId;
+            objUser.OrganizationId = tokenObject.OrganizationId;
             objUser.MasterId = tokenObject.CreatedBy;
             CodeFirstMembershipProvider membership = new CodeFirstMembershipProvider();
             var token = membership.CreateAccount(objUser);

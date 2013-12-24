@@ -48,7 +48,7 @@
         public virtual string RegistrationToken { get; set; }
 
         [ScaffoldColumn(false)]
-        public long OrgainzationId { get; set; }
+        public long OrganizationId { get; set; }
 
         [ScaffoldColumn(false)]
         public virtual int PasswordFailuresSinceLastSuccess { get; set; }

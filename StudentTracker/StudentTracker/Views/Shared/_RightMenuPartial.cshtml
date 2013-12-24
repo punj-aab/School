@@ -1,63 +1,95 @@
-﻿<h4><span class="fs1 arw" data-icon="" aria-hidden="true"></span>Communication</h4>
+﻿@{
+    var _userStatisctics = new StudentTracker.Core.Utilities.UserStatistics(this.Context);
+}
+<h4>
+    <span class="fs1 arw" data-icon="" aria-hidden="true"></span>Communication</h4>
 <div class="wrapper">
     <ul class="stats nav-pills">
         <li><a href="/Email">
             <div id="divEmail" class="left">
-                <p>Email</p>
+                <p>
+                    Email</p>
             </div>
             <div class="chart">
                 <img src="/img/email.png" alt="">
             </div>
         </a></li>
-        <li><a href="/Eletters">
-            <div class="left" id="divEletter">
-                <p>Eletter</p>
-            </div>
-            <div class="chart">
-                <img src="/img/letter.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/SMS">
-            <div class="left" id="divSMS">
-                <p>SMS </p>
-            </div>
-            <div class="chart">
-                <img src="/img/sms.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="#">
-            <div class="left">
-                <p>Absent Reporting </p>
-            </div>
-            <div class="chart">
-                <img src="/img/reporting.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="#">
-            <div class="left">
-                <p>Print Letters </p>
-            </div>
-            <div class="chart">
-                <img src="/img/print.png" alt="">
-            </div>
-        </a></li>
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetters))
+        {
+            <li><a href="/Eletters">
+                <div class="left" id="divEletter">
+                    <p>
+                        Eletter</p>
+                </div>
+                <div class="chart">
+                    <img src="/img/letter.png" alt="">
+                </div>
+            </a></li>
+        }
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.SMS))
+        {
+            <li><a href="/SMS">
+                <div class="left" id="divSMS">
+                    <p>
+                        SMS
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/sms.png" alt="">
+                </div>
+            </a></li>
+        }
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Reports))
+        {
+            <li><a href="#">
+                <div class="left">
+                    <p>
+                        Absent Reporting
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/reporting.png" alt="">
+                </div>
+            </a></li>
+        }
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetters))
+        {
+            <li><a href="#">
+                <div class="left">
+                    <p>
+                        Print Letters
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/print.png" alt="">
+                </div>
+            </a></li>
+        }
     </ul>
 </div>
 <hr class="hr-stylish-1">
-<h4><span class="fs1 arw" data-icon="" aria-hidden="true"></span>Payments</h4>
+<h4>
+    <span class="fs1 arw" data-icon="" aria-hidden="true"></span>Payments</h4>
 <div class="wrapper">
     <ul class="stats nav-pills">
-        <li><a href="/OnlineFee">
-            <div class="left" id="divOnlineFee">
-                <p>Online Fee </p>
-            </div>
-            <div class="chart">
-                <img src="/img/online.png" alt="">
-            </div>
-        </a></li>
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Payments))
+        {
+            <li><a href="/OnlineFee">
+                <div class="left" id="divOnlineFee">
+                    <p>
+                        Online Fee
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/online.png" alt="">
+                </div>
+            </a></li>
+        }
         <li><a href="#">
             <div class="left">
-                <p>Lunch/dinner Money </p>
+                <p>
+                    Lunch/dinner Money
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/lunch.png" alt="">
@@ -65,7 +97,9 @@
         </a></li>
         <li><a href="/Trip">
             <div class="left" id="divTrips">
-                <p>Trips </p>
+                <p>
+                    Trips
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/trip.png" alt="">
@@ -73,7 +107,9 @@
         </a></li>
         <li><a href="/Ticket">
             <div class="left" id="divTicket">
-                <p>Tickets </p>
+                <p>
+                    Tickets
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/tickets.png" alt="">
@@ -81,7 +117,8 @@
         </a></li>
         <li><a href="/Shop">
             <div class="left" id="divShop">
-                <p>Our Shop</p>
+                <p>
+                    Our Shop</p>
             </div>
             <div class="chart">
                 <img src="/img/shop.png" alt="">
@@ -89,7 +126,9 @@
         </a></li>
         <li><a href="/Order">
             <div class="left" id="divOrder">
-                <p>Orders </p>
+                <p>
+                    Orders
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/order.png" alt="">
@@ -98,20 +137,28 @@
     </ul>
 </div>
 <hr class="hr-stylish-1">
-<h4><span class="fs1 arw" data-icon="" aria-hidden="true"></span>Academics</h4>
+<h4>
+    <span class="fs1 arw" data-icon="" aria-hidden="true"></span>Academics</h4>
 <div class="wrapper">
     <ul class="stats nav-pills">
-        <li><a href="/Calendar">
-            <div class="left" id="divCalander">
-                <p>Calendar </p>
-            </div>
-            <div class="chart">
-                <img src="/img/calendar.png" alt="">
-            </div>
-        </a></li>
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Calendar))
+        {
+            <li><a href="/Calendar">
+                <div class="left" id="divCalander">
+                    <p>
+                        Calendar
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/calendar.png" alt="">
+                </div>
+            </a></li>
+        }
         <li><a href="/OnlineAssignment">
             <div class="left" id="divCourseWork">
-                <p>CourseWork </p>
+                <p>
+                    CourseWork
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/assign.png" alt="">
@@ -119,7 +166,9 @@
         </a></li>
         <li><a href="/TimeTable">
             <div class="left" id="divTimeTable">
-                <p>Time Table </p>
+                <p>
+                    Time Table
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/timeTable.png" alt="">
@@ -127,7 +176,9 @@
         </a></li>
         <li><a href="/Attendance">
             <div class="left" id="divAttendance">
-                <p>Attendance </p>
+                <p>
+                    Attendance
+                </p>
             </div>
             <div class="chart">
                 <img src="/img/attendance.png" alt="">
@@ -135,4 +186,3 @@
         </a></li>
     </ul>
 </div>
-

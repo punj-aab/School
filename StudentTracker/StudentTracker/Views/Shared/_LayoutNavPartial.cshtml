@@ -1,71 +1,71 @@
-﻿<div class="top-nav">
+﻿@{
+   var _userStatisctics=new StudentTracker.Core.Utilities.UserStatistics(this.Context);
+}
+<div class="top-nav">
     <ul>
         @if (User.Identity.IsAuthenticated)
         {
             <li><a href="/home" id="divHome">
-                <div class="fs1" aria-hidden="true" data-icon="&#xe000;"></div>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe000;">
+                </div>
                 Home </a></li>
             <li><a href="/Individual" id="divIndividual">
-                <div class="fs1" aria-hidden="true" data-icon="&#xe070;"></div>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe070;">
+                </div>
                 Individuals </a></li>
             <li><a href="/Group" id="divGroup">
-                <div class="fs1" aria-hidden="true" data-icon="&#xe071;"></div>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe071;">
+                </div>
                 Groups </a></li>
+            if(_userStatisctics.Services.ToDictionary(s=>s.ServiceId,s=>s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Reports))
+            {
             <li><a href="/Report" id="divReport">
-                <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe040;">
+                </div>
                 Reports </a></li>
+            }
+            if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Payments))
+            {
             <li><a href="/payment" id="divPayment">
-                <div class="fs1" aria-hidden="true" data-icon="&#xe004;"></div>
+                <div class="fs1" aria-hidden="true" data-icon="&#xe004;">
+                </div>
                 payments </a></li>
+            }
            
             if (User.IsInRole("SiteAdmin"))
             {
-            <li>
-                <a href="~/organization" class="lnkOrganization">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe0b8;"></div>
-                    Organizations
-                </a>
-            </li>
+            <li><a href="~/organization" class="lnkOrganization">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe0b8;">
+                </div>
+                Organizations </a></li>
             }
             
 
-            <li>
-                <a href="/Schedule" class="lnkSchedules">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe096;"></div>
-                    Schedules
-                </a>
-            </li>
-            <li>
-                <a href="/Template" class="lnkTemplates">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe052;"></div>
-                    Templates
-                </a>
-            </li>
-            <li>
-                <a href="/Event" class="lnkEvents">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe052;"></div>
-                    Events
-                </a>
-            </li>
-            <li>
-                <a href="/home/MasterSetup" id="navDashboard">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe00d;"></div>
-                    Master Setup
-                </a>
-            </li>
+            <li><a href="/Schedule" class="lnkSchedules">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe096;">
+                </div>
+                Schedules </a></li>
+            <li><a href="/Template" class="lnkTemplates">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe052;">
+                </div>
+                Templates </a></li>
+            <li><a href="/Event" class="lnkEvents">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe052;">
+                </div>
+                Events </a></li>
+            <li><a href="/home/MasterSetup" id="navDashboard">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe00d;">
+                </div>
+                Master Setup </a></li>
         }
         else
         { 
-            <li>
-                <a href="#" class="selected">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe0aa;"></div>
-                    Login
-                </a>
-            </li>
+            <li><a href="#" class="selected">
+                <div class="fs1" aria-hidden="true" data-icon="&#xe0aa;">
+                </div>
+                Login </a></li>
         }
-
     </ul>
     <div class="clearfix">
     </div>
 </div>
-

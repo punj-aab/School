@@ -1180,6 +1180,7 @@
     <Content Include="Areas\SAS\Views\Shared\_LoginPartialSAS.cshtml" />
     <Content Include="Areas\SAS\Views\ELetter\UserEletter.cshtml" />
     <Content Include="App_Data\Sample\Sample.xlsx" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\staging-StudentTracker-1649 - Web Deploy.pubxml" />
     <Content Include="Areas\SAS\Views\Shared\LayoutAreas.cshtml" />

@@ -577,7 +577,7 @@ public class CodeFirstMembershipProvider : MembershipProvider
                 RegistrationToken = token,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                OrgainzationId = user.OrgainzationId
+                OrganizationId = user.OrganizationId
             };
             NewUser.ConfirmPassword = hashedPassword;
             Context.Users.Add(NewUser);

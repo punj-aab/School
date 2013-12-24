@@ -38,3 +38,39 @@ BEGIN
 		)
 END
 GO
+
+alter procedure [dbo].[usp_getOrganizations]  
+(  
+@organizationId bigint = null  
+)  
+as  
+select Organizations.OrganizationId,  
+       OrganizationName,  
+       OrganizationDesc,  
+       OrganizationTypeId,  
+       RegisterationNumber,  
+       CountryId,  
+       Organizations.StateId,  
+       Address1,  
+       Address2,  
+       Organizations.Email,  
+       Phone1,  
+       Phone2,  
+       CreatedBy,  
+       CreatedDate,  
+       ModifiedBy,  
+       ModifiedDate,  
+       Deletedby,  
+       DeletedDate,  
+       Users.Username as InsertedByName,  
+       Users_1.Username as ModifiedByName,  
+       Countries.CountryName as CountryName,  
+       States.StateName as StateName,  
+       City  
+ from Organizations   
+ join Countries on Organizations.CountryId=Countries.Id   
+ join States on organizations.StateId=States.Id  
+ join Users on Organizations.CreatedBy=Users.UserId   
+ left join Users as Users_1 on  Organizations.ModifiedBy=Users_1.UserId  
+ where (@organizationId is null or Organizations.OrganizationId=@organizationId)  
+ GO
