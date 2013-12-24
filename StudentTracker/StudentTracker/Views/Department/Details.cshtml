@@ -5,22 +5,21 @@
 }
 
 @Scripts.Render("~/bundles/jqueryval")
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Department Details
-                      <span class="mini-title">Simple form for Display Departments
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Department Details
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.DepartmentId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+                    </span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.DepartmentId)
@@ -67,22 +66,14 @@
                             @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.DepartmentId" onclick="Edit(event)" id="lnkEdit">Edit</a>
 
-                        <div class="clearfix">
-                        </div>
-                    </div>
 
-                }
-                @{
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name });
-                }
+                    @{
+    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name });
+                    }
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+}

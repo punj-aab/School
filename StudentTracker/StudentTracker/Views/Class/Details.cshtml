@@ -8,13 +8,12 @@
     <div class="span12">
         <div class="widget">
             <div class="widget-header">
-                <div class="title">
+                <div class="title textAlign">
                     Class Details
-                      <span class="mini-title">Simple form for Display Class
-                      </span>
+                      
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                <span class="tools tls2">
+                    <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.ClassId" onclick="Edit(event)" id="lnkEdit">Edit</a>
                 </span>
             </div>
             <div class="widget-body">
@@ -26,7 +25,7 @@
                     <div class="control-group">
                         @Html.LabelFor(m => m.ClassName, new { Class = "control-label" })
                         <div class="controls">
-                         @Html.DisplayFor(m => m.ClassName)
+                            @Html.DisplayFor(m => m.ClassName)
                         </div>
                     </div>
                     <div class="control-group">
@@ -37,14 +36,14 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class = "control-label">Organization</label>
+                        <label class="control-label">Organization</label>
                         <div class="controls controls-row">
                             @Html.DisplayFor(m => m.OrganizationName)
 
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class = "control-label">Course</label>
+                        <label class="control-label">Course</label>
                         <div class="controls controls-row">
                             @Html.DisplayFor(m => m.CourseName)
 
@@ -56,7 +55,7 @@
                             @Html.DisplayFor(m => m.InsertedOn)
                         </div>
                     </div>
-                     <div class="control-group">
+                    <div class="control-group">
                         @Html.Label("Created By", new { Class = "control-label" })
                         <div class="controls">
                             @Html.DisplayFor(m => m.InsertedByName)
@@ -68,22 +67,12 @@
                             @Html.DisplayFor(m => m.ModifiedOn)
                         </div>
                     </div>
-                     <div class="control-group">
+                    <div class="control-group">
                         @Html.Label("Updated By", new { Class = "control-label" })
                         <div class="controls">
                             @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.ClassId" onclick="Edit(event)" id="lnkEdit">Edit</a>
-
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
                 }
 
             </div>

@@ -205,15 +205,29 @@ namespace StudentTracker.Repository
             return this.Find<Subject>("select * from Subjects where classId = @id", classId);
         }
 
+        //public StudentViewModel GetStudents(long organizationId, long studentId)
+        //{
+        //    using (IDbConnection connection = OpenConnection())
+        //    {
+        //        Dictionary<string, long> parameters = new Dictionary<string, long>();
+        //        parameters["OrganizationId"] = organizationId;
+        //        parameters["StudentId"] = studentId;
+        //        const string storedProcedure = "usp_GetStudents";
+        //        return this.GetStudents<StudentViewModel>(storedProcedure, organizationId, studentId);
+        //    }
+        //}
+
         public StudentViewModel GetStudents(long organizationId, long studentId)
         {
             using (IDbConnection connection = OpenConnection())
             {
-                Dictionary<string, long> parameters = new Dictionary<string, long>();
-                parameters["OrganizationId"] = organizationId;
-                parameters["StudentId"] = studentId;
+                var parameters = new
+                    {
+                        OrganizationId = organizationId,
+                        StudentId = studentId
+                    };
                 const string storedProcedure = "usp_GetStudents";
-                return this.GetStudents<StudentViewModel>(storedProcedure, organizationId, studentId);
+                return this.ExecuteSP<StudentViewModel>(storedProcedure, parameters);
             }
         }
 

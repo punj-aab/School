@@ -5,22 +5,21 @@
     string token = DateTime.UtcNow.Ticks.ToString();
 }
 @Html.Hidden("token", token)
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Modify Course
-                      <span class="mini-title">Simple form for modify Course
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Modify Course
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save</a>
+                        <a class="btn btn-info" href="/Course" data-original-title="">Cancel</a></span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.CourseId)
@@ -59,24 +58,15 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                            Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
-                   
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
-                        <div class="clearfix Error">
-                        </div>
-                    </div>
-
-                }
-
+                    @{
+    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
+                    }
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+}
 @Scripts.Render("~/bundles/jqueryval")
 
 @HelperAssets.FileUploadScript(token);

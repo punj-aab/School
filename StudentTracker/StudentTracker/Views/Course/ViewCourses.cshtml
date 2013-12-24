@@ -8,17 +8,18 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    View Cources<a id="dynamicTable">e</a>
+                    View Cources<a id="dynamicTable"></a>
                 </div>
                 <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                    <a id="lnkAddNew" class="btn btn-info tools2" href="#" onclick="LoadAjax(event)" action="Create">New
+                    </a>
                 </span>
             </div>
             <div class="widget-body">
                 <div id="dt_example" class="example_alt_pagination">
                     <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
                         <thead>
-                            <tr>
+                            <tr class="bluRow">
                                 <th>CourseName          </th>
                                 <th>CourseDescription   </th>
                                 <th>Organization Name          </th>

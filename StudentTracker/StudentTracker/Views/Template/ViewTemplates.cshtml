@@ -7,15 +7,13 @@
                 <div class="title">
                     View Templates<a id="dynamicTable"></a>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                </span>
+                <span class="tools"><a class="btn btn-info tools2" onclick="LoadAjax(event)" href="#" action="Create" data-original-title="">New</a> </span>
             </div>
             <div class="widget-body">
                 <div id="dt_example" class="example_alt_pagination">
                     <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
                         <thead>
-                            <tr>
+                            <tr class="bluRow">
                                 <th>@Html.DisplayNameFor(model => model.Name)</th>
                                 <th>@Html.DisplayNameFor(model => model.TemplateText)</th>
                                 <th>Organization</th>

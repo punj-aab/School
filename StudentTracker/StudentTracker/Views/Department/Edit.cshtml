@@ -7,22 +7,22 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 @Html.Hidden("token", token)
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Modify Department
-                      <span class="mini-title">Simple form for Edit Departments
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Modify Department
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save</a>
+                        <a name="cancel" class="btn btn-primary" href="/Department">Cancel</a>
+                    </span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.DepartmentId)
@@ -60,24 +60,14 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
+                    @{
                             Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.DepartmentId, type = this.ViewContext.Controller.GetType().Name, isEditMode = true });
-
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
-                        <div class="clearfix Error">
-                        </div>
-                    </div>
-
-                }
-
+                    }
+                </div>
             </div>
         </div>
+
     </div>
 
-</div>
-
-
+}
 @HelperAssets.FileUploadScript(token);

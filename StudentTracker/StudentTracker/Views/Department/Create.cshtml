@@ -7,22 +7,21 @@
 
 @Scripts.Render("~/bundles/jqueryval")
 @Html.Hidden("token", token)
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Create New Department
-                      <span class="mini-title">Simple form for new Departments
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Create Department
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Save</a>
+                        <a class="btn btn-info" href="/Department" data-original-title="">Cancel</a></span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="control-group">
@@ -55,19 +54,12 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                    <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Department</a>
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
-                }
-
+                </div>
             </div>
         </div>
-    </div>
 
-</div>
+    </div>
+}
 @HelperAssets.FileUploadScript(token);
 <script></script>
 

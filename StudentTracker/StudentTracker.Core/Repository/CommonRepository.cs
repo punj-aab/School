@@ -894,6 +894,8 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<RegistrationToken>(query, new { RegistrationToken = registrationCode }).SingleOrDefault();
             }
         }
+
+        
     }
 }
 

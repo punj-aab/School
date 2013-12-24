@@ -51,12 +51,12 @@ namespace StudentTracker.Core.Repositories
             }
         }
 
-        public T GetStudents<T>(string sp, long organizationId, long studentId)
+        public T ExecuteSP<T>(string sp, object parameters)
         {
             T obj;
             using (IDbConnection connection = OpenConnection())
             {
-                return obj = connection.Query<T>(sp, new { OrganizationId = organizationId, StudentId = studentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+                return obj = connection.Query<T>(sp, parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
 

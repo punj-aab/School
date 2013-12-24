@@ -7,13 +7,13 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewTemplates">View Templates
+            <a id="lnkViewAll" class="heading" href="#" onclick="LoadAjax(event)" action="ViewTemplates">View Templates
             </a>
         </li>
-        <li>
+        @*<li>
             <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Template
             </a>
-        </li>
+        </li>*@
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">
@@ -33,26 +33,30 @@
         }
     </div>
     <div class="right-sidebar">
-
-
-        <div class="wrapper">
-            <button class="btn btn-block btn-info" type="button">
-                Template Instructions
-            </button>
+        <div class="divRight">
+            @Html.Partial("_RightMenuPartial")
         </div>
+        <div class="divInstructions">
+            <div class="wrapper">
+                <button class="btn btn-block btn-info" type="button">
+                    Template Instructions
+                </button>
+            </div>
 
-        <hr class="hr-stylish-1">
+            <hr class="hr-stylish-1">
 
-        <div class="wrapper">
-            <ul id="formattingFieldList" class="progress-statistics">
-            </ul>
+            <div class="wrapper">
+                <ul id="formattingFieldList" class="progress-statistics">
+                </ul>
+            </div>
+
+            <hr class="hr-stylish-1">
         </div>
-
-        <hr class="hr-stylish-1">
     </div>
+
 </div>
 <style type="text/css">
-    .right-sidebar {
+    .divInstructions {
         display: none;
     }
 

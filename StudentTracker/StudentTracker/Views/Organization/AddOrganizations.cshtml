@@ -5,22 +5,22 @@
 }
 @Scripts.Render("~/bundles/jqueryval")
 @Html.Hidden("token", token)
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Create New Organization
-                      <span class="mini-title">Simple form for new Organization
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">
+                        Create New Organization
+                     
+                    </div>
+                    <span class="tools">
+                        <a name="submit" class="btn btn-info tools2" href="javascript:;" action="AddOrganizations" onclick="Save(event)" id="btnAddOrg">Save</a>
+                        <a class="btn btn-info tools2" href="/Organization" data-original-title="">Cancel</a></span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="control-group">
@@ -92,7 +92,7 @@
                             @Html.TextBoxFor(m => m.Email, new { placeholder = "Email", Class = "span6" })
                         </div>
                     </div>
-                  
+
                     <div class="control-group">
                         @Html.LabelFor(m => m.Phone1, new { Class = "control-label" })
                         <div class="controls">
@@ -108,22 +108,22 @@
                     <div class="control-group">
                         @HelperAssets.FileUploadHtml()
                     </div>
-                    <div class="form-actions no-margin">
+                    @*<div class="form-actions no-margin">
                         <a name="submit" class="btn btn-primary" href="javascript:;" action="AddOrganizations" onclick="Save(event)" id="btnAddOrg">Add Organization</a>
                         <div class="clearfix">
                         </div>
-                    </div>
+                    </div>*@
 
-                }
 
+
+                </div>
             </div>
         </div>
+
     </div>
-
-</div>
-
+}
 
 @HelperAssets.FileUploadScript(token);
-<script type="text/javascript">
+    <script type="text/javascript">
 
-</script>
+    </script>

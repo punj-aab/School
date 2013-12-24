@@ -8,16 +8,17 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a id="lnkViewAll" class="organizations" href="#" onclick="LoadAjax(event)" action="ViewOrganizations">View Organization
-            </a>
+            <a href="" class="heading" data-original-title="" title="">Organizations</a>
+
+            
         </li>
-        @if (User.IsInRole("SiteAdmin"))
+       @* @if (User.IsInRole("SiteAdmin"))
         {
             <li>
                 <a id="lnkAddNew" class="organizations" onclick="LoadAjax(event)" href="#" action="AddOrganizations">Add Organization
                 </a>
             </li>
-        }
+        }*@
     </ul>
     <div class="btn-group pull-right">
         <button class="btn btn-primary">
@@ -36,7 +37,9 @@
             Html.RenderAction("ViewOrganizations");
         }
     </div>
-    <div class="right-sidebar"></div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
 </div>
 @section Scripts
 {

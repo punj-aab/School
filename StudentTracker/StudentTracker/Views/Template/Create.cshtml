@@ -3,24 +3,24 @@
     ViewBag.Title = "Create";
 }
 @Scripts.Render("~/bundles/jqueryval")
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Bootstrap-wysihtml5 
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Create Template
                                                 
-                    <span class="mini-title">Simple, beautiful wysiwyg editors
-                      </span>
-                </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                </span>
-            </div>
-            <div class="widget-body">
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Save</a>
+                        <a class="btn btn-info" href="/Template" data-original-title="">Cancel</a></span>
 
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                </div>
+                <div class="widget-body">
+
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     <div class="control-group">
@@ -79,15 +79,16 @@
                         </div>
                     </div>
                     <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Template</a>
+
                         <div class="clearfix">
                         </div>
                     </div>
-                }
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 <style type="text/css">
     .dashboard-wrapper .left-sidebar {
         margin-right: 260px;
@@ -97,7 +98,8 @@
     $(document).ready(function () {
         //wysihtml5
         $('.wysiwyg').wysihtml5();
-        $('.right-sidebar').show();
+        $('.divInstructions').show();
+        $('.divRight').hide();
 
         $('.chkActive').change(function (e) {
             if (e.target.checked) {

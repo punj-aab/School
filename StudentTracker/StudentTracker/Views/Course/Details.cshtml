@@ -4,29 +4,29 @@
     ViewBag.Title = "Details";
 }
 @Scripts.Render("~/bundles/jqueryval")
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Course Details
-                      <span class="mini-title">Simple form for Display Course
-                      </span>
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Course Details
+                     
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.CourseId" onclick="Edit(event)" id="lnkEdit">Edit</a>
+                        <a class="btn btn-info" href="/Course" data-original-title="">Cancel</a></span>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+                <div class="widget-body">
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.CourseId)
                     <div class="control-group">
                         @Html.LabelFor(m => m.CourseName, new { Class = "control-label" })
                         <div class="controls">
-                         @Html.DisplayFor(m => m.CourseName)
+                            @Html.DisplayFor(m => m.CourseName)
                         </div>
                     </div>
                     <div class="control-group">
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class = "control-label">Organization</label>
+                        <label class="control-label">Organization</label>
                         <div class="controls controls-row">
                             @Html.DisplayFor(m => m.OrganizationName)
 
@@ -67,26 +67,15 @@
                             @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.CourseId" onclick="Edit(event)" id="lnkEdit">Edit</a>
-
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
-                }
-                 @{
-                    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name });
-                }
+                    @{
+    Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.CourseId, type = this.ViewContext.Controller.GetType().Name });
+                    }
+                </div>
             </div>
         </div>
+
     </div>
-
-</div>
-
+}
 <script type="text/javascript">
     $(document).ready(function () {
         $('#data-table').dataTable({

@@ -1032,13 +1032,18 @@
     <Content Include="img\2.jpg" />
     <Content Include="img\3.jpg" />
     <Content Include="img\4.jpg" />
+    <Content Include="img\absent_bg.jpg" />
     <Content Include="img\alpha.png" />
+    <Content Include="img\arrow5.jpg" />
+    <Content Include="img\assesmont_circl.png" />
+    <Content Include="img\assesmont_circl2.png" />
     <Content Include="img\assign.png" />
     <Content Include="img\attendance.png" />
     <Content Include="img\book_icon.png" />
     <Content Include="img\breakTime.png" />
     <Content Include="img\btn_img.png" />
     <Content Include="img\calendar.png" />
+    <Content Include="img\calender.jpg" />
     <Content Include="img\clear.png" />
     <Content Include="img\clock.png" />
     <Content Include="img\email.png" />
@@ -1050,6 +1055,7 @@
     <Content Include="img\h1_bullet.png" />
     <Content Include="img\hdr_btn_icon.png" />
     <Content Include="img\hue.png" />
+    <Content Include="img\leave.jpg" />
     <Content Include="img\leter2.png" />
     <Content Include="img\letter.png" />
     <Content Include="img\light-pink.jpg" />
@@ -1071,6 +1077,7 @@
     <Content Include="img\pdf.png" />
     <Content Include="img\picock-blue.jpg" />
     <Content Include="img\PINK.jpg" />
+    <Content Include="img\present_bg.jpg" />
     <Content Include="img\print.png" />
     <Content Include="img\profile.jpg" />
     <Content Include="img\profile.png" />
@@ -1088,6 +1095,8 @@
     <Content Include="img\sorting.png" />
     <Content Include="img\sorting_asc.png" />
     <Content Include="img\sorting_desc.png" />
+    <Content Include="img\student_name1.jpg" />
+    <Content Include="img\sub.jpg" />
     <Content Include="img\tickets.png" />
     <Content Include="img\timeTable.png" />
     <Content Include="img\trip.png" />
@@ -1098,6 +1107,8 @@
     <Content Include="img\ui-bg_highlight-soft_100_deedf7_1x100.png" />
     <Content Include="img\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
     <Content Include="img\ui-icons_3d80b3_256x240.png" />
+    <Content Include="img\yellow_crose.png" />
+    <Content Include="img\yellow_tic.png" />
     <Content Include="img\_logo.png" />
     <Content Include="Scripts\alertify.min.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />

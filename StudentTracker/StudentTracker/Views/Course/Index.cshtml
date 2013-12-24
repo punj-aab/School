@@ -7,12 +7,11 @@
 <div class="sub-nav">
     <ul>
         <li>
-            <a class="subButton" id="lnkViewAll" href="#" onclick="LoadAjax(event)" action="ViewCourses">View Courses
+            <a class="heading" id="lnkViewAll" href="#" onclick="LoadAjax(event)" action="ViewCourses">View Courses
             </a>
         </li>
         <li>
-            <a id="lnkAddNew" class="subButton" href="#" onclick="LoadAjax(event)" action="Create">Add Course
-            </a>
+            
         </li>
     </ul>
     <div class="btn-group pull-right">
@@ -48,6 +47,6 @@
         });
     </script>
   @HelperAssets.LoadAjaxData("/Course/");
-  @HelperAssets.DataTable();
+@*  @HelperAssets.DataTable();*@
   @HelperAssets.SaveAndLoadData("/Course/", "ViewCourses");
 }
