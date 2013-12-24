@@ -1535,6 +1535,7 @@
     <Content Include="Views\Attendance\CreateAttendance.cshtml" />
     <Content Include="Views\Services\Index.cshtml" />
     <Content Include="Views\Services\LoadServices.cshtml" />
+    <Content Include="Views\Import\ImportStaff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

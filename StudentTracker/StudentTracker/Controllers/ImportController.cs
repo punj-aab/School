@@ -23,7 +23,7 @@ namespace StudentTracker.Controllers
         //
         // GET: /Import/
         StudentRepository repository = new StudentRepository();
-        public ActionResult Index()
+        public ActionResult Index(string type)
         {
             return View();
         }
@@ -45,7 +45,6 @@ namespace StudentTracker.Controllers
                     FileInfo fileinfo = new FileInfo(Request.Files[upload].FileName);
                     if (fileinfo.Extension == ".xlsx")
                     {
-
 
                         string fileUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/Attachments/ImportedFiles";
                         StudentContext db = new StudentContext();
@@ -168,9 +167,6 @@ namespace StudentTracker.Controllers
             return importId;
         }
 
-
-
-
         public bool SaveStudentsInDB(List<Student> students, string importId)
         {
             try
@@ -228,8 +224,6 @@ namespace StudentTracker.Controllers
 
         }
 
-
-
         public int GetSectionId(StudentContext context, string sectionName, long classId, long courseId, int organizationId)
         {
             var section = context.Sections.Where(c => c.SectionName == sectionName && c.ClassId == classId && c.OrganizationId == organizationId);
@@ -253,7 +247,6 @@ namespace StudentTracker.Controllers
             }
 
         }
-
 
         public long GetCourseId(StudentContext context, string courseName, int organizationId)
         {
@@ -351,6 +344,7 @@ namespace StudentTracker.Controllers
                 Utilities.SendRegistationEmail(user.Key, user.Value, verifyUrl);
             }
         }
+
         public ActionResult ImportStaff()
         {
             return View();

@@ -22,7 +22,7 @@ namespace StudentTracker.Controllers
                 return RedirectToAction("", "", new { area = "sas" });
         }
 
-        [Authorize(Roles = "OrganizationAdmin")]
+        [Authorize(Roles = "SiteAdmin,OrganizationAdmin")]
         public ActionResult MasterSetup()
         {
             return View();

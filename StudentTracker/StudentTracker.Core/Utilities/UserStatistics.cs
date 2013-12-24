@@ -29,26 +29,32 @@ namespace StudentTracker.Core.Utilities
         {
             _context = context;
             StudentContext db = new StudentContext();
-            User user = new User();
+            User user =null;
             if (_context.Session["User"] != null)
             {
                 user = _context.Session["User"] as User;
             }
             else
             {
-                user = db.Users.Where(u => u.Username == context.User.Identity.Name).FirstOrDefault();
-                _context.Session["User"] = user;
+                if (!string.IsNullOrEmpty(context.User.Identity.Name))
+                {
+                    user = db.Users.Where(u => u.Username == context.User.Identity.Name).FirstOrDefault();
+                    _context.Session["User"] = user;
+                }
             }
-            userId = user.UserId;
-            organizationId = user.OrganizationId;
+            if (user != null)
+            {
+                userId = user.UserId;
+                organizationId = user.OrganizationId;
 
-            var services = db.OrganizationServices.Where(os => os.OrganizationId == organizationId && os.StatusId == 1).Join(db.Services, os => os.ServiceId, s => s.ServiceId, (os, s) => new { s.ServiceName, s.ServiceId, os.OrganizationId }).ToList();
-            servciesForThisOrganization = (from s in services
-                                           select new Service
-                                           {
-                                               ServiceId = s.ServiceId,
-                                               ServiceName = s.ServiceName
-                                           }).ToList();
+                var services = db.OrganizationServices.Where(os => os.OrganizationId == organizationId && os.StatusId == 1).Join(db.Services, os => os.ServiceId, s => s.ServiceId, (os, s) => new { s.ServiceName, s.ServiceId, os.OrganizationId }).ToList();
+                servciesForThisOrganization = (from s in services
+                                               select new Service
+                                               {
+                                                   ServiceId = s.ServiceId,
+                                                   ServiceName = s.ServiceName
+                                               }).ToList();
+            }
         }
 
         public List<Service> Services

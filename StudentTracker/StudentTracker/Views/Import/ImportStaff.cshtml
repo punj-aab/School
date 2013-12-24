@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    string token = DateTime.UtcNow.Ticks.ToString();
+    Layout = null;
+}
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+<style type="text/css">
+    .fileUpload {
+        border-radius: 5px 5px 5px 5px;
+        width: 600px;
+    }
+
+    .errorDiv {
+        border: 1px solid Red;
+        background-color: #FFBABA;
+        padding: 4px;
+        width: auto;
+    }
+
+    .infoDiv {
+        border: 1px solid blue;
+        background-color: #BDE5F8;
+        padding: 4px;
+        width: auto;
+    }
+
+    .curRuntime {
+        border: 1px solid Green;
+        background-color: #9DFCA3;
+        padding: 4px;
+        width: auto;
+    }
+</style>
+@Html.Hidden("importId", token)
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    Import Students
+                      <span class="mini-title">Simple form for importing new students
+                      </span>
+                </div>
+                <span class="tools">
+                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                </span>
+            </div>
+            <div class="widget-body">
+
+                <fieldset class="fileUpload" style="">
+                    <legend>Upload Files </legend>
+                    <div id="container">
+                        <div id="filelist">
+                            No runtime found.
+                        </div>
+                        <br />
+                        <span><a class="btn btn-success" id="pickfiles" href="#">Select files</a></span> <span><a
+                            class="uploadFiles btn btn-primary" id="uploadfiles" style="display: none;" href="#">Upload files</a></span>
+                    </div>
+                    <a href="/import/DownloadSample?type=teacher" target="_blank"> << see sample file << </a>
+                   
+                </fieldset>
+                <fieldset class="uploadedReport" id="recordsFiled" style="display:none;">
+                    <legend>See Uploaded Records Here </legend>
+                    <table id="MyPengoReport" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Roll Number
+                                </th>
+                                <th>Name
+                                </th>
+                                <th>Email
+                                </th>
+                                <th>Class
+                                </th>
+                                <th>Section
+                                </th>
+                                <th>Remarks
+                                </th>
+                                <th>Course Name
+                                </th>
+                                <th>Inserted On
+                                </th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </fieldset>
+               
+                    <div id="" class="container" style="padding:20px 0px 0px 10px;">
+
+                        <a id="btnSendEmails" class="btn btn-success" onclick="SendEmails();" href="javascript:;" style="display:none;">Send Registration Emails</a>
+                    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+<script></script>
+
+
