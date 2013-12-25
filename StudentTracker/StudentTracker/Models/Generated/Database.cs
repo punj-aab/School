@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student5;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student6;User ID=sa;password=**zapped**;`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -658,7 +658,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public int SectionId { get; set; }
+		[Column] public int? SectionId { get; set; }
 
 
 
@@ -670,13 +670,19 @@ namespace DBConnectionString
 
 
 
-		[Column] public long CreatedBy { get; set; }
-
-
-
-
-
 		[Column] public long? StudentId { get; set; }
+
+
+
+
+
+		[Column] public long? StaffId { get; set; }
+
+
+
+
+
+		[Column] public long CreatedBy { get; set; }
 
 
 
@@ -1583,110 +1589,6 @@ namespace DBConnectionString
 	}
 
     
-	[TableName("Attachments")]
-
-
-	[PrimaryKey("Id")]
-
-
-
-	[ExplicitColumns]
-    public partial class Attachment : DBConnectionStringDB.Record<Attachment>  
-    {
-
-
-
-		[Column] public long Id { get; set; }
-
-
-
-
-
-		[Column] public string Filename { get; set; }
-
-
-
-
-
-		[Column] public string ParentType { get; set; }
-
-
-
-
-
-		[Column] public long ItemId { get; set; }
-
-
-
-
-
-		[Column] public string FilePath { get; set; }
-
-
-
-
-
-		[Column] public bool IsDeleted { get; set; }
-
-
-
-	}
-
-    
-	[TableName("RoleUser")]
-
-
-	[PrimaryKey("Role_RoleId", autoIncrement=false)]
-
-	[ExplicitColumns]
-    public partial class RoleUser : DBConnectionStringDB.Record<RoleUser>  
-    {
-
-
-
-		[Column] public Guid Role_RoleId { get; set; }
-
-
-
-
-
-		[Column] public long User_UserId { get; set; }
-
-
-
-	}
-
-    
-	[TableName("__MigrationHistory")]
-
-
-	[PrimaryKey("MigrationId", autoIncrement=false)]
-
-	[ExplicitColumns]
-    public partial class __MigrationHistory : DBConnectionStringDB.Record<__MigrationHistory>  
-    {
-
-
-
-		[Column] public string MigrationId { get; set; }
-
-
-
-
-
-		[Column] public byte[] Model { get; set; }
-
-
-
-
-
-		[Column] public string ProductVersion { get; set; }
-
-
-
-	}
-
-    
 	[TableName("UserGroup")]
 
 
@@ -1768,6 +1670,12 @@ namespace DBConnectionString
 
 
 
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
 		[Column] public long CourseId { get; set; }
 
 
@@ -1840,13 +1748,57 @@ namespace DBConnectionString
 
 
 
-		[Column] public long OrganizationId { get; set; }
-
-
-
-
-
 		[Column] public string FullName { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Attachments")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Attachment : DBConnectionStringDB.Record<Attachment>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public string Filename { get; set; }
+
+
+
+
+
+		[Column] public string ParentType { get; set; }
+
+
+
+
+
+		[Column] public long ItemId { get; set; }
+
+
+
+
+
+		[Column] public string FilePath { get; set; }
+
+
+
+
+
+		[Column] public bool IsDeleted { get; set; }
 
 
 
@@ -1928,13 +1880,37 @@ namespace DBConnectionString
 
 
 
-		[Column] public long UserId { get; set; }
+		[Column] public long? UserId { get; set; }
 
 
 
 
 
 		[Column] public string Title { get; set; }
+
+
+
+
+
+		[Column] public string FullName { get; set; }
+
+
+
+
+
+		[Column] public int StaffTypeId { get; set; }
+
+
+
+
+
+		[Column] public string ImportId { get; set; }
+
+
+
+
+
+		[Column] public string Remarks { get; set; }
 
 
 
@@ -1968,6 +1944,44 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("StaffTypes")]
+
+
+	[PrimaryKey("StaffTypeId")]
+
+
+
+	[ExplicitColumns]
+    public partial class StaffType : DBConnectionStringDB.Record<StaffType>  
+    {
+
+
+
+		[Column] public int StaffTypeId { get; set; }
+
+
+
+
+
+		[Column] public string StaffTypeName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
 	}
 
     
@@ -1985,6 +1999,12 @@ namespace DBConnectionString
 
 
 		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
 
 
 
@@ -2018,9 +2038,151 @@ namespace DBConnectionString
 
 
 
+	}
+
+    
+	[TableName("Services")]
 
 
-		[Column] public long UserId { get; set; }
+	[PrimaryKey("ServiceId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Service : DBConnectionStringDB.Record<Service>  
+    {
+
+
+
+		[Column] public int ServiceId { get; set; }
+
+
+
+
+
+		[Column] public string ServiceName { get; set; }
+
+
+
+
+
+		[Column] public string ServiceDescription { get; set; }
+
+
+
+	}
+
+    
+	[TableName("OrganizationServices")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class OrganizationService : DBConnectionStringDB.Record<OrganizationService>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public int ServiceId { get; set; }
+
+
+
+
+
+		[Column] public int StatusId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public DateTime UpdatedOn { get; set; }
+
+
+
+
+
+		[Column] public long InsertedBy { get; set; }
+
+
+
+
+
+		[Column] public long UpdatedBy { get; set; }
+
+
+
+	}
+
+    
+	[TableName("RoleUser")]
+
+
+	[PrimaryKey("Role_RoleId", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class RoleUser : DBConnectionStringDB.Record<RoleUser>  
+    {
+
+
+
+		[Column] public Guid Role_RoleId { get; set; }
+
+
+
+
+
+		[Column] public long User_UserId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("__MigrationHistory")]
+
+
+	[PrimaryKey("MigrationId", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class __MigrationHistory : DBConnectionStringDB.Record<__MigrationHistory>  
+    {
+
+
+
+		[Column] public string MigrationId { get; set; }
+
+
+
+
+
+		[Column] public byte[] Model { get; set; }
+
+
+
+
+
+		[Column] public string ProductVersion { get; set; }
 
 
 
@@ -2100,7 +2262,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public long OrgainzationId { get; set; }
+		[Column] public long OrganizationId { get; set; }
 
 
 
