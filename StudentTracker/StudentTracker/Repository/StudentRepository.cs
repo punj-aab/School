@@ -241,26 +241,36 @@ namespace StudentTracker.Repository
             db.BeginTransaction();
             try
             {
-                user.FirstName = objViewModel.FirstName;
-                user.LastName = objViewModel.LastName;
-                user.Update();
+                if (user != null)
+                {
+                    user.FirstName = objViewModel.FirstName;
+                    user.LastName = objViewModel.LastName;
+                    user.Update();
+                }
 
-                student.ClassId = objViewModel.ClassId;
-                student.CourseId = objViewModel.CourseId;
-                student.DepartmentId = objViewModel.DepartmentId;
-                student.Email = objViewModel.Email;
-                student.FullName = objViewModel.FirstName + " " + objViewModel.LastName;
-                student.ModifiedBy = objViewModel.ModifiedBy;
-                student.ModifiedOn = objViewModel.ModifiedOn;
-                student.SectionId = objViewModel.SectionId;
-                student.Update();
+                if (student != null)
+                {
+                    student.ClassId = objViewModel.ClassId;
+                    student.CourseId = objViewModel.CourseId;
+                    student.DepartmentId = objViewModel.DepartmentId;
+                    student.Email = objViewModel.Email;
+                    student.FullName = objViewModel.FirstName + " " + objViewModel.LastName;
+                    student.ModifiedBy = objViewModel.ModifiedBy;
+                    student.ModifiedOn = objViewModel.ModifiedOn;
+                    student.SectionId = objViewModel.SectionId;
+                    student.Update();
+                }
 
-                profile.Title = objViewModel.Title;
-                profile.DateOfBirth = objViewModel.DateOfBirth;
-                profile.Phone1 = objViewModel.Phone1;
-                profile.HomeTelephoneNumber = objViewModel.HomeTelephoneNumber;
-                profile.EmailAddress1 = objViewModel.Email;
-                profile.Update();
+                if (profile != null)
+                {
+                    profile.Title = objViewModel.Title;
+                    profile.DateOfBirth = objViewModel.DateOfBirth;
+                    profile.Phone1 = objViewModel.Phone1;
+                    profile.HomeTelephoneNumber = objViewModel.HomeTelephoneNumber;
+                    profile.EmailAddress1 = objViewModel.Email;
+                    profile.Update();
+                }
+
                 db.CompleteTransaction();
                 return true;
             }

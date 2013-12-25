@@ -48,11 +48,17 @@
 @if (User.Identity.IsAuthenticated)
 {
     <ul class="loginbar pull-right">
-        <li><a href="/home/mastersetup" class="login-btn">Admin Section</a></li>
-        <li class="devider">&nbsp;</li>
+        @if (User.IsInRole("SiteAdmin") || User.IsInRole("OrganizationAdmin"))
+        {
+            <li><a href="/home/mastersetup" class="login-btn">Admin Section</a></li>
+            <li class="devider">&nbsp;</li>
+        }
+
         <li>Welocome</li>
         <li class="devider">&nbsp;</li>
         <li>@User.Identity.Name</li>
+        <li class="devider">&nbsp;</li>
+        <li><a href="/account/logoff" class="login-btn">LogOff!!</a></li>
     </ul>
 }
 else

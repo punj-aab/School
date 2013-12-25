@@ -155,7 +155,7 @@ namespace StudentTracker.Controllers
 
                             SaveStudentsInDB(target, importId);
                         }
-                        else if(type=="staff")
+                        else if (type == "staff")
                         {
                             List<Staff> target = table.AsEnumerable().Skip(1)
                             .Select(row => new Staff
@@ -164,7 +164,7 @@ namespace StudentTracker.Controllers
                                 FullName = String.IsNullOrEmpty(row.Field<string>(0))
                                     ? "not found"
                                     : row.Field<string>(0),
-                               
+
                                 Email = String.IsNullOrEmpty(row.Field<string>(1))
                                     ? "not found"
                                     : row.Field<string>(1),
@@ -264,7 +264,7 @@ namespace StudentTracker.Controllers
 
         public long GetClassId(StudentContext context, string className, long courseId, int organizationId)
         {
-            var classes = context.Classes.Where(c => c.ClassName == className && c.OrganizationId == organizationId);
+            var classes = context.Classes.Where(c => c.ClassName == className && c.OrganizationId == organizationId && c.CourseId == courseId);
             if (classes == null || classes.ToList().Count() == 0)
             {
                 Class newClass = new Class();

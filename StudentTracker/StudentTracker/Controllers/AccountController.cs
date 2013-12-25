@@ -85,7 +85,7 @@ namespace StudentTracker.Controllers
             WebSecurity.Register("Admin", "123456", "Admin@demo.com", true, "Admin", "Demo");
             Roles.CreateRole("OrganizationAdmin");
             Roles.CreateRole("SiteAdmin");
-            Roles.AddUserToRole("Demo", "SiteAdmin");
+            Roles.AddUserToRole("Admin", "SiteAdmin");
             Roles.CreateRole("Student");
             Roles.CreateRole("Parent");
             Roles.CreateRole("Teacher");

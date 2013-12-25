@@ -109,10 +109,10 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep3(Profile objProfile)
         {
             RegistrationToken Token = repository.GetRegistrationCode(objProfile.RegistrationToken);
-            RegistrationToken objToken = repository.GetRegistrationCode(objProfile.RegistrationToken);
+            // RegistrationToken objToken = repository.GetRegistrationCode(objProfile.RegistrationToken);
             StudentContext context = new StudentContext();
-            Student student = context.Students.Find(objToken.StudentId);
-
+            Student student = context.Students.Find(Token.StudentId);
+            //objProfile.RegistrationToken=Toke
             long userId = WebSecurity.RegisterNewUser(objProfile.UserName, "none", "none", false, objProfile.FirstName, objProfile.LastName, Token.OrganizationId, Token.Token);
             if (student != null)
             {
@@ -142,7 +142,7 @@ namespace StudentTracker.Areas.SAS.Controllers
 
                 return RedirectToAction("RegisterUserStep4", new { userId });
             }
-            return View(objProfile);
+            return View("RegisterUserStep3", new { token = Token.Token });
         }
 
         public ActionResult RegisterUserStep4(long userId)

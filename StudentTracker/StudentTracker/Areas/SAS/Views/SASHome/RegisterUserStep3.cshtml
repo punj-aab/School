@@ -54,11 +54,12 @@
     <script src="~/Scripts/jquery-ui-1.10.3.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            //$('#DateOfBirth').datepicker();
+            $('#DateOfBirth').val(new Date().toDateString());      
             $('#DateOfBirth').datepicker({
                 changeMonth: true,
                 changeYear: true,
-                yearRange: '-90:+0'
+                yearRange: '-90:+0',
+                dateFormat: "dd-mm-yy"
             });
         });
     </script>

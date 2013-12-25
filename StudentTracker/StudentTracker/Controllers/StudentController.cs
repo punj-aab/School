@@ -23,8 +23,11 @@ namespace StudentTracker.Controllers
             List<string> listGroups = new List<string>();
             for (int i = 0; i < objModel.Count; i++)
             {
-                listGroups = this.repository.GetGroupOfUser(objModel[i].UserId.Value);
-                objModel[i].GroupNames = string.Join(", ", listGroups);
+                if (objModel[i].UserId != null)
+                {
+                    listGroups = this.repository.GetGroupOfUser(objModel[i].UserId.Value);
+                    objModel[i].GroupNames = string.Join(", ", listGroups);
+                }
             }
 
             return View(objModel);
@@ -126,7 +129,7 @@ namespace StudentTracker.Controllers
             return View(objViewModel);
         }
 
-        
+
 
         private void LoadSelectLists(out SelectList classList, out SelectList courseList, out SelectList sectionList, out SelectList departmentList, bool isEdit, long organizationId = -1, long courseId = -1, long? departmentId = -1, long classId = -1, int sectionId = -1)
         {
