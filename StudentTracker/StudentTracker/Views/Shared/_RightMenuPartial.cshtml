@@ -5,21 +5,26 @@
     <span class="fs1 arw" data-icon="" aria-hidden="true"></span>Communication</h4>
 <div class="wrapper">
     <ul class="stats nav-pills">
-        <li><a href="/Email">
-            <div id="divEmail" class="left">
-                <p>
-                    Email</p>
-            </div>
-            <div class="chart">
-                <img src="/img/email.png" alt="">
-            </div>
-        </a></li>
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Emails))
+        {
+            <li><a href="/Email">
+                <div id="divEmail" class="left">
+                    <p>
+                        Email
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/email.png" alt="">
+                </div>
+            </a></li>
+        }
         @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetters))
         {
             <li><a href="/Eletters">
                 <div class="left" id="divEletter">
                     <p>
-                        Eletter</p>
+                        Eletter
+                    </p>
                 </div>
                 <div class="chart">
                     <img src="/img/letter.png" alt="">
@@ -84,56 +89,58 @@
                     <img src="/img/online.png" alt="">
                 </div>
             </a></li>
+       
+            <li><a href="#">
+                <div class="left">
+                    <p>
+                        Lunch/dinner Money
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/lunch.png" alt="">
+                </div>
+            </a></li>
+            <li><a href="/Trip">
+                <div class="left" id="divTrips">
+                    <p>
+                        Trips
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/trip.png" alt="">
+                </div>
+            </a></li>
+            <li><a href="/Ticket">
+                <div class="left" id="divTicket">
+                    <p>
+                        Tickets
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/tickets.png" alt="">
+                </div>
+            </a></li>
+            <li><a href="/Shop">
+                <div class="left" id="divShop">
+                    <p>
+                        Our Shop
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/shop.png" alt="">
+                </div>
+            </a></li>
+            <li><a href="/Order">
+                <div class="left" id="divOrder">
+                    <p>
+                        Orders
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/order.png" alt="">
+                </div>
+            </a></li>
         }
-        <li><a href="#">
-            <div class="left">
-                <p>
-                    Lunch/dinner Money
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/lunch.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/Trip">
-            <div class="left" id="divTrips">
-                <p>
-                    Trips
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/trip.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/Ticket">
-            <div class="left" id="divTicket">
-                <p>
-                    Tickets
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/tickets.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/Shop">
-            <div class="left" id="divShop">
-                <p>
-                    Our Shop</p>
-            </div>
-            <div class="chart">
-                <img src="/img/shop.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/Order">
-            <div class="left" id="divOrder">
-                <p>
-                    Orders
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/order.png" alt="">
-            </div>
-        </a></li>
     </ul>
 </div>
 <hr class="hr-stylish-1">

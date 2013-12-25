@@ -1,4 +1,4 @@
-﻿create procedure usp_AssignSubjectToUser
+﻿alter procedure usp_AssignSubjectToUser
 ( 
 @UserId as bigint,
 @SubjectId  as bigint,

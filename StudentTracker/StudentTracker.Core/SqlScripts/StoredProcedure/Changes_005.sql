@@ -11,7 +11,7 @@ left outer join
 End
 
 GO
-ALTER procedure [dbo].[usp_AddRegistrationToken]
+alter procedure [dbo].[usp_AddRegistrationToken]
 (
 @Token as nvarchar(max),           
 @OrganizationId as bigint,  
@@ -21,7 +21,8 @@ ALTER procedure [dbo].[usp_AddRegistrationToken]
 @SectionId as int =0,
 @RoleId as int,          
 @CreatedBy as bigint,       
-@StudentId as bigint=0
+@StudentId as bigint=0,
+@StaffId as bigint =0
 )
 as 
 BEGIN
@@ -34,9 +35,11 @@ BEGIN
 		@SectionId,
 		@RoleId,
 		@StudentId,
+		@StaffId,
 		@CreatedBy
 		)
 END
+
 GO
 
 alter procedure [dbo].[usp_getOrganizations]  

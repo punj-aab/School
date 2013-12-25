@@ -82,6 +82,14 @@ namespace StudentTracker.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            WebSecurity.Register("Admin", "123456", "Admin@demo.com", true, "Admin", "Demo");
+            Roles.CreateRole("OrganizationAdmin");
+            Roles.CreateRole("SiteAdmin");
+            Roles.AddUserToRole("Demo", "SiteAdmin");
+            Roles.CreateRole("Student");
+            Roles.CreateRole("Parent");
+            Roles.CreateRole("Teacher");
+            Roles.CreateRole("OtherStaff");
             if (Request.IsAuthenticated)
             {
                 Response.Redirect("/home");
