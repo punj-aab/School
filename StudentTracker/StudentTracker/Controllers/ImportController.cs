@@ -4,7 +4,6 @@ using StudentTracker.Core.DAL;
 using StudentTracker.Core.Entities;
 using StudentTracker.Core.Utilities;
 using StudentTracker.Repository;
-using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data;

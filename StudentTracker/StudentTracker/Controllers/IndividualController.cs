@@ -19,8 +19,11 @@ namespace StudentTracker.Controllers
             List<string> listGroups = new List<string>();
             for (int i = 0; i < objModel.Count; i++)
             {
-                listGroups = this.repository.GetGroupOfUser(objModel[i].UserId.Value);
-                objModel[i].GroupNames = string.Join(", ", listGroups);
+                if (objModel[i].UserId != null)
+                {
+                    listGroups = this.repository.GetGroupOfUser(objModel[i].UserId.Value);
+                    objModel[i].GroupNames = string.Join(", ", listGroups);
+                }
             }
             return View(objModel);
         }

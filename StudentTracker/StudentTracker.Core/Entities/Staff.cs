@@ -47,8 +47,8 @@ namespace StudentTracker.Core.Entities
         [NotMapped]
         public string ModifiedByName { get; set; }
 
-        [NotMapped]
         public long OrganizationId { get; set; }
+
         [NotMapped]
         public long CourseId { get; set; }
         [NotMapped]

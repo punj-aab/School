@@ -108,7 +108,7 @@
         oTable = $('#MyPengoReport').dataTable({
             "bProcessing": true,
             'oLanguage': { 'sInfo': "_START_ - _END_ of (_TOTAL_)" },
-            "bServerSide": true, "sAjaxSource": '/Import/ShowExcelFileContent',
+            "bServerSide": true, "sAjaxSource": '/Import/ShowExcelFileContentForStudent?type=student',
             "bJQueryUI": true, "aLengthMenu": [5, 10, 25, 50, 100, 200],
             "aoColumns": [
                            { "sWidth": "15%" }, // 1st column width 

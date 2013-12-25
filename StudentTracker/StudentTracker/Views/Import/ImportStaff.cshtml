@@ -61,10 +61,10 @@
                         <span><a class="btn btn-success" id="pickfiles" href="#">Select files</a></span> <span><a
                             class="uploadFiles btn btn-primary" id="uploadfiles" style="display: none;" href="#">Upload files</a></span>
                     </div>
-                    <a href="/import/DownloadSample?type=staff" target="_blank"> << see sample file << </a>
-                   
+                    <a href="/import/DownloadSample?type=staff" target="_blank"><< see sample file << </a>
+
                 </fieldset>
-                <fieldset class="uploadedReport" id="recordsFiled" style="display:none;">
+                <fieldset class="uploadedReport" id="recordsFiled" style="display: none;">
                     <legend>See Uploaded Records Here </legend>
                     <table id="MyPengoReport" style="width: 100%;">
                         <thead>
@@ -77,25 +77,87 @@
                                 </th>
                                 <th>Inserted On
                                 </th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </fieldset>
-               
-                    <div id="" class="container" style="padding:20px 0px 0px 10px;">
 
-                        <a id="btnSendEmails" class="btn btn-success" onclick="SendEmails();" href="javascript:;" style="display:none;">Send Registration Emails</a>
-                    </div>
+                <div id="" class="container" style="padding: 20px 0px 0px 10px;">
 
-                
+                    <a id="btnSendEmails" class="btn btn-success" onclick="SendEmails();" href="javascript:;" style="display: none;">Send Registration Emails</a>
+                </div>
+
+
             </div>
         </div>
     </div>
 
 </div>
-<script></script>
+<script>
+    function InitializeDataTable() {
+        $("#loading").hide();
+        $('a#uploadfiles').hide();
+        $('.uploadedReport').show();
+        oTable = $('#MyPengoReport').dataTable({
+            "bProcessing": true,
+            'oLanguage': { 'sInfo': "_START_ - _END_ of (_TOTAL_)" },
+            "bServerSide": true, "sAjaxSource": '/Import/ShowExcelFileContentForStaff?type=staff',
+            "bJQueryUI": true, "aLengthMenu": [5, 10, 25, 50, 100, 200],
+            "aoColumns": [
+                           { "sWidth": "15%" }, // 1st column width 
+                           { "sWidth": "25%" }, // 2nd column width 
+                           { "sWidth": "15%" },
+                           { "sWidth": "25%" },
+                           { "sWidth": "20%" } // 3rd column width and so on 
+            ],
+            "sPaginationType": "full_numbers",
+            "bDestroy": true
+
+        });
+    }
+    function refreshDatatable() {
+
+        $('a#uploadfiles').hide();
+        $('.uploadedReport').show();
+
+        var currentSource = "/Import/ShowExcelFileContentForStaff?importId=" + $("#importId").val() + "&type=staff";
+        var oTable = $('#MyPengoReport').dataTable({
+            //"bProcessing": true,
+            "bPaginate": false,
+            //"bServerSide": true,
+            "bJQueryUI": true,
+            // "bSort": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bInfo": false,
+            "sAjaxSource": currentSource,
+            "aoColumns": [
+                            { "mData": "FullName" },
+                            { "mData": "Email" },
+                            { "mData": "Remarks" },
+                            { "mData": "ImportDateString" }
+
+            ]
+        });
+
+        $('#btnSendEmails').show();
+    }
+
+
+    function SendEmails() {
+        var currentSource = "/Import/SendRegistrationEmailToStaff?importId=" + $("#importId").val() + "&type=staff";;
+        $.ajax({
+            type: "GET",
+            url: currentSource,
+            error: function () {
+            },
+            success: function () {
+            }
+        })
+    }
+</script>
 
 

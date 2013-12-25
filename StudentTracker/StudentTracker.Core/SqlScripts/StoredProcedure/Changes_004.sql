@@ -102,7 +102,7 @@ INSERT INTO [dbo].[UserGroup]
 
 GO
 
-ALTER procedure usp_GetStudents --1,3
+CREATE procedure usp_GetStudents --1,3
 (
 @OrganizationId as bigint,
 @StudentId as bigint = null
