@@ -17,5 +17,18 @@ namespace StudentTracker.Core.Entities
         public long ClassId { get; set; }
         public long SectionId { get; set; }
         public long SubjectId { get; set; }
+        [NotMapped]
+        public string Username { get; set; }
+        [NotMapped]
+        public string CourseName { get; set; }
+        [NotMapped]
+        public string DepartmentName { get; set; }
+        [NotMapped]
+        public string ClassName { get; set; }
+        [NotMapped]
+        public string SectionName { get; set; }
+        [NotMapped]
+        public string SubjectName { get; set; }
+
     }
 }

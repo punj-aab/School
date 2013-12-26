@@ -1,23 +1,24 @@
 ﻿@model StudentTracker.Core.Entities.Template
 @Scripts.Render("~/bundles/jqueryval")
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Bootstrap-wysihtml5 
-                                                
-                    <span class="mini-title">Simple, beautiful wysiwyg editors
-                      </span>
-                </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
-                </span>
-            </div>
-            <div class="widget-body">
 
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title textAlign">
+                        Edit Template
+                                                   
+                    </div>
+                    <span class="tools tls2">
+                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save</a>
+                        <a name="submit" class="btn btn-primary" href="/Template">Cancel</a>
+                    </span>
+                </div>
+                <div class="widget-body">
+
+
                     @Html.AntiForgeryToken()
                     @Html.ValidationSummary(true)
                     @Html.HiddenFor(m => m.InsertedBy)
@@ -88,16 +89,11 @@
 
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="Edit" onclick="Save(event)" id="btnAdd">Save Changes</a>
-                        <div class="clearfix">
-                        </div>
-                    </div>
-                }
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 <style type="text/css">
     .dashboard-wrapper .left-sidebar {
         margin-right: 260px;

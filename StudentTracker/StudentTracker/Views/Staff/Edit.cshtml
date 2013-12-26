@@ -7,16 +7,16 @@
 <div class="sub-nav">
 </div>
 <div class="dashboard-wrapper">
-    @using (Html.BeginForm("Create", "Staff", null, FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Html.BeginForm("Edit", "Staff", null, FormMethod.Post, new { @class = "form-horizontal" }))
     {
         <div class="left-sidebar">
-
+            @Html.HiddenFor(m => m.UserId)
             <div class="row-fluid">
                 <div class="span12">
                     <div class="widget">
                         <div class="widget-header">
                             <div class="title textAlign">
-                                New Staff
+                                Edit Staff
                             </div>
                             <span class="tools tls2">
                                 <a class="btn btn-info" href="#" id="lnkSave" data-original-title="">Save</a>
@@ -45,8 +45,8 @@ Change Picture
                                                     Title
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.Title, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Profile.Title)
+                                                    @Html.TextBoxFor(x => x.Title, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Title)
                                                 </div>
                                             </div>
 
@@ -55,8 +55,8 @@ Change Picture
                                                     First Name
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.FirstName, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Profile.FirstName)
+                                                    @Html.TextBoxFor(x => x.FirstName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.FirstName)
                                                 </div>
                                             </div>
 
@@ -66,8 +66,8 @@ Change Picture
                                                     Last Name
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.LastName, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Profile.LastName)
+                                                    @Html.TextBoxFor(x => x.LastName, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.LastName)
                                                 </div>
                                             </div>
                                             <div class="control-group">
@@ -86,8 +86,8 @@ Change Picture
                                                     Phone
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.MobileNumber, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Profile.MobileNumber)
+                                                    @Html.TextBoxFor(x => x.MobileNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.MobileNumber)
                                                 </div>
                                             </div>
 
@@ -96,8 +96,8 @@ Change Picture
                                                     Home
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Profile.HomeTelephoneNumber, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Profile.HomeTelephoneNumber)
+                                                    @Html.TextBoxFor(x => x.HomeTelephoneNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.HomeTelephoneNumber)
                                                 </div>
                                             </div>
                                             <div class="control-group">
@@ -147,17 +147,17 @@ Change Picture
                                 <div class="widget-body topUp">
                                     <table class="table table-bordered no-margin">
                                         <tbody>
-                                            @for (int i = 0; i < Model.ListFields.Count; i++)
+                                            @for (int i = 0; i < 10; i++)
                                             {
-                                                if (i > 0)
+                                                if (i + 1 > Model.Count)
                                                 { 
-                                                <tr style="display: none">
-                                                    <td>
-                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", Class = "selectList", disabled = "disabled" })
+                                                <tr style="display: none" class="tableRow">
+                                                    <td class="tdCourse">
+                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", Class = "selectList Course", disabled = "disabled" })
                                                         @Html.ValidationMessageFor(m => m.CourseId)
                                                     </td>
                                                     <td>
-                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department", new { Class = "selectList", disabled = "disabled" })
+                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department", new { Class = "selectList Department", disabled = "disabled" })
                                                         @Html.ValidationMessageFor(m => m.DepartmentId)
                                                     </td>
                                                     <td class="hidden-phone">
@@ -180,13 +180,13 @@ Change Picture
                                                 }
                                                 else
                                                 {
-                                                <tr>
+                                                <tr class="tableRow">
                                                     <td>
-                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", action = "GetClasses", getType = "Class" })
+                                                        @Html.DropDownListFor(m => m.ListFields[i].CourseId, Model.ListFields[i].CourseList, "Select Course", new { onChange = "loadClass(event)", action = "GetClasses", getType = "Class", Class = "Course" })
                                                         @Html.ValidationMessageFor(m => m.CourseId)
                                                     </td>
                                                     <td>
-                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department")
+                                                        @Html.DropDownListFor(m => m.ListFields[i].DepartmentId, Model.ListFields[i].DepartmentList, "Select Department", new { Class = "Department" })
                                                         @Html.ValidationMessageFor(m => m.DepartmentId)
                                                     </td>
                                                     <td class="hidden-phone">
@@ -202,7 +202,7 @@ Change Picture
                                                         @Html.ValidationMessageFor(m => m.SubjectId)
                                                     </td>
                                                     <td class="hidden-phone tdLast">
-                                                        @if (i == 0)
+                                                        @if (i + 1 == Model.Count)
                                                         {
                                                             <div class="dropdown">
                                                                 <a onclick="addMore(event)" class="lnkAddMore btn btn-info">Add More</a>
@@ -249,13 +249,14 @@ Change Picture
             });
 
             $('#divIndividual').addClass('selected');
+
         });
 
         function loadClass(e) {
             var id = $(e.target).val();
             var row = '';
             var appendTo = $(e.target).parent().parent().children().find('.Class');
-            $(appendTo).html('<option>--Select Class--</option>');
+            $(appendTo).html('<option value = "">--Select Class--</option>');
             $.ajax({
                 type: 'GET',
                 url: '/Global/GetClasses',
@@ -273,7 +274,7 @@ Change Picture
             var id = $(e.target).val();
             var row = '';
             var appendTo = $(e.target).parent().parent().children().find('.Section');
-            $(appendTo).html('<option>--Select Section--</option>');
+            $(appendTo).html('<option value = "">--Select Section--</option>');
             $.ajax({
                 type: 'GET',
                 url: '/Global/GetSection',
@@ -290,16 +291,66 @@ Change Picture
 
         function addMore(e) {
             var $this = $(e.target);
-            $this.parent().parent().parent().next().show();
-            $this.parent().parent().parent().next().children().find('.selectList').removeAttr('disabled');
-            $this.parent().parent().parent().next().children().find('.dropdown').append($('.lnkAddMore'));
+            if ($this.text().trim() == 'Add More') {
+                appendNewRow($this);
+            }
+            else if ($this.text().trim() == 'Save') {
+                var validate = true;
+                var root = $this.parent().parent().parent().children();
+                if (root.find('.Course').val() == '' || root.find('.Class').val() == '' || root.find('.Section').val() == '' || root.find('.Subject').val() == '') {
+                    validate = false;
+                }
+                if (validate) {
+                    var parameters = {
+
+                        userId: $('#UserId').val(),
+                        courseId: root.find('.Course').val(),
+                        departmentId: root.find('.Department').val(),
+                        classId: root.find('.Class').val(),
+                        sectionId: root.find('.Section').val(),
+                        subjectId: root.find('.Subject').val()
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Staff/UpdateTeacherSubjects',
+                        data: parameters,
+                        success: function (response) {
+                            if (response == 'True') {
+                                appendNewRow($this);
+                            }
+                            else {
+                                alert('Error while updating records');
+                            }
+                        },
+                        error: function () { }
+                    });
+                }
+                else {
+                    alert('Please select all the fields');
+                }
+
+            }
+        }
+
+        function appendNewRow($this) {
+
+            if ($this.text().trim() == 'Add More') {
+                var root = $this.parent().parent().parent().next();
+                root.show();
+                root.children().find('.selectList').removeAttr('disabled');
+                root.children().find('.dropdown').append($('.lnkAddMore'));
+                $this.text('Save');
+            }
+            else if ($this.text().trim() == 'Save') {
+                $this.text('Add More');
+            }
         }
 
         function loadSubjects(e) {
             var id = $(e.target).val();
             var row = '';
             var appendTo = $(e.target).parent().parent().children().find('.Subject');
-            $(appendTo).html('<option>--Select Subject--</option>');
+            $(appendTo).html('<option value = "">--Select Subject--</option>');
             $.ajax({
                 type: 'GET',
                 url: '/Global/GetSubjectByClass',

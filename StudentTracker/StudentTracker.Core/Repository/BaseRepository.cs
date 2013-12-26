@@ -42,6 +42,15 @@ namespace StudentTracker.Core.Repositories
             }
         }
 
+        public List<T> Find<T>(string sql, int id)
+        {
+            List<T> objList = new List<T>();
+            using (IDbConnection connection = OpenConnection())
+            {
+                return objList = connection.Query<T>(sql, new { id = id }).ToList();
+            }
+        }
+
         public T SingleOrDefault<T>(string sql, long id)
         {
             T obj;
@@ -59,6 +68,14 @@ namespace StudentTracker.Core.Repositories
                 return obj = connection.Query<T>(sp, parameters, commandType: CommandType.StoredProcedure).SingleOrDefault();
             }
         }
+
+        //public List<T> ExecuteSP<T>(string sp, object parameters)
+        //{
+        //    using (IDbConnection connection = OpenConnection())
+        //    {
+        //        return connection.Query<T>(sp, parameters, commandType: CommandType.StoredProcedure).ToList();
+        //    }
+        //}
 
     }
 }

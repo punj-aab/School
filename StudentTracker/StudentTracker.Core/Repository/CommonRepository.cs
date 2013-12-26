@@ -246,6 +246,34 @@ namespace StudentTracker.Core.Repository
         //        return connection.Query<Student>(storedProcedure, new { OrganizationId = organizationId, StudentId=studentId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
         //    }
         //}
+        public List<StaffTypes> GetStaffTypes()
+        {
+            return this.Get<StaffTypes>("select * from StaffTypes");
+        }
+        public Staff GetStaff(long staffId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetStaff";
+                return connection.Query<Staff>(storedProcedure, new { StaffId = staffId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
+        public List<Staff> GetStaff(long? organizationId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetStaff";
+                return connection.Query<Staff>(storedProcedure, new { OrganizationId = organizationId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+        public List<TeacherSubjects> GetTeacherSubjects(long userId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetTeacherSubjects";
+                return connection.Query<TeacherSubjects>(storedProcedure, new { UserId = userId }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -905,7 +933,7 @@ namespace StudentTracker.Core.Repository
             }
         }
 
-        
+
     }
 }
 

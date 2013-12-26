@@ -8,13 +8,12 @@
     <div class="span12">
         <div class="widget">
             <div class="widget-header">
-                <div class="title">
+                <div class="title textAlign">
                     Group Details
-                      <span class="mini-title">Simple form for Display Group
-                      </span>
+                     
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                <span class="tools tls2">
+                    @Html.ActionLink("Edit", "Edit", new { id = @Model.GroupId }, new { @class = "lnkEdit btn btn-primary" })
                 </span>
             </div>
             <div class="widget-body">
@@ -66,16 +65,6 @@
                             @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.GroupId" onclick="Edit(event)" id="lnkEdit">Edit</a>
-
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
                 }
 
             </div>

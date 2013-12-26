@@ -58,7 +58,7 @@ namespace StudentTracker.Repository
 
         public List<User> Users(long organizationId)
         {
-            return this.Find<User>("select * from Users where OrgainzationId = @id", organizationId);
+            return this.Find<User>("select * from Users where OrganizationId = @id", organizationId);
         }
         public List<UserGroup> UserGroupsByGroup(long groupId)
         {
@@ -322,6 +322,8 @@ namespace StudentTracker.Repository
             objStaff.InsertedBy = objViewModel.InsertedBy;
             objStaff.Title = objViewModel.Title;
             objStaff.Email = objViewModel.Email;
+            objStaff.StaffTypeId = objViewModel.StaffTypeId;
+            objStaff.OrganizationId = objViewModel.OrganizationId;
             objStaff.Insert();
             return objStaff.StaffId;
         }
@@ -338,6 +340,19 @@ namespace StudentTracker.Repository
                 teacherSubject.DepartmentId = data.DepartmentId;
                 teacherSubject.UserId = objVM.UserId;
                 teacherSubject.Insert();
+            }
+        }
+
+        public StaffViewModel GetStaff(long staffId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_GetStaff";
+                var parameters = new
+                {
+                    StaffId = staffId
+                };
+                return this.ExecuteSP<StaffViewModel>(storedProcedure, parameters);
             }
         }
     }

@@ -2,75 +2,68 @@
 @{
     ViewBag.Title = "ViewGroups";
 }
-<div class="left-sidebar">
-
-    <div class="row-fluid">
-        <div class="span12">
-            <div class="widget">
-                <div class="widget-header">
-                    <div class="title">
-                        View Groups<a id="dynamicTable"></a>
-                    </div>
-                   <span class="tools"><a class="btn btn-info tools2" href="/Group/Create" data-original-title="">New</a> </span>
+<div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    View Groups<a id="dynamicTable"></a>
                 </div>
-                <div class="widget-body">
-                    <div id="dt_example" class="example_alt_pagination">
-                        <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
-                            <thead>
-                                <tr class="bluRow">
-                                    <th>Group Name</th>
-                                    <th>Group Description</th>
-                                    <th>Organization</th>
-                                    <th>Created By</th>
-                                    <th>Manage</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr>
-                                        <td>@Html.DisplayFor(model => item.GroupName)</td>
-                                        <td>@Html.DisplayFor(model => item.Description)</td>
-                                        <td>@Html.DisplayFor(model => item.OrganizationName)</td>
-                                        <td>@Html.DisplayFor(model => item.InsertedByName)</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
-                                                    Action 
+                <span class="tools"><a class="btn btn-info tools2" href="/Group/Create" data-original-title="">New</a> </span>
+            </div>
+            <div class="widget-body">
+                <div id="dt_example" class="example_alt_pagination">
+                    <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
+                        <thead>
+                            <tr class="bluRow">
+                                <th>Group Name</th>
+                                <th>Group Description</th>
+                                <th>Organization</th>
+                                <th>Created By</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(model => item.GroupName)</td>
+                                    <td>@Html.DisplayFor(model => item.Description)</td>
+                                    <td>@Html.DisplayFor(model => item.OrganizationName)</td>
+                                    <td>@Html.DisplayFor(model => item.InsertedByName)</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                                Action 
                                
                                                 <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a class="lnkDetails" href="#" itemId="@item.GroupId" action="Details" onclick="LoadViewById(event)">Details</a>
-                                                    </li>
-                                                    <li>
-                                                        @* <a class="lnkEdit" href="/Group/Edit" action="Edit" itemId="@item.GroupId" onclick="">Edit</a>*@
-                                                        @Html.ActionLink("Edit", "Edit", new { id = @item.GroupId }, new { @class = "lnkEdit" })
-                                                    </li>
-                                                    <li>
-                                                        <a class="lnkDelete" href="#" itemId="@item.GroupId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                        <div class="clearfix">
-                        </div>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="lnkDetails" href="#" itemId="@item.GroupId" action="Details" onclick="LoadViewById(event)">Details</a>
+                                                </li>
+                                                <li>
+                                                     @*<a class="lnkEdit" href="javascript:;" action="Edit" itemId="@item.GroupId" onclick="LoadViewById(event)">Edit</a>*@
+                                                    @Html.ActionLink("Edit", "Edit", new { id = @item.GroupId }, new { @class = "lnkEdit" })
+                                                </li>
+                                                <li>
+                                                    <a class="lnkDelete" href="#" itemId="@item.GroupId" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
-<div class="right-sidebar">
-    @Html.Partial("_RightMenuPartial")
-</div>
 
+</div>
 
 @if (Request.IsAjaxRequest())
 {

@@ -26,12 +26,16 @@
 
     </div>
 </div>
-<div class="dashboard-wrapper" id="divOuter">
-    @{
-        Html.RenderAction("ViewGroups");
-    }
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        @{
+            Html.RenderAction("ViewGroups");
+        }
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
 </div>
-
 @section Scripts
 {
     <script type="text/javascript">
@@ -39,7 +43,7 @@
         $(document).ready(function () {
             $('.lnkGroup').addClass('selected');
             $('#divGroup').addClass('selected');
-           // $('#lnkViewAll').addClass('selected');
+            // $('#lnkViewAll').addClass('selected');
             $('.subButton').click(function () {
                 $("a.subButton").removeClass('selected');
                 $(this).addClass('selected');
@@ -48,5 +52,5 @@
     </script>
     @HelperAssets.LoadAjaxData("/Group/");
  @* @HelperAssets.DataTable();*@
-  @HelperAssets.SaveAndLoadData("/Group/", "ViewGroups");
+    @HelperAssets.SaveAndLoadData("/Group/", "ViewGroups");
 }
