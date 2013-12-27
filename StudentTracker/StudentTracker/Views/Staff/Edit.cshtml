@@ -172,7 +172,10 @@ Change Picture
                                                         @Html.DropDownListFor(m => m.ListFields[i].SubjectId, Model.ListFields[i].SubjectList, "Select Subject", new { id = "SectionId", Class = "Subject selectList", disabled = "disabled" })
                                                         @Html.ValidationMessageFor(m => m.SubjectId)
                                                     </td>
-                                                    <td class="hidden-phone tdLast">
+                                                    <td>
+                                                        <a onclick="updateCourseDepartments(event)" style="display: none" class="lnkSave btn btn-info">Save</a>
+                                                    </td>
+                                                    <td class="hidden-phone tdLast" style="width: 90px;">
                                                         <div class="dropdown">
                                                         </div>
                                                     </td>
@@ -201,11 +204,14 @@ Change Picture
                                                         @Html.DropDownListFor(m => m.ListFields[i].SubjectId, Model.ListFields[i].SubjectList, "Select Subject", new { id = "SectionId", Class = "Subject" })
                                                         @Html.ValidationMessageFor(m => m.SubjectId)
                                                     </td>
-                                                    <td class="hidden-phone tdLast">
+                                                    <td>
+                                                        <a onclick="updateCourseDepartments(event)" class="lnkSave btn btn-info" id="@Model.ListFields[i].Id">Save</a>
+                                                    </td>
+                                                    <td class="hidden-phone tdLast" style="width: 90px;">
                                                         @if (i + 1 == Model.Count)
                                                         {
                                                             <div class="dropdown">
-                                                                <a onclick="addMore(event)" class="lnkAddMore btn btn-info">Add More</a>
+                                                                <a onclick="addMore(event)" class="lnkAddMore btn btn-info" id="">Add More</a>
                                                             </div>
                                                         }
                                                     </td>
@@ -312,11 +318,13 @@ Change Picture
                     }
                     $.ajax({
                         type: 'POST',
-                        url: '/Staff/UpdateTeacherSubjects',
+                        url: '/Staff/AddMoreDepartmentClasses',
                         data: parameters,
                         success: function (response) {
-                            if (response == 'True') {
+                            if (response > 0) {
                                 appendNewRow($this);
+                                root.find('.lnkSave').show();
+                                root.find('.lnkSave').attr('id', response);
                             }
                             else {
                                 alert('Error while updating records');
@@ -362,6 +370,43 @@ Change Picture
                     $(appendTo).append(row);
                 }
             })
+        }
+
+        function updateCourseDepartments(e) {
+            var $this = $(e.target);
+            var validate = true;
+            var root = $this.parent().parent().parent().children();
+            if (root.find('.Course').val() == '' || root.find('.Class').val() == '' || root.find('.Section').val() == '' || root.find('.Subject').val() == '') {
+                validate = false;
+            }
+            if (validate) {
+                var parameters = {
+                    Id: $this.attr('id'),
+                    userId: $('#UserId').val(),
+                    courseId: root.find('.Course').val(),
+                    departmentId: root.find('.Department').val(),
+                    classId: root.find('.Class').val(),
+                    sectionId: root.find('.Section').val(),
+                    subjectId: root.find('.Subject').val()
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '/Staff/UpdateTeacherSubjects',
+                    data: parameters,
+                    success: function (response) {
+                        if (response == 'True') {
+
+                        }
+                        else {
+                            //alert('Error while updating records');
+                        }
+                    },
+                    error: function () { }
+                });
+            }
+            else {
+                alert('Please select all the fields');
+            }
         }
     </script>
 }

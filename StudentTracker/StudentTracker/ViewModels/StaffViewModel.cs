@@ -12,6 +12,7 @@ namespace StudentTracker.ViewModels
     public class StaffViewModel : Staff
     {
         public List<ListFields> ListFields { get; set; }
+        public List<TeacherSubjects> TeacherSubjectsList { get; set; }
         public Profile Profile { get; set; }
 
         public string Title { get; set; }
@@ -29,6 +30,7 @@ namespace StudentTracker.ViewModels
 
     public class ListFields
     {
+        public long Id { get; set; }
         [Required]
         public long CourseId { get; set; }
         [Required]

@@ -20,12 +20,11 @@ namespace StudentTracker.Controllers
         {
             List<TeacherSubjects> objTeacherSubjectsList = null;
 
-            List<string> UserList = new List<string>();
-            List<string> CourseList = new List<string>();
-            List<string> DepartmentList = new List<string>();
-            List<string> ClassList = new List<string>();
-            List<string> SectionList = new List<string>();
-            List<string> SubjectList = new List<string>();
+            List<string> CourseList = null;
+            List<string> DepartmentList = null;
+            List<string> ClassList = null;
+            List<string> SectionList = null;
+            List<string> SubjectList = null;
 
             List<Staff> objStaffList = this.repository.GetStaff(organizationId: _userStatistics.OrganizationId);
             for (int i = 0; i < objStaffList.Count; i++)
@@ -34,6 +33,11 @@ namespace StudentTracker.Controllers
                 {
                     objTeacherSubjectsList = this.repository.GetTeacherSubjects(objStaffList[i].UserId.Value);
                 }
+                CourseList = new List<string>();
+                DepartmentList = new List<string>();
+                ClassList = new List<string>();
+                SectionList = new List<string>();
+                SubjectList = new List<string>();
                 foreach (var subject in objTeacherSubjectsList)
                 {
                     CourseList.Add(subject.CourseName);
@@ -219,6 +223,7 @@ namespace StudentTracker.Controllers
                 objFields.ClassList = classList;
                 objFields.SectionList = sectionList;
                 objFields.SubjectList = subjectList;
+                objFields.Id = objTeacherSubjectsList[i].Id;
                 objStaff.ListFields.Add(objFields);
                 if (i + 1 == objTeacherSubjectsList.Count)
                 {
@@ -266,14 +271,45 @@ namespace StudentTracker.Controllers
             return RedirectToAction("Index");
         }
 
-        public bool UpdateTeacherSubjects(DBConnectionString.TeacherSubject teacher)
+        public long AddMoreDepartmentClasses(DBConnectionString.TeacherSubject teacher)
         {
             int recAffected = Convert.ToInt32(teacher.Insert());
+            if (recAffected > 0)
+            {
+                return teacher.Id;
+            }
+            return 0;
+        }
+
+        public bool UpdateTeacherSubjects(DBConnectionString.TeacherSubject teacher)
+        {
+
+            int recAffected = teacher.Update();
             if (recAffected > 0)
             {
                 return true;
             }
             return false;
+        }
+
+        public ActionResult Details(long id)
+        {
+            StaffViewModel objVM = this.repository.GetStaff(staffId: id);
+
+            if (objVM != null)
+            {
+                if (objVM.UserId != null)
+                {
+                    objVM.TeacherSubjectsList = this.repository.GetTeacherSubjects(objVM.UserId);
+                }
+            }
+            return View(objVM);
+        }
+
+        public ActionResult Delete(long id)
+        {
+            this.repository.DeleteStaff(id);
+            return RedirectToAction("Index");
         }
     }
 }

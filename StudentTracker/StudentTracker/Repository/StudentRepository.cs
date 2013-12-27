@@ -355,5 +355,24 @@ namespace StudentTracker.Repository
                 return this.ExecuteSP<StaffViewModel>(storedProcedure, parameters);
             }
         }
+
+        public bool DeleteStaff(long staffId)
+        {
+            try
+            {
+                PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+                var staff = DBConnectionString.Staff.SingleOrDefault(staffId);
+                db.Execute("delete from RoleUser where User_UserId = @0", staff.UserId);
+                db.Execute("delete from [Profile] where UserId = @0", staff.UserId);
+                db.Execute("delete from TeacherSubjects where UserId = @0", staff.UserId);
+                db.Execute("delete from Staff where StaffId = @0", staffId);
+                db.Execute("delete from Users where UserId = @0", staff.UserId);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

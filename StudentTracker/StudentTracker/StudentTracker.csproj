@@ -1549,6 +1549,7 @@
     <Content Include="Views\Services\LoadServices.cshtml" />
     <Content Include="Views\Import\ImportStaff.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
+    <Content Include="Views\Staff\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />
