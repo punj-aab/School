@@ -265,11 +265,25 @@ namespace StudentTracker.Repository
                 {
                     profile.Title = objViewModel.Title;
                     profile.DateOfBirth = objViewModel.DateOfBirth;
-                    profile.Phone1 = objViewModel.Phone1;
+                    profile.MobileNumber = objViewModel.MobileNumber;
                     profile.HomeTelephoneNumber = objViewModel.HomeTelephoneNumber;
                     profile.EmailAddress1 = objViewModel.Email;
                     profile.Update();
                 }
+
+                //var subjectIdArray = objViewModel.SubjectIds.Split(',');
+                //foreach (var subjectId in subjectIdArray)
+                //{
+                //    DBConnectionString.UserSubject userSubject = db.Query<DBConnectionString.UserSubject>("select * from UserSubjects where UserId = @0 and SubjectId = @1", objViewModel.UserId, subjectId).SingleOrDefault();
+                //    if (userSubject == null)
+                //    {
+                //        userSubject.UserId = objViewModel.UserId.Value;
+                //        userSubject.SubjectId = Convert.ToInt64(subjectId);
+                //        userSubject.InsertedOn = DateTime.Now;
+                //        userSubject.InsertedBy = objViewModel.InsertedBy;
+                //        userSubject.Update();
+                //    }
+                //}
 
                 db.CompleteTransaction();
                 return true;
@@ -372,6 +386,17 @@ namespace StudentTracker.Repository
             catch
             {
                 return false;
+            }
+        }
+
+        public SubjectViewModel GetCourseClassIds(long userId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string query = "select top(1) CourseId, ClassId from Subjects as S " +
+                                     "join UserSubjects as US on S.SubjectId = US.SubjectId " +
+                                     "where US.UserId = @id";
+                return this.SingleOrDefault<SubjectViewModel>(query, userId);
             }
         }
     }

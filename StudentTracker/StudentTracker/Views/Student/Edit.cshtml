@@ -1,6 +1,6 @@
 ﻿@model StudentTracker.ViewModels.StudentViewModel
 @{
-    ViewBag.Title = "CreateStudent";
+    ViewBag.Title = "EditStudent";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
 
@@ -13,6 +13,8 @@
         @Html.HiddenFor(m => m.StudentSubjects)
         @Html.HiddenFor(m => m.UserId)
         @Html.HiddenFor(m => m.StudentId)
+        @Html.HiddenFor(m => m.OrganizationId)
+        @Html.HiddenFor(m=>m.SubjectIds)
         <div class="left-sidebar">
 
             <div class="row-fluid">
@@ -91,8 +93,8 @@ Change Picture
                                                     Phone
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.TextBoxFor(x => x.Phone1, new { @class = "span8" })
-                                                    @Html.ValidationMessageFor(x => x.Phone1)
+                                                    @Html.TextBoxFor(x => x.MobileNumber, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.MobileNumber)
                                                 </div>
                                             </div>
 
@@ -171,14 +173,14 @@ Change Picture
                                                 <td class="hidden-phone">
 
                                                     <div class="dropdown">
-                                                        <a href="javascript:;">Groups
+                                                        <a href="javascript:;" class="btnAssign" property="GroupIds" action="EditGroupsPopUp">Groups
                                                                     <b class="caret2">+ </b>
                                                         </a>
                                                     </div>
                                                 </td>
                                                 <td class="hidden-phone">
                                                     <div class="dropdown">
-                                                        <a href="javascript:;">Subjects
+                                                        <a href="javascript:;" class="btnAssign" property="SubjectIds" action="EditUserSubjectsPopUp">Subjects
                                                                     <b class="caret2">+ </b>
                                                         </a>
                                                     </div>
@@ -200,25 +202,23 @@ Change Picture
         </div>
     }
 </div>
-
+<div id="dialog"></div>
 @section scripts{
     @HelperAssets.SaveAndLoadData("Student", "")
-
     <style type="text/css">
         input[type="submit"] {
             color: #FFFFFF !important;
-            font-size: 13px;
-            height: 36px;
-            line-height: 36px;
-            padding: 0 20px;
             text-shadow: none;
             display: block;
             text-shadow: none;
-            margin: 5px;
             float: right;
         }
     </style>
     <script type="text/javascript">
+        function GetSubjectAndSection(e) {
+            GetData(e);
+            LoadSubjects(e);
+        }
         $(document).ready(function () {
             $('#lnkSave').click(function () {
                 $('.form-horizontal').submit();
@@ -228,6 +228,108 @@ Change Picture
                 changeYear: true,
                 yearRange: '-90:+0'
             });
+
+            $('#divIndividual').addClass('selected');
+
+            //dialog work
+            $('.btnAssign').click(function () {
+                property = $(this).attr('property');
+                var action = $(this).attr('action');
+                $.ajax({
+                    type: 'POST',
+                    url: '/Global/' + action,
+                    data: { organizationId: $('#OrganizationId').val(), userId: $('#UserId').val() },
+                    async: false,
+                    success: function (response) {
+                        $('#dialog').html(response);
+                    },
+                    error: function () { }
+                });
+                $('#dialog').dialog("open");
+            });
+
+            $('#dialog').dialog({
+                autoOpen: false,
+                width: 700,
+                buttons: {
+                    Done: function () {
+                        //var text = [];
+                        //$('.deleteBtn').each(function () {
+                        //    text.push($(this).attr('itemId'));
+                        //});
+                        //$('#' + property).val(text.toString());
+                        //alert($('#' + property).val());
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+
         });
+
+        //Subject edit popup
+        function GetSubjectAndSection(e) {
+            GetData(e);
+            LoadSubjects(e);
+        }
+
+        function LoadSubjects(e) {
+
+            var classId = $(e.target).val();
+            var validate = true;
+            var atRightDiv = false;
+            $('#ulLeft').html('');
+            if (classId == '') {
+                return false;
+            }
+            else {
+                var row = '';
+                $.ajax({
+                    type: 'POST',
+                    url: '/Global/GetSubjectByClass',
+                    data: { classId: classId },
+                    success: function (response) {
+                        $.each(response, function (i, v) {
+                            validate = true;
+                            $('#ulLeft>li').each(function () {
+                                if ($(this).attr('class') == v.SubjectId) {
+                                    validate = false;
+                                }
+                            });
+
+                            $('#ulRight>li').each(function () {
+                                if ($(this).attr('class') == v.SubjectId) {
+                                    atRightDiv = true;
+                                }
+                            });
+
+                            if (validate) {
+                                if (atRightDiv) {
+                                    row += '<li class=' + v.SubjectId + ' style="display : none;">' +
+                                              '<div class="row-fluid">' +
+                                                     '<div class="span8 colorSpn">' + v.SubjectName + '</div>' +
+                                                      '<div class="span2 colorSpn2">7</div>' +
+                                                      '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>' +
+                                                '</div>' +
+                                           '</li>';
+                                }
+                                else {
+                                    row += '<li class=' + v.SubjectId + '>' +
+                                               '<div class="row-fluid">' +
+                                                      '<div class="span8 colorSpn">' + v.SubjectName + '</div>' +
+                                                       '<div class="span2 colorSpn2">7</div>' +
+                                                       '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>' +
+                                                 '</div>' +
+                                            '</li>';
+                                }
+                            }
+                        });
+                        $('#ulLeft').append(row);
+                    },
+                    error: function () { }
+                });
+            }
+
+        }
     </script>
 }

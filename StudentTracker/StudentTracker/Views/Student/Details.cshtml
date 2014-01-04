@@ -85,7 +85,7 @@ Change Picture
                                                     Phone
                                                 </label>
                                                 <div class="controls">
-                                                    @Html.DisplayFor(x => x.Phone1)
+                                                    @Html.DisplayFor(x => x.MobileNumber)
                                                 </div>
                                             </div>
 
@@ -154,6 +154,10 @@ Change Picture
                                                 <th class="hidden-phone">
                                                     @Html.DisplayNameFor(m => m.SectionName)
                                                 </th>
+                                                <th class="hidden-phone">Assigned Groups
+                                                </th>
+                                             <th class="hidden-phone">Assigned Subjects
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -169,6 +173,13 @@ Change Picture
                                                 </td>
                                                 <td class="hidden-phone">
                                                     @Html.DisplayFor(m => m.SectionName)
+                                                </td>
+
+                                                <td class="hidden-phone">
+                                                    @Html.DisplayFor(m => m.GroupNames)
+                                                </td>
+                                                 <td class="hidden-phone">
+                                                    @Html.DisplayFor(m => m.SubjectNames)
                                                 </td>
                                                 @*<td class="hidden-phone">
 

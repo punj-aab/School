@@ -10,5 +10,7 @@ namespace StudentTracker.ViewModels
     {
         public long SectionId { get; set; }
         public SelectList SectionList { get; set; }
+        public List<Subject> UserSubjectList { get; set; }
+        public List<Subject> ClassSubjects { get; set; }
     }
 }

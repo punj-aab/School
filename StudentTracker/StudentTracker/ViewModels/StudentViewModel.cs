@@ -17,8 +17,12 @@ namespace StudentTracker.ViewModels
         public string Title { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Phone1 { get; set; }
+        public string MobileNumber { get; set; }
         public string HomeTelephoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
+
+        public string InsertedByName { get; set; }
+        public string ModifiedByName { get; set; }
+        public string SubjectNames { get; set; }
     }
 }

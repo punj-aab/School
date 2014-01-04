@@ -230,6 +230,25 @@ namespace StudentTracker.Core.Repository
             }
         }
 
+        //public List<Group> GetOrganiztionGroup(long organizationId)
+        //{
+        //    using (IDbConnection connection = OpenConnection())
+        //    {
+        //        const string query = "select * from UserGroup where UserId = @UserId";
+        //        return connection.Query<Group>(query, new { UserId = organizationId }).ToList();
+        //    }
+        //}
+
+        public List<UserGroup> GetUserGroups(long userID)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string query = "select * from UserGroup where UserId = @UserId";
+                return connection.Query<UserGroup>(query, new { UserId = userID }).ToList();
+            }
+        }
+
+
         public List<Student> GetStudents(long organizationId)
         {
             using (IDbConnection connection = OpenConnection())
@@ -934,6 +953,35 @@ namespace StudentTracker.Core.Repository
         }
 
 
+
+        public List<Subject> GetUserSubjects(long userID)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string query = "select S.SubjectId, SubjectName from Subjects as S " +
+                            "join UserSubjects as US on S.SubjectId = US.SubjectId" +
+                            " where US.UserId = @UserId";
+                return connection.Query<Subject>(query, new { UserId = userID }).ToList();
+            }
+        }
+
+        public int GroupUserCount(long groupId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string query = "select COUNT(*) as Count from UserGroup where GroupId = @GroupId";
+                return connection.Query<int>(query, new { GroupId = groupId }).SingleOrDefault();
+            }
+        }
+
+        public long SubjectUserCount(long userId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string query = "select COUNT(*) from UserSubjects where UserId = @UserId";
+                return connection.Query<long>(query, new { UserId = userId }).SingleOrDefault();
+            }
+        }
     }
 }
 

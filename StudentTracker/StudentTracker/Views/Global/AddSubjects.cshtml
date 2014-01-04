@@ -8,18 +8,10 @@
         <div class="span12">
             <div class="widget">
 
-                @*<div class="widget-header">
-                    <div class="title textAlign">
-                        Subjects
-                    </div>
-                    <span class="tools tls2"><a href="#" class="btnBlu2" data-original-title="">Done</a></span>
-                </div>*@
-
-
                 <div class="widget-body">
                     @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { onChange = "GetData(event)", action = "GetClasses", getType = "class" })
                     @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { onChange = "GetSubjectAndSection(event)", id = "classId", action = "GetSection", getType = "section" })
-                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { id="sectionId"})
+                    @Html.DropDownListFor(m => m.SectionId, Model.SectionList, "Select Section", new { id = "sectionId" })
                     <div class="srchBox">
                         <input class="x-large" type="text" placeholder="Search Here">
                         <span class="crs">
@@ -68,49 +60,3 @@
         color: #fff !important;
     }
 </style>
-@*<script type="text/javascript">
-    $(document).ready(function () {
-        $('#ClassId').change(function () {
-            var row = '';
-            var classId = $(this).val();
-            if (classId != '' || classId != null) {
-                var parameters = {};
-                $.ajax({
-                    type: 'POST',
-                    url: '/Global/GetSubjectByClass',
-                    data: { classId: classId },
-                    success: function (response) {
-                        $.each(data, function (i, v) {
-                            row += '<li class=' + v.SubjectId + '>' +
-                                       '<div class="row-fluid">' +
-                                              '<div class="span8 colorSpn">' + v.SubjectName + '</div>' +
-                                               '<div class="span2 colorSpn2">7</div>' +
-                                               '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>' +
-                                         '</div>' +
-                                    '</li>';
-                        })
-                    },
-                    error: function () { }
-                })
-            }
-        });
-
-
-        $('#CourseId').change(function () {
-            var courseId = $(this).val();
-            var row = '';
-            alert(1);
-            $.ajax({
-                type: 'GET',
-                url: '/Global/GetClasses',
-                data: { courseId: courseId },
-                success: function (response) {
-                    $.each(response, function (i, v) {
-                        row += '<option value=' + v.classId + '>' + v.ClassName + '</option>'
-                    });
-                    $('#ClassId').append(row);
-                }
-            });
-        });
-    });
-</script>*@

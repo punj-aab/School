@@ -95,9 +95,13 @@ namespace StudentTracker.Controllers
 
         public ActionResult AddGroups()
         {
-            StudentContext db = new StudentContext();
-            List<Group> objGroup = db.Groups.Where(x => x.OrganizationId == _userStatistics.OrganizationId).ToList(); //repository.GroupsByOrganization(_userStatistics.OrganizationId);
-            return PartialView(objGroup);
+            GroupViewModel objVM = new GroupViewModel();
+            objVM.OrganizationGroupList = GroupList(_userStatistics.OrganizationId);
+            for (int i = 0; i < objVM.OrganizationGroupList.Count; i++)
+            {
+                objVM.OrganizationGroupList[i].UserCount = this.repository.GroupUserCount(objVM.OrganizationGroupList[i].GroupId);
+            }
+            return PartialView(objVM);
         }
         public ActionResult AddSubjects()
         {
@@ -108,10 +112,98 @@ namespace StudentTracker.Controllers
             return PartialView(objSubject);
         }
 
+        public ActionResult EditGroupsPopUp(long organizationId, long userId)
+        {
+            GroupViewModel objVM = new GroupViewModel();
+            objVM.OrganizationGroupList = GroupList(organizationId);
+            objVM.AssignedGroupList = repository.GetUserGroups(userId);
+            objVM.UserGroupList = new List<Group>();
+            for (int i = 0; i < objVM.AssignedGroupList.Count; i++)
+            {
+                var groupList = objVM.OrganizationGroupList.Where(x => x.GroupId == objVM.AssignedGroupList[i].GroupId).ToList();
+                foreach (var item in groupList)
+                {
+                    objVM.UserGroupList.Add(item);
+                }
+            }
+            objVM.UserId = userId;
+            return PartialView(objVM);
+        }
+
+        public ActionResult EditUserSubjectsPopUp(long organizationId, long userId)
+        {
+            SubjectViewModel objVM = this.repository.GetCourseClassIds(userId);
+            objVM.CourseList = new SelectList(this.repository.CourseByOrganization(_userStatistics.OrganizationId), "CourseId", "CourseName", objVM.CourseId);
+            objVM.ClassList = new SelectList(this.repository.ClassByCourse(objVM.CourseId), "ClassId", "ClassName", objVM.ClassId);
+            objVM.SectionList = new SelectList(this.repository.SectionByClass(objVM.ClassId), "SectionId", "SectionName");
+
+            objVM.UserSubjectList = this.repository.GetUserSubjects(userId);
+            objVM.ClassSubjects = this.repository.SubjectByClass(objVM.ClassId);
+
+            return PartialView(objVM);
+        }
+
         public JsonResult GetSubjectByClass(long classId)
         {
             List<Subject> objSubject = repository.SubjectByClass(classId);
             return Json(objSubject, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<Group> GroupList(long organizationId)
+        {
+            StudentContext db = new StudentContext();
+            return db.Groups.Where(x => x.OrganizationId == _userStatistics.OrganizationId).ToList();
+        }
+
+        public bool AddNewUserGroup(long userId, long groupId)
+        {
+            UserGroup objUserGroup = new UserGroup();
+            objUserGroup.UserId = userId;
+            objUserGroup.GroupId = Convert.ToInt32(groupId);
+            objUserGroup.InsertedBy = _userStatistics.UserId;
+            if (this.repository.AssignGroupToUser(objUserGroup))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteUserGroup(long userId, long groupId)
+        {
+            int recAffected = 0;
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            recAffected = db.Execute("delete from UserGroup where UserId = @0 and GroupId = @1", userId, groupId);
+            if (recAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool AddNewSubject(long userId, long subjectId)
+        {
+            UserSubjects objUserSubject = null;
+            objUserSubject = new UserSubjects();
+            objUserSubject.UserId = userId;
+            objUserSubject.SubjectId = Convert.ToInt32(subjectId);
+            objUserSubject.InsertedBy = _userStatistics.UserId;
+            if (this.repository.AssignSubjectToUser(objUserSubject))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool DeleteUserSubject(long userId, long subjectId)
+        {
+            int recAffected = 0;
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            recAffected = db.Execute("delete from UserSubjects where UserId = @0 and SubjectId = @1", userId, subjectId);
+            if (recAffected > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -375,7 +375,7 @@ Change Picture
         function updateCourseDepartments(e) {
             var $this = $(e.target);
             var validate = true;
-            var root = $this.parent().parent().parent().children();
+            var root = $this.parent().parent().children();
             if (root.find('.Course').val() == '' || root.find('.Class').val() == '' || root.find('.Section').val() == '' || root.find('.Subject').val() == '') {
                 validate = false;
             }

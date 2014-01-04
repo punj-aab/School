@@ -1,4 +1,4 @@
-﻿@model List<StudentTracker.Core.Entities.Group>
+﻿@model StudentTracker.ViewModels.GroupViewModel
 @{
     ViewBag.Title = "AddGroups";
 }
@@ -11,7 +11,6 @@
                     <div class="title textAlign">
                         Groups
                     </div>
-                    <span class="tools tls2"><a href="#" class="btn btn-info" data-original-title="">Done</a></span>
                 </div>
                 <div class="widget-body">
                     <div class="srchBox">
@@ -25,14 +24,14 @@
                                 <h2>Groups <a class="addBtn" href="#" data-original-title="">+</a></h2>
                                 <div class="tripSec">
                                     <ul id="ulLeft">
-                                        @if (Model != null)
+                                        @if (Model.OrganizationGroupList != null)
                                         {
-                                            foreach (var data in Model)
+                                            foreach (var data in Model.OrganizationGroupList)
                                             {
                                             <li class="@data.GroupId">
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn">@data.GroupName</div>
-                                                    <div class="span2 colorSpn2">7</div>
+                                                    <div class="span2 colorSpn2">@data.UserCount </div>
                                                     <div class="span2 colorSpn2"><a class="addBtn" itemId="@data.GroupId" id="@data.GroupId" onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>
                                                 </div>
                                             </li>
@@ -78,6 +77,9 @@
     .active {
         background: #3693cf !important;
         color: #fff !important;
+    }
+
+    .ui-dialog-buttonset > button {
     }
 </style>
 <script type="text/javascript">

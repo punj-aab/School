@@ -185,6 +185,7 @@
     <Compile Include="Repository\SectionRepository.cs" />
     <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="ViewModels\ForgetPasswordModel.cs" />
+    <Compile Include="ViewModels\GroupViewModel.cs" />
     <Compile Include="ViewModels\jQueryDataTableViewModel.cs" />
     <Compile Include="ViewModels\LoginModel.cs" />
     <Compile Include="ViewModels\OrganizationCursesRootViewModel.cs" />
@@ -1550,6 +1551,8 @@
     <Content Include="Views\Import\ImportStaff.cshtml" />
     <Content Include="Views\Staff\Edit.cshtml" />
     <Content Include="Views\Staff\Details.cshtml" />
+    <Content Include="Views\Global\EditGroupsPopUp.cshtml" />
+    <Content Include="Views\Global\EditUserSubjectsPopUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

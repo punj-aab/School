@@ -221,6 +221,9 @@ namespace StudentTracker.Controllers
         {
             StudentViewModel objViewModel = new StudentViewModel();
             objViewModel = this.repository.GetStudents(_userStatistics.OrganizationId, id);
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            objViewModel.GroupNames = string.Join(",", db.Query<string>("select GroupName from [Group] as G join UserGroup As UG on G.GroupId = UG.GroupId where UG.UserId = @0", objViewModel.UserId));
+            objViewModel.SubjectNames = string.Join(",", db.Query<string>("select SubjectName from Subjects as S join UserSubjects As US on S.SubjectId = US.SubjectId where US.UserId = @0", objViewModel.UserId));
             return View(objViewModel);
         }
 
