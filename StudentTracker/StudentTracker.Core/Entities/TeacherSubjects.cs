@@ -11,7 +11,8 @@ namespace StudentTracker.Core.Entities
     {
         [Key]
         public long Id { get; set; }
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
+        public long? StaffId { get; set; }
         public long CourseId { get; set; }
         public long DepartmentId { get; set; }
         public long ClassId { get; set; }

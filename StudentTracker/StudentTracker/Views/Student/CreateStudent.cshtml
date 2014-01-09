@@ -231,5 +231,31 @@ Change Picture
 
             $('#divIndividual').addClass('selected');
         });
+
+        function MoveAllToRight(e) {
+            var row = '';
+            $('.listItem').hide();
+            $('#ulRight').html('');
+            $('.lnkAdd').each(function (index, value) {
+                var $this = $(this);
+                var id = $this.attr('id');
+                var userId = $this.attr('itemId');
+                row += '<li class=' + id + ' ><div class="row-fluid">' +
+                                               '<div class="span8 colorSpn divName">' + $this.parent().prev().prev().text() + '</div>' +
+                                               '<div class="span2 colorSpn2">' + $this.attr('userCount') + '</div>' +
+                                               '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" itemId=' + userId + ' id=' + id + ' href="#"></a></div>' +
+        '                                                </div>' +
+                                       '</li>';
+            });
+            $('#ulRight').append(row);
+        }
+        function deleteAll(e) {
+
+            $('#ulRight > li').each(function () {
+                var id = $(this).attr('class');
+                $('.' + id).show();
+                $(this).remove();
+            });
+        }
     </script>
 }

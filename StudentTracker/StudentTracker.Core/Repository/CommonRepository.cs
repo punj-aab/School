@@ -627,7 +627,8 @@ namespace StudentTracker.Core.Repository
                 UserId = objUserSubject.UserId,
                 SubjectId = objUserSubject.SubjectId,
                 InsertedOn = DateTime.Now,
-                InsertedBy = objUserSubject.InsertedBy
+                InsertedBy = objUserSubject.InsertedBy,
+                StudentId = objUserSubject.StudentId
             };
 
             using (IDbConnection connection = OpenConnection())
@@ -642,7 +643,7 @@ namespace StudentTracker.Core.Repository
                 return false;
             }
         }
-        public bool CreateStudent(Student objStudent)
+        public long CreateStudent(Student objStudent)
         {
             var parameters = new
             {
@@ -656,7 +657,7 @@ namespace StudentTracker.Core.Repository
                 InsertedBy = objStudent.InsertedBy,
                 Email = objStudent.Email,
                 OrganizationId = objStudent.OrganizationId,
-                FullName = objStudent.FullName
+                FullName = objStudent.FullName,
             };
 
             using (IDbConnection connection = OpenConnection())
@@ -666,9 +667,9 @@ namespace StudentTracker.Core.Repository
                 SetIdentity<int>(connection, id => objStudent.StudentId = id);
                 if (rowsAffected > 0)
                 {
-                    return true;
+                    return objStudent.StudentId;
                 }
-                return false;
+                return -1;
             }
         }
 

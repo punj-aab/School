@@ -79,10 +79,11 @@ namespace StudentTracker.Controllers
 
                     objViewModel.InsertedBy = _userStatistics.UserId;
                     objViewModel.OrganizationId = _userStatistics.OrganizationId;
-                    if (repository.CreateNewStudent(objViewModel))
+                    objViewModel.StudentId = repository.CreateNewStudent(objViewModel);
+                    if (objViewModel.StudentId != -1)
                     {
                         this.AssignGroup(objViewModel.GroupIds, userId);
-                        this.AssignSubject(objViewModel.SubjectIds, userId);
+                        this.AssignSubject(objViewModel.SubjectIds, userId, objViewModel.StudentId);
                         SaveFiles(token, this.GetType().Name, objViewModel.StudentId);
                         EmailHandler.Utilities.SendRegistationEmail(token, objViewModel.Email);
                     }
@@ -164,7 +165,7 @@ namespace StudentTracker.Controllers
 
         }
 
-        private void AssignSubject(string subjectIds, long userId)
+        private void AssignSubject(string subjectIds, long userId, long studentId)
         {
             if (subjectIds != null)
             {
@@ -174,6 +175,7 @@ namespace StudentTracker.Controllers
                 {
                     objUserSubject = new UserSubjects();
                     objUserSubject.UserId = userId;
+                    objUserSubject.StudentId = studentId;
                     objUserSubject.SubjectId = Convert.ToInt32(subjectId);
                     objUserSubject.InsertedBy = _userStatistics.UserId;
                     this.repository.AssignSubjectToUser(objUserSubject);

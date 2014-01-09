@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using StudentTracker.Core.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentTracker.ViewModels
 {
@@ -19,6 +20,8 @@ namespace StudentTracker.ViewModels
         public string LastName { get; set; }
         public string MobileNumber { get; set; }
         public string HomeTelephoneNumber { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime DateOfBirth { get; set; }
 
         public string InsertedByName { get; set; }

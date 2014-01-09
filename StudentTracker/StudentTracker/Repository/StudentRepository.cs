@@ -65,7 +65,7 @@ namespace StudentTracker.Repository
             return this.Find<UserGroup>("select * from UserGroup where GroupId = @id", groupId);
         }
 
-        public bool CreateNewStudent(StudentViewModel objViewModel)
+        public long CreateNewStudent(StudentViewModel objViewModel)
         {
             Student objStudent = new Student();
             objStudent.UserId = objViewModel.UserId;
@@ -79,11 +79,7 @@ namespace StudentTracker.Repository
             objStudent.Email = objViewModel.Email;
             objStudent.OrganizationId = objViewModel.OrganizationId;
             objStudent.FullName = objViewModel.Profile.FirstName + " " + objViewModel.Profile.LastName;
-            if (this.CreateStudent(objStudent))
-            {
-                return true;
-            }
-            return false;
+            return objStudent.StudentId = this.CreateStudent(objStudent);
         }
 
         public Staff LoadStaffLists(string userRole, long organizationId = -1, long scheduleId = -1)
@@ -338,6 +334,7 @@ namespace StudentTracker.Repository
             objStaff.Email = objViewModel.Email;
             objStaff.StaffTypeId = objViewModel.StaffTypeId;
             objStaff.OrganizationId = objViewModel.OrganizationId;
+            objStaff.FullName = objViewModel.Profile.FirstName + " " + objViewModel.Profile.LastName;
             objStaff.Insert();
             return objStaff.StaffId;
         }
@@ -353,6 +350,7 @@ namespace StudentTracker.Repository
                 teacherSubject.SubjectId = data.SubjectId;
                 teacherSubject.DepartmentId = data.DepartmentId;
                 teacherSubject.UserId = objVM.UserId;
+                teacherSubject.StaffId = objVM.StaffId;
                 teacherSubject.Insert();
             }
         }

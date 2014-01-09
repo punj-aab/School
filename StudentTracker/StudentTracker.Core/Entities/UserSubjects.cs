@@ -10,7 +10,8 @@ namespace StudentTracker.Core.Entities
     {
         [Key]
         public long Id { get; set; }
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
+        public long? StudentId { get; set; }
         public long SubjectId { get; set; }
         public DateTime InsertedOn { get; set; }
         public long InsertedBy { get; set; }

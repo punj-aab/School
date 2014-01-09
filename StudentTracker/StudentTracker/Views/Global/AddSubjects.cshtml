@@ -20,7 +20,7 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="groups">
-                                <h2>Subjects <a class="addBtn" href="#" data-original-title="">+</a></h2>
+                                <h2>Subjects <a class="addBtn" href="#" data-original-title="" onclick="MoveAllToRight(event)">+</a></h2>
                                 <div class="tripSec">
                                     <ul id="ulLeft">
                                         @* <li class="@data.SubjectId">
@@ -37,7 +37,8 @@
                         </div>
                         <div class="span6">
                             <div class="groups">
-                                <h2>Subjects <a class="delete-row pls icon-trash" data-original-title="Delete" href="#"></a></h2>
+                                <h2>Subjects <a class="delete-row pls lnkDeleteAll" data-original-title="Delete" href="#" onclick="deleteAll(event)">
+                                    <i class="icon-trash" data-original-title=""></i></a></h2>
                                 <div class="tripSec">
                                     <ul id="ulRight">
                                     </ul>

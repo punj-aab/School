@@ -1824,7 +1824,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public long UserId { get; set; }
+		[Column] public long? UserId { get; set; }
 
 
 
@@ -1855,6 +1855,12 @@ namespace DBConnectionString
 
 
 		[Column] public long? UpdatedBy { get; set; }
+
+
+
+
+
+		[Column] public long? StudentId { get; set; }
 
 
 
@@ -2004,7 +2010,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public long UserId { get; set; }
+		[Column] public long? UserId { get; set; }
 
 
 
@@ -2035,6 +2041,12 @@ namespace DBConnectionString
 
 
 		[Column] public long SubjectId { get; set; }
+
+
+
+
+
+		[Column] public long? StaffId { get; set; }
 
 
 

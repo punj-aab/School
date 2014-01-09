@@ -308,7 +308,7 @@
             var userId = $this.attr('itemId');
             var row = '<li class=' + id + '><div class="row-fluid">' +
                                            '<div class="span8 colorSpn divName">' + $this.parent().prev().prev().text() + '</div>' +
-                                           '<div class="span2 colorSpn2">7</div>' +
+                                           '<div class="span2 colorSpn2">' + $this.attr('userCount') + '</div>' +
                                            '<div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteRow(event)" itemId=' + userId + ' id=' + id + ' href="#"></a></div>' +
 '                                                </div>' +
                                    '</li>';
@@ -567,6 +567,11 @@
         $(document).ready(function () {
             //load dialog box for Add recipients
             $('.btnAssign').click(function () {
+
+                var x = $(this).position().middle + jQuery(this).outerWidth();
+                var y = $(this).position().top - jQuery(document).scrollTop();
+                $("#dialog").dialog('option', 'position', [x, y]);
+
                 property = $(this).attr('property');
                 var action = $(this).attr('action');
                 $.ajax({
@@ -620,11 +625,11 @@
                                 }
                             });
                             if (validate) {
-                                row += '<li class=' + v.SubjectId + '>' +
+                                row += '<li class="' + v.SubjectId + ' listItem">' +
                                            '<div class="row-fluid">' +
                                                   '<div class="span8 colorSpn">' + v.SubjectName + '</div>' +
                                                    '<div class="span2 colorSpn2">7</div>' +
-                                                   '<div class="span2 colorSpn2"><a class="addBtn" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>' +
+                                                   '<div class="span2 colorSpn2"><a class="addBtn lnkAdd" itemId=' + v.SubjectId + ' id=' + v.SubjectId + ' onclick="AddNewRow(event)" href="#" data-original-title="" userCount="0">+</a></div>' +
                                              '</div>' +
                                         '</li>';
                             }

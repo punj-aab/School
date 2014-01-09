@@ -14,7 +14,7 @@
         @Html.HiddenFor(m => m.UserId)
         @Html.HiddenFor(m => m.StudentId)
         @Html.HiddenFor(m => m.OrganizationId)
-        @Html.HiddenFor(m=>m.SubjectIds)
+        @Html.HiddenFor(m => m.SubjectIds)
         <div class="left-sidebar">
 
             <div class="row-fluid">
@@ -245,6 +245,11 @@ Change Picture
                     },
                     error: function () { }
                 });
+
+                var x = $(this).position().middle + jQuery(this).outerWidth();
+                var y = $(this).position().top - jQuery(document).scrollTop();
+                $("#dialog").dialog('option', 'position', [x, y]);
+
                 $('#dialog').dialog("open");
             });
 

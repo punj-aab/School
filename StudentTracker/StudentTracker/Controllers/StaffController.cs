@@ -38,13 +38,16 @@ namespace StudentTracker.Controllers
                 ClassList = new List<string>();
                 SectionList = new List<string>();
                 SubjectList = new List<string>();
-                foreach (var subject in objTeacherSubjectsList)
+                if (objTeacherSubjectsList != null)
                 {
-                    CourseList.Add(subject.CourseName);
-                    DepartmentList.Add(subject.DepartmentName);
-                    ClassList.Add(subject.CourseName);
-                    SectionList.Add(subject.SectionName);
-                    SubjectList.Add(subject.SubjectName);
+                    foreach (var subject in objTeacherSubjectsList)
+                    {
+                        CourseList.Add(subject.CourseName);
+                        DepartmentList.Add(subject.DepartmentName);
+                        ClassList.Add(subject.CourseName);
+                        SectionList.Add(subject.SectionName);
+                        SubjectList.Add(subject.SubjectName);
+                    }
                 }
                 objStaffList[i].CourseName = string.Join(",", CourseList);
                 objStaffList[i].DepartmentName = string.Join(",", DepartmentList);

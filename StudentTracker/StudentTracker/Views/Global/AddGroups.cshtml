@@ -21,18 +21,18 @@
                     <div class="row-fluid">
                         <div class="span6">
                             <div class="groups">
-                                <h2>Groups <a class="addBtn" href="#" data-original-title="">+</a></h2>
+                                <h2>Groups <a class="addBtn" href="#" data-original-title="" onclick="MoveAllToRight(event)">+</a></h2>
                                 <div class="tripSec">
                                     <ul id="ulLeft">
                                         @if (Model.OrganizationGroupList != null)
                                         {
                                             foreach (var data in Model.OrganizationGroupList)
                                             {
-                                            <li class="@data.GroupId">
+                                            <li class="@data.GroupId listItem">
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn">@data.GroupName</div>
                                                     <div class="span2 colorSpn2">@data.UserCount </div>
-                                                    <div class="span2 colorSpn2"><a class="addBtn" itemId="@data.GroupId" id="@data.GroupId" onclick="AddNewRow(event)" href="#" data-original-title="">+</a></div>
+                                                    <div class="span2 colorSpn2"><a class="addBtn lnkAdd" itemId="@data.GroupId" id="@data.GroupId" onclick="AddNewRow(event)" href="#" data-original-title="" userCount="@data.UserCount">+</a></div>
                                                 </div>
                                             </li>
                                             }
@@ -43,7 +43,7 @@
                         </div>
                         <div class="span6">
                             <div class="groups">
-                                <h2>Groups <a class="delete-row pls" data-original-title="Delete" href="#">
+                                <h2>Groups <a class="delete-row pls lnkDeleteAll" data-original-title="Delete" href="#" onclick="deleteAll(event)">
                                     <i class="icon-trash" data-original-title=""></i>
                                 </a></h2>
 
@@ -83,4 +83,5 @@
     }
 </style>
 <script type="text/javascript">
+    
 </script>
