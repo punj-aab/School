@@ -397,5 +397,61 @@ namespace StudentTracker.Repository
                 return this.SingleOrDefault<SubjectViewModel>(query, userId);
             }
         }
+
+        public bool UpdateUserProfile(Profile objModel)
+        {
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            DBConnectionString.User user = DBConnectionString.User.SingleOrDefault(objModel.UserId);
+            DBConnectionString.Profile profile = db.Query<DBConnectionString.Profile>("Select * from  profile where UserId = @0", objModel.UserId).SingleOrDefault();
+            try
+            {
+                if (user != null)
+                {
+                    user.FirstName = objModel.FirstName;
+                    user.LastName = objModel.LastName;
+                    user.Update();
+                }
+
+                if (profile != null)
+                {
+                    profile.Title = objModel.Title;
+                    profile.DateOfBirth = objModel.DateOfBirth;
+                    profile.MobileNumber = objModel.MobileNumber;
+                    profile.HomeTelephoneNumber = objModel.HomeTelephoneNumber;
+                    profile.EmailAddress1 = objModel.EmailAddress1;
+                    profile.EmailAddress2 = objModel.EmailAddress2;
+                    profile.Phone1 = objModel.Phone1;
+                    profile.Phone2 = objModel.Phone2;
+                    profile.Address1 = objModel.Address1;
+                    profile.Address2 = objModel.Address2;
+                    profile.ModifiedOn = objModel.ModifiedOn;
+                    profile.Update();
+                }
+                else
+                {
+                    profile = new DBConnectionString.Profile();
+                    profile.UserId = objModel.UserId;
+                    profile.Title = objModel.Title;
+                    profile.DateOfBirth = objModel.DateOfBirth;
+                    profile.MobileNumber = objModel.MobileNumber;
+                    profile.HomeTelephoneNumber = objModel.HomeTelephoneNumber;
+                    profile.EmailAddress1 = objModel.EmailAddress1;
+                    profile.EmailAddress2 = objModel.EmailAddress2;
+                    profile.Phone1 = objModel.Phone1;
+                    profile.Phone2 = objModel.Phone2;
+                    profile.Address1 = objModel.Address1;
+                    profile.Address2 = objModel.Address2;
+                    profile.InsertedOn = DateTime.Now;
+                    profile.SecurityAnswer = "None";
+                    profile.Insert();
+                }
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

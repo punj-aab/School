@@ -293,6 +293,14 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<TeacherSubjects>(storedProcedure, new { UserId = userId }, commandType: CommandType.StoredProcedure).ToList();
             }
         }
+        public Profile GetUserProfile(long userId)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                const string storedProcedure = "usp_getUserProfile";
+                return connection.Query<Profile>(storedProcedure, new { UserId = userId }, commandType: CommandType.StoredProcedure).SingleOrDefault();
+            }
+        }
 
         public bool CreateOrganization(Organization objOrganization, RegistrationToken objToken)
         {
@@ -605,7 +613,9 @@ namespace StudentTracker.Core.Repository
                 UserId = objUserGroup.UserId,
                 GroupId = objUserGroup.GroupId,
                 InsertedOn = DateTime.Now,
-                InsertedBy = objUserGroup.InsertedBy
+                InsertedBy = objUserGroup.InsertedBy,
+                StudentId = objUserGroup.StudentId,
+                StaffId = objUserGroup.Default
             };
 
             using (IDbConnection connection = OpenConnection())

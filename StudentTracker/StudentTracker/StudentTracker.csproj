@@ -1553,6 +1553,7 @@
     <Content Include="Views\Staff\Details.cshtml" />
     <Content Include="Views\Global\EditGroupsPopUp.cshtml" />
     <Content Include="Views\Global\EditUserSubjectsPopUp.cshtml" />
+    <Content Include="Views\Account\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

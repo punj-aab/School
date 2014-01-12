@@ -97,6 +97,7 @@
     function updateUserSubject(e) {
         var subjectId = $(e.target).attr('id');
         var userId = $('#UserId').val();
+       
         var action = $(e.target).attr('action');
         $.ajax({
             type: 'POST',
@@ -104,6 +105,7 @@
             data: {
                 userId: userId,
                 subjectId: subjectId
+                
             },
             success: function (response) {
                 if (response == 'True')

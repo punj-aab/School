@@ -17,6 +17,8 @@ namespace StudentTracker.Core.Entities
         public long InsertedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public long? UpdatedBy { get; set; }
+        public long? StudentId { get; set; }
+        public long? StaffId { get; set; }
 
         [NotMapped]
         public string Username { get; set; }
@@ -26,5 +28,8 @@ namespace StudentTracker.Core.Entities
         public string FirstName { get; set; }
         [NotMapped]
         public string LastName { get; set; }
+
+        [NotMapped]
+        public long? Default { get; set; }
     }
 }

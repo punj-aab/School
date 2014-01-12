@@ -112,21 +112,30 @@ namespace StudentTracker.Controllers
             return PartialView(objSubject);
         }
 
-        public ActionResult EditGroupsPopUp(long organizationId, long userId)
+        public ActionResult EditGroupsPopUp(long organizationId, long? userId, long? studentId)
         {
             GroupViewModel objVM = new GroupViewModel();
             objVM.OrganizationGroupList = GroupList(organizationId);
-            objVM.AssignedGroupList = repository.GetUserGroups(userId);
-            objVM.UserGroupList = new List<Group>();
-            for (int i = 0; i < objVM.AssignedGroupList.Count; i++)
+            if (userId != null)
             {
-                var groupList = objVM.OrganizationGroupList.Where(x => x.GroupId == objVM.AssignedGroupList[i].GroupId).ToList();
-                foreach (var item in groupList)
+                objVM.AssignedGroupList = repository.GetUserGroups(userId.Value);
+
+                objVM.UserGroupList = new List<Group>();
+                for (int i = 0; i < objVM.AssignedGroupList.Count; i++)
                 {
-                    objVM.UserGroupList.Add(item);
+                    var groupList = objVM.OrganizationGroupList.Where(x => x.GroupId == objVM.AssignedGroupList[i].GroupId).ToList();
+                    foreach (var item in groupList)
+                    {
+                        objVM.UserGroupList.Add(item);
+                    }
                 }
+                objVM.UserId = userId.Value;
+
             }
-            objVM.UserId = userId;
+            if (studentId != null)
+            {
+                objVM.StudentId = studentId.Value;
+            }
             return PartialView(objVM);
         }
 
@@ -155,12 +164,13 @@ namespace StudentTracker.Controllers
             return db.Groups.Where(x => x.OrganizationId == _userStatistics.OrganizationId).ToList();
         }
 
-        public bool AddNewUserGroup(long userId, long groupId)
+        public bool AddNewUserGroup(long userId, long? groupId, long? studentId)
         {
             UserGroup objUserGroup = new UserGroup();
             objUserGroup.UserId = userId;
             objUserGroup.GroupId = Convert.ToInt32(groupId);
             objUserGroup.InsertedBy = _userStatistics.UserId;
+            objUserGroup.StudentId = studentId;
             if (this.repository.AssignGroupToUser(objUserGroup))
             {
                 return true;

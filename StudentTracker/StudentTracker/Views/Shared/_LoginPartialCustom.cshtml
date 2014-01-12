@@ -8,15 +8,16 @@
     </button>
     <ul class="dropdown-menu pull-right">
         <li>
-            <a href="#">Edit Profile
-            </a>
+            @Html.ActionLink("Edit Profile", "EditProfile", "Account", new { userId = @Session["UserId"] }, new { Class = "lnkEditProfile" })
+            @*<a href="#">Edit Profile
+                </a>*@
         </li>
         <li>
             <a href="#">Account Settings
             </a>
         </li>
         <li>
-            @Html.ActionLink("Logout","logoff","account")
+            @Html.ActionLink("Logout", "logoff", "account")
         </li>
     </ul>
 </div>

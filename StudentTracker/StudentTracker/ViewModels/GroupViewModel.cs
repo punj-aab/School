@@ -10,7 +10,8 @@ namespace StudentTracker.ViewModels
         public List<Group> OrganizationGroupList { get; set; }
         public List<Group> UserGroupList { get; set; }
         public List<UserGroup> AssignedGroupList { get; set; }
-        public long UserId { get; set; }
-        
+        public long? UserId { get; set; }
+        public long? StudentId { get; set; }
+
     }
 }

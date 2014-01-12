@@ -1,6 +1,7 @@
 ﻿@model StudentTracker.ViewModels.GroupViewModel
 
 @Html.HiddenFor(m => m.UserId)
+@Html.HiddenFor(m => m.StudentId)
 
 <div class="left-sidebar">
     <div class="row-fluid">
@@ -30,11 +31,13 @@
                                             foreach (var data in Model.OrganizationGroupList)
                                             {
                                                 var validate = true;
-                                                foreach (var group in Model.UserGroupList)
+                                                if (Model.UserGroupList != null)
                                                 {
+                                                    foreach (var group in Model.UserGroupList)
+                                                    {
 
-                                                    if (data.GroupId == group.GroupId)
-                                                    { 
+                                                        if (data.GroupId == group.GroupId)
+                                                        { 
                                             <li class="@data.GroupId" style="display:none;">
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn">@data.GroupName</div>
@@ -42,7 +45,8 @@
                                                     <div class="span2 colorSpn2"><a class="addBtn" itemId="@data.GroupId" id="@data.GroupId" onclick="updateGroup(event)" href="#" data-original-title="" action="AddNewUserGroup">+</a></div>
                                                 </div>
                                             </li>
-                                                        validate = false;
+                                                            validate = false;
+                                                        }
                                                     }
                                                 }
                                                 if (validate)
@@ -69,8 +73,10 @@
 
                                 <div class="tripSec">
                                     <ul id="ulRight">
-                                        @foreach (var item in Model.UserGroupList)
-                                        { 
+                                        @if (Model.UserGroupList != null)
+                                        {
+                                            foreach (var item in Model.UserGroupList)
+                                            { 
                                             <li class='@item.GroupId'>
                                                 <div class="row-fluid">
                                                     <div class="span8 colorSpn divName">@item.GroupName</div>
@@ -78,6 +84,7 @@
                                                     <div class="span2 colorSpn2"><a class="deleteBtn icon-trash" onclick="deleteGroup(event)" itemId='@item.GroupId' id='@item.GroupId' href="#" action="DeleteUserGroup"></a></div>
                                                 </div>
                                             </li>
+                                            }
                                         }
                                     </ul>
                                 </div>
@@ -105,13 +112,16 @@
     function updateUserGroup(e) {
         var groupId = $(e.target).attr('id');
         var userId = $('#UserId').val();
+        var studentId = $('#StudentId').val();
+
         var action = $(e.target).attr('action');
         $.ajax({
             type: 'POST',
             url: '/Global/' + action,
             data: {
                 userId: userId,
-                groupId: groupId
+                groupId: groupId,
+                studentId: studentId
             },
             success: function (response) {
                 if (response == 'True')

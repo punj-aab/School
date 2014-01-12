@@ -7,6 +7,7 @@ using System.Web.Security;
 using StudentTracker.Core.Utilities;
 using StudentTracker.ViewModels;
 using StudentTracker.Core.DAL;
+using StudentTracker.Repository;
 
 namespace StudentTracker.Controllers
 {
@@ -109,6 +110,8 @@ namespace StudentTracker.Controllers
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
                 Session["UserId"] = Convert.ToInt32(WebSecurity.GetUser(model.UserName).ProviderUserKey);
+                //PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+                //Session["UserId"] = db.SingleOrDefault<long>("select UserId from Users where Username = @0", model.UserName);
                 returnUrl = string.IsNullOrEmpty(returnUrl) ? "/home/index" : returnUrl;
                 return RedirectToLocal(returnUrl);
             }
@@ -192,7 +195,19 @@ namespace StudentTracker.Controllers
             Roles.CreateRole("OtherStaff");
             return RedirectToAction("Login", new { returnUrl = "/Home" });
         }
+        StudentRepository repository = new StudentRepository();
+        public ActionResult EditProfile(long userId)
+        {
+            StudentTracker.Core.Entities.Profile objProfile = this.repository.GetUserProfile(userId);
+            return View(objProfile);
+        }
 
+        [HttpPost]
+        public ActionResult EditProfile(StudentTracker.Core.Entities.Profile objProfile)
+        {
+            this.repository.UpdateUserProfile(objProfile);
+            return RedirectToAction("Index", "Home");
+        }
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {
