@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=anil\sqlexpress;Initial Catalog=Student6;User ID=sa;password=**zapped**;`
+//     Connection String:      `Data Source=70.87.28.215;Initial Catalog=Student12Jan;User ID=Student12Jan;Password =Student12Jan;Integrated Security=False`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -133,6 +133,182 @@ namespace DBConnectionString
 	
 
 
+
+    
+	[TableName("Users")]
+
+
+	[PrimaryKey("UserId")]
+
+
+
+	[ExplicitColumns]
+    public partial class User : DBConnectionStringDB.Record<User>  
+    {
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public int StatusId { get; set; }
+
+
+
+
+
+		[Column] public long MasterId { get; set; }
+
+
+
+
+
+		[Column] public string Username { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public string Password { get; set; }
+
+
+
+
+
+		[Column] public string FirstName { get; set; }
+
+
+
+
+
+		[Column] public string LastName { get; set; }
+
+
+
+
+
+		[Column] public string RegistrationToken { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public int PasswordFailuresSinceLastSuccess { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastPasswordFailureDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastActivityDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastLockoutDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastLoginDate { get; set; }
+
+
+
+
+
+		[Column] public string ConfirmationToken { get; set; }
+
+
+
+
+
+		[Column] public bool IsLockedOut { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastPasswordChangedDate { get; set; }
+
+
+
+
+
+		[Column] public string PasswordVerificationToken { get; set; }
+
+
+
+
+
+		[Column] public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
+
+
+
+
+
+		[Column] public long? Group_GroupId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Roles")]
+
+
+	[PrimaryKey("RoleId", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Role : DBConnectionStringDB.Record<Role>  
+    {
+
+
+
+		[Column] public Guid RoleId { get; set; }
+
+
+
+
+
+		[Column] public string RoleName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+	}
 
     
 	[TableName("Countries")]
@@ -578,7 +754,7 @@ namespace DBConnectionString
 
 
 
-		[Column] public DateTime DateOfBirth { get; set; }
+		[Column] public string DateOfBirth { get; set; }
 
 
 
@@ -1830,6 +2006,12 @@ namespace DBConnectionString
 
 
 
+		[Column] public long? StudentId { get; set; }
+
+
+
+
+
 		[Column] public long SubjectId { get; set; }
 
 
@@ -1855,12 +2037,6 @@ namespace DBConnectionString
 
 
 		[Column] public long? UpdatedBy { get; set; }
-
-
-
-
-
-		[Column] public long? StudentId { get; set; }
 
 
 
@@ -2016,6 +2192,12 @@ namespace DBConnectionString
 
 
 
+		[Column] public long? StaffId { get; set; }
+
+
+
+
+
 		[Column] public long CourseId { get; set; }
 
 
@@ -2041,12 +2223,6 @@ namespace DBConnectionString
 
 
 		[Column] public long SubjectId { get; set; }
-
-
-
-
-
-		[Column] public long? StaffId { get; set; }
 
 
 
@@ -2195,182 +2371,6 @@ namespace DBConnectionString
 
 
 		[Column] public string ProductVersion { get; set; }
-
-
-
-	}
-
-    
-	[TableName("Users")]
-
-
-	[PrimaryKey("UserId")]
-
-
-
-	[ExplicitColumns]
-    public partial class User : DBConnectionStringDB.Record<User>  
-    {
-
-
-
-		[Column] public long UserId { get; set; }
-
-
-
-
-
-		[Column] public DateTime InsertedOn { get; set; }
-
-
-
-
-
-		[Column] public int StatusId { get; set; }
-
-
-
-
-
-		[Column] public long MasterId { get; set; }
-
-
-
-
-
-		[Column] public string Username { get; set; }
-
-
-
-
-
-		[Column] public string Email { get; set; }
-
-
-
-
-
-		[Column] public string Password { get; set; }
-
-
-
-
-
-		[Column] public string FirstName { get; set; }
-
-
-
-
-
-		[Column] public string LastName { get; set; }
-
-
-
-
-
-		[Column] public string RegistrationToken { get; set; }
-
-
-
-
-
-		[Column] public long OrganizationId { get; set; }
-
-
-
-
-
-		[Column] public int PasswordFailuresSinceLastSuccess { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastPasswordFailureDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastActivityDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastLockoutDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastLoginDate { get; set; }
-
-
-
-
-
-		[Column] public string ConfirmationToken { get; set; }
-
-
-
-
-
-		[Column] public bool IsLockedOut { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastPasswordChangedDate { get; set; }
-
-
-
-
-
-		[Column] public string PasswordVerificationToken { get; set; }
-
-
-
-
-
-		[Column] public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
-
-
-
-
-
-		[Column] public long? Group_GroupId { get; set; }
-
-
-
-	}
-
-    
-	[TableName("Roles")]
-
-
-	[PrimaryKey("RoleId", autoIncrement=false)]
-
-	[ExplicitColumns]
-    public partial class Role : DBConnectionStringDB.Record<Role>  
-    {
-
-
-
-		[Column] public Guid RoleId { get; set; }
-
-
-
-
-
-		[Column] public string RoleName { get; set; }
-
-
-
-
-
-		[Column] public string Description { get; set; }
 
 
 

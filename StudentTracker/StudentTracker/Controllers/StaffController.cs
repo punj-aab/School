@@ -83,7 +83,7 @@ namespace StudentTracker.Controllers
                     Profile.HomeTelephoneNumber = objViewModel.Profile.HomeTelephoneNumber;
                     Profile.SecurityQuestionId = 1;
                     Profile.SecurityAnswer = "none";
-                    Profile.DateOfBirth = objViewModel.DateOfBirth.Value;
+                    Profile.DateOfBirth = objViewModel.DateOfBirth;
                     Profile.ModifiedOn = null;
                     Profile.MobileNumber = objViewModel.Profile.MobileNumber;
 
@@ -257,7 +257,7 @@ namespace StudentTracker.Controllers
             DBConnectionString.Staff staff = DBConnectionString.Staff.Fetch("select * from staff where userId=@0", objVM.UserId).SingleOrDefault();
             DBConnectionString.User user = DBConnectionString.User.Fetch("select * from Users where userId=@0", objVM.UserId).SingleOrDefault();
             profile.Title = objVM.Title;
-            profile.DateOfBirth = objVM.DateOfBirth.Value;
+            profile.DateOfBirth = objVM.DateOfBirth;
             profile.MobileNumber = objVM.MobileNumber;
             profile.HomeTelephoneNumber = objVM.HomeTelephoneNumber;
             profile.EmailAddress1 = objVM.Email;

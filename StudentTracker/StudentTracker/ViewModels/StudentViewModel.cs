@@ -21,8 +21,8 @@ namespace StudentTracker.ViewModels
         public string MobileNumber { get; set; }
         public string HomeTelephoneNumber { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}")]
-        public DateTime DateOfBirth { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public string DateOfBirth { get; set; }
 
         public string InsertedByName { get; set; }
         public string ModifiedByName { get; set; }

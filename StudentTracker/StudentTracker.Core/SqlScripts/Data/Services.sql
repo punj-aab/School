@@ -5,3 +5,8 @@ values('Email','Email Service'),
 ('Payments/Fees',' Fees Service'),
 ('Calendar','Calendar Service'),
 ('E Letters',' E Letters Service')
+
+
+Go
+Insert into StaffTypes(StaffTypeName,Description)Values('Teacher','Teacher'),('Clerk','Clerk'),('Coach','Coach')
+

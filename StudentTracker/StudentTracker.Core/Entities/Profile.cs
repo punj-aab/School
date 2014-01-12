@@ -42,7 +42,7 @@ namespace StudentTracker.Core.Entities
         public string Title { get; set; }
 
         [Required(ErrorMessage = "*")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "*")]
         public string MobileNumber { get; set; }

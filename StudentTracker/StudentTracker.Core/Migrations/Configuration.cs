@@ -19,8 +19,6 @@ namespace StudentTracker.Core.Migrations
             Seed obj = new Seed();
             //obj.AddCountriesToDB(context);
             //obj.AddStatesToDB(context);
-
-
         }
     }
 }

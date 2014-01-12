@@ -447,7 +447,7 @@ namespace StudentTracker.Controllers
                     tokenObj.RoleId = Convert.ToInt32(UserRoles.Student);
                     tokenObj.SectionId = -1;
                     tokenObj.Token = token;
-                    tokenObj.StudentId = student.StaffId;
+                    tokenObj.StaffId = student.StaffId;
                     context.RegistrationTokens.Add(tokenObj);
                     parameters.Add(token, student.Email);
                 }

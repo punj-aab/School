@@ -195,7 +195,8 @@ namespace StudentTracker.Controllers
             }
             else
             {
-                objCourseList = new List<Course>();
+                objCourseList = objRep.GetCourses(organizationId: _userStatistics.OrganizationId);
+                //objCourseList = new List<Course>();
                 objClassList = new List<Class>();
             }
 

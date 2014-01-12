@@ -20,7 +20,7 @@ namespace StudentTracker.ViewModels
         public string LastName { get; set; }
         public string Phone1 { get; set; }
         public string HomeTelephoneNumber { get; set; }
-        public DateTime? DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
         public long UserId { get; set; }
         public SelectList StaffTypeList { get; set; }
         public long ProfileId { get; set; }

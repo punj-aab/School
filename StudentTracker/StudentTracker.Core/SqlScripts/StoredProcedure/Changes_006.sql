@@ -102,3 +102,47 @@ BEGIN
 		  Join Subjects as SB on T.SubjectId = SB.SubjectId
 		  WHERE T.UserId = @UserId
   END
+
+    
+  GO
+-- new 26-12-2013  
+  
+alter Procedure usp_GetStaff  --1
+(  
+@StaffId as BIGINT = null,  
+@OrganizationId as BIGINT = null  
+)  
+AS  
+BEGIN  
+  SELECT   
+        S.StaffId  
+     ,S.UserId  
+     ,P.Title  
+     ,U.FirstName +' '+U.LastName as FullName  
+     ,S.StaffTypeId  
+     ,[ImportId]  
+     ,[Remarks]  
+     ,S.Email  
+     ,S.InsertedOn  
+     ,[InsertedBy]  
+     ,[ModifieBy]  
+     ,S.ModifiedOn  
+     ,S.OrganizationId  
+     ,U.Username  
+     ,P.ProfileId  
+     ,ST.StaffTypeName  
+     ,O.OrganizationName  
+     ,U_1.Username as InsertedByName  
+     ,U_2.Username as ModifiedByName  
+   FROM staff as S  
+ LEFT JOIN Users as U on S.UserId = U.UserId  
+ LEFT JOIN [Profile] as P on U.UserId = P.UserId  
+ LEFT JOIN StaffTypes as ST on S.StaffTypeId = ST.StaffTypeId  
+  JOIN Organizations as O on S.OrganizationId = O.OrganizationId  
+  LEFT JOIN Users as U_1 on S.InsertedBy = U_1.UserId  
+  LEFT JOIN Users as U_2 on S.ModifieBy = U_2.UserId  
+         WHERE (@StaffId is null or S.StaffId = @StaffId)   
+           AND (@OrganizationId is null or S.OrganizationId = @OrganizationId)  
+    
+END  
+  

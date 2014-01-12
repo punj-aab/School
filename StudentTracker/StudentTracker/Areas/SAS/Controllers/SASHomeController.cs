@@ -111,14 +111,31 @@ namespace StudentTracker.Areas.SAS.Controllers
             RegistrationToken Token = repository.GetRegistrationCode(objProfile.RegistrationToken);
             // RegistrationToken objToken = repository.GetRegistrationCode(objProfile.RegistrationToken);
             StudentContext context = new StudentContext();
-            Student student = context.Students.Find(Token.StudentId);
+            Student student = new Student();
+            Staff staff = new Staff();
+            if (Token.StaffId != null)
+            {
+                staff = context.Staff.Find(Token.StaffId);
+            }
+
+            if (Token.StudentId != null)
+            {
+                student = context.Students.Find(Token.StudentId);
+            }
             //objProfile.RegistrationToken=Toke
             long userId = WebSecurity.RegisterNewUser(objProfile.UserName, "none", "none", false, objProfile.FirstName, objProfile.LastName, Token.OrganizationId, Token.Token);
             if (student != null)
             {
                 student.UserId = userId;
+                
             }
 
+            if (staff != null)
+            {
+                staff.UserId = userId;
+            }
+
+            context.SaveChanges();
             DBConnectionString.Profile Profile = new DBConnectionString.Profile();
             if (userId != -1)
             {
