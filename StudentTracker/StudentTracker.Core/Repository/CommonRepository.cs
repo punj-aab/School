@@ -328,6 +328,7 @@ namespace StudentTracker.Core.Repository
                 rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
                 SetIdentity<int>(connection, id => objOrganization.OrganizationId = id);
                 objToken.OrganizationId = objOrganization.OrganizationId;
+                objToken.Email = objOrganization.Email;
                 if (rowsAffected > 0)
                 {
                     rowsAffected = 0;
@@ -936,6 +937,7 @@ namespace StudentTracker.Core.Repository
                 SectionId = objToken.SectionId,
                 RoleId = objToken.RoleId,
                 CreatedBy = objToken.CreatedBy,
+                Email=objToken.Email
             };
             const string storedProcedure = "usp_AddRegistrationToken";
             int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);

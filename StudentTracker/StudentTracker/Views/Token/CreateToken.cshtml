@@ -2,6 +2,7 @@
 @{
     Layout = null;
 }
+@Scripts.Render("~/bundles/jqueryval")
 
 <div class="row-fluid">
     <div class="span12">
@@ -47,7 +48,7 @@
                     <div class="control-group">
                         @Html.LabelFor(model => model.CourseId, new { Class = "control-label" })
                         <div class="controls controls-row">
-                             @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClass", getType = "Class" })
+                             @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
                             @Html.ValidationMessageFor(m => m.CourseId)
                         </div>
                     </div>
@@ -84,3 +85,31 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $("#btnCreateToken").click(function (e) {
+       
+        var form = $("#myform");
+        form.validate();
+        if (!form.valid()) {
+            e.preventDefault();
+            return;
+        }
+        var $this = $(this);
+        var objCandidate = $('#myform').serializeObject();
+
+        $.ajax({
+            url: '/Token/Create',
+            cache: false,
+            type: 'POST',
+            contentType: 'application/json;',
+            data: JSON.stringify(objCandidate),
+            success: function (response) {
+                
+                $('#divOuter').html(response);
+            },
+            error: function () { }
+        });
+    });
+</script>

@@ -206,7 +206,7 @@ namespace StudentTracker.Controllers
 
             PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
             db.Execute("Delete from UserGroup where UserId=@0", student.UserId);
-            db.Execute("Delete from UserSubject where UserId=@0", student.UserId);
+            db.Execute("Delete from UserSubjects where UserId=@0", student.UserId);
             db.Execute("Delete from ELetter where UserId=@0", student.UserId);
             db.Execute("Delete from Profile where UserId=@0", student.UserId);
             db.Execute("Delete from Users where UserId=@0", student.UserId);

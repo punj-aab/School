@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
     string type = Request.QueryString["type"];
 }
+ <script src="~/Scripts/alertify.min.js"></script>
 <div class="sub-nav">
     <ul>
         <li><a id="lnkStudent" class="subButton" href="/import?type=student" onclick="LoadAjax(event)" action="ImportStudents">Import Students </a></li>

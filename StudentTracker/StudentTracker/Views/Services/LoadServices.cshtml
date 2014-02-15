@@ -5,32 +5,33 @@
 }
 <div class="row-fluid">
     <div class="span12">
-        <div class="widget">
+
+
+        @foreach (var group in Model.Servcies.GroupBy(g => g.CategoryName))
+        {    <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    <strong>Services</strong>: Set Services for this organizations
+                    <strong>Services</strong>: @group.Key
                 </div>
-                <span class="tools">
-                    <!--<a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>-->
-                </span>
             </div>
-            @foreach (var service in Model.Servcies)
-            {   
+            @foreach (var service in group.ToList())
+            {
                 <!--<div class="fs1" data-icon="" aria-hidden="true"></div>-->
-                <div class="well" style="margin-left:10px;width:40%;margin-top:10px;float:left;">
+                <div class="well" style="margin-left: 10px; width: 40%; margin-top: 10px; float: left;">
                     <strong>@service.ServiceName</strong>
                     <div id="label-switch" class="make-switch pull-right" data-on-label="YES" data-off-label="NO">
                         <input type="checkbox" id="@service.ServiceId" checked="@service.IsAdded" onchange="ChangeService('@service.Id','@service.ServiceId', this.checked);" />
                     </div>
                 </div>
-           
             }
         </div>
+        }
+
     </div>
 </div>
 <script type="text/javascript">
     function ChangeService(id, serviceId, value) {
-       //// alert(@organizationId);
+        //// alert(@organizationId);
         var organizationId = '@organizationId';
         if (organizationId == 0) {
             organizationId = $('select#OrganizationId').val();
@@ -43,7 +44,7 @@
             data: JSON.stringify({ id: id, organizationId: organizationId, serviceId: serviceId, value: value }),
             success: function (data) {
                 if (data) {
-                   // LoadServices();
+                    // LoadServices();
                 }
             },
             error: function (error, b) {

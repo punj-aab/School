@@ -453,5 +453,31 @@ namespace StudentTracker.Repository
                 return false;
             }
         }
+
+        public bool UpdateProfileImage(Profile objModel)
+        {
+            PetaPoco.Database db = new PetaPoco.Database("DBConnectionString");
+            DBConnectionString.User user = DBConnectionString.User.SingleOrDefault(objModel.UserId);
+            DBConnectionString.Profile profile = db.Query<DBConnectionString.Profile>("Select * from  profile where UserId = @0", objModel.UserId).SingleOrDefault();
+            try
+            {
+                if (profile != null)
+                {
+                    profile.ProfileImageUrl = objModel.ProfileImageUrl;
+                    profile.Update();
+                }
+                else
+                {
+                    profile.UserId = objModel.UserId;
+                    profile.ProfileImageUrl = objModel.ProfileImageUrl;
+                    profile.Insert();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

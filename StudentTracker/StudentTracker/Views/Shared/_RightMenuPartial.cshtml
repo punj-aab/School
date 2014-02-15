@@ -5,7 +5,7 @@
     <span class="fs1 arw" data-icon="" aria-hidden="true"></span>Communication</h4>
 <div class="wrapper">
     <ul class="stats nav-pills">
-        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Emails))
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Email))
         {
             <li><a href="/Email">
                 <div id="divEmail" class="left">
@@ -18,7 +18,7 @@
                 </div>
             </a></li>
         }
-        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetters))
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetter))
         {
             <li><a href="/Eletters">
                 <div class="left" id="divEletter">
@@ -57,7 +57,7 @@
                 </div>
             </a></li>
         }
-        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetters))
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.ELetter))
         {
             <li><a href="#">
                 <div class="left">
@@ -89,7 +89,9 @@
                     <img src="/img/online.png" alt="">
                 </div>
             </a></li>
-       
+        }
+         @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.LunchDinnerMoney))
+        {
             <li><a href="#">
                 <div class="left">
                     <p>
@@ -100,6 +102,9 @@
                     <img src="/img/lunch.png" alt="">
                 </div>
             </a></li>
+         }
+         @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Trips))
+        {
             <li><a href="/Trip">
                 <div class="left" id="divTrips">
                     <p>
@@ -110,6 +115,9 @@
                     <img src="/img/trip.png" alt="">
                 </div>
             </a></li>
+         }
+         @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Tickets))
+        {
             <li><a href="/Ticket">
                 <div class="left" id="divTicket">
                     <p>
@@ -120,6 +128,9 @@
                     <img src="/img/tickets.png" alt="">
                 </div>
             </a></li>
+         }
+         @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Shop))
+        {
             <li><a href="/Shop">
                 <div class="left" id="divShop">
                     <p>
@@ -140,7 +151,7 @@
                     <img src="/img/order.png" alt="">
                 </div>
             </a></li>
-        }
+         }
     </ul>
 </div>
 <hr class="hr-stylish-1">
@@ -161,35 +172,44 @@
                 </div>
             </a></li>
         }
-        <li><a href="/OnlineAssignment">
-            <div class="left" id="divCourseWork">
-                <p>
-                    CourseWork
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/assign.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/TimeTable">
-            <div class="left" id="divTimeTable">
-                <p>
-                    Time Table
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/timeTable.png" alt="">
-            </div>
-        </a></li>
-        <li><a href="/Attendance">
-            <div class="left" id="divAttendance">
-                <p>
-                    Attendance
-                </p>
-            </div>
-            <div class="chart">
-                <img src="/img/attendance.png" alt="">
-            </div>
-        </a></li>
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.CourseWork))
+        {
+            <li><a href="/OnlineAssignment">
+                <div class="left" id="divCourseWork">
+                    <p>
+                        CourseWork
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/assign.png" alt="">
+                </div>
+            </a></li>
+        }
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.TimeTable))
+        {
+            <li><a href="/TimeTable">
+                <div class="left" id="divTimeTable">
+                    <p>
+                        Time Table
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/timeTable.png" alt="">
+                </div>
+            </a></li>
+        }
+        @if (_userStatisctics.Services.ToDictionary(s => s.ServiceId, s => s.ServiceName).ContainsKey(StudentTracker.Core.Entities.Service.Attendence))
+        {
+            <li><a href="/Attendance">
+                <div class="left" id="divAttendance">
+                    <p>
+                        Attendance
+                    </p>
+                </div>
+                <div class="chart">
+                    <img src="/img/attendance.png" alt="">
+                </div>
+            </a></li>
+        }
     </ul>
 </div>

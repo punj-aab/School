@@ -1,0 +1,35 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.RegistrationToken>
+
+@{
+    Layout = null;
+}
+
+<table id="customTable">
+    <thead>
+        <tr>
+            <th>Email Address</th>
+            <th>Token</th>
+            <th>Expiry Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var token in Model)
+        {
+            <tr>
+
+                <td>@token.Email</td>
+                <td>@token.Token</td>
+                <td>@token.ExpiryDate</td>
+                <td>@token.Status</td>
+
+            </tr>
+        }
+
+    </tbody>
+</table>
+@section Scripts
+{
+    <link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+   
+}

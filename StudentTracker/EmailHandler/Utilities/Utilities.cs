@@ -105,15 +105,15 @@ namespace EmailHandler
             //var user = Membership.GetUser(userName.ToString());
             //var confirmationGuid = user.ProviderUserKey.ToString();
             var verifyUrl = HttpContext.Current.Request.Url.GetLeftPart
-               (UriPartial.Authority) + "/sas/sashome/RegisterUser/" + token;
+               (UriPartial.Authority) + "/sas/sashome/RegisterUser/";
 
             MailAddress fromAddress = new MailAddress(EmailFrom);
             MailAddress toAddress = new MailAddress(emailTo);
             string subject = "Registeration Invitation";
             string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear Guest" +
-                       ", </p><p>To verify your account, please click the following link:</p>"
+                       ", </p>your registration code is: <b>" + token + "</b><p>To create your account, please click the following link:</p>"
                        + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\"> Register here..."
-                       + "</a></p><div>Best regards,</div><div>Admin Student</div><p>Do not forward "
+                       + "</a></p><p><div>Best regards,</div><div>Admin Student</div></p><p>Do not forward "
                        + "this email. The verify link is private.</p></body></html>";
 
             System.Net.Mail.MailMessage msg = new System.Net.Mail.MailMessage(fromAddress.Address, toAddress.Address, subject, body);
@@ -138,7 +138,7 @@ namespace EmailHandler
             MailAddress toAddress = new MailAddress(emailTo);
             string subject = "Registration Invitation";
             string body = "<html><head><meta content=\"text/html;charset=utf-8\" /></head><body><p>Dear Guest" +
-                       ", </p><p>To verify your account, please click the following link:</p>"
+                       ", </p>your registration code is: <b>" + token + "</b><p>To create your account, please click the following link:</p>"
                        + "<p><a href=\"" + verifyUrl + "\" target=\"_blank\"> Register here..."
                        + "</a></p><div>Best regards,</div><div>Admin Student</div><p>Do not forward "
                        + "this email. The verify link is private.</p></body></html>";

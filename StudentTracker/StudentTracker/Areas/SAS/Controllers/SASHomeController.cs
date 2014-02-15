@@ -64,7 +64,7 @@ namespace StudentTracker.Areas.SAS.Controllers
 
         public ActionResult RegisterUser(string id = "")
         {
-            ViewBag.Token = id;
+            //ViewBag.Token = id;
             return View();
         }
 
@@ -79,10 +79,10 @@ namespace StudentTracker.Areas.SAS.Controllers
         public ActionResult RegisterUserStep2(RegistrationToken objToken)
         {
             ViewBag.Error = false;
-            RegistrationToken Token = repository.GetRegistrationCode(objToken.Token);
-            if (Token != null)
+            RegistrationToken token = repository.GetRegistrationCode(objToken.Token);
+            if (token != null && token.InsertedOn.AddDays(7) > DateTime.Now)
             {
-                return RedirectToAction("RegisterUserStep3", new { Token.Token });
+                return RedirectToAction("RegisterUserStep3", new { token.Token });
             }
             ViewBag.Error = true;
             return View();
@@ -127,7 +127,7 @@ namespace StudentTracker.Areas.SAS.Controllers
             if (student != null)
             {
                 student.UserId = userId;
-                
+
             }
 
             if (staff != null)

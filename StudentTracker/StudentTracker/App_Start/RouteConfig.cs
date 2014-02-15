@@ -18,6 +18,36 @@ namespace StudentTracker
                defaults: new { controller = "Organization", action = "CheckUser", id = UrlParameter.Optional }
            );
 
+
+            routes.MapRoute(
+                                  "Post",
+                                  "Archive/{year}/{month}/{title}",
+                                  new { controller = "Blog", action = "Post" }
+                              );
+
+            routes.MapRoute(
+                        "Tag",
+                        "Tag/{tag}",
+                        new { controller = "Blog", action = "Tag" }
+                    );
+
+            routes.MapRoute(
+                        "Category",
+                        "Category/{category}",
+                        new { controller = "Blog", action = "Category" }
+                    );
+
+
+            routes.MapRoute(
+                            "Manage",
+                            "Manage",
+                            new { controller = "Admin", action = "ManageBlog" });
+
+            routes.MapRoute(
+                           "Blog",
+                           "Blog",
+                           new { controller = "Blog", action = "Posts" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -3,13 +3,19 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
-
+<style>
+    .active {
+        background: #3693cf !important;
+        color: #fff !important;
+    }
+</style>
 <div class="sub-nav">
     <ul>
-        <li><a href="" class="heading">Create Group</a></li>
+        <li><a href="#" class="heading">Create Group</a></li>
+         <li><a href="/Group/index" class="heading">View all</a></li>
     </ul>
 </div>
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper" ng-app="groupApp">
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="span12">
@@ -69,7 +75,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="password1">Group Members </label>
                                 <div class="controls">
-                                    @Html.TextArea("GroupMembers", new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
+                                    @Html.TextArea("GroupMembers", new { value = "{{AddedRecipantEmails}}", placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
                                     @Html.ValidationMessageFor(m => m.Members)
                                 </div>
                             </div>
@@ -78,9 +84,7 @@
                                 <div class="clearfix">
                                 </div>
                             </div>
-                            @Html.HiddenFor(m => m.Members)
-
-
+                            @Html.HiddenFor(m => m.Members, new { value = "{{AddedRecipantUserIds}}" })
                         </div>
                     </div>
                 }
@@ -91,9 +95,11 @@
     <div class="right-sidebar">
         @Html.Partial("_RightMenuPartial")
     </div>
-    <div id="dialog"></div>
+    @{Html.RenderPartial("_AddRecipants");}
 </div>
+
 @section scripts{
+    <script src="~/Scripts/Angular/group.js"></script>
     @HelperAssets.SaveAndLoadData("/Group/", "ViewGroups");
     <script type="text/javascript">
         $(document).ready(function () {

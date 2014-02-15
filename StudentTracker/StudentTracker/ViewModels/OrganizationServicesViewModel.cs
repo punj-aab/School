@@ -22,6 +22,10 @@ namespace StudentTracker.ViewModels
 
         public string ServiceName { get; set; }
 
+        public int ServiceCategoryId { get; set; }
+
+        public string CategoryName { get; set; }
+
         public string ServiceDescription { get; set; }
 
         public bool IsAdded { get; set; }

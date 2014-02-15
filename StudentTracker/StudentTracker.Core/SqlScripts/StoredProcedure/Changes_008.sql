@@ -32,35 +32,36 @@ INSERT INTO [dbo].[UserGroup]
 
 
 Go
-Create procedure usp_getUserProfile
-(
-@UserId as bigint
-)
-as
-BEGIN
-		SELECT TOP 1000 [ProfileId]
-			  ,P.[UserId]
-			  ,[Address1]
-			  ,[Address2]
-			  ,[City]
-			  ,[StateId]
-			  ,[ZipCode]
-			  ,[Phone1]
-			  ,[Phone2]
-			  ,[EmailAddress1]
-			  ,[EmailAddress2]
-			  ,P.[InsertedOn]
-			  ,[ModifiedOn]
-			  ,[Title]
-			  ,[DateOfBirth]
-			  ,[MobileNumber]
-			  ,[HomeTelephoneNumber]
-			  ,[SecurityQuestionId]
-			  ,[SecurityAnswer]
-			  ,U.Username
-			  ,U.FirstName
-			  ,U.LastName
-		  FROM [Profile] as P
-			   join users as U on P.UserId = U.UserId
-		  Where P.UserId = @UserId
+create procedure usp_getUserProfile  --1
+(  
+@UserId as bigint  
+)  
+as  
+BEGIN  
+  SELECT [ProfileId]  
+     ,U.[UserId] 
+	 ,P.ProfileImageUrl 
+     ,[Address1]  
+     ,[Address2]  
+     ,[City]  
+     ,[StateId]  
+     ,[ZipCode]  
+     ,[Phone1]  
+     ,[Phone2]  
+     ,[EmailAddress1]  
+     ,[EmailAddress2]  
+     ,P.[InsertedOn]  
+     ,[ModifiedOn]  
+     ,[Title]  
+     ,[DateOfBirth]  
+     ,[MobileNumber]  
+     ,[HomeTelephoneNumber]  
+     ,[SecurityQuestionId]  
+     ,[SecurityAnswer]  
+     ,U.Username  
+     ,U.FirstName  
+     ,U.LastName  
+    FROM users as U 
+     left join [profile] as P on U.UserId = P.UserId  
+    Where U.UserId = @UserId  
   END

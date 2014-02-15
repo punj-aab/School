@@ -63,5 +63,8 @@ namespace StudentTracker.Core.Entities
         public string InsertedByName { get; set; }
         [NotMapped]
         public string ModifiedByName { get; set; }
+
+        [NotMapped]
+        public int UserCount { get; set; }
     }
 }

@@ -1,0 +1,204 @@
+﻿@model StudentTracker.Core.Entities.Profile
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+    long userId = Convert.ToInt64(Session["UserId"]);
+}
+<style>
+    .custom-label {
+        text-align: left !important;
+        margin-left: 20px;
+        font-size:large;
+    }
+</style>
+<div class="sub-nav">
+</div>
+<div class="dashboard-wrapper">
+    @Html.HiddenFor(m => m.UserId)
+    <div class="left-sidebar">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title textAlign">
+                            Edit Student
+                        </div>
+                        <span class="tools tls2">
+                            @*<input type="submit" name="Create" value="Save" class="btn btn-info" />*@
+                            <a class="btn btn-info" id="" href="/account/editprofile?userId=@userId" data-original-title="">Edit</a>
+                           
+                    </div>
+
+
+                    <div class="widget-body">
+                        <div class="container-fluid">
+
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div class="thumbnail">
+                                        <img alt="300x200" src="@Model.ProfileImageUrl">
+                                       
+                                    </div>
+                                </div>
+                                <div class="span9">
+
+                                    <form class="form-horizontal">
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Title
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.Title
+
+                                            </label>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                First Name
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.FirstName
+
+                                            </label>
+                                        </div>
+
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Last Name
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+                                                @Model.LastName
+                                            </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                DOB
+                                            </label>
+                                            <label class="controls">
+                                                <label style="" class="control-label custom-label">
+                                                    @Model.DateOfBirth
+                                                </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Address1
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.Address1
+                                            </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Address2
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.Address2
+                                            </label>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Phone
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.MobileNumber
+                                            </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Phone1
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.Phone1
+                                            </label>
+                                        </div>
+                                        @* <div class="control-group">
+                                            <label class="control-label">
+                                                Phone2
+                                            </label>
+                                            <div class="controls">
+                                                @Html.TextBoxFor(x => x.Phone2, new { @class = "span8" })
+                                                @Html.ValidationMessageFor(x => x.Phone2)
+                                            </div>
+                                        </div>*@
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                Home
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.HomeTelephoneNumber
+                                            </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                EmailAddress1
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.EmailAddress1
+                                            </label>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">
+                                                EmailAddress2
+                                            </label>
+                                            <label style="" class="control-label custom-label">
+
+                                                @Model.EmailAddress2
+                                            </label>
+                                        </div>
+                                        @*     <div class="control-group">
+                                                <label class="control-label">
+                                                    Email
+                                                </label>
+                                                <div class="controls">
+                                                    @Html.TextBoxFor(x => x.Email, new { @class = "span8" })
+                                                    @Html.ValidationMessageFor(x => x.Email)
+                                                </div>
+                                            </div>*@
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+
+</div>
+<div id="dialog"></div>
+@section scripts{
+    @HelperAssets.SaveAndLoadData("Student", "")
+    <style type="text/css">
+        input[type="submit"] {
+            color: #FFFFFF !important;
+            text-shadow: none;
+            display: block;
+            text-shadow: none;
+            float: right;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('#lnkSave').click(function () {
+            //    $('.form-horizontal').submit();
+            //});
+        });
+    </script>
+}

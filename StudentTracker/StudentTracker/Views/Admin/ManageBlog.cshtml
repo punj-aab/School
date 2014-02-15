@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "ManageBlog";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+<div class="sub-nav">
+    <ul>
+        <li><a href="" class="heading">Manage Posts</a></li>
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+        </button>
+    </div>
+</div>
+
+@section Scripts
+{
+
+    @Scripts.Render("~/bundles/jqueryui", "~/Scripts/tiny_mce/js")
+    <script src="~/Scripts/knockout-2.3.0.js"></script>
+
+    <script src="../../Scripts/Post.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            viewModel.LoadPosts();
+            $('#myAddNewBlogModal').on('hidden.bs.modal', function (e) {
+                // alert(1);
+                tinyMCE.execCommand('mceRemoveControl', false, "ShortDescription");
+                tinyMCE.execCommand('mceRemoveControl', false, "Description");
+            })
+
+
+        });
+
+    </script>
+}
+<style>
+    .top {
+        margin-top: 10px;
+    }
+
+    .modal1 {
+        width: 900px;
+        margin-left: 400px;
+    }
+</style>
+
+<div class="dashboard-wrapper">
+
+    <div class="">
+        <div class="row-fluid clearfix">
+            <div class="span12 column top">
+                <div class="tabbable" id="tabs-439547">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#blog" data-bind="click:$root.LoadPosts" data-toggle="tab">Blog</a> </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li><a href="#Category" data-bind="click:$root.LoadCategories" data-toggle="tab">Category</a> </li>
+                            <li><a href="#Tag" data-bind="click:$root.LoadTags" data-toggle="tab">Tag</a> </li>
+                        }
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="blog">
+                            <div class="row span12 top">
+                                <p>
+                                    <a class="btn btn-default udetail" data-bind="click:$root.LoadPostForm" href="#"
+                                        role="button" data-toggle="modal" data-target="#addBlog">Add New Post &raquo;</a>
+                                </p>
+                            </div>
+                            <div class="container row span12 top">
+                                <table id="userPost">
+                                    <thead data-bind="">
+                                        <tr>
+                                            <th>Title
+                                            </th>
+                                            <th>Short Description
+                                            </th>
+                                            <th>Description
+                                            </th>
+                                            <th>Category
+                                            </th>
+                                            <th>Tages
+                                            </th>
+                                            <th>Mata
+                                            </th>
+                                            <th>UrlString
+                                            </th>
+
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:totalPosts">
+                                        <tr>
+                                            <td data-bind="text:Title"></td>
+                                            <td data-bind="text:ShortDescription"></td>
+
+                                            <td data-bind="text:Description"></td>
+                                            <td data-bind=" text:Category.Name"></td>
+                                            <td>
+                                                <ol type="A" data-bind="foreach:Tags">
+                                                    <li data-bind="text: Name"></li>
+                                                </ol>
+                                            </td>
+                                            <td data-bind="text:Meta"></td>
+                                            <td data-bind="text:UrlSlug"></td>
+
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.EditPost">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.DeletePost">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @if (User.IsInRole("admin"))
+                        {
+                            <div class="tab-pane" id="Category">
+                                <div class="row span12 top">
+                                    <p>
+                                        <a class="btn btn-default udetail" href="#" role="button" data-bind="click:$root.LoadCategoryForm" data-toggle="modal" data-target="#addCategory">Add New Category &raquo;</a>
+                                    </p>
+                                </div>
+                                <table id="userCategory">
+                                    <thead>
+                                        <tr>
+                                            <th>Name
+                                            </th>
+                                            <th>Url Slug
+                                            </th>
+                                            <th>Description
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:totalCategories">
+                                        <tr>
+                                            <td data-bind="text:Name"></td>
+                                            <td data-bind="text:UrlSlug"></td>
+                                            <td data-bind="text:Description"></td>
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.EditCategory">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.DeleteCategory">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="Tag">
+                                <div class="row span12 top">
+                                    <p>
+                                        <a class="btn btn-default udetail" href="#" role="button" data-bind="click:$root.LoadTagForm" data-toggle="modal" data-target="#addTag">Add New Tage &raquo;</a>
+                                    </p>
+                                </div>
+                                <table id="userTeg">
+                                    <thead>
+                                        <tr>
+                                            <th>Name
+                                            </th>
+                                            <th>Url Slug
+                                            </th>
+                                            <th>Description
+                                            </th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach:totalTags">
+                                        <tr>
+                                            <td data-bind="text:Name"></td>
+                                            <td data-bind="text:UrlSlug"></td>
+                                            <td data-bind="text:Description"></td>
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.EditTag">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a href="Javascript:;" data-bind="click:$root.DeleteTag">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal  fade" id="myAddNewBlogModal" style="width: 900px; margin-left: -450px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal1">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;</button>
+                <h4 class="modal-title" id="myModalLabel" data-bind="html:modelTitle">Add or Edit Blog</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    Close</button>
+                <button type="button" id="examdetails" data-bind=" click:savePostCategoryTag" class="btn btn-primary" onsubmit="#">
+                    Save</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.Modal -->

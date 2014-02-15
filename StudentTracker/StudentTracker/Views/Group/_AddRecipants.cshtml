@@ -1,0 +1,111 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="dialog" ng-controller="groupParticipants" class="modal hide fade" style="width: 900px; margin-left: -450px; height: 600px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button class="btn btn-info pull-right" ng-click="AddRecipantDone()">Done</button>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Add Recipents</h3>
+        </div>
+        <div id="addRec" class="modal-body" style="max-height: 550px;">
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+
+                        <div class="widget-body">
+                            <div class="mnuSec2">
+                                <ul>
+                                    <li><a href="#" ng-class="{active:selection == 'individuals'}" class="btn active" ng-click="selection = 'individuals'" type="User" id="lnkIndividual"><span class="fs1" data-icon="" aria-hidden="true"></span>Individuals</a></li>
+                                    <li><a href="#" ng-class="{active:selection == 'groups'}" class="btn" ng-click="selection = 'groups'" type="Group" id="lnkGroup"><span class="fs1" data-icon="" aria-hidden="true"></span>Groups</a></li>
+                                    <li><a href="#" ng-class="{active:selection == 'classes'}" class="btn" ng-click="selection = 'classes'" type="Class" id="lnkClass"><span class="fs1" data-icon="" aria-hidden="true"></span>Classes</a></li>
+                                </ul>
+                            </div>
+                            <div class="srchBox">
+                                <input class="x-large" ng-model="query" type="text" placeholder="Search Here" />
+                                <span class="crs">
+                                    <img src="/img/clear.png" alt=""></span>
+                            </div>
+
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div ng-show="selection=='individuals'" class="groups">
+                                        <h2><span id="spnHeader">Individuals </span><a class="addBtn" ng-click="AddAllIndividuals()" title="add all" href="#">+</a></h2>
+
+                                        <div class="tripSec">
+                                            <ul id="ulLeft" ng-repeat="individ in individuals | filter:query|orderBy:'Name'">
+
+                                                <li class="">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn">{{individ.FirstName}}&nbsp;{{individ.LastName}}</div>
+                                                        <div class="span2 colorSpn2"></div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" title="add" ng-click="addIndividual(individ)" href="#">+</a></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div ng-show="selection=='groups'" class="groups">
+                                        <h2><span id="spnHeader">Individuals </span><a class="addBtn" href="#">+</a></h2>
+
+                                        <div class="tripSec">
+                                            <ul id="ulLeft" ng-repeat="group in groups | filter:query|orderBy:'Name'">
+
+                                                <li class="">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn">{{group.GroupName}}&nbsp;{{group.CreatedBy}}</div>
+                                                        <div class="span2 colorSpn2">{{group.UserCount}}</div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" title="add" ng-click="addGroup(group)" href="#">+</a></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div ng-show="selection=='classes'" class="groups">
+                                        <h2><span id="spnHeader">Individuals </span><a class="addBtn" href="#">+</a></h2>
+
+                                        <div class="tripSec">
+                                            <ul id="ulLeft" ng-repeat="class in classes | filter:query|orderBy:'Name'">
+
+                                                <li class="">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn">{{class.ClassName}}</div>
+                                                        <div class="span2 colorSpn2">{{class.UserCount}}</div>
+                                                        <div class="span2 colorSpn2"><a class="addBtn" ng-click="addClass(class)" title="add" href="#">+</a></div>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span6" ng-model="newGroupM">
+                                    <div class="groups">
+                                        <h2>Members <a class="delete-row pls" ng-click="RemoveAll()" data-original-title="Delete" href="#">
+                                            <i class="icon-trash"></i>
+                                        </a></h2>
+
+                                        <div class="tripSec">
+                                            <ul id="ulRight" ng-repeat="individ in newGroupM | orderBy:'Name'">
+                                                <li class="">
+                                                    <div class="row-fluid">
+                                                        <div class="span8 colorSpn">{{individ.FirstName}}&nbsp;{{individ.LastName}}</div>
+                                                        <div class="span2 colorSpn2"></div>
+                                                        <div class="span2 colorSpn2"><a class="removeBtn" title="remove" ng-click="removeIndividual(individ)" href="#"><i class="icon-trash"></i></a></div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -44,7 +44,7 @@ namespace StudentTracker.Core.Entities
         [Required(ErrorMessage = "*")]
         public string DateOfBirth { get; set; }
 
-        [Required(ErrorMessage = "*")]
+       // [Required(ErrorMessage = "*")]
         public string MobileNumber { get; set; }
 
         [Required(ErrorMessage = "*")]
@@ -84,5 +84,8 @@ namespace StudentTracker.Core.Entities
 
         [NotMapped]
         public SelectList TitleList { get; set; }
+
+        //[NotMapped]
+        public string ProfileImageUrl { get; set; }
     }
 }

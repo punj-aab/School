@@ -22,11 +22,7 @@ namespace StudentTracker.Controllers
             OrganizationServicesViewModel obj = new OrganizationServicesViewModel();
             ViewBag.OrganizationList = LoadSelectLists();
             obj.OrganizationId = _userStatistics.OrganizationId;
-            ////if (_userStatistics.OrganizationId != 0)
-            ////{
-            ////    obj.Servcies = objRep.GetOrganizationServices(_userStatistics.OrganizationId);
-            ////}
-
+           
             return View(obj);
         }
 
@@ -45,7 +41,6 @@ namespace StudentTracker.Controllers
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
 
-                //OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", organization.OrganizationId);
             }
             OrganizationList = new SelectList(organizationList, "OrganizationId", "OrganizationName", id);
             return OrganizationList;

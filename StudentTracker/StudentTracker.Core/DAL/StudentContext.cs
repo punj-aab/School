@@ -70,5 +70,10 @@ namespace StudentTracker.Core.DAL
         public DbSet<TeacherSubjects> TeacherSubjects { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<OrganizationServices> OrganizationServices { get; set; }
+        public DbSet<ServiceCategory> ServiceCategory { get; set; }
+
+        public DbSet<Tag> Tags{ get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }

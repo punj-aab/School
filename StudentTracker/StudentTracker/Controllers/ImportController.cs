@@ -204,6 +204,7 @@ namespace StudentTracker.Controllers
                 int organizationId = Convert.ToInt32(_userStatistics.OrganizationId);
                 foreach (Student student in students)
                 {
+                    student.DepartmentId = GetDepartmentId(context, organizationId, student.DepartmentName);
                     student.CourseId = GetCourseId(context, student.CourseName, organizationId);
                     student.ImportId = importId;
                     student.OrganizationId = organizationId;
@@ -347,6 +348,27 @@ namespace StudentTracker.Controllers
             }
         }
 
+        public long GetDepartmentId(StudentContext context, int organizationId, string departmentName)
+        {
+            var department = context.Departments.Where(c => c.DepartmentName == departmentName && c.OrganizationId == organizationId);
+            if (department == null || department.ToList().Count() == 0)
+            {
+                Department newDept = new Department();
+                newDept.DepartmentName = departmentName;
+                newDept.OrganizationId = _userStatistics.OrganizationId == 0 ? 1 : Convert.ToInt32(_userStatistics.OrganizationId);
+                newDept.DepartmentDesc = "Created by Code";
+                newDept.CreatedBy = _userStatistics.UserId;
+                newDept.CreatedDate = DateTime.Now;
+                context.Departments.Add(newDept);
+                context.SaveChanges();
+                return newDept.DepartmentId;
+            }
+            else
+            {
+                return department.FirstOrDefault().DepartmentId;
+            }
+        }
+
         [HttpGet]
         public JsonResult ShowExcelFileContentForStudent(jQueryDataTableViewModel param, string importId)
         {
@@ -399,6 +421,9 @@ namespace StudentTracker.Controllers
                     tokenObj.RoleId = Convert.ToInt32(UserRoles.Student);
                     tokenObj.SectionId = student.SectionId;
                     tokenObj.Token = token;
+                    tokenObj.Email = student.Email;
+                    tokenObj.ImportId = importId;
+                    tokenObj.InsertedOn = DateTime.Now;
                     tokenObj.StudentId = student.StudentId;
                     context.RegistrationTokens.Add(tokenObj);
                     parameters.Add(token, student.Email);
@@ -435,21 +460,24 @@ namespace StudentTracker.Controllers
                 StudentContext context = new StudentContext();
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
                 //  RegistrationToken tokenObj = new RegistrationToken();
-                foreach (var student in objModelList)
+                foreach (var staff in objModelList)
                 {
                     string token = UserStatistics.GenerateToken();
 
                     RegistrationToken tokenObj = new RegistrationToken();
-                    tokenObj.ClassId = student.ClassId;
-                    tokenObj.CourseId = student.CourseId;
-                    tokenObj.DepartmentId = student.DepartmentId;
-                    tokenObj.OrganizationId = student.OrganizationId;
+                    tokenObj.ClassId = staff.ClassId;
+                    tokenObj.CourseId = staff.CourseId;
+                    tokenObj.DepartmentId = staff.DepartmentId;
+                    tokenObj.OrganizationId = staff.OrganizationId;
                     tokenObj.RoleId = Convert.ToInt32(UserRoles.Student);
+                    tokenObj.ImportId = importId;
+                    tokenObj.Email = staff.Email;
                     tokenObj.SectionId = -1;
                     tokenObj.Token = token;
-                    tokenObj.StaffId = student.StaffId;
+                    tokenObj.InsertedOn = DateTime.Now;
+                    tokenObj.StaffId = staff.StaffId;
                     context.RegistrationTokens.Add(tokenObj);
-                    parameters.Add(token, student.Email);
+                    parameters.Add(token, staff.Email);
                 }
 
                 context.SaveChanges();
@@ -480,7 +508,7 @@ namespace StudentTracker.Controllers
 
             foreach (var user in parameters)
             {
-                var verifyUrl = "http://" + Request.UrlReferrer.Authority + "/sas/sashome/RegisterUser/" + user.Key;
+                var verifyUrl = "http://" + Request.UrlReferrer.Authority + "/sas/sashome/RegisterUser";
 
                 Utilities.SendRegistationEmail(user.Key, user.Value, verifyUrl);
             }
@@ -510,5 +538,13 @@ namespace StudentTracker.Controllers
             return File(filePath, "text/octet-stream", "sample.xlsx");
         }
 
+        public ActionResult ShowResgistrationCodesForImportedFile(string importId)
+        {
+            StudentContext context = new StudentContext();
+
+            var resiterationTokenList = context.RegistrationTokens.Where(t => t.ImportId == importId).ToList();
+
+            return View(resiterationTokenList);
+        }
     }
 }

@@ -56,7 +56,28 @@
 
         <li>Welocome</li>
         <li class="devider">&nbsp;</li>
-        <li>@User.Identity.Name</li>
+        <li>
+            <div class="btn-group">
+
+                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                    @User.Identity.Name<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                        @Html.ActionLink("Profile", "Profile", "Account", new { userId = Session["UserId"], area = "" }, new { Class = "lnkEditProfile" })
+                        @*<a href="#">Edit Profile
+                </a>*@
+                    </li>
+                    <li>
+                        <a href="#">Account Settings
+                        </a>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Logout", "logoff", "account")
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li class="devider">&nbsp;</li>
         <li><a href="/account/logoff" class="login-btn">LogOff!!</a></li>
     </ul>

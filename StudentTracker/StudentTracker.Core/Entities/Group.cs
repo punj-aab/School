@@ -34,6 +34,7 @@ namespace StudentTracker.Core.Entities
 
         [ForeignKey("OrganizationId")]
         public virtual Organization Organizations { get; set; }
+
         [NotMapped]
         public string OrganizationName { get; set; }
 
@@ -42,6 +43,7 @@ namespace StudentTracker.Core.Entities
         public string Members { get; set; }
 
         public ICollection<User> Users { get; set; }
+
         [NotMapped]
         public ICollection<UserGroup> UserGroups { get; set; }
 

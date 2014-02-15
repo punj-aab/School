@@ -8,10 +8,13 @@ using StudentTracker.Core.Utilities;
 using StudentTracker.ViewModels;
 using StudentTracker.Core.DAL;
 using StudentTracker.Repository;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Data.Entity.Validation;
 
 namespace StudentTracker.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
 
         [AllowAnonymous]
@@ -195,19 +198,144 @@ namespace StudentTracker.Controllers
             Roles.CreateRole("OtherStaff");
             return RedirectToAction("Login", new { returnUrl = "/Home" });
         }
-        StudentRepository repository = new StudentRepository();
-        public ActionResult EditProfile(long userId)
+
+        [Authorize]
+        public ActionResult Profile()
         {
+            long userId = _userStatistics.UserId;
             StudentTracker.Core.Entities.Profile objProfile = this.repository.GetUserProfile(userId);
+
+            if (string.IsNullOrEmpty(objProfile.ProfileImageUrl))
+            {
+                objProfile.ProfileImageUrl = "/img/profile.png";
+            }
+            return View(objProfile);
+        }
+
+
+        StudentRepository repository = new StudentRepository();
+        public ActionResult EditProfile()
+        {
+            long userId = _userStatistics.UserId;
+            StudentTracker.Core.Entities.Profile objProfile = this.repository.GetUserProfile(userId);
+            if (objProfile.UserId == 0)
+            {
+                objProfile.UserId = userId;
+            }
+            ViewBag.UserId = _userStatistics.UserId;
+
+            if (string.IsNullOrEmpty(objProfile.ProfileImageUrl))
+            {
+                objProfile.ProfileImageUrl = "/img/profile.png";
+            }
             return View(objProfile);
         }
 
         [HttpPost]
         public ActionResult EditProfile(StudentTracker.Core.Entities.Profile objProfile)
         {
+            if (objProfile.ProfileId == 0)
+            {
+                string destDirectory = Server.MapPath("~/Attachments/ProfileImages");
+                destDirectory = Path.Combine(destDirectory, _userStatistics.UserId.ToString());
+                string fileUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/Attachments/ProfileImages";
+                // destDirectory = Path.Combine(destDirectory, type, importId);
+                if (Directory.Exists(destDirectory))
+                {
+                    var files = Directory.GetFiles(destDirectory);
+                    if (files.Count() > 0)
+                    {
+                        objProfile.ProfileImageUrl = Path.Combine(fileUrl, _userStatistics.UserId.ToString(), files[0]);
+                    }
+                }
+            }
+
             this.repository.UpdateUserProfile(objProfile);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("profile", "account");
         }
+
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public string SaveProfileImage(IEnumerable<HttpPostedFileBase> file, string importId, string type)
+        {
+            try
+            {
+                string targetFilePath = string.Empty;
+                foreach (string upload in Request.Files)
+                {
+                    FileInfo fileinfo = new FileInfo(Request.Files[upload].FileName);
+                    string fileUrl = Request.Url.GetLeftPart(UriPartial.Authority) + "/Attachments/ProfileImages";
+                    StudentContext db = new StudentContext();
+
+                    string destDirectory = Server.MapPath("~/Attachments/ProfileImages");
+                    destDirectory = Path.Combine(destDirectory, _userStatistics.UserId.ToString());
+                    if (!Directory.Exists(destDirectory))
+                    {
+                        Directory.CreateDirectory(destDirectory);
+                    }
+
+                    //string path = AppDomain.CurrentDomain.BaseDirectory + "UploadedFiles/";
+                    string filename = Path.GetFileName(Request.Files[upload].FileName);
+                    filename = Regex.Replace(filename, @"\s+", "");
+
+                    //fetch path of the local directory from iCATStaticItemClass.
+                    //string targetFolderPath = Path.GetTempPath();//Server.MapPath("~/Administrator/TempFiles/" + iCATGlobal.CurrentTenantInfo.TenantName);  // This is the part Im wondering about. Will this still function the way it should on the webserver after upload?
+                    //create target filePath 
+                    targetFilePath = Path.Combine(destDirectory, filename);
+                    //Check if directory exists.
+                    if (Directory.Exists(destDirectory))
+                    {
+                        //if file with the same name exist in the directory.
+                        if (System.IO.File.Exists(targetFilePath))
+                        {
+                            while (System.IO.File.Exists(targetFilePath))//while file exist in the directory.
+                            {
+                                try
+                                {
+                                    //delete file from with target filepath.
+                                    System.IO.File.Delete(targetFilePath);
+                                }
+                                catch (Exception)
+                                {
+                                }
+                            }
+                            // save file 
+                            Request.Files[upload].SaveAs(targetFilePath);
+                        }
+                        else
+                        {
+                            //save file
+                            Request.Files[upload].SaveAs(targetFilePath);
+                        }
+                    }
+                    else
+                    {
+                        //if directory doesn't exist create a new directory.
+                        Directory.CreateDirectory(destDirectory);
+                        //save file 
+                        Request.Files[upload].SaveAs(targetFilePath);
+                    }
+
+                    StudentTracker.Core.Entities.Profile objProfile = db.Profiles.Where(u => u.UserId == _userStatistics.UserId).FirstOrDefault();
+                    if (objProfile != null)
+                    {
+                        objProfile.ProfileImageUrl = Path.Combine(fileUrl, _userStatistics.UserId.ToString(), filename);
+                    }
+                    this.repository.UpdateProfileImage(objProfile);
+                }
+
+                return targetFilePath;
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                }
+
+                throw;
+            }
+        }
+
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
         {

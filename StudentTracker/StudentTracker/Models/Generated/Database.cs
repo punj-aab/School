@@ -387,6 +387,32 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("ServiceCategory")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class ServiceCategory : DBConnectionStringDB.Record<ServiceCategory>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string CategoryName { get; set; }
+
+
+
+	}
+
+    
 	[TableName("Organizations")]
 
 
@@ -782,6 +808,12 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public string ProfileImageUrl { get; set; }
+
+
+
 	}
 
     
@@ -859,6 +891,12 @@ namespace DBConnectionString
 
 
 		[Column] public long CreatedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
 
 
 
@@ -1818,6 +1856,18 @@ namespace DBConnectionString
 
 
 
+
+
+		[Column] public long? StudentId { get; set; }
+
+
+
+
+
+		[Column] public long? StaffId { get; set; }
+
+
+
 	}
 
     
@@ -2255,6 +2305,12 @@ namespace DBConnectionString
 
 
 		[Column] public string ServiceDescription { get; set; }
+
+
+
+
+
+		[Column] public int ServiceCategoryId { get; set; }
 
 
 

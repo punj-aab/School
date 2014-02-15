@@ -3,14 +3,20 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
+<style>
+    .active {
+        background: #3693cf !important;
+        color: #fff !important;
+    }
+</style>
 
-@Scripts.Render("~/bundles/jqueryval")
 <div class="sub-nav">
     <ul>
-        <li><a href="" class="heading">Create Group</a></li>
+        <li><a href="/Group/create" class="heading">Create Group</a></li>
+        <li><a href="/Group/index" class="heading">View all</a></li>
     </ul>
 </div>
-<div class="dashboard-wrapper">
+<div class="dashboard-wrapper" ng-app="groupApp">
     <div class="left-sidebar">
         <div class="row-fluid">
             <div class="span12">
@@ -18,144 +24,12 @@
                 {
                     @Html.HiddenFor(m => m.GroupId)
                     @Html.HiddenFor(m => m.InsertedOn)
-                    @Html.HiddenFor(m => m.InsertedBy)+++++++++++++++++++++++++++999999999999999999+999++++9
-                                                          
-                                                          .04
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              
-                                                              9
+                    @Html.HiddenFor(m => m.InsertedBy)
                     <div class="widget">
                         <div class="widget-header">
                             <div class="title textAlign">Edit Group </div>
                             <span class="tools tls2">
-                                <a name="submit" class="btn btn-info" href="javascript:;" action="create" id="btnAdd">Save</a>
+                                <a name="submit" class="btn btn-info" href="javascript:;" action="Edit" id="btnAdd">Save</a>
                                 <a href="/Group" class="btn btn-info">Cancel</a> </span>
                         </div>
                         <div class="widget-body">
@@ -202,17 +76,15 @@
                             <div class="control-group">
                                 <label class="control-label" for="password1">Group Members </label>
                                 <div class="controls">
-                                    @Html.TextAreaFor(m => m.Members, new { placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
+                                    @Html.TextArea("GroupMembers", new { value = "{{AddedRecipantEmails}}", placeholder = "Group Members", Class = "span6", @rows = 4, @cols = 400 })
                                     @Html.ValidationMessageFor(m => m.Members)
                                 </div>
                             </div>
-
+                            @Html.HiddenFor(m => m.Members, new { value = "{{AddedRecipantUserIds}}" })
                             <div class="form-actions no-margin">
                                 <div class="clearfix">
                                 </div>
                             </div>
-                            @*@Html.HiddenFor(m => m.Members)*@
-
 
                         </div>
                     </div>
@@ -224,9 +96,12 @@
     <div class="right-sidebar">
         @Html.Partial("_RightMenuPartial")
     </div>
-    <div id="dialog"></div>
+    @{Html.RenderPartial("_AddRecipants");}
 </div>
+
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Angular/group.js"></script>
     @HelperAssets.SaveAndLoadData("/Group/", "ViewGroups");
     <script type="text/javascript">
         $(document).ready(function () {
@@ -238,48 +113,49 @@
 
 
     </script>
-}
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.lnkAddNewRow').click(function (e) {
-            var userId = $(e.target).attr('userId');
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.lnkAddNewRow').click(function (e) {
+                var userId = $(e.target).attr('userId');
+                var groupId = $('#GroupId').val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/Group/AddNewUserGroup/',
+                    data: {
+                        userId: userId, groupId: groupId
+                    },
+                    success: function () {
+                        EditAddNewRow(e);
+                    },
+                    error: function () { }
+                })
+            });
+        });
+
+        function EditAddNewRow(e) {
+            var $this = $(e.target);
+            $this.parent().hide();
+            var id = $this.parent().attr('id');
+            var row = '<div class="divUserList">' + $this.prev().text() + '<a class="lnkDelete" onClick=EditRow(event) id=' + id + '>Delete</a><hr /></div>';
+            $('#divRight').append(row);
+        }
+
+        function EditRow(e) {
+            var $this = $(e.target);
+            var userId = $(e.target).attr('id');
             var groupId = $('#GroupId').val();
             $.ajax({
                 type: 'POST',
-                url: '/Group/AddNewUserGroup/',
+                url: '/Group/DeleteUserGroup/',
                 data: {
                     userId: userId, groupId: groupId
                 },
                 success: function () {
-                    EditAddNewRow(e);
+                    deleteRow(e);
                 },
                 error: function () { }
             })
-        });
-    });
-
-    function EditAddNewRow(e) {
-        var $this = $(e.target);
-        $this.parent().hide();
-        var id = $this.parent().attr('id');
-        var row = '<div class="divUserList">' + $this.prev().text() + '<a class="lnkDelete" onClick=EditRow(event) id=' + id + '>Delete</a><hr /></div>';
-        $('#divRight').append(row);
-    }
-
-    function EditRow(e) {
-        var $this = $(e.target);
-        var userId = $(e.target).attr('id');
-        var groupId = $('#GroupId').val();
-        $.ajax({
-            type: 'POST',
-            url: '/Group/DeleteUserGroup/',
-            data: {
-                userId: userId, groupId: groupId
-            },
-            success: function () {
-                deleteRow(e);
-            },
-            error: function () { }
-        })
-    }
-</script>
+        }
+    </script>
+}

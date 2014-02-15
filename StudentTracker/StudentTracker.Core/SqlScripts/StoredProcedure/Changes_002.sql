@@ -167,7 +167,7 @@ BEGIN
  left join Users as Users_1 on  Sections.ModifiedBy=Users_1.UserId
 
  where (@sectionId is null or Sections.SectionId = @sectionId)
-   and (@organizationId is null or Users.OrgainzationId = @organizationId)
+   and (@organizationId is null or Users.OrganizationId = @organizationId)
 END
 
 GO

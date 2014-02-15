@@ -19,11 +19,13 @@ namespace StudentTracker.Controllers
             return View();
         }
 
+       
+
         public ActionResult AddRecipients()
         {
-            List<User> objUserList = new List<Core.Entities.User>();
-            objUserList = this.repository.Users(_userStatistics.OrganizationId);
-            return PartialView(objUserList);
+            //List<User> objUserList = new List<Core.Entities.User>();
+            //objUserList = this.repository.Users(_userStatistics.OrganizationId);
+            return PartialView();
         }
 
         public JsonResult GetAllUsers()

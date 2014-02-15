@@ -314,11 +314,6 @@
                                    '</li>';
 
             $('#ulRight').append(row);
-            //var ids = [];
-            //$('.deleteBtn').each(function () {
-            //    ids.push($(this).attr('itemId'));
-            //});
-            //$('#Members').val(ids.toString());
         }
 
         function deleteRow(e) {
@@ -334,40 +329,10 @@
         $(document).ready(function () {
             //load dialog box for Add recipients
             $('.btnAddReciepents').click(function () {
-                $.ajax({
-                    type: 'POST',
-                    url: '/Global/AddRecipients',
-                    async: false,
-                    success: function (response) {
-                        $('#dialog').html(response);
-                    },
-                    error: function () { }
-                });
-                $('#dialog').dialog("open");
+
+                $('#dialog').modal('show');
             });
 
-            $('#dialog').dialog({
-                autoOpen: false,
-                width: 700,
-                buttons: {
-                    Done: function () {
-                        var text = [];
-                        var ids = [];
-                        $('.divName').each(function () {
-                            text.push($(this).text());
-                        });
-
-                        $('.deleteBtn').each(function () {
-                            ids.push($(this).attr('itemId'));
-                        });
-
-                        $('#Members').val(ids.toString());
-                        $('#GroupMembers').val(text.toString());
-                        $(this).dialog("close");
-
-                    }
-                }
-            });
         });
     </script>
 }
@@ -642,4 +607,15 @@
 
         }
     </script>
+}
+
+@helper Tags(System.Web.Mvc.HtmlHelper htmlHelper, 
+    IList<StudentTracker.Core.Entities.Tag> tags)
+{
+  foreach (var tag in tags)
+  {
+    <div class="tags-div">
+        @StudentTracker.Core.Extensions.ActionLinkExtensions.TagLink(htmlHelper, tag)
+    </div>
+  }
 }

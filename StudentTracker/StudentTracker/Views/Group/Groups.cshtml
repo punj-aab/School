@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "Groups";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+<div ng-app="groupApp">
+    <div class="sub-nav">
+        <ul>
+            <li>
+                <a id="lnkViewAll" class="subButton" href="#">Groups
+                </a>
+            </li>
+            <li>
+                <a id="lnkAddNew" class="subButton" href="#">Add Group
+                </a>
+            </li>
+        </ul>
+        <div class="btn-group pull-right">
+            <button class="btn btn-primary">
+                Main Menu
+           
+            </button>
+            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+                <span class="caret"></span>
+            </button>
+
+        </div>
+    </div>
+    <div class="dashboard-wrapper" ng-controller="groupController">
+        <div class="left-sidebar" id="divOuter">
+            <div ng-view></div>
+            <div>{{TestNumebr  }}</div>
+        </div>
+        <div class="right-sidebar">
+            @Html.Partial("_RightMenuPartial")
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="viewAll.html">
+
+    <div class="row-fluid">
+    <div class="span12">
+        <div class="widget">
+            <div class="widget-header">
+                <div class="title">
+                    View Groups<a id="dynamicTable"></a>
+                </div>
+                <span class="tools"><a class="btn btn-info tools2" href="#/Create" data-original-title="">New</a> </span>
+            </div>
+            <div class="widget-body">
+                <div id="dt_example" class="example_alt_pagination">
+                    <table class="table table-condensed table-striped table-hover table-bordered pull-left" id="data-table">
+                        <thead>
+                            <tr class="bluRow">
+                                <th>Group Name</th>
+                                <th>Group Description</th>
+                                <th>Organization</th>
+                                <th>Created By</th>
+                                <th>Manage</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="group in allGroups">
+
+                            <tr>
+                                <td>{{group.GroupName}}</td>
+                                <td>{{group.Description}}</td>
+                                <td>{{group.OrganizationName}}</td>
+                                <td>{{group..InsertedByName}}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
+                                            Action 
+                               
+                                                <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="lnkDetails" href="#" itemid="{{group.GroupId}}" action="Details" onclick="LoadViewById(event)">Details</a>
+                                            </li>
+                                            <li></li>
+                                            <li>
+                                                <a class="lnkDelete" href="#" itemid="{{group.GroupId}}" action="DeleteConfirmed" onclick="Delete(event)">Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="clearfix">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    </script>
+</div>
+@section scripts{
+    <script src="~/Scripts/Angular/group.js"></script>
+}
+
+

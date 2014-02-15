@@ -60,6 +60,10 @@ namespace StudentTracker.Controllers
         [HttpPost]
         public bool EmailToken(string email, string token)
         {
+            StudentContext context = new StudentContext();
+            var tokenObj = context.RegistrationTokens.Where(t => t.Token == token).FirstOrDefault();
+            tokenObj.Email = email;
+            context.SaveChanges();
             Utilities.SendRegistationEmail(token, email);
             return true;
         }
@@ -69,6 +73,15 @@ namespace StudentTracker.Controllers
         {
             ViewBag.Token = token.Token;
             return View();
+        }
+
+        [Authorize(Roles="OrganizationAdmin")]
+        public ActionResult ViewAllTokensForOrg()
+        {
+            StudentContext context = new StudentContext();
+            var tokens = context.RegistrationTokens.Where(t => t.OrganizationId == _userStatistics.OrganizationId).ToList();
+
+            return View(tokens);
         }
 
         public void LoadSelectLists(ref RegistrationToken objToken)
@@ -96,6 +109,7 @@ namespace StudentTracker.Controllers
                 ViewBag.OrganizationId = organization.OrganizationId;
                 ViewBag.Organization = organization.OrganizationName;
                 objToken.RoleList = new SelectList(roleTypes.Skip(2), "Value", "Text");
+                crsList = repository.CourseByOrganization(_userStatistics.OrganizationId);
             }
 
             objToken.OrganizationList = OrganizationList;

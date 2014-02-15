@@ -1,0 +1,73 @@
+﻿@model IEnumerable<StudentTracker.Core.Entities.RegistrationToken>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+<script src="~/Scripts/alertify.min.js"></script>
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+<link href="~/Scripts/DataTables-1.9.4/media/css/TableTools.css" rel="stylesheet" />
+<link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+
+<div class="sub-nav">
+    <ul>
+        @* <li><a id="lnkStudent" class="subButton" href="/import?type=student" onclick="LoadAjax(event)" action="ImportStudents">Import Students </a></li>
+        <li><a id="lnkStaff" class="subButton" href="/import?type=staff" onclick="LoadAjax(event)" action="ImportStaff">Import Staff </a></li>*@
+    </ul>
+    <div class="btn-group pull-right">
+        <button class="btn btn-primary">
+            Main Menu
+        </button>
+        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+    </div>
+</div>
+<div class="dashboard-wrapper">
+    <div class="left-sidebar" id="divOuter">
+        <table id="customTable">
+            <thead>
+                <tr>
+                    <th>Email Address</th>
+                    <th>Token</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var token in Model)
+                {
+                    <tr>
+
+                        <td>@token.Email</td>
+                        <td>@token.Token</td>
+                        <td>@token.ExpiryDate</td>
+                        <td>@token.Status</td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/TableTools.min.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/ZeroClipboard.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $("#customTable").dataTable({
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+                    "sSwfPath": "../../Scripts/DataTables-1.9.4/media/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+    </script>
+}

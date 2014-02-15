@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "EditStudent";
     Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+    long userId = ViewBag.UserId;
 }
 
 <div class="sub-nav">
@@ -22,7 +23,7 @@
                             <span class="tools tls2">
                                 @*<input type="submit" name="Create" value="Save" class="btn btn-info" />*@
                                 <a class="btn btn-info" id="lnkSave" href="#" data-original-title="">Save</a>
-                                <a class="btn btn-info" href="/Student" data-original-title="">Cancel</a></span>
+                                <a class="btn btn-info" href="/account/profile" data-original-title="">Cancel</a></span>
                         </div>
 
 
@@ -32,11 +33,11 @@
                                 <div class="row-fluid">
                                     <div class="span3">
                                         <div class="thumbnail">
-                                            <img alt="300x200" src="/img/profile.png"><a class="file-input-wrapper btn btn-info cangePic" data-original-title="">
-Change Picture
-                                                        <input type="file">
+                                            <img id="profileImage" alt="300x200" src="@Model.ProfileImageUrl">
+                                            <a id="pickfile" class="file-input-wrapper btn btn-info cangePic" data-original-title="">Change Picture
+                                                       @* <input type="file">*@
                                             </a>
-
+                                            <a href="javascript:;" id="saveProfileImage" class="btn btn-info" style="display: none;">Save</a>
                                         </div>
                                     </div>
                                     <div class="span9">
@@ -100,7 +101,7 @@ Change Picture
                                                 </div>
                                             </div>
 
-                                            <div class="control-group">
+                                            @*<div class="control-group">
                                                 <label class="control-label">
                                                     Phone
                                                 </label>
@@ -108,7 +109,7 @@ Change Picture
                                                     @Html.TextBoxFor(x => x.MobileNumber, new { @class = "span8" })
                                                     @Html.ValidationMessageFor(x => x.MobileNumber)
                                                 </div>
-                                            </div>
+                                            </div>*@
                                             <div class="control-group">
                                                 <label class="control-label">
                                                     Phone1
@@ -197,5 +198,86 @@ Change Picture
                 $('.form-horizontal').submit();
             });
         });
+    </script>
+    <script src="~/Content/Pluload/plupload.full.js"></script>
+    <script type="text/javascript">
+        // Custom example logic
+
+        $(function () {
+
+            $("#saveProfileImage").hide();
+
+            var uploader = new plupload.Uploader({
+                runtimes: 'gears,html5,flash,silverlight,browserplus',
+                browse_button: 'pickfile',
+                resize: {
+                    width: 260,
+                    height: 290
+                },
+                // container: 'container',
+                max_file_size: '15mb',
+                url: '/Account/SaveProfileImage?userId=' + '@Session["UserId"]',
+                flash_swf_url: '../../Scripts/plupload.flash.swf',
+                //silverlight_xap_url: '/plupload/js/plupload.silverlight.xap',
+                filters: [{ title: "Image files", extensions: "jpeg,jpg,png" }]
+            });
+
+            uploader.bind('Init', function (up, params) {
+                // $('#filelist').html("");
+                // $('#filelist').html("<div class='curRuntime'>Current runtime: " + params.runtime + "</div>");
+            });
+
+            $('#uploadfiles').click(function (e) {
+
+                uploader.start();
+                e.preventDefault();
+            });
+
+            uploader.init();
+
+            $("#saveProfileImage").click(function (e) {
+                uploader.start();
+                e.preventDefault();
+            });
+
+            uploader.bind('FilesAdded', function (up, files) {
+                $.each(files, function (i, file) {
+
+                    console.log(file);
+
+                });
+
+                up.refresh(); // Reposition Flash/Silverlight
+                $("#saveProfileImage").show();
+                $("#pickfile").hide();
+            });
+
+            uploader.bind('UploadProgress', function (up, file) {
+                $('#' + file.id + " b").html(file.percent + "%");
+            });
+
+            uploader.bind('Error', function (up, err) {
+                $('a#uploadfiles').hide();
+                $(".infoDiv").remove();
+                $('#filelist').append("<div class='errorDiv'>Error: " + err.code +
+			", Message: " + err.message +
+			(err.file ? ", File: " + err.file.name : "") +
+			"</div>"
+		);
+
+                up.refresh(); // Reposition Flash/Silverlight
+            });
+
+            uploader.bind('FileUploaded', function (up, file) {
+                $("#saveProfileImage").hide();
+                $("#pickfile").show();
+                var filePath="/Attachments/ProfileImages/@userId/"+file.name;
+                $("#profileImage").attr({ "src": filePath });
+            });
+            //refreshDatatable();
+        });
+
+
+
     </script>
 }

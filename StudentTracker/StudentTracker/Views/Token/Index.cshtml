@@ -7,6 +7,9 @@
 <div class="sub-nav">
     <ul>
         <li>
+
+            <a class="tokens" action="ViewAllTokensForOrg" id="lnkViewAllToken" href="javascript:;">View All Tokens
+            </a>
             <a class="tokens" id="lnkCreateNewToken" href="javascript:;" action="CreateToken">Create Token
             </a>
         </li>
@@ -23,7 +26,7 @@
 </div>
 <div class="dashboard-wrapper">
     <div class="left-sidebar" id="divOuter">
-        @{Html.RenderAction("CreateToken");}
+        @{Html.RenderAction("ViewAllTokensForOrg");}
     </div>
     <div class="right-sidebar">
         @Html.Partial("_RightMenuPartial")
@@ -32,7 +35,24 @@
 
 @section Scripts
 {
+    <link href="~/Scripts/DataTables-1.9.4/media/css/TableTools.css" rel="stylesheet" />
+    <link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css" rel="stylesheet" />
+    <script src="~/Scripts/alertify.min.js"></script>
 
+    <script src="~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/TableTools.min.js"></script>
+    <script src="~/Scripts/DataTables-1.9.4/media/js/ZeroClipboard.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#customTable").dataTable({
+                "sDom": 'T<"clear">lfrtip',
+                "oTableTools": {
+                    "sSwfPath": "../../Scripts/DataTables-1.9.4/media/swf/copy_csv_xls_pdf.swf"
+                }
+            });
+        });
+    </script>
     <script type="text/javascript">
 
         $(document).ready(function () {
@@ -42,30 +62,7 @@
                 success: "valid"
             });
 
-            $("#btnCreateToken").click(function (e) {
-
-                var form = $("#myform");
-                form.validate();
-                if (!form.valid()) {
-                    e.preventDefault();
-                    return;
-                }
-                var $this = $(this);
-                var objCandidate = $('#myform').serializeObject();
-
-                $.ajax({
-                    url: '/Token/Create',
-                    cache: false,
-                    type: 'POST',
-                    contentType: 'application/json;',
-                    data: JSON.stringify(objCandidate),
-                    success: function (response) {
-                        //console.log(response);
-                        $('#divOuter').html(response);
-                    },
-                    error: function () { }
-                });
-            });
+           
 
             $('#lnkCreateNewToken, #tabToken').addClass('selected');
 
@@ -100,6 +97,7 @@
         };
 
     </script>
-}
-@HelperAssets.LoadAjaxData("/Token/");
+    @HelperAssets.LoadAjaxData("/Token/");
  @HelperAssets.SaveAndLoadData("/Token/", "");
+
+}

@@ -112,6 +112,8 @@ namespace StudentTracker.Repository
                 sv.ServiceDescription=dr["ServiceDescription"].ToString();
                 sv.ServiceId=Convert.ToInt32(dr["ServiceId"]);
                 sv.ServiceName = dr["ServiceName"].ToString();
+                sv.CategoryName = dr["CategoryName"].ToString();
+                sv.ServiceCategoryId = Convert.ToInt32(dr["ServiceCategoryId"]);
                 sv.Id = Convert.ToInt32(dr["Id"]);
                 obj.Add(sv);
             }

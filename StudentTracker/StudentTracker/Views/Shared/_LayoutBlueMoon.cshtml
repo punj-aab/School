@@ -43,6 +43,8 @@
     <link href="~/Content/theme.css" rel="stylesheet" />
     <link href="~/Content/bootstrap-select.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
+
+
     <!-- Important. For Theming change primary-color variable in main.css  -->
     <!--[if lte IE 7]>
     <script src="css/icomoon-font/lte-ie7.js">
@@ -86,9 +88,8 @@
      
         </p>
     </footer>
+
     @Scripts.Render("~/bundles/jquery")
-
-
     @Scripts.Render("~/bundles/jqueryval")
 
     @*@Styles.Render("~/bundles/jqueryui")*@
@@ -99,24 +100,30 @@
     @Scripts.Render("~/bundles/DataTable")
     <script src="~/Scripts/wysiwyg/wysihtml5-0.3.0.js"></script>
     <script src="~/Scripts/wysiwyg/bootstrap-wysihtml5.js"></script>
-    <script src="~/Scripts/js/bootstrap-switch.js"></script>
+
     <script src="~/Scripts/ckeditor.js"></script>
     <script src="~/Scripts/js/jquery.scrollUp.js"></script>
     <script src="~/Scripts/js/date-picker/date.js"></script>
     <script src="~/Scripts/js/date-picker/daterangepicker.js"></script>
-    <script src="~/Scripts/js/fullcalendar.js"></script>
-    <script src="~/Scripts/bootstrap-select.js"></script>
+    
+   @Scripts.Render("~/bundles/calender");
     <script src="~/Scripts/js/tiny-scrollbar.js"></script>
-    <script src="~/Scripts/js/bootstrap.file-input.js"></script>
+    
+    @Scripts.Render("~/Scripts/angular")
+
     @RenderSection("Scripts", false)
 
     <script type="text/javascript">
         //Tooltip
-        $('a').tooltip('hide');
-        $('i').tooltip('hide');
+        $(document).ready(function () {
+            $('a').tooltip('hide');
+            $('i').tooltip('hide');
+            //Popover
+            $('.popover-pop').popover('hide');
 
-        //Popover
-        $('.popover-pop').popover('hide');
+        });
+
+
 
 
         //Collapse

@@ -167,12 +167,12 @@ namespace StudentTracker.Controllers
 
             if (isEdit)
             {
-                objCourseList = repository.GetCourses(organizationId: organizationId);
+                objCourseList = repository.GetCourses(organizationId: _userStatistics.OrganizationId);
                 objClassList = repository.ClassByCourse(courseId);// db.Classes.Where(x => x.CourseId == courseId).ToList();
             }
             else
             {
-                objCourseList = new List<Course>();
+                objCourseList = repository.GetCourses(organizationId: _userStatistics.OrganizationId);
                 objClassList = new List<Class>();
             }
 

@@ -17,6 +17,20 @@ namespace StudentTracker.Core.Entities
         //[Required(ErrorMessage = "*")]
         public string Token { get; set; }
 
+        public string ImportId { get; set; }
+
+        public string Email { get; set; }
+
+        [ScaffoldColumn(false)]
+        [NotMapped]
+        public string ExpiryDate
+        {
+            get
+            {
+                return this.InsertedOn.AddDays(7).ToString("dd/MM/yyyy HH:mm:ss");
+            }
+        }
+
         [Required]
         [Display(Name = "Organization")]
         public long OrganizationId { get; set; }
@@ -41,7 +55,19 @@ namespace StudentTracker.Core.Entities
         public long? StaffId { get; set; }
 
         [ScaffoldColumn(false)]
+        [NotMapped]
+        public string Status
+        {
+            get
+            {
+                return this.InsertedOn.AddDays(7) > DateTime.Now ? "Active" : "Expired";
+            }
+        }
+
+        [ScaffoldColumn(false)]
         public long CreatedBy { get; set; }
+
+        public DateTime InsertedOn { get; set; }
 
         [NotMapped]
         public SelectList OrganizationList { get; set; }

@@ -90,7 +90,8 @@
                 </fieldset>
                
                     <div id="" class="container" style="padding:20px 0px 0px 10px;">
-
+                         <a id="btnViewToken" class="btn btn-success" href="/Import/ShowResgistrationCodesForImportedFile?importId=@token" style="display: none;">View Registeration Token</a>
+           
                         <a id="btnSendEmails" class="btn btn-success" onclick="SendEmails();" href="javascript:;" style="display:none;">Send Registration Emails</a>
                     </div>
 
@@ -160,9 +161,12 @@
         $.ajax({
             type: "GET",
             url: currentSource,
-            error: function () {
+            error: function (i,e) {
+                alertify.error(e);
             },
             success: function () {
+                $("#btnViewToken").show();
+                alertify.success("Email are being sent to all students");
             }
         })
     }
