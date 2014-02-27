@@ -1,0 +1,32 @@
+﻿@model StudentTracker.Core.Entities.Tag
+@{
+}
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span12">
+            @using (Html.BeginForm("AddEditTag", "Admin", FormMethod.Post, new { id = "AddEditTagForm", enctype = "multipart/form-data", @class = "form-horizontal", @role = "form" }))
+            {
+   
+                @Html.HiddenFor(m => m.Id)
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @autocomplete = "off", @placeholder = "First Name" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.UrlSlug, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.UrlSlug, new { @class = "form-control", @autocomplete = "off", @placeholder = "UrlSlug" })
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextAreaFor(m => m.Description, new { Class = "form-control", autocomplete = "off", placeholder = "Description", rows = "4" })
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

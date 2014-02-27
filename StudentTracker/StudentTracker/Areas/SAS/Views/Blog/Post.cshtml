@@ -1,0 +1,69 @@
+﻿@model StudentTracker.Core.Entities.Post
+@using StudentTracker.Core.Extensions;
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.Keywords = string.Join(" ", Model.Tags.Select(t => t.Name).ToArray());
+    ViewBag.Description = Model.Meta;
+    Layout = "~/Areas/SAS/Views/Shared/_LayoutBlog.cshtml";
+    string commentUrl = Request.Url.ToString();
+}
+<style>
+    .blog a {
+        text-decoration: none;
+        color: #72c02c;
+    }
+</style>
+<div id="content" class="span8" >
+    <div class="blog margin-bottom-30">
+
+        <h3>@Html.PostLink(Model)</h3>
+        <!-- AddThis -->
+        <div class="share-links">
+            @Html.Partial("_AddThis")
+        </div>
+
+        <ul class="unstyled inline blog-info">
+            <!--Category-->
+            <li class="post-category">
+                <span>Category: </span>@Html.CategoryLink(Model.Category)
+            </li>
+
+            <!-- DISPLAY THE COMMENTS COUNT -->
+            <li class="no-of-comments">
+                <i class="icon-comments"></i>
+                <fb:comments-count href="@commentUrl"></fb:comments-count> Comments
+            </li>
+            <!--Posted date-->
+            <li class="posted-date">
+                <i class="icon-calendar"></i>
+                @Model.PostedOn.ToConfigLocalTime()
+            </li>
+        </ul>
+        <ul class="unstyled inline blog-tags">
+            <!--Tags-->
+            <li>
+                <i class="icon-tags"></i>
+                @HelperAssets.Tags(Html, Model.Tags)
+            </li>
+        </ul>
+        <p class="post-body">
+            @Html.Raw(Model.Description)
+        </p>
+
+        <div class="fb-comments" data-href="@commentUrl" data-width="800px" data-numposts="5" data-colorscheme="light"></div>
+         @*@Html.Partial("_Disqus")*@
+
+    </div>
+
+</div>
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            //   alert('@commentUrl');
+                $('#backToBlogs').show();
+            });
+
+    </script>
+}

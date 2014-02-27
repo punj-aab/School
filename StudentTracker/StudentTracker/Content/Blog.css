@@ -1,0 +1,118 @@
+﻿
+
+.sidebar h3 {
+   
+    font-size: 150%;
+}
+
+.sidebar ul {
+   
+    padding: 4px 0 0 0;
+    margin: 4px 0 4px 0;
+}
+
+.sidebar li {
+    list-style: none;
+    padding: 0 0 7px 0;
+}
+
+    .sidebar li a, .sidebar li a:hover {
+        padding: 0 0 0 10px;
+        display: block;
+        background: transparent  no-repeat left center;
+        border: 0;
+    }
+
+        .sidebar li a.selected {
+            color: #444;
+        }
+
+.search {
+    color: #555;
+    border: 1px solid #DDD;
+    width: 134px;
+    padding: 5px;
+}
+
+.post .post-title {
+    display: inline-block;
+}
+
+.post .post-category, .post-tags {
+    float: left;
+    margin-right: 10px;
+}
+
+.post .tags-div {
+    font-style: italic;
+    display: inline;
+}
+
+    .post .tags-div a {
+        margin-right: 5px;
+    }
+
+.post .posted-date {
+    float: right;
+}
+
+.post .row {
+    clear: both;
+}
+
+.post .post-body {
+    margin-top: 25px;
+    clear: both;
+}
+
+.post .post-foot {
+    float: right;
+}
+
+.pager {
+    margin-top: 20px;
+    clear: right;
+}
+
+    .pager .next {
+        float: right;
+    }
+
+
+    #search-form p {
+        display: inline-block;
+    }
+
+span.field-validation-error {
+    color: red !important;
+}
+
+.photo {
+    float: left;
+    margin-right: 10px;
+}
+
+.tags {
+    padding: 0 0 20px 20px;
+}
+
+    .tags a {
+        margin: 3px;
+        display: inline-block;
+    }
+
+div.feeddiv {
+    margin-bottom: 20px;
+}
+
+    div.feeddiv a {
+        text-decoration: none;
+    }
+
+.site_content {
+    overflow: hidden;
+    margin: 0 auto 0 auto;
+    padding: 10px 20px 40px 20px;
+    background: #F6F6F0 !important;
+    border: 15px solid #FFF;
+}

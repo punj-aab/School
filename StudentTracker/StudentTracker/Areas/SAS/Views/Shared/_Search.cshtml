@@ -1,0 +1,18 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(
+    "Search",           // action
+    "Blog",             // controller
+    FormMethod.Get,     // method
+    new { id = "search-form" })) // html attributes
+{
+    <div class="headline">
+        <h3>Search Bar</h3>
+    </div>
+    <div class="input-append  margin-bottom-20">
+        @Html.TextBox("s", "", new { @class = "span9" })
+        <input type="submit" value="Search" class="btn-u">
+    </div>
+}

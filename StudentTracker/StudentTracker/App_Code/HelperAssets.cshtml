@@ -609,13 +609,13 @@
     </script>
 }
 
-@helper Tags(System.Web.Mvc.HtmlHelper htmlHelper, 
+@helper Tags(System.Web.Mvc.HtmlHelper htmlHelper,
     IList<StudentTracker.Core.Entities.Tag> tags)
 {
-  foreach (var tag in tags)
-  {
-    <div class="tags-div">
-        @StudentTracker.Core.Extensions.ActionLinkExtensions.TagLink(htmlHelper, tag)
-    </div>
-  }
+    foreach (var tag in tags)
+    {
+   
+    @StudentTracker.Core.Extensions.ActionLinkExtensions.TagLink(htmlHelper, tag)
+    
+    }
 }

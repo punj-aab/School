@@ -1,0 +1,57 @@
+﻿@model StudentTracker.Core.Entities.Post
+@using StudentTracker.Core.Extensions;
+@{
+    string postUrl = Request.Url.GetLeftPart(UriPartial.Authority) + Model.Href(Url);
+}
+<div class="blog margin-bottom-30">
+
+    <h3>@Html.PostLink(Model)
+    </h3>
+
+    <!-- AddThis -->
+    <div class="share-links">
+        @Html.Partial("_AddThis")
+    </div>
+
+    <ul class="unstyled inline blog-info">
+        <!--Category-->
+        <li class="post-category">
+            <span>Category: </span>@Html.CategoryLink(Model.Category)
+        </li>
+
+        <!-- DISPLAY THE COMMENTS COUNT -->
+        <li class="no-of-comments">
+            <i class="icon-comments"></i>
+            <fb:comments-count href="@postUrl"></fb:comments-count> Comments
+        </li>
+        <!--Posted date-->
+        <li class="posted-date">
+            <i class="icon-calendar"></i>
+            @Model.PostedOn.ToConfigLocalTime()
+        </li>
+    </ul>
+    <ul class="unstyled inline blog-tags">
+        <!--Tags-->
+        <li>
+            <i class="icon-tags"></i>
+            @HelperAssets.Tags(Html, Model.Tags)
+        </li>
+    </ul>
+
+    <!--Short Description-->
+    <p class="post-body">
+        @Html.Raw(Model.ShortDescription)
+    </p>
+    <p class="post-foot">
+        @Html.ActionLink("Read More", "post", "blog",
+        new
+        {
+            year = Model.PostedOn.Year,
+            month = Model.PostedOn.Month,
+            day = Model.PostedOn.Day,
+            title = Model.UrlSlug
+        },
+        new { title = "continue...", @class = "btn-u btn-u-small" }
+    )
+    </p>
+</div>

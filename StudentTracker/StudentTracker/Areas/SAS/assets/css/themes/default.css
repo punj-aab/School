@@ -276,7 +276,7 @@ blockquote:hover {
 
 /*Blog Page
 ------------------------------------*/
-.blog h3 {
+.blog h3,.blog h1 {
 	color:#72c02c;
 }
 .blog li a:hover {

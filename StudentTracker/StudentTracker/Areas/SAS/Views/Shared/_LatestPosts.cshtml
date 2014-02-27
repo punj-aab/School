@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+
+@model IList<StudentTracker.Core.Entities.Post>
+
+<div class="posts margin-bottom-20">
+    <div class="headline">
+        <h3>Recent Blog Entries</h3>
+    </div>
+
+    @if (Model.Count > 0)
+    {
+
+        foreach (var post in Model)
+        {
+        <dl class="dl-horizontal">
+            
+            <dd style="margin-left:0px">
+                <p>@Html.PostLink(post)</p>
+            </dd>
+        </dl>
+        }
+    }
+    else
+    {
+        <p>No posts found!</p>
+    }
+</div>
+

@@ -1519,6 +1519,11 @@ ul.unstyled li a i.shop_img {
     color: #72c02c;
 }
 
+.blog h3 a {
+    text-decoration:none;
+    color: #72c02c;
+}
+
 .blog ul {
     color: #555;
     font-size: 12px;

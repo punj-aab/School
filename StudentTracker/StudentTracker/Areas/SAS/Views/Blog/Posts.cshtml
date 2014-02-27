@@ -1,0 +1,39 @@
+﻿@model StudentTracker.Core.Entities.Post
+@using StudentTracker.Core.Extensions;
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.Title;
+    ViewBag.Keywords = string.Join(" ", Model.Tags.Select(t => t.Name).ToArray());
+    ViewBag.Description = Model.Meta;
+    Layout = "~/Areas/SAS/Views/Shared/LayoutAreas.cshtml";
+}
+<div id="content">
+    <div class="post">
+        <div class="post-meta">
+            <div class="row">
+                <div class="post-title">
+                    <h1>@Html.PostLink(Model)</h1>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="post-category">
+                    <span>Category:</span> @Html.CategoryLink(Model.Category)
+                </div>
+                <div class="post-tags">
+                    <span>Tags:</span> @HelperAssets.Tags(Html, Model.Tags)
+                </div>
+                <!-- DISPLAY THE COMMENTS COUNT -->
+                <div class="no-of-comments">
+                    
+                </div>
+                <div class="posted-date">
+                    @Model.PostedOn.ToConfigLocalTime()
+                </div>
+            </div>
+        </div>
+        <div class="post-body">
+            @Html.Raw(Model.Description)
+        </div>
+    </div>
+</div>

@@ -44,7 +44,7 @@ namespace StudentTracker
                             new { controller = "Admin", action = "ManageBlog" });
 
             routes.MapRoute(
-                           "Blog",
+                           "sas/Blog",
                            "Blog",
                            new { controller = "Blog", action = "Posts" });
 
