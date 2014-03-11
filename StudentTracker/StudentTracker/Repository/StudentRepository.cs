@@ -314,6 +314,7 @@ namespace StudentTracker.Repository
             }
             registrationToken.Token = UserStatistics.GenerateToken();
             registrationToken.CreatedBy = userId;
+            registrationToken.InsertedOn = DateTime.Now;
             registrationToken.RoleId = (int)UserRoles.Student;
             recordAffected = Convert.ToInt32(registrationToken.Insert());
             if (recordAffected > 0)
@@ -479,5 +480,18 @@ namespace StudentTracker.Repository
                 throw;
             }
         }
+
+        public List<ClassRoom> ClassRoomByDepartment(long userId)
+        {
+            string query = "select * from ClassRoom where DepartmentId = @id";
+            return this.Find<ClassRoom>(query, userId);
+        }
+
+        public string GetUserEmail(long userId)
+        {
+            string query = "select Email from Users where UserId=@id";
+            return this.SingleOrDefault<string>(query, userId);
+        }
+
     }
 }

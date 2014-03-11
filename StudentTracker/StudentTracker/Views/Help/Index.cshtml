@@ -1,0 +1,120 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
+}
+
+
+<div class="sub-nav">
+    <ul>
+        <li><a href="" class="heading">Help </a></li>
+    </ul>
+</div>
+
+<div class="dashboard-wrapper">
+    <div class="left-sidebar">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Contact <span>We have Answers</span>
+                        </div>
+                        <span class="tools">
+                            <a class="fs1" aria-hidden="true" data-icon="&#xe090;"></a>
+                        </span>
+                    </div>
+                    <div class="widget-body">
+                        <div class="row-fluid">
+                            <div class="span7">
+
+
+                                @using (Html.BeginForm("Index", "Help", null, FormMethod.Post, new { Class = "form-horizontal no-margin" }))
+                                {
+                                    <div class="control-group">
+                                        <label class="control-label text_align_left" for="name">
+                                            Name
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input class="span8" type="text" name="name" id="name" placeholder="First Name">
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label text_align_left" for="name">
+                                            Email
+                                        </label>
+                                        <div class="controls controls-row">
+                                            <input class="span8" type="text" name="email" placeholder="First Name">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="control-group">
+                                        <label class="control-label text_align_left" for="DateOfBirthMonth">
+                                            Message
+                                        </label>
+                                        <div class="controls controls-row">
+
+                                            <textarea class="span8" name="message"></textarea>
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="DateOfBirthMonth">
+                                        </label>
+                                        <div class="controls controls-row">
+
+                                            <input name="" type="submit" class="btn btn-info" value="Send">
+                                            <input name="" type="reset" class="btn btn-info" value="Clear">
+                                        </div>
+                                    </div>
+                                    
+                                    if (!string.IsNullOrEmpty(Convert.ToString(TempData["IsEmailSent"])))
+                                    { 
+                                    <div class="control-group" style="font-weight: bold; color: green;">
+                                        @TempData["IsEmailSent"]
+                                    </div>
+                                    }
+
+                                }
+                            </div>
+                            <div class="span5 help_right_pnl">
+
+                                <h3>Social Yup, We're social too!</h3>
+                                <ul>
+                                    <li><a href="#">
+                                        <img src="/img/fcbk_icon2.png" width="24" height="24" alt=""></a></li>
+                                    <li><a href="#">
+                                        <img src="/img/twtr_icon2.png" width="24" height="24" alt=""></a></li>
+                                    <li><a href="#">
+                                        <img src="/img/g_plus_icon2.png" width="24" height="24" alt=""></a></li>
+                                </ul>
+
+                                <p>
+                                    Lorem Ipsum is
+                                                <br />
+                                    simply dummy text of the printing<br />
+                                    and typesetting industry.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-sidebar">
+        @Html.Partial("_RightMenuPartial")
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#lnkHelp').addClass('selected');
+        });
+    </script>
+}

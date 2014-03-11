@@ -126,7 +126,6 @@ namespace StudentTracker.Controllers
 
         public ActionResult ViewSchedules()
         {
-
             return PartialView(repository.GetSchdeule());
         }
 
@@ -216,10 +215,7 @@ namespace StudentTracker.Controllers
         {
             return Json(db.Subjects.Where(x => x.ClassId == id).ToList(), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult GetClassRoom(long id)
-        {
-            return Json(db.ClassRooms.Where(x => x.DepartmentId == id).ToList(), JsonRequestBehavior.AllowGet);
-        }
+        
         public JsonResult GetDepartmentandCourse(long id)
         {
             ScheduleViewModel objVM = new ScheduleViewModel();

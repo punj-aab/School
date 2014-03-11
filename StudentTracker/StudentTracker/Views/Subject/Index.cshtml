@@ -6,25 +6,8 @@
 
 <div class="sub-nav">
     <ul>
-        <li>
-            <a id="lnkViewAll" class="subButton" href="#" onclick="LoadAjax(event)" action="ViewSubjects">View Subjects
-            </a>
-        </li>
-        <li>
-            <a id="lnkAddNew" class="subButton" onclick="LoadAjax(event)" href="#" action="Create">Add Subject
-            </a>
-        </li>
+        <li><a href="" class="heading">Subjects</a></li>
     </ul>
-    <div class="btn-group pull-right">
-        <button class="btn btn-primary">
-            Main Menu
-           
-        </button>
-        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">
-            <span class="caret"></span>
-        </button>
-
-    </div>
 </div>
 <div class="dashboard-wrapper">
     <div class="left-sidebar" id="divOuter">
@@ -32,7 +15,7 @@
             Html.RenderAction("ViewSubjects");
         }
     </div>
-  <div class="right-sidebar">
+    <div class="right-sidebar">
         @Html.Partial("_RightMenuPartial")
     </div>
 </div>
@@ -49,7 +32,7 @@
             });
         });
     </script>
-  @HelperAssets.LoadAjaxData("/Subject/");
+    @HelperAssets.LoadAjaxData("/Subject/");
   @HelperAssets.DataTable();
   @HelperAssets.SaveAndLoadData("/Subject/", "ViewSubjects");
 }

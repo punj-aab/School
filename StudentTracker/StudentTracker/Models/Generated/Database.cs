@@ -25,7 +25,7 @@
 // 
 //     Connection String Name: `DBConnectionString`
 //     Provider:               `System.Data.SqlClient`
-//     Connection String:      `Data Source=70.87.28.215;Initial Catalog=Student12Jan;User ID=Student12Jan;Password =Student12Jan;Integrated Security=False`
+//     Connection String:      `Data Source=ANIL\SQLEXPRESS;Initial Catalog=Student7;user Id=sa;password=systems@123`
 //     Schema:                 ``
 //     Include Views:          `False`
 
@@ -135,182 +135,6 @@ namespace DBConnectionString
 
 
     
-	[TableName("Users")]
-
-
-	[PrimaryKey("UserId")]
-
-
-
-	[ExplicitColumns]
-    public partial class User : DBConnectionStringDB.Record<User>  
-    {
-
-
-
-		[Column] public long UserId { get; set; }
-
-
-
-
-
-		[Column] public DateTime InsertedOn { get; set; }
-
-
-
-
-
-		[Column] public int StatusId { get; set; }
-
-
-
-
-
-		[Column] public long MasterId { get; set; }
-
-
-
-
-
-		[Column] public string Username { get; set; }
-
-
-
-
-
-		[Column] public string Email { get; set; }
-
-
-
-
-
-		[Column] public string Password { get; set; }
-
-
-
-
-
-		[Column] public string FirstName { get; set; }
-
-
-
-
-
-		[Column] public string LastName { get; set; }
-
-
-
-
-
-		[Column] public string RegistrationToken { get; set; }
-
-
-
-
-
-		[Column] public long OrganizationId { get; set; }
-
-
-
-
-
-		[Column] public int PasswordFailuresSinceLastSuccess { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastPasswordFailureDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastActivityDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastLockoutDate { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastLoginDate { get; set; }
-
-
-
-
-
-		[Column] public string ConfirmationToken { get; set; }
-
-
-
-
-
-		[Column] public bool IsLockedOut { get; set; }
-
-
-
-
-
-		[Column] public DateTime? LastPasswordChangedDate { get; set; }
-
-
-
-
-
-		[Column] public string PasswordVerificationToken { get; set; }
-
-
-
-
-
-		[Column] public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
-
-
-
-
-
-		[Column] public long? Group_GroupId { get; set; }
-
-
-
-	}
-
-    
-	[TableName("Roles")]
-
-
-	[PrimaryKey("RoleId", autoIncrement=false)]
-
-	[ExplicitColumns]
-    public partial class Role : DBConnectionStringDB.Record<Role>  
-    {
-
-
-
-		[Column] public Guid RoleId { get; set; }
-
-
-
-
-
-		[Column] public string RoleName { get; set; }
-
-
-
-
-
-		[Column] public string Description { get; set; }
-
-
-
-	}
-
-    
 	[TableName("Countries")]
 
 
@@ -381,32 +205,6 @@ namespace DBConnectionString
 
 
 		[Column] public string Description { get; set; }
-
-
-
-	}
-
-    
-	[TableName("ServiceCategory")]
-
-
-	[PrimaryKey("Id")]
-
-
-
-	[ExplicitColumns]
-    public partial class ServiceCategory : DBConnectionStringDB.Record<ServiceCategory>  
-    {
-
-
-
-		[Column] public int Id { get; set; }
-
-
-
-
-
-		[Column] public string CategoryName { get; set; }
 
 
 
@@ -837,6 +635,18 @@ namespace DBConnectionString
 
 
 		[Column] public string Token { get; set; }
+
+
+
+
+
+		[Column] public string ImportId { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
 
 
 
@@ -2304,13 +2114,13 @@ namespace DBConnectionString
 
 
 
-		[Column] public string ServiceDescription { get; set; }
-
-
-
-
-
 		[Column] public int ServiceCategoryId { get; set; }
+
+
+
+
+
+		[Column] public string ServiceDescription { get; set; }
 
 
 
@@ -2379,6 +2189,200 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("ServiceCategory")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class ServiceCategory : DBConnectionStringDB.Record<ServiceCategory>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string CategoryName { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Tag")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Tag : DBConnectionStringDB.Record<Tag>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+
+
+		[Column] public string UrlSlug { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public bool IsDeleted { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Post")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Post : DBConnectionStringDB.Record<Post>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string Title { get; set; }
+
+
+
+
+
+		[Column] public string ShortDescription { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public string Meta { get; set; }
+
+
+
+
+
+		[Column] public string UrlSlug { get; set; }
+
+
+
+
+
+		[Column] public bool Published { get; set; }
+
+
+
+
+
+		[Column] public DateTime PostedOn { get; set; }
+
+
+
+
+
+		[Column] public long PostedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? Modified { get; set; }
+
+
+
+
+
+		[Column] public int? Category_Id { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Category")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class Category : DBConnectionStringDB.Record<Category>  
+    {
+
+
+
+		[Column] public int Id { get; set; }
+
+
+
+
+
+		[Column] public string Name { get; set; }
+
+
+
+
+
+		[Column] public string UrlSlug { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+
+
+		[Column] public bool IsDeleted { get; set; }
+
+
+
+	}
+
+    
 	[TableName("RoleUser")]
 
 
@@ -2397,6 +2401,30 @@ namespace DBConnectionString
 
 
 		[Column] public long User_UserId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PostTag")]
+
+
+	[PrimaryKey("Post_Id", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class PostTag : DBConnectionStringDB.Record<PostTag>  
+    {
+
+
+
+		[Column] public int Post_Id { get; set; }
+
+
+
+
+
+		[Column] public int Tag_Id { get; set; }
 
 
 
@@ -2427,6 +2455,182 @@ namespace DBConnectionString
 
 
 		[Column] public string ProductVersion { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Users")]
+
+
+	[PrimaryKey("UserId")]
+
+
+
+	[ExplicitColumns]
+    public partial class User : DBConnectionStringDB.Record<User>  
+    {
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public int StatusId { get; set; }
+
+
+
+
+
+		[Column] public long MasterId { get; set; }
+
+
+
+
+
+		[Column] public string Username { get; set; }
+
+
+
+
+
+		[Column] public string Email { get; set; }
+
+
+
+
+
+		[Column] public string Password { get; set; }
+
+
+
+
+
+		[Column] public string FirstName { get; set; }
+
+
+
+
+
+		[Column] public string LastName { get; set; }
+
+
+
+
+
+		[Column] public string RegistrationToken { get; set; }
+
+
+
+
+
+		[Column] public long OrganizationId { get; set; }
+
+
+
+
+
+		[Column] public int PasswordFailuresSinceLastSuccess { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastPasswordFailureDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastActivityDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastLockoutDate { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastLoginDate { get; set; }
+
+
+
+
+
+		[Column] public string ConfirmationToken { get; set; }
+
+
+
+
+
+		[Column] public bool IsLockedOut { get; set; }
+
+
+
+
+
+		[Column] public DateTime? LastPasswordChangedDate { get; set; }
+
+
+
+
+
+		[Column] public string PasswordVerificationToken { get; set; }
+
+
+
+
+
+		[Column] public DateTime? PasswordVerificationTokenExpirationDate { get; set; }
+
+
+
+
+
+		[Column] public long? Group_GroupId { get; set; }
+
+
+
+	}
+
+    
+	[TableName("Roles")]
+
+
+	[PrimaryKey("RoleId", autoIncrement=false)]
+
+	[ExplicitColumns]
+    public partial class Role : DBConnectionStringDB.Record<Role>  
+    {
+
+
+
+		[Column] public Guid RoleId { get; set; }
+
+
+
+
+
+		[Column] public string RoleName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
 
 
 

@@ -9,12 +9,10 @@
         <div class="widget">
             <div class="widget-header">
                 <div class="title">
-                    ClassRoom Detail
-                      <span class="mini-title">Simple form for Display Class Rooms
-                      </span>
+                    ClassRoom Details
                 </div>
                 <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                    <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.ClassRoomId" onclick="Edit(event)" id="lnkEdit">Edit</a>
                 </span>
             </div>
             <div class="widget-body">
@@ -76,11 +74,7 @@
                             @Html.DisplayFor(m => m.ModifiedByName)
                         </div>
                     </div>
-                    <div class="form-actions no-margin">
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.ClassRoomId" onclick="Edit(event)" id="lnkEdit">Edit</a>
-                        <div class="clearfix">
-                        </div>
-                    </div>
+                   
                 }
                 @{
                     Html.RenderAction("ShowAttachedFiles", "Files", new { itemid = Model.ClassRoomId, type = this.ViewContext.Controller.GetType().Name });

@@ -164,6 +164,7 @@ namespace StudentTracker.Controllers
             registrationToken.Token = UserStatistics.GenerateToken();
             registrationToken.CreatedBy = userId;
             registrationToken.RoleId = (int)UserRoles.Teacher;
+            registrationToken.InsertedOn = DateTime.Now;
             recordAffected = Convert.ToInt32(registrationToken.Insert());
             if (recordAffected > 0)
             {

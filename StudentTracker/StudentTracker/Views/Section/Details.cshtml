@@ -10,11 +10,9 @@
             <div class="widget-header">
                 <div class="title">
                     Section Details
-                      <span class="mini-title">Simple form for Display Section
-                      </span>
                 </div>
                 <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
+                    <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.SectionId" onclick="Edit(event)" id="lnkEdit">Edit</a>
                 </span>
             </div>
             <div class="widget-body">
@@ -81,15 +79,6 @@
                         <div class="controls controls-row">
                             @Html.DisplayFor(m => m.ModifiedByName)
 
-                        </div>
-                    </div>
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" action="Edit" class="btn btn-primary" href="javascript:;" itemId="@Model.SectionId" onclick="Edit(event)" id="lnkEdit">Edit</a>
-
-                        <div class="clearfix">
                         </div>
                     </div>
                 }

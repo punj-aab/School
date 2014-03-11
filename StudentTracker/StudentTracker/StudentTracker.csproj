@@ -148,6 +148,7 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\GroupController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\IndividualController.cs" />
@@ -1062,10 +1063,12 @@
     <Content Include="img\clock.png" />
     <Content Include="img\email.png" />
     <Content Include="img\email2.png" />
+    <Content Include="img\fcbk_icon2.png" />
     <Content Include="img\girl.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\green.jpg" />
+    <Content Include="img\g_plus_icon2.png" />
     <Content Include="img\h1_bullet.png" />
     <Content Include="img\hdr_btn_icon.png" />
     <Content Include="img\hue.png" />
@@ -1114,6 +1117,7 @@
     <Content Include="img\tickets.png" />
     <Content Include="img\timeTable.png" />
     <Content Include="img\trip.png" />
+    <Content Include="img\twtr_icon2.png" />
     <Content Include="img\ui-bg_glass_100_e4f1fb_1x400.png" />
     <Content Include="img\ui-bg_glass_50_3baae3_1x400.png" />
     <Content Include="img\ui-bg_glass_80_d7ebf9_1x400.png" />
@@ -2078,6 +2082,7 @@
     <Content Include="Views\Blog\_AddEdit_Category.cshtml" />
     <Content Include="Views\Blog\_AddEdit_Post.cshtml" />
     <Content Include="Views\Blog\_AddEdit_Tag.cshtml" />
+    <Content Include="Views\Help\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SAS\Models\" />

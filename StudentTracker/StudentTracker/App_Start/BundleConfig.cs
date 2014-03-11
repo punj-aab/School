@@ -29,7 +29,18 @@ namespace StudentTracker
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/site.css"));
+                                                                    "~/Content/site.css",
+                                                                    "~/Content/themes/custom/icomoon/style.css",
+                                                                    "~/Content/themes/custom/css/main.css",
+                                                                    "~/Content/themes/base/jquery-ui.css",
+                                                                    "~/Content/alertify.core.css",
+                                                                    "~/Content/wysiwyg/bootstrap-wysihtml5.css",
+                                                                    "~/Content/wysiwyg/wysiwyg-color.css",
+                                                                    "~/Content/bootstrap-switch.css",
+                                                                    "~/Content/Calender/fullcalendar.css",
+                                                                    "~/Content/theme.css",
+                                                                    "~/Content/bootstrap-select.css"
+                                                                ));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
@@ -54,7 +65,7 @@ namespace StudentTracker
             bundles.Add(new ScriptBundle("~/bundles/BlockUI").Include("~/Scripts/jquery.blockUI.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/DataTable").Include("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/Areas").Include(
                 "~/Areas/SAS/assets/js/jquery-1.8.2.min.js",
                 "~/Areas/SAS/assets/js/modernizr.custom.js",
@@ -65,7 +76,7 @@ namespace StudentTracker
                 "~/Areas/SAS/assets/plugins/back-to-top.js",
                 "~/Areas/SAS/assets/js/app.js"));
 
-            bundles.Add(new StyleBundle("~/Content/calendercss").Include("~/Content/Calender/fullcalendar.css", 
+            bundles.Add(new StyleBundle("~/Content/calendercss").Include("~/Content/Calender/fullcalendar.css",
                 "~/Content/Calender/fullcalendar.print.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/calender").Include(
@@ -102,6 +113,32 @@ namespace StudentTracker
 
             bundles.Add(angularJSBundle);
 
+            //Areas bundle
+            bundles.Add(new StyleBundle("~/Content/Areas").
+                Include(
+                            "~/Areas/SAS/assets/css/style.css",
+                            "~/Areas/SAS/assets/css/headers/header1.css",
+                            "~/Areas/SAS/assets/css/style_responsive.css",
+                            "~/Areas/SAS/assets/plugins/font-awesome/css/font-awesome.css",
+                            "~/Areas/SAS/assets/plugins/flexslider/flexslider.css",
+                            "~/Areas/SAS/assets/plugins/parallax-slider/css/parallax-slider.css",
+                            "~/Areas/SAS/assets/css/themes/default.css",
+                            "~/Areas/SAS/assets/css/themes/headers/default.css",
+                            "~/Content/themes/base/jquery.ui.all.css",
+                            "~/Content/DataTables-1.9.4/media/css/demo_table_jui.css",
+                            "~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")
+                        );
+
+            bundles.Add(new ScriptBundle("~/bundles/Bluemoon").
+                Include(
+                            "~/Scripts/wysiwyg/wysihtml5-0.3.0.js",
+                            "~/Scripts/wysiwyg/bootstrap-wysihtml5.js",
+                            "~/Scripts/ckeditor.js",
+                            "~/Scripts/js/jquery.scrollUp.js",
+                            "~/Scripts/js/date-picker/date.js",
+                            "~/Scripts/js/date-picker/daterangepicker.js",
+                            "~/Scripts/js/tiny-scrollbar.js"
+                       ));
         }
     }
 }

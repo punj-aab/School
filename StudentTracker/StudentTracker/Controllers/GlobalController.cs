@@ -19,7 +19,7 @@ namespace StudentTracker.Controllers
             return View();
         }
 
-       
+
 
         public ActionResult AddRecipients()
         {
@@ -216,6 +216,23 @@ namespace StudentTracker.Controllers
                 return true;
             }
             return false;
+        }
+
+        public JsonResult GetDepartments(long id)
+        {
+            List<Department> classList = repository.DepartmenstByOrganization(id);
+            return Json(classList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetSubjects(long id)
+        {
+            List<Subject> objSubject = repository.SubjectByClass(id);
+            return Json(objSubject, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetClassRooms(long id)
+        {
+            return Json(this.repository.ClassRoomByDepartment(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -5,21 +5,9 @@
 <html>
 <head>
     <title></title>
-    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="/Areas/SAS/assets/css/style.css" rel="stylesheet" />
-    <link href="/Areas/SAS/assets/css/headers/header1.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-responsive.min.css" rel="stylesheet" />
-    <link href="/Areas/SAS/assets/css/style_responsive.css" rel="stylesheet" />
+    @Styles.Render("~/Content/bootstrap")
     <link rel="shortcut icon" href="favicon.ico">
-    <link href="/Areas/SAS/assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="/Areas/SAS/assets/plugins/flexslider/flexslider.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/Areas/SAS/assets/plugins/parallax-slider/css/parallax-slider.css" type="text/css">
-    <link href="/Areas/SAS/assets/css/themes/default.css" id="style_color" rel="stylesheet" />
-    <link rel="stylesheet" href="/Areas/SAS/assets/css/themes/headers/default.css" id="style_color-header-1">
-    <link href="/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
-
-    <link href="~/Content/DataTables-1.9.4/media/css/demo_table_jui.css" rel="stylesheet" />
-    <link href="~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css" rel="stylesheet" />
+    @Styles.Render("~/Content/Areas")
 </head>
 
 <body>
@@ -245,13 +233,11 @@
 </body>
 </html>
 <!-- JS Global Compulsory -->
- 
+
 @Scripts.Render("~/bundles/Areas")
 @Scripts.Render("~/bundles/jqueryval")
-
 @Styles.Render("~/bundles/jqueryui")
 @Scripts.Render("~/bundles/DataTable")
-<script src="/Scripts/jquery-ui-1.10.3.js"></script>
 @RenderSection("Scripts", false)
 <script type="text/javascript">
     jQuery(document).ready(function () {

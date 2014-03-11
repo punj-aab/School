@@ -1,92 +1,93 @@
 ﻿@model StudentTracker.Core.Entities.ClassRoom
-
 @{
     ViewBag.Title = "Create";
     string token = DateTime.UtcNow.Ticks.ToString();
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
-@Scripts.Render("~/bundles/jqueryval")
-@Html.Hidden("token", token)
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Create New Class
-                      <span class="mini-title">Simple form for new Class
-                      </span>
+<div class="sub-nav">
+</div>
+<div class="dashboard-wrapper">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+    {
+        @Html.Hidden("token", token)
+        <div class="left-sidebar">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title">
+                                New ClassRoom
+                            </div>
+                            <span class="tools">
+                                <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Save</a>
+                                <a class="btn btn-info" href="/Schedule" data-original-title="">Cancel</a></span>
+                        </div>
+                        <div class="widget-body">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                                <div class="controls">
+                                    @if (User.IsInRole("SiteAdmin"))
+                                    {
+                                        @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetDepartments", getType = "Department" })
+                                    }
+                                    else
+                                    {
+                                        <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                        @Html.HiddenFor(m => m.OrganizationId)
+                                    }
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
+                                <div class="controls">
+
+                                    @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department", new { Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.DepartmentId)
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.Name, new { Class = "control-label" })
+                                <div class="controls controls-row">
+                                    @Html.TextBoxFor(m => m.Name, new { placeholder = " room Name", Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.Description, new { Class = "control-label" })
+                                <div class="controls">
+                                    @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.Description)
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.Location, new { Class = "control-label" })
+                                <div class="controls">
+                                    @Html.EditorFor(m => m.Location, new { placeholder = "Location", Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.Location)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @HelperAssets.FileUploadHtml()
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
-                        <div class="controls">
-                            @if (User.IsInRole("SiteAdmin"))
-                            {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetDepartments", getType = "Department" })
-                            }
-                            else
-                            {
-                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
-                                @Html.HiddenFor(m => m.OrganizationId)
-                            }
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.DepartmentId, new { Class = "control-label" })
-                        <div class="controls">
-
-                            @Html.DropDownListFor(m => m.DepartmentId, Model.DepartmentList, "Select Department", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.DepartmentId)
-
-                        </div>
-                    </div>
-                                       
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Name, new { Class = "control-label" })
-                        <div class="controls controls-row">
-                            @Html.TextBoxFor(m => m.Name, new { placeholder = " room Name", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.Name)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Description, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.EditorFor(m => m.Description, new { placeholder = "Description", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.Description)
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Location, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.EditorFor(m => m.Location, new { placeholder = "Location", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.Location)
-                        </div>
-                    </div>
-                     <div class="control-group">
-                        @HelperAssets.FileUploadHtml()
-                    </div>
-                    <div class="form-actions no-margin">
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Add Class Room</a>
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
-                }
 
             </div>
         </div>
-    </div>
-
+        <div class="right-sidebar">
+            @Html.Partial("_RightMenuPartial")
+        </div>
+    }
 </div>
-
-@HelperAssets.FileUploadScript(token);
-<script></script>
+@section scripts{
+    @HelperAssets.FileUploadScript(token);
+    @HelperAssets.SaveAndLoadData("/ClassRoom/", "ViewClassRooms");
+    }

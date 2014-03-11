@@ -2,88 +2,90 @@
 
 @{
     ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutBlueMoon.cshtml";
 }
-@Scripts.Render("~/bundles/jqueryval")
-<div class="row-fluid">
-    <div class="span12">
-        <div class="widget">
-            <div class="widget-header">
-                <div class="title">
-                    Create New Section
-                      <span class="mini-title">Simple form for new Section
-                      </span>
+
+<div class="sub-nav">
+</div>
+<div class="dashboard-wrapper">
+    @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
+    {
+        <div class="left-sidebar">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title">
+                                New Section
+                            </div>
+                            <span class="tools">
+                                <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAdd">Save</a>
+                                <a class="btn btn-info" href="/Schedule" data-original-title="">Cancel</a></span>
+                        </div>
+                        <div class="widget-body">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
+                                <div class="controls">
+                                    @if (User.IsInRole("SiteAdmin"))
+                                    {
+                                        @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
+                                    }
+                                    else
+                                    {
+                                        <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
+                                        @Html.HiddenFor(m => m.OrganizationId)
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
+                                <div class="controls">
+
+                                    @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
+                                    @Html.ValidationMessageFor(m => m.CourseId)
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.ClassId)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.SectionName, new { Class = "control-label" })
+                                <div class="controls controls-row">
+                                    @Html.TextBoxFor(m => m.SectionName, new { placeholder = "Section Name", Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.SectionName)
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(m => m.SectionDescription, new { Class = "control-label" })
+                                <div class="controls">
+                                    @Html.EditorFor(m => m.SectionDescription, new { placeholder = "Description", Class = "span6" })
+                                    @Html.ValidationMessageFor(m => m.SectionDescription)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <span class="tools">
-                    <a class="fs1" aria-hidden="true" data-icon="" data-original-title=""></a>
-                </span>
-            </div>
-            <div class="widget-body">
-                @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal no-margin", @id = "myform" }))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true)
-
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.OrganizationId, new { Class = "control-label" })
-                        <div class="controls">
-                            @if (User.IsInRole("SiteAdmin"))
-                            {
-                                @Html.DropDownListFor(m => m.OrganizationId, Model.OrganizationList, "Select Organization", new { Class = "span6", onChange = "GetData(event)", action = "GetCourses", getType = "Course" })
-                            }
-                            else
-                            {
-                                <label class="control-label" for="OrganisationId" style="text-align: left">@ViewBag.Organization</label>
-                                @Html.HiddenFor(m => m.OrganizationId)
-                            }
-                        </div>
-                    </div>
-                    
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.CourseId, new { Class = "control-label" })
-                        <div class="controls">
-
-                            @Html.DropDownListFor(m => m.CourseId, Model.CourseList, "Select Course", new { Class = "span6", onChange = "GetData(event)", action = "GetClasses", getType = "Class" })
-                            @Html.ValidationMessageFor(m => m.CourseId)
-
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.ClassId, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.DropDownListFor(m => m.ClassId, Model.ClassList, "Select Class", new { Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.ClassId)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.SectionName, new { Class = "control-label" })
-                        <div class="controls controls-row">
-                            @Html.TextBoxFor(m => m.SectionName, new { placeholder = "Section Name", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.SectionName)
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.SectionDescription, new { Class = "control-label" })
-                        <div class="controls">
-                            @Html.EditorFor(m => m.SectionDescription, new { placeholder = "Description", Class = "span6" })
-                            @Html.ValidationMessageFor(m => m.SectionDescription)
-                        </div>
-                    </div>
-                    
-                    <div class="form-actions no-margin">
-                        @* <button type="submit" class="btn btn-info pull-right">
-                                Create Organization
-                            </button>*@
-                        <a name="submit" class="btn btn-primary" href="javascript:;" action="create" onclick="Save(event)" id="btnAddOrg">Add Section</a>
-                        <div class="clearfix">
-                        </div>
-                    </div>
-
-                }
 
             </div>
         </div>
-    </div>
-
+        <div class="right-sidebar">
+            @Html.Partial("_RightMenuPartial")
+        </div>
+    }
 </div>
+@section scripts{
+    @HelperAssets.SaveAndLoadData("/Section/", "ViewSections");
+    }
+
 
 
