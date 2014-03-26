@@ -7,6 +7,8 @@ using System.Data;
 using Dapper;
 using StudentTracker.Core.Repositories;
 using System.IO;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace StudentTracker.Core.Repository
 {
@@ -937,7 +939,7 @@ namespace StudentTracker.Core.Repository
                 SectionId = objToken.SectionId,
                 RoleId = objToken.RoleId,
                 CreatedBy = objToken.CreatedBy,
-                Email=objToken.Email
+                Email = objToken.Email
             };
             const string storedProcedure = "usp_AddRegistrationToken";
             int rowsAffected = connection.Execute(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
@@ -995,7 +997,134 @@ namespace StudentTracker.Core.Repository
                 return connection.Query<long>(query, new { UserId = userId }).SingleOrDefault();
             }
         }
-    }
+
+
+
+        //ADO.NET GET RESULT IN READER #001
+        public Dictionary<object, object> ExecuteSqlReader(Dictionary<object, object> parameters, string query, CommandType? commandType = null)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+                using (SqlCommand command = this.BuildCommand(parameters, query))
+                {
+                    command.Connection = connection;
+                    if (commandType != null)
+                    {
+                        command.CommandType = commandType.Value;
+                    }
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    Dictionary<object, object> dataReader = null;
+                    Dictionary<object, object> listReader = new Dictionary<object, object>();
+                    int count = 0;
+                    while (reader.Read())
+                    {
+                        dataReader = new Dictionary<object, object>();
+                        for (int i = 0; i < reader.FieldCount; i++)
+                        {
+                            dataReader[reader.GetName(i).ToString()] = reader[i];
+                        }
+                        listReader[count] = dataReader;
+                        count++;
+                    }
+                    return listReader;
+                }
+            }
+        }
+
+        //BUILD SQL COMMAND
+        public SqlCommand BuildCommand(Dictionary<object, object> parameters, string query)
+        {
+            using (SqlCommand command = new SqlCommand(query))
+            {
+                foreach (var parameter in parameters)
+                {
+                    if (parameter.Value is int)
+                    {
+                        command.Parameters.Add(parameter.Key.ToString(), SqlDbType.Int).Value = parameter.Value;
+                    }
+                    else if (parameter.Value is string)
+                    {
+                        command.Parameters.Add(parameter.Key.ToString(), SqlDbType.VarChar, 100).Value = parameter.Value;
+                    }
+                    else if (parameter.Value is decimal)
+                    {
+                        command.Parameters.Add(parameter.Key.ToString(), SqlDbType.Decimal).Value = parameter.Value;
+                    }
+                    else if (parameter.Value is long)
+                    {
+                        command.Parameters.Add(parameter.Key.ToString(), SqlDbType.BigInt).Value = parameter.Value;
+                    }
+                }
+                return command;
+            }
+        }
+
+        //EXECUTE ONLY A SINGLE QUERY WITHOUT ANY RESULT
+        public int ExecuteSingleQuery(Dictionary<object, object> parameters, string query, CommandType? commandType = null)
+        {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings[""].ConnectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
+                using (SqlCommand command = this.BuildCommand(parameters, query))
+                {
+                    command.Connection = connection;
+                    if (commandType != null)
+                    {
+                        command.CommandType = commandType.Value;
+                    }
+                    return command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        //HOW TO USE #001
+        public void Use()
+        {
+            Dictionary<object, object> param = new Dictionary<object, object>();
+            Dictionary<object, object> data = this.ExecuteSqlReader(param, "select * from usergroup");
+            foreach (var item in data)
+            {
+                Dictionary<object, object> record = (Dictionary<object, object>)item.Value;
+                string id = record["Id"].ToString();
+            }
+        }
+
+        public bool SetStaffPermissions(string query)
+        {
+            //using (IDbConnection connection = OpenConnection())
+            //{
+            //    try
+            //    {
+            //        connection.Query(query);
+            //        return true;
+            //    }
+            //    catch
+            //    {
+            //        return false;
+            //    }
+            //}
+            if (this.ExecuteQuery(query, null) > 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public StaffPermission GetStaffPermissions(long userId)
+        {
+            const string query = "Select * from StaffPermission where UserId=@id";
+            return this.SingleOrDefault<StaffPermission>(query, userId);
+        }
+
+            }
 }
 
 

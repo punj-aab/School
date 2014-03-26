@@ -35,17 +35,7 @@ namespace StudentTracker.Controllers
 
         public ActionResult CreateStudent()
         {
-            SelectList classList = null;
-            SelectList courseList = null;
-            SelectList sectionList = null;
-            SelectList departmentList = null;
-            this.LoadSelectLists(out  classList, out  courseList, out  sectionList, out  departmentList, false);
-            StudentViewModel objViewModel = new StudentViewModel();
-            objViewModel.CourseList = courseList;
-            objViewModel.DepartmentList = departmentList;
-            objViewModel.ClassList = classList;
-            objViewModel.SectionList = sectionList;
-            return View(objViewModel);
+            return View(this.LoadViewModel());
         }
 
         [HttpPost]
@@ -90,7 +80,7 @@ namespace StudentTracker.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            return View();
+            return View(this.LoadViewModel());
         }
 
         public ActionResult Edit(long id)
@@ -229,5 +219,29 @@ namespace StudentTracker.Controllers
             return View(objViewModel);
         }
 
+        public StudentViewModel LoadViewModel()
+        {
+            SelectList classList = null;
+            SelectList courseList = null;
+            SelectList sectionList = null;
+            SelectList departmentList = null;
+            this.LoadSelectLists(out  classList, out  courseList, out  sectionList, out  departmentList, false);
+            StudentViewModel objViewModel = new StudentViewModel();
+            objViewModel.CourseList = courseList;
+            objViewModel.DepartmentList = departmentList;
+            objViewModel.ClassList = classList;
+            objViewModel.SectionList = sectionList;
+            return objViewModel;
+        }
+
+        public JsonResult IsEmailAvailable(string email)
+        {
+            DBConnectionString.User user = DBConnectionString.User.SingleOrDefault("select * from users where email=@0", email);
+            if (user != null)
+            {
+                return Json("Email already taken!", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true,JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -96,30 +96,33 @@ namespace StudentTracker.Repository
         public IEnumerable<ServiceViewModel> GetOrganizationServices(long organizationId)
         {
             List<ServiceViewModel> obj = new List<ServiceViewModel>();
-
-            string query = "usp_GetOrganizationServices";
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString);
-            con.Open();
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("organizationId", SqlDbType.BigInt, int.MaxValue).Value = organizationId;
-            IDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString))
             {
-                ServiceViewModel sv = new ServiceViewModel();
-                sv.IsAdded=Convert.ToBoolean(dr["IsAdded"]);
-                sv.Modified=Convert.ToBoolean(dr["Modified"]);
-                sv.ServiceDescription=dr["ServiceDescription"].ToString();
-                sv.ServiceId=Convert.ToInt32(dr["ServiceId"]);
-                sv.ServiceName = dr["ServiceName"].ToString();
-                sv.CategoryName = dr["CategoryName"].ToString();
-                sv.ServiceCategoryId = Convert.ToInt32(dr["ServiceCategoryId"]);
-                sv.Id = Convert.ToInt32(dr["Id"]);
-                obj.Add(sv);
+                if (con.State == ConnectionState.Closed)
+                {
+                    con.Open();
+                }
+                using (SqlCommand cmd = new SqlCommand("usp_GetOrganizationServices", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("organizationId", SqlDbType.BigInt, int.MaxValue).Value = organizationId;
+                    IDataReader dr = cmd.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        ServiceViewModel sv = new ServiceViewModel();
+                        sv.IsAdded = Convert.ToBoolean(dr["IsAdded"]);
+                        sv.Modified = Convert.ToBoolean(dr["Modified"]);
+                        sv.ServiceDescription = dr["ServiceDescription"].ToString();
+                        sv.ServiceId = Convert.ToInt32(dr["ServiceId"]);
+                        sv.ServiceName = dr["ServiceName"].ToString();
+                        sv.CategoryName = dr["CategoryName"].ToString();
+                        sv.ServiceCategoryId = Convert.ToInt32(dr["ServiceCategoryId"]);
+                        sv.Id = Convert.ToInt32(dr["Id"]);
+                        obj.Add(sv);
+                    }
+                }
+                return obj;
             }
-            cmd.Dispose();
-            con.Close();
-            return obj;
             //Dictionary<string, long> parameters = new Dictionary<string, long>();
             //parameters["organizationId"] = organizationId;
 

@@ -93,6 +93,8 @@
     <Compile Include="Entities\OrganizationCoursesRoot.cs" />
     <Compile Include="Entities\OrganizationServices.cs" />
     <Compile Include="Entities\Parents.cs" />
+    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\PermissionCategory.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\Profile.cs" />
     <Compile Include="Entities\Region.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Entities\Service.cs" />
     <Compile Include="Entities\ServiceCategory.cs" />
     <Compile Include="Entities\Staff.cs" />
+    <Compile Include="Entities\StaffPermission.cs" />
     <Compile Include="Entities\StaffTypes.cs" />
     <Compile Include="Entities\State.cs" />
     <Compile Include="Entities\Student.cs" />
@@ -129,8 +132,11 @@
     <Compile Include="Membership\WebSecurity.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\CommonRepository.cs" />
+    <Content Include="SqlScripts\Data\Permission.sql" />
     <Content Include="SqlScripts\Data\Services.sql" />
     <Content Include="SqlScripts\StoredProcedure\Changes_001.sql" />
     <Compile Include="Utilities\CommonEnums.cs" />

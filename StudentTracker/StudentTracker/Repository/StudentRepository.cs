@@ -9,6 +9,8 @@ using System.Configuration;
 using System.Web.Mvc;
 using StudentTracker.ViewModels;
 using StudentTracker.Core.Utilities;
+using System.Text;
+
 namespace StudentTracker.Repository
 {
     public class StudentRepository : StudentTracker.Core.Repository.CommonRepository
@@ -493,5 +495,174 @@ namespace StudentTracker.Repository
             return this.SingleOrDefault<string>(query, userId);
         }
 
+        public bool SetStaffPermissions(StaffViewModel objVM)
+        {
+            DBConnectionString.StaffPermission staffPermission = new DBConnectionString.StaffPermission();
+            //Basic
+            staffPermission.SendClassEmails = true;
+            staffPermission.ViewClassEmails = true;
+            staffPermission.SendClassEletters = true;
+            staffPermission.ViewClassEletters = true;
+            staffPermission.SendClassSms = true;
+            staffPermission.ViewClassSms = true;
+            staffPermission.CreateManageCalendarEvents = true;
+            staffPermission.CreateManageCourseWork = true;
+            staffPermission.ViewTimeTable = true;
+            staffPermission.CreateManageAttendance = true;
+            staffPermission.SelfPayments = true;
+            staffPermission.CreateManageGroups = true;
+
+            //Communication
+            staffPermission.SendEmail = objVM.Communication.SendEmail;
+            staffPermission.ViewEmail = objVM.Communication.ViewEmail;
+            staffPermission.SendEletter = objVM.Communication.SendEletter;
+            staffPermission.ViewEletter = objVM.Communication.ViewEletter;
+            staffPermission.SendSms = objVM.Communication.SendSmsMessage;
+            staffPermission.ViewSms = objVM.Communication.ViewSmsMessage;
+            staffPermission.AbsentReporting = objVM.Communication.AbsentReporting;
+            staffPermission.PrintLetters = objVM.Communication.PrintLetters;
+            staffPermission.TopUpSMSBalance = objVM.Communication.TopUpSMSBalance;
+            ///Payments
+            staffPermission.CreateAndManageFee = objVM.Payment.CreateAndManageFee;
+            staffPermission.CreateAndManageTrips = objVM.Payment.CreateAndManageTrips;
+            staffPermission.CreateAndManageTickets = objVM.Payment.CreateAndManageTickets;
+            staffPermission.CreateAndManageShop = objVM.Payment.CreateAndManageShop;
+            staffPermission.ManageRefunds = objVM.Payment.ManageRefunds;
+            staffPermission.ManageCashPayments = objVM.Payment.ManageCashPayments;
+            staffPermission.ManageOrders = objVM.Payment.ManageOrders;
+            //GroupAndIndividuals                           
+            staffPermission.CreateAndManageStaff = objVM.GroupAndIndividuals.CreateAndManageStaff;
+            staffPermission.AssignTeachers = objVM.GroupAndIndividuals.AssignTeachers;
+            staffPermission.AssignDepartments = objVM.GroupAndIndividuals.AssignDepartments;
+            staffPermission.CreateAndManageStudents = objVM.GroupAndIndividuals.CreateAndManageStudents;
+            staffPermission.ManageParents = objVM.GroupAndIndividuals.ManageParents;
+            staffPermission.CreateAndManageGroups = objVM.GroupAndIndividuals.CreateAndManageGroups;
+            staffPermission.ViewStudents = objVM.GroupAndIndividuals.ViewStudents;
+            staffPermission.ViewStaff = objVM.GroupAndIndividuals.ViewStaff;
+            staffPermission.ViewParents = objVM.GroupAndIndividuals.ViewParents;
+            //Academic                                       
+            staffPermission.CreateAndManageCalendarEvents = objVM.Academic.CreateAndManageCalendarEvents;
+            staffPermission.ViewCalendarEvents = objVM.Academic.ViewCalendarEvents;
+            staffPermission.CreateAndManageCoursework = objVM.Academic.CreateAndManageCoursework;
+            staffPermission.CreateAndManageAttendance = objVM.Academic.CreateAndManageAttendance;
+            staffPermission.CreateAndManageTimetable = objVM.Academic.CreateAndManageTimetable;
+            staffPermission.ViewTimeTables = objVM.Academic.ViewTimeTable;
+            //Reports:                                       
+            staffPermission.ImportData = objVM.Reports.ImportData;
+            staffPermission.ExportData = objVM.Reports.ExportData;
+            staffPermission.ManagePaymentReports = objVM.Reports.ManagePaymentReports;
+            staffPermission.ManageAcademicReports = objVM.Reports.ManageAcademicReports;
+
+            staffPermission.CreatedBy = objVM.InsertedBy;
+            staffPermission.InsertedOn = DateTime.Now;
+            staffPermission.UserId = objVM.UserId;
+            if (Convert.ToInt32(staffPermission.Insert()) > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool UpdateStaffPermissions(StaffPermission objVM)
+        {
+            DBConnectionString.StaffPermission staffPermission = DBConnectionString.StaffPermission.SingleOrDefault("select * from StaffPermission where UserId=@0", objVM.UserId);
+            if (staffPermission != null)
+            {
+                //Communication
+                staffPermission.SendEmail = objVM.SendEmail;
+                staffPermission.ViewEmail = objVM.ViewEmail;
+                staffPermission.SendEletter = objVM.SendEletter;
+                staffPermission.ViewEletter = objVM.ViewEletter;
+                staffPermission.SendSms = objVM.SendSms;
+                staffPermission.ViewSms = objVM.ViewSms;
+                staffPermission.AbsentReporting = objVM.AbsentReporting;
+                staffPermission.PrintLetters = objVM.PrintLetters;
+                staffPermission.TopUpSMSBalance = objVM.TopUpSMSBalance;
+                ///Payments
+                staffPermission.CreateAndManageFee = objVM.CreateAndManageFee;
+                staffPermission.CreateAndManageTrips = objVM.CreateAndManageTrips;
+                staffPermission.CreateAndManageTickets = objVM.CreateAndManageTickets;
+                staffPermission.CreateAndManageShop = objVM.CreateAndManageShop;
+                staffPermission.ManageRefunds = objVM.ManageRefunds;
+                staffPermission.ManageCashPayments = objVM.ManageCashPayments;
+                staffPermission.ManageOrders = objVM.ManageOrders;
+                //GroupAndIndividuals                           
+                staffPermission.CreateAndManageStaff = objVM.CreateAndManageStaff;
+                staffPermission.AssignTeachers = objVM.AssignTeachers;
+                staffPermission.AssignDepartments = objVM.AssignDepartments;
+                staffPermission.CreateAndManageStudents = objVM.CreateAndManageStudents;
+                staffPermission.ManageParents = objVM.ManageParents;
+                staffPermission.CreateAndManageGroups = objVM.CreateAndManageGroups;
+                staffPermission.ViewStudents = objVM.ViewStudents;
+                staffPermission.ViewStaff = objVM.ViewStaff;
+                staffPermission.ViewParents = objVM.ViewParents;
+                //Academic                                       
+                staffPermission.CreateAndManageCalendarEvents = objVM.CreateAndManageCalendarEvents;
+                staffPermission.ViewCalendarEvents = objVM.ViewCalendarEvents;
+                staffPermission.CreateAndManageCoursework = objVM.CreateAndManageCoursework;
+                staffPermission.CreateAndManageAttendance = objVM.CreateAndManageAttendance;
+                staffPermission.CreateAndManageTimetable = objVM.CreateAndManageTimetable;
+                staffPermission.ViewTimeTables = objVM.ViewTimeTables;
+                //Reports:                                       
+                staffPermission.ImportData = objVM.ImportData;
+                staffPermission.ExportData = objVM.ExportData;
+                staffPermission.ManagePaymentReports = objVM.ManagePaymentReports;
+                staffPermission.ManageAcademicReports = objVM.ManageAcademicReports;
+
+                staffPermission.UpdatedOn = DateTime.Now;
+                staffPermission.UpdatedBy = objVM.UpdatedBy;
+                staffPermission.UserId = objVM.UserId;
+                if (staffPermission.Update() > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+
+        public void UpdateStaff(StaffViewModel objVM)
+        {
+            DBConnectionString.Profile profile = DBConnectionString.Profile.Fetch("select * from profile where userId=@0", objVM.UserId).SingleOrDefault();
+            DBConnectionString.Staff staff = DBConnectionString.Staff.Fetch("select * from staff where userId=@0", objVM.UserId).SingleOrDefault();
+            DBConnectionString.User user = DBConnectionString.User.Fetch("select * from Users where userId=@0", objVM.UserId).SingleOrDefault();
+
+            if (profile != null)
+            {
+                profile.Title = objVM.Title;
+                profile.DateOfBirth = objVM.DateOfBirth;
+                profile.MobileNumber = objVM.MobileNumber;
+                profile.HomeTelephoneNumber = objVM.HomeTelephoneNumber;
+                profile.EmailAddress1 = objVM.Email;
+                profile.Update();
+            }
+
+            if (staff != null)
+            {
+                staff.StaffTypeId = objVM.StaffTypeId;
+                staff.Email = objVM.Email;
+                staff.Update();
+            }
+
+            if (user != null)
+            {
+                user.FirstName = objVM.FirstName;
+                user.LastName = objVM.LastName;
+                user.Email = objVM.Email;
+                user.Update();
+            }
+            objVM.StaffPermission.UserId = objVM.UserId;
+            this.UpdateStaffPermissions(objVM.StaffPermission);
+        }
     }
 }
+
+
+
+
+
+
+
+
+

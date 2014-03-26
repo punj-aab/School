@@ -221,6 +221,544 @@ Change Picture
                 </div>
 
             </div>
+
+            @*Permissions*@
+            <div class="row-fluid">
+
+                <div class="span12">
+                    <div class="widget">
+                        <div class="widget-header">
+                            <div class="title">
+                                Permissions: <span>set permissions for your staff</span>
+                            </div>
+                            <div class="clearfix">
+                            </div>
+
+                        </div>
+
+                        <div class="row-fluid">
+                            <div class="span12">
+
+                                <div class="messge">
+                                    <h2>Communication</h2>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="span6">
+
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Send Email</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.SendEmail)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">View Email</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.ViewEmail)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Send eLetters</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.SendEletter)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">View eLetters</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.ViewEletter)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">Send SMS</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.SendSmsMessage)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">View SMS</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.ViewSmsMessage)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Absent Reporting</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.AbsentReporting)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Print Letters</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.PrintLetters)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">Top Up SMS Balance</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Communication.TopUpSMSBalance)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h2>Payments</h2>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="span6">
+
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Fee</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.CreateAndManageFee)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Trips</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.CreateAndManageTrips)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Tickets</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.CreateAndManageTickets)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Shop</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.CreateAndManageShop)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Manage Refunds</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.ManageRefunds)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Manage Cash Payments</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.ManageCashPayments)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Manage Orders</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Payment.ManageOrders)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h2>GroupAndIndividuals</h2>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="span6">
+
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Staff</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.CreateAndManageStaff)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Assign Teachers</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.AssignTeachers)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Assign Departments</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.AssignDepartments)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Students</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.CreateAndManageStudents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">Manage Parents</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.ManageParents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Groups</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.CreateAndManageGroups)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">View Students</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.ViewStudents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">View Staff</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.ViewStaff)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="spanLft">View Parents</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.GroupAndIndividuals.ViewParents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h2>Academic</h2>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="span6">
+
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Calendar Events</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.CreateAndManageCalendarEvents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">View Calendar Events</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.ViewCalendarEvents)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Coursework</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.CreateAndManageCoursework)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Attendance</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.CreateAndManageAttendance)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Create And Manage Timetable</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.CreateAndManageTimetable)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">View Time Tables</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Academic.ViewTimeTable)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <h2>Reports</h2>
+
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <div class="span6">
+
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Import Data</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Reports.ImportData)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Export Data</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Reports.ExportData)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+
+                                            </div>
+
+                                            <div class="span6">
+                                                <ul>
+                                                    <li>
+                                                        <div class="spanLft">Manage Payment Reports</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Reports.ManagePaymentReports)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+
+                                                    <li>
+                                                        <div class="spanLft">Manage Academic Reports</div>
+
+                                                        <div class="spnRight">
+                                                            <div class="make-switch" data-on-label="yes" data-off-label="NO">
+                                                                @Html.CheckBoxFor(m => m.Reports.ManageAcademicReports)
+                                                            </div>
+                                                            <a href="#">
+                                                                <img src="/img/q.png" alt=""></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="right-sidebar">

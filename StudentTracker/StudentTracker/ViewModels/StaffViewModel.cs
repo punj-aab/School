@@ -26,6 +26,15 @@ namespace StudentTracker.ViewModels
         public long ProfileId { get; set; }
         public string MobileNumber { get; set; }
         public int Count { get; set; }
+
+        //For Permission Management
+        public Communication Communication { get; set; }
+        public Payment Payment { get; set; }
+        public GroupAndIndividuals GroupAndIndividuals { get; set; }
+        public Academic Academic { get; set; }
+        public Reports Reports { get; set; }
+        public StaffPermission StaffPermission { get; set; }
+
     }
 
     public class ListFields
@@ -47,5 +56,60 @@ namespace StudentTracker.ViewModels
         public SelectList SectionList { get; set; }
         public SelectList GroupList { get; set; }
         public SelectList SubjectList { get; set; }
+    }
+
+    public class Communication
+    {
+        public bool SendEmail { get; set; }
+        public bool ViewEmail { get; set; }
+        public bool SendEletter { get; set; }
+        public bool ViewEletter { get; set; }
+        public bool SendSmsMessage { get; set; }
+        public bool ViewSmsMessage { get; set; }
+        public bool AbsentReporting { get; set; }
+        public bool PrintLetters { get; set; }
+        public bool TopUpSMSBalance { get; set; }
+    }
+
+    public class Payment
+    {
+        public bool CreateAndManageFee { get; set; }
+        public bool CreateAndManageTrips { get; set; }
+        public bool CreateAndManageTickets { get; set; }
+        public bool CreateAndManageShop { get; set; }
+        public bool ManageRefunds { get; set; }
+        public bool ManageCashPayments { get; set; }
+        public bool ManageOrders { get; set; }
+    }
+
+    public class GroupAndIndividuals
+    {
+        public bool CreateAndManageStaff { get; set; }
+        public bool AssignTeachers { get; set; }
+        public bool AssignDepartments { get; set; }
+        public bool CreateAndManageStudents { get; set; }
+        public bool ManageParents { get; set; }
+        public bool CreateAndManageGroups { get; set; }
+        public bool ViewStudents { get; set; }
+        public bool ViewStaff { get; set; }
+        public bool ViewParents { get; set; }
+    }
+
+    public class Academic
+    {
+        public bool CreateAndManageCalendarEvents { get; set; }
+        public bool ViewCalendarEvents { get; set; }
+        public bool CreateAndManageCoursework { get; set; }
+        public bool CreateAndManageAttendance { get; set; }
+        public bool CreateAndManageTimetable { get; set; }
+        public bool ViewTimeTable { get; set; }
+    }
+
+    public class Reports
+    {
+        public bool ImportData { get; set; }
+        public bool ExportData { get; set; }
+        public bool ManagePaymentReports { get; set; }
+        public bool ManageAcademicReports { get; set; }
     }
 }

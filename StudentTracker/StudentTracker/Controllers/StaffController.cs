@@ -4,6 +4,7 @@ using StudentTracker.Repository;
 using StudentTracker.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,6 +19,7 @@ namespace StudentTracker.Controllers
         StudentRepository repository = new StudentRepository();
         public ActionResult Index()
         {
+
             List<TeacherSubjects> objTeacherSubjectsList = null;
 
             List<string> CourseList = null;
@@ -68,6 +70,7 @@ namespace StudentTracker.Controllers
         public ActionResult Create(StaffViewModel objViewModel)
         {
             string token = this.CreateToken(objViewModel, _userStatistics.UserId, _userStatistics.OrganizationId);
+
             if (!(string.IsNullOrEmpty(token)))
             {
                 long userId = WebSecurity.RegisterNewUser(objViewModel.Email, "none", objViewModel.Email, false, objViewModel.Profile.FirstName, objViewModel.Profile.LastName, objViewModel.OrganizationId, token);
@@ -99,7 +102,7 @@ namespace StudentTracker.Controllers
                     objViewModel.StaffId = this.repository.CreateNewStaff(objViewModel);
 
                     this.repository.AssignSubjectToTeacher(objViewModel);
-
+                    this.repository.SetStaffPermissions(objViewModel);//Assign Staff Permissions
                     SaveFiles(token, this.GetType().Name, objViewModel.StaffId);
                     EmailHandler.Utilities.SendRegistationEmail(token, objViewModel.Email);
                     return RedirectToAction("Index");
@@ -248,30 +251,19 @@ namespace StudentTracker.Controllers
                 }
             }
             objStaff.StaffTypeList = staffTypeList;
+            objStaff.StaffPermission = this.repository.GetStaffPermissions(objStaff.UserId);
+            if (objStaff.StaffPermission == null)
+            {
+                objStaff.StaffPermission = new StaffPermission();
+            }
             return View(objStaff);
         }
 
         [HttpPost]
         public ActionResult Edit(StaffViewModel objVM)
         {
-            DBConnectionString.Profile profile = DBConnectionString.Profile.Fetch("select * from profile where userId=@0", objVM.UserId).SingleOrDefault();
-            DBConnectionString.Staff staff = DBConnectionString.Staff.Fetch("select * from staff where userId=@0", objVM.UserId).SingleOrDefault();
-            DBConnectionString.User user = DBConnectionString.User.Fetch("select * from Users where userId=@0", objVM.UserId).SingleOrDefault();
-            profile.Title = objVM.Title;
-            profile.DateOfBirth = objVM.DateOfBirth;
-            profile.MobileNumber = objVM.MobileNumber;
-            profile.HomeTelephoneNumber = objVM.HomeTelephoneNumber;
-            profile.EmailAddress1 = objVM.Email;
-            staff.StaffTypeId = objVM.StaffTypeId;
-            staff.Email = objVM.Email;
-            user.FirstName = objVM.FirstName;
-            user.LastName = objVM.LastName;
-            user.Email = objVM.Email;
-            profile.Update();
-            staff.Update();
-            user.Update();
-
-
+            objVM.StaffPermission.UpdatedBy = _userStatistics.UserId;
+            this.repository.UpdateStaff(objVM);
             return RedirectToAction("Index");
         }
 
@@ -315,5 +307,21 @@ namespace StudentTracker.Controllers
             this.repository.DeleteStaff(id);
             return RedirectToAction("Index");
         }
+
+        public void SetPermissions(StaffViewModel objVM)
+        {
+            //DBConnectionString.StaffPermission staffPermission = new DBConnectionString.StaffPermission();
+            //staffPermission.PermissionCategoryId = PermissionCategory.Messaging;
+            //staffPermission.PermissionId = Permission.SendEletter;
+            //staffPermission.Status = objVM.Messaging.SendEletters;
+            //staffPermission.CreatedBy = _userStatistics.UserId;
+            //staffPermission.InsertedOn = DateTime.Now;
+            //staffPermission.Insert();
+        }
+
+        //public bool UpdateStaffPermission(long userId, int permissionId, int permissionCategoryId, bool status)
+        //{
+        //    return this.repository.UpdataStaffPermissions(userId, permissionId, permissionCategoryId, status);
+        //}
     }
 }

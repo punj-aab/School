@@ -69,6 +69,13 @@ namespace StudentTracker.Core.Repositories
             }
         }
 
+        public int ExecuteQuery(string query, object parameters)
+        {
+            using (IDbConnection connection = OpenConnection())
+            {
+                return connection.Execute(query, param: parameters);
+            }
+        }
         //public List<T> ExecuteSP<T>(string sp, object parameters)
         //{
         //    using (IDbConnection connection = OpenConnection())

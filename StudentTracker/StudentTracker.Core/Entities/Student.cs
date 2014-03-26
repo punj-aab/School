@@ -82,6 +82,7 @@ namespace StudentTracker.Core.Entities
 
         public string Remarks { get; set; }
 
+        [Remote("IsEmailAvailable", "Student")]
         public string Email { get; set; }
 
         public string FullName { get; set; }

@@ -2383,6 +2383,408 @@ namespace DBConnectionString
 	}
 
     
+	[TableName("Permission")]
+
+
+	[PrimaryKey("PermissionId")]
+
+
+
+	[ExplicitColumns]
+    public partial class Permission : DBConnectionStringDB.Record<Permission>  
+    {
+
+
+
+		[Column] public long PermissionId { get; set; }
+
+
+
+
+
+		[Column] public string PermissionName { get; set; }
+
+
+
+
+
+		[Column] public long PermissionCategoryId { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+	}
+
+    
+	[TableName("PermissionCategory")]
+
+
+	[PrimaryKey("PermissionCategoryId")]
+
+
+
+	[ExplicitColumns]
+    public partial class PermissionCategory : DBConnectionStringDB.Record<PermissionCategory>  
+    {
+
+
+
+		[Column] public long PermissionCategoryId { get; set; }
+
+
+
+
+
+		[Column] public string CategoryName { get; set; }
+
+
+
+
+
+		[Column] public string Description { get; set; }
+
+
+
+	}
+
+    
+	[TableName("StaffPermission")]
+
+
+	[PrimaryKey("Id")]
+
+
+
+	[ExplicitColumns]
+    public partial class StaffPermission : DBConnectionStringDB.Record<StaffPermission>  
+    {
+
+
+
+		[Column] public long Id { get; set; }
+
+
+
+
+
+		[Column] public long UserId { get; set; }
+
+
+
+
+
+		[Column] public long CreatedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime InsertedOn { get; set; }
+
+
+
+
+
+		[Column] public long? UpdatedBy { get; set; }
+
+
+
+
+
+		[Column] public DateTime? UpdatedOn { get; set; }
+
+
+
+
+
+		[Column] public bool CreateManageCalendarEvents { get; set; }
+
+
+
+
+
+		[Column] public bool CreateManageCourseWork { get; set; }
+
+
+
+
+
+		[Column] public bool ViewTimeTable { get; set; }
+
+
+
+
+
+		[Column] public bool CreateManageAttendance { get; set; }
+
+
+
+
+
+		[Column] public bool SelfPayments { get; set; }
+
+
+
+
+
+		[Column] public bool CreateManageGroups { get; set; }
+
+
+
+
+
+		[Column] public bool AbsentReporting { get; set; }
+
+
+
+
+
+		[Column] public bool PrintLetters { get; set; }
+
+
+
+
+
+		[Column] public bool TopUpSMSBalance { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageFee { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageTrips { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageTickets { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageShop { get; set; }
+
+
+
+
+
+		[Column] public bool ManageRefunds { get; set; }
+
+
+
+
+
+		[Column] public bool ManageCashPayments { get; set; }
+
+
+
+
+
+		[Column] public bool ManageOrders { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageStaff { get; set; }
+
+
+
+
+
+		[Column] public bool AssignTeachers { get; set; }
+
+
+
+
+
+		[Column] public bool AssignDepartments { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageStudents { get; set; }
+
+
+
+
+
+		[Column] public bool ManageParents { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageGroups { get; set; }
+
+
+
+
+
+		[Column] public bool ViewStudents { get; set; }
+
+
+
+
+
+		[Column] public bool ViewStaff { get; set; }
+
+
+
+
+
+		[Column] public bool ViewParents { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageCalendarEvents { get; set; }
+
+
+
+
+
+		[Column] public bool ViewCalendarEvents { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageCoursework { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageAttendance { get; set; }
+
+
+
+
+
+		[Column] public bool CreateAndManageTimetable { get; set; }
+
+
+
+
+
+		[Column] public bool ViewTimeTables { get; set; }
+
+
+
+
+
+		[Column] public bool ImportData { get; set; }
+
+
+
+
+
+		[Column] public bool ExportData { get; set; }
+
+
+
+
+
+		[Column] public bool ManagePaymentReports { get; set; }
+
+
+
+
+
+		[Column] public bool ManageAcademicReports { get; set; }
+
+
+
+
+
+		[Column] public bool SendClassEmails { get; set; }
+
+
+
+
+
+		[Column] public bool ViewClassEmails { get; set; }
+
+
+
+
+
+		[Column] public bool SendClassEletters { get; set; }
+
+
+
+
+
+		[Column] public bool ViewClassEletters { get; set; }
+
+
+
+
+
+		[Column] public bool SendClassSms { get; set; }
+
+
+
+
+
+		[Column] public bool ViewClassSms { get; set; }
+
+
+
+
+
+		[Column] public bool SendEmail { get; set; }
+
+
+
+
+
+		[Column] public bool ViewEmail { get; set; }
+
+
+
+
+
+		[Column] public bool SendEletter { get; set; }
+
+
+
+
+
+		[Column] public bool ViewEletter { get; set; }
+
+
+
+
+
+		[Column] public bool SendSms { get; set; }
+
+
+
+
+
+		[Column] public bool ViewSms { get; set; }
+
+
+
+	}
+
+    
 	[TableName("RoleUser")]
 
 
